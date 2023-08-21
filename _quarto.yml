@@ -8,5 +8,5 @@ website:
 
 format:
   html:
-    theme: solar
+    theme: [solar, custom.scss]
     css: styles.css

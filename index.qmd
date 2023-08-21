@@ -22,14 +22,14 @@
 <div class='foreground'>
 #### Contact
 
-DM [me on twitter](https://twitter.com/HamelHusain) or email me at `hamel.husain` at `gmail` dot `com`.
+DM [me on twitter](https://twitter.com/HamelHusain) or email at `consulting` at `hamel` dot `dev`.
 <div>
 
 #### Specialties
 
 - Fine-tuning
-- Evaluation systems & frameworks
-- LLM-Ops: serving, monitoring, testing, CI/CD
+- Evaluation systems
+- LLM-Ops: serving, monitoring, CI/CD
 - Software engineering
 
 More about me [here](https://hamel.dev/).

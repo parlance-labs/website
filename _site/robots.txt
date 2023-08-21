@@ -1,1 +1,1 @@
-Sitemap: https://ce20b3f4-b5cb-4772-9194-0643b447c4aa.netlify.app/sitemap.xml
+Sitemap: https://parlance-labs.com/sitemap.xml
