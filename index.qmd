@@ -32,5 +32,10 @@ DM [me on twitter](https://twitter.com/HamelHusain) or email at `consulting` at 
 - LLM-Ops: serving, monitoring, CI/CD
 - Software engineering
 
-More about me [here](https://hamel.dev/).
+##### Partners
 
+- [Hamel Husain](https://hamel.dev/) - full-stack ML eng.
+- [Johno Whitaker](https://www.linkedin.com/in/johnowhitaker/) -  generative AI researcher & educator.
+- [Zach Mueller](https://github.com/muellerzr) - Core developer, 🤗 Accelerate.
+- [Jeremy Lewi](https://www.linkedin.com/in/jeremy-lewi-600aaa8/) -  platform eng, co-founder of Kubeflow.
+- [Wayde Gilliam](https://ohmeow.com/about.html) NLP engineer, creator of `blur`.
