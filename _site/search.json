@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": " Parlance Labs ",
+    "section": "",
+    "text": "Parlance Labs \n A boutique consulting firm focused on LLMs. \n\n        \n            \n            \n            \n            \n            \n            \n        \n\n\n\n\n\nContact\nDM me on twitter or email me at hamel.husain at gmail dot com.\n\n\n\n\nSpecialties\n\nFine-tuning\nEvaluation systems & frameworks\nLLM-Ops: serving, monitoring, testing, CI/CD\nSoftware engineering\n\nMore about me here."
+  }
+]

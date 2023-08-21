@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: ce20b3f4-b5cb-4772-9194-0643b447c4aa
+      url: 'https://hamel.quarto.pub/parlance'
