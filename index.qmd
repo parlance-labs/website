@@ -22,7 +22,7 @@
 <div class='foreground'>
 #### Contact
 
-DM [me on twitter](https://twitter.com/HamelHusain) or email at `consulting` at `hamel` dot `dev`.
+DM [me on twitter](https://twitter.com/HamelHusain) or email `contact@parlance-labs.com`.
 <div>
 
 #### Specialties
