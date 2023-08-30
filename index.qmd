@@ -4,7 +4,7 @@
 ```{=html}
 <center>
 <h1> Parlance Labs </h1>
-<h4> A boutique consulting firm focused on LLMs. </h4>
+<h4> A research lab and consultancy focused on LLMs. </h4>
 <div class="scene">
         <div class="cube">
             <div class="face front"></div>
