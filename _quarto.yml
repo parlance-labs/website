@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Parlance"
-  favicon: box.png
+  favicon: favicon.png
   site-url: "https://parlance-labs.com/"
 
 format:
