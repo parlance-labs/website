@@ -32,8 +32,6 @@ Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
 - LLM-Ops: serving, monitoring, CI/CD
 - Software engineering
 
-We have been working on LLMs way before they were cool and have deployed ML systems in production at scale. We focus on pragmatic solutions that work in the real world.
-
 ##### Partners
 
 - [Hamel Husain](https://hamel.dev/) - full-stack ML eng.
