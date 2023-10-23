@@ -3,7 +3,7 @@
 
 ```{=html}
 <center>
-<h1> Parlance Labs </h1>
+<h1><span class='icon'></span>Parlance Labs </h1>
 <h4> A research lab and consultancy focused on LLMs. </h4>
 <div class="scene">
         <div class="cube">
@@ -31,6 +31,8 @@ Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
 - Evaluation systems
 - LLM-Ops: serving, monitoring, CI/CD
 - Software engineering
+
+We have been working on LLMs way before they were cool and have deployed ML systems in production at scale. We focus on pragmatic solutions that work in the real world.
 
 ##### Partners
 

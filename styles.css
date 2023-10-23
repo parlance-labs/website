@@ -49,3 +49,10 @@ h1, h4, .foreground {
     z-index: 1; /* Ensure the cube is below the text */
     position: relative; /* Required to make z-index effective */
 }
+
+.icon {
+    background: url("icon.png");
+    height: 20px;
+    width: 20px;
+    display: block;
+}
