@@ -2,20 +2,26 @@
 ---
 
 ```{=html}
+<style>
+    .cube {
+      margin-right: 1.5vw;  /* Use viewport units for responsive margin */
+    }
+    /* Media query for small screens */
+    @media only screen and (max-width: 600px) {
+      .cube {
+        width: auto;  /* Auto width to maintain aspect ratio */
+        max-width: 50%;  /* Max width 100% of parent container */
+        height: auto;  /* Auto height to maintain aspect ratio */
+        margin-right: 0;
+      }
+      h1 img {
+        margin-top: 10px; /* Add a top margin on small screens */
+      }
+    }
+</style>
 <center>
-<h1><span class='icon'></span>Parlance Labs </h1>
+<h1><img src="b.png" alt="Parlance Labs" width="70" class="cube"> <img src="c.png" width="280"></img></h1>
 <h4> A research lab and consultancy focused on LLMs. </h4>
-<div class="scene">
-        <div class="cube">
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face right"></div>
-            <div class="face left"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
-        </div>
-</div>
-<script src="scripts.js"></script>
 </center>
 ```
 

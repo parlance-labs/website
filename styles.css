@@ -1,58 +1,11 @@
-/* css styles */
-.sourceCode .at, code{
-    color:#d4d0ab;
+.sourceCode .at, code {
+    color: #d4d0ab;
     font-weight: normal;
-}
+  }
 
-
-.scene {
-    width: 90px;  /* Decrease the width from 200px to make the cube smaller */
-    height: 70px; /* Same for the height */
-    position: relative;
-    z-index: 1;
-    padding: 40px 30px 100px 30px; /* Add padding around the cube */
-    box-sizing: content-box; /* Ensures the padding is added outside of the specified width/height */
-    background-color: transparent; /* Optional: if you want to see the padding area */
-}
-
-.cube {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform-style: preserve-3d;
-}
-
-.face {
-    position: absolute;
-    height: 200px;
-    width: 200px;
-    background: transparent;
-    border: 2px solid rgb(98, 16, 98);
-    box-sizing: border-box;
-}
-
-.front  { transform: rotateY(0deg)   translateZ(100px); }
-.back   { transform: rotateY(180deg) translateZ(100px); }
-.left   { transform: rotateY(-90deg) translateZ(100px); }
-.right  { transform: rotateY(90deg)  translateZ(100px); }
-.top    { transform: rotateX(90deg)  translateZ(100px); }
-.bottom { transform: rotateX(-90deg) translateZ(100px); }
-
-
-
-h1, h4, .foreground {
+  
+  h1, h4, .foreground {
     position: relative;
     z-index: 2; /* Ensure these are on top */
-}
-
-.scene {
-    z-index: 1; /* Ensure the cube is below the text */
-    position: relative; /* Required to make z-index effective */
-}
-
-.icon {
-    background: url("icon.png");
-    height: 20px;
-    width: 20px;
-    display: block;
-}
+  }
+  
