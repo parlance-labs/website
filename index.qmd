@@ -21,7 +21,7 @@
 </style>
 <center>
 <h1><img src="b.png" alt="Parlance Labs" width="70" class="cube"> <img src="c.png" width="280"></img></h1>
-<h4> A research lab and consultancy focused on LLMs. </h4>
+<h4> A research lab and consultancy focused on LLMs</h4>
 </center>
 ```
 
