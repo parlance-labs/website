@@ -33,10 +33,20 @@ Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
 
 #### Specialties
 
-- Fine-tuning
-- Evaluation systems
-- LLM-Ops: serving, monitoring, CI/CD
-- Software engineering
+You should consider hiring us if:
+
+- You don’t know how to consistently and quickly improve your LLM products.
+- Your LLMs are too expensive or slow.
+- You feel blind re: how good/reliable your LLMs are.
+- You are overwhelmed by tools/frameworks.
+
+Our expertise includes:
+
+1. Building domain-specific evaluation systems
+2. Fine-tuning
+3. Creating dev tools and infrastructure to help you iterate quickly on LLMs.
+4. LLM vendor evaluation and selection
+5. Product strategy, including hiring.
 
 ##### Partners
 
