@@ -21,17 +21,11 @@
 </style>
 <center>
 <h1><img src="b.png" alt="Parlance Labs" width="70" class="cube"> <img src="c.png" width="280"></img></h1>
-<h4> A research lab and consultancy focused on LLMs</h4>
+<h4> A consultancy focused on LLMs</h4>
 </center>
 ```
 
-<div class='foreground'>
-#### Contact
-
-Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
-<div>
-
-#### Specialties
+### Why
 
 You should consider hiring us if:
 
@@ -39,6 +33,8 @@ You should consider hiring us if:
 - Your LLMs are too expensive or slow.
 - You feel blind re: how good/reliable your LLMs are.
 - You are overwhelmed by tools/frameworks.
+
+### Expertise
 
 Our expertise includes:
 
@@ -48,9 +44,13 @@ Our expertise includes:
 4. LLM vendor evaluation and selection
 5. Product strategy, including hiring.
 
-##### Partners
+### Contact
+
+Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
+
+
+### Partners
 
 - [Hamel Husain](https://hamel.dev/) - full-stack ML eng.
 - [Johno Whitaker](https://www.linkedin.com/in/johnowhitaker/) -  generative AI researcher.
 - [Jeremy Lewi](https://www.linkedin.com/in/jeremy-lewi-600aaa8/) -  platform eng, co-founder of Kubeflow.
-- [Wayde Gilliam](https://ohmeow.com/about.html) - NLP engineer, creator of `blur`.
