@@ -42,7 +42,6 @@ Our expertise includes:
 2. Fine-tuning
 3. Creating dev tools and infrastructure to help you iterate quickly on LLMs.
 4. LLM vendor evaluation and selection
-5. Product strategy, including hiring.
 
 ### Contact
 
