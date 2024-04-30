@@ -54,3 +54,4 @@ Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
 - [Hamel Husain](https://hamel.dev/) - full-stack ML eng.
 - [Johno Whitaker](https://www.linkedin.com/in/johnowhitaker/) -  generative AI researcher.
 - [Jeremy Lewi](https://www.linkedin.com/in/jeremy-lewi-600aaa8/) -  platform eng, co-founder of Kubeflow.
+- [DJ Rich](https://www.linkedin.com/in/dj-rich-90b91753/) - Decision science and anlaytics expert.
