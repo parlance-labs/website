@@ -52,4 +52,5 @@ Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
 
 - [Hamel Husain](https://hamel.dev/) - full-stack ML eng.
 - [Jeremy Lewi](https://www.linkedin.com/in/jeremy-lewi-600aaa8/) -  platform eng, co-founder of Kubeflow.
+- [Dan Becker](https://www.linkedin.com/in/dansbecker/) - full stack ML eng.
 - [DJ Rich](https://www.linkedin.com/in/dj-rich-90b91753/) - Predictive modeling expert.
