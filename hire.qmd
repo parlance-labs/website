@@ -60,7 +60,6 @@ Contact us at `consultingl@parlance-labs.com` to discuss starting an engagement.
 Members of [our team](team.qmd) have worked with the following companies:
 
 - [Limitless AI](http://limitless.ai/): Limitless AI is a personal memory assistant that helps you remember, organize, and navigate your life.
-- [Sandbar](https://sandbar.inc/): A human-AI interface company
 - [Raycast](https://raycast.com/): Raycast is a blazingly fast, totally extendable launcher. It lets you complete tasks, calculate, share common links, and much more.
 - [Tensorlake](https://tensorlake.ai/): Build Knowledge for LLMs from un-structured data
 -   [Replicate](https://replicate.com/): development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.
