@@ -44,7 +44,7 @@ Sophia walks through an end-to-end example of using Mistral's Fine-Tuning API on
 
 Sophia demonstrates how to fine-tune Mistral models using their open-source codebase, including installing dependencies, preparing data, and running the training process locally.
 
-## Links
+## Resources
 
 Links to resources mentioned in the talk:
 
