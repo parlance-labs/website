@@ -25,7 +25,7 @@
 </center>
 ```
 
-### Why
+## Why
 
 You should consider hiring us if:
 
@@ -34,23 +34,20 @@ You should consider hiring us if:
 - You feel blind re: how good/reliable your LLMs are.
 - You are overwhelmed by tools/frameworks.
 
-### Expertise
+## Expertise
 
 Our expertise includes:
 
 1. Building domain-specific evaluation systems
-2. Fine-tuning
-3. Creating dev tools and infrastructure to help you iterate quickly on LLMs.
-4. LLM vendor evaluation and selection
+2. Optimizing RAG
+3. Fine-tuning
+4. Creating dev tools and infrastructure to help you iterate quickly on LLMs.
+5. LLM vendor evaluation and selection
+
+## Solutions
+
+We offer [two tiers of services](hire.qmd) to support your goals.
 
 ### Contact
 
-Email: `contact@parlance-labs.com` or [DM me](https://twitter.com/HamelHusain).
-
-
-### Partners
-
-- [Hamel Husain](https://hamel.dev/) - full-stack ML eng.
-- [Jeremy Lewi](https://www.linkedin.com/in/jeremy-lewi-600aaa8/) -  platform eng, co-founder of Kubeflow.
-- [Dan Becker](https://www.linkedin.com/in/dansbecker/) - full stack ML eng.
-- [DJ Rich](https://www.linkedin.com/in/dj-rich-90b91753/) - Predictive modeling expert.
+Email: `consulting@parlance-labs.com`

@@ -5,8 +5,33 @@ website:
   title: "Parlance"
   favicon: b.png
   site-url: "https://parlance-labs.com/"
+  page-footer: 
+    center:
+      - icon: twitter
+        href: https://twitter.com/HamelHusain
+      - icon: github
+        href: https://github.com/hamelsmu
+  navbar:
+    background: dark
+    pinned: true
+    collapse: false
+    left:
+    - text: Education
+      file: talks/
+    - text: Solutions
+      file: hire.qmd
+    - text: Team
+      file: team.qmd
+ 
+
+
 
 format:
   html:
-    theme: [solar, custom.scss]
-    css: styles.css
+    reference-location: document
+    theme: 
+      dark: [solar, custom.scss]
+      light: [flatly, custom-light.scss]
+    css:
+      - styles.css
+    toc: true

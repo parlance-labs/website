@@ -1,0 +1,32 @@
+---
+title: "Team"
+---
+
+## Hamel Husain
+
+![](images/hamel.png){width=70 style="float:left"} 
+
+[Hamel Husain](https://hamel.dev) is a machine learning engineer with over 25 years of experience. He has worked with innovative companies such as Airbnb and GitHub, which included <a href="https://openai.com/index/introducing-text-and-code-embeddings#:~:text=models%20on%20the-,CodeSearchNet,),-evaluation%20suite%20where">early LLM research used by OpenAI</a> for code understanding. He has also led and contributed to numerous popular [open-source machine-learning tools](https://hamel.dev/oss/opensource.html).
+
+## Jason Liu
+
+![](images/jason.jpg){width=70 style="float:left"} 
+
+Jason Liu is a distinguished machine learning [consultant](https://jxnl.co/services/) known for leading teams to successfully ship AI products. Jason's technical expertise covers personalization algorithms, search optimization, synthetic data generation, and MLOps systems. His experience includes companies like Stitch Fix, where he created a recommendation framework and observability tools that handled 350 million daily requests. Additional roles have included Meta, NYU, and startups such as Limitless AI and Trunk Tools. 
+
+## Dan Becker
+
+![](images/dan.png){width=70 style="float:left"} 
+
+[Dan](https://www.linkedin.com/in/dansbecker/) has been working in AI since 2012, when he finished 2nd (out of 1350 teams) in a machine learning competition with a $500,000 prize. He has contributed to open source AI tools like TensorFlow and Keras, worked as a data scientist at Google and lead the product team building AI Development Tools for DataRobot. Over 100,000 people have taken his deep learning courses on Kaggle and DataCamp.
+
+## Jeremy Lewi
+
+![](images/jeremy.jpeg){width=70 style="float:left"} 
+
+[Jeremy Lewi](https://lewi.us/) is a Machine Learning platform engineer with over 15 years of experience and expertise in using AI to solve practical business applications. He has built platforms for YouTube, Google Cloud Platform, and Primer, enabling ML Engineers and data scientists to rapidly develop and deploy models into production. He played a pivotal role in developing systems like YouTube’s Video Recommendations and made major contributions to open-source software, including creating Kubeflow, one of the most popular OSS frameworks for ML.
+
+Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and GitOps.
+
+
+
