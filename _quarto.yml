@@ -16,7 +16,7 @@ website:
     pinned: true
     collapse: false
     left:
-    - text: Education
+    - text: Resources
       file: talks/
     - text: Solutions
       file: hire.qmd
