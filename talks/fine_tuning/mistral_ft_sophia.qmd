@@ -3,8 +3,6 @@ title: Best Practices For Fine Tuning Mistral
 date: 2024-06-11
 Speaker: Sophia Yang
 Venue: Mastering LLMs Conf
-metadata-files: 
-  - "../../_subscribe.yml"
 abstract: |
     We will discuss best practices for fine-tuning Mistral models.  We will cover topics like: (1) The permissive Mistral ToS and how it's perfect for fine tuning smaller models from bigger ones (2) How should people collect data (3) Domain specific evals (4) Use cases & examples (5) Common mistakes
 categories: ["fine-tuning", "llm-conf-2024"]
