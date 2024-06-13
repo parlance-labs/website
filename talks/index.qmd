@@ -1,6 +1,6 @@
 ---
 id: conf
-title: Education
+title: Educational Resources
 description: A directory of relevant talks and presentations that we have either given or organized.
 metadata-files: ["_listing_root.yml"]
 listing:
