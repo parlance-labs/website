@@ -100,6 +100,17 @@ Ben also discusses when to fine-tune your encoders, and explains ColBERT for adv
 {{< pdf ben.pdf height=500 width=100% >}}
 
 
+## Additional Resources
+
+The following resources were mentioned during the talk:
+
+- Easily use and train state of the art late-interaction retrieval methods (ColBERT) in any RAG pipeline. https://github.com/bclavie/RAGatouille
+- A lightweight unified API for various reranking models: https://github.com/AnswerDotAI/rerankers
+- A Hackers' Guide to Language Models: https://www.youtube.com/watch?v=jkrNMKz9pWU
+- GLiNER: Generalist Model for Named Entity Recognition using Bidirectional - Transformer: https://arxiv.org/abs/2311.08526
+- Fine-Tuning with Sentence Transformers: https://www.sbert.net/docs/sentence_transformer/training_overview.html
+- Elastic, Dense vector field type: https://www.elastic.co/guide/en/elasticsearch/reference/current/dense-vector.html
+
 ## Full Transcript
 
 :::{.callout-tip collapse="true"}
