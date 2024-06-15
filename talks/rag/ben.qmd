@@ -13,6 +13,8 @@ categories: ["RAG", "llm-conf-2024"]
 
 {{< video https://youtu.be/0nA5QG3087g >}}
 
+This talk was given by [Ben Clavié](https://x.com/bclavie) at the [Mastering LLMs Conference](https://maven.com/parlance-labs/fine-tuning).
+
 ## Chapters
 
 **[00:00](https://youtu.be/0nA5QG3087g?t=0) Introduction**
