@@ -18,8 +18,8 @@ website:
     left:
     - text: Resources
       file: talks/
-    - text: Solutions
-      file: hire.qmd
+    - text: Services
+      file: services.qmd
     - text: Team
       file: team.qmd
  
