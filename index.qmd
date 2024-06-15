@@ -46,7 +46,7 @@ Our expertise includes:
 
 ## Solutions
 
-We offer [two tiers of services](hire.qmd) to support your goals.
+We offer [two tiers of services](services.qmd) to support your goals.
 
 ### Contact
 

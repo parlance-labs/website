@@ -93,6 +93,10 @@ Ben discusses effective chunking strategies for long documents, including overla
 
 Ben also discusses when to fine-tune your encoders, and explains ColBERT for advanced retrieval.
 
+## Slides
+
+{{< pdf ben.pdf height=500 width=100% >}}
+
 
 ## Full Transcript
 

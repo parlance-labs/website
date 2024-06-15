@@ -3,7 +3,9 @@ project:
 
 website:
   title: "Parlance"
+  image: cover_2.png
   favicon: b.png
+  bread-crumbs: true
   site-url: "https://parlance-labs.com/"
   page-footer: 
     center:
