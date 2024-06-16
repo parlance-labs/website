@@ -4,6 +4,7 @@ project:
 website:
   title: "Parlance"
   image: cover_2.png
+  google-analytics: G-QXGQ6F7NKT
   favicon: b.png
   bread-crumbs: true
   site-url: "https://parlance-labs.com/"
