@@ -25,6 +25,13 @@ website:
       file: services.qmd
     - text: Team
       file: team.qmd
+
+  sidebar:
+    - title: Resources
+      pinned: true
+      collapse-level: 1
+      style: docked
+      contents: talks/**
  
 
 
