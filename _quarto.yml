@@ -28,10 +28,10 @@ website:
 
   sidebar:
     - title: Resources
-      pinned: true
+      pinned: false
       collapse-level: 1
       style: docked
-      contents: talks/**
+      contents: talks/
  
 
 
