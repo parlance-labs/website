@@ -20,7 +20,7 @@ website:
     collapse: false
     left:
     - text: Resources
-      file: talks/
+      file: education/
     - text: Services
       file: services.qmd
     - text: Team
