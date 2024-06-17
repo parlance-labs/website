@@ -1,0 +1,19 @@
+---
+id: conf
+title: Educational Resources
+description: A directory of relevant talks and presentations that we have either given or organized.
+metadata-files: ["_listing_root.yml"]
+listing:
+  contents: 
+   - "/*.qmd"
+   - "/*/index.qmd"
+---
+
+:::{.callout-caution}
+## Under Construction
+
+This page is under construction.  We are currently processing content from our course [Mastering LLMs: A Conference For Developers & Data Scientists](https://maven.com/parlance-labs/fine-tuning).  Please check back soon for updates.
+:::
+
+These talks are categorized by the following topics:
+
