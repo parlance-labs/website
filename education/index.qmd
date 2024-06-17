@@ -8,7 +8,7 @@ listing:
    - "/*.qmd"
    - "/*/index.qmd"
 aliases:
-  - talks/index.html
+  - /talks/index.html
 ---
 
 :::{.callout-caution}

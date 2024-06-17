@@ -8,6 +8,8 @@ metadata-files:
 abstract: |
     Have you ever hit an OOM (and wished you had more VRAM)? If you've done much fine-tuning, then you have. And if you are just starting, then you will. Hop on the bus with us and feel the road become smoother as we talk about stacking together techniques like FSDP2 + QLoRa+ CPU Offloading + Fused ADAM (thanks Intel) + more in PyTorch native.
 categories: ["fine-tuning", "llm-conf-2024"]
+aliases:
+  - /talks/fine_tuning/slaying_ooms.html
 ---
 
 {{< video https://youtu.be/UvRl4ansfCg >}}

@@ -8,4 +8,6 @@ listing:
   contents:
    - "**index.qmd"
    - "/*.qmd"
+aliases:
+  - /talks/applications/index.html
 ---

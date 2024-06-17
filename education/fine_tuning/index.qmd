@@ -7,4 +7,6 @@ listing:
   contents:
    - "**index.qmd"
    - "/*.qmd"
+aliases:
+  - /talks/fine_tuning/index.html
 ---

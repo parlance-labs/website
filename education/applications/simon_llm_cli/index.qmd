@@ -12,6 +12,8 @@ abstract: |
 
     LLM logs prompts and responses to SQLite, which can then be explored and analyzed further using Datasette. Other CLI tools covered will include ollama, llamafile, shot-scraper, files-to-prompt, ttok and LLM's support for calculating, storing and querying embeddings.
 categories: ["applications", "llm-conf-2024"]
+aliases:
+  - /talks/applications/simon_llm_cli/index.html
 ---
 
 
