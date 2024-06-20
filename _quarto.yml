@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Parlance"
-  image: cover_2.png
+  image: parlance_cover.png
   google-analytics: G-QXGQ6F7NKT
   favicon: b.png
   bread-crumbs: true

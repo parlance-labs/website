@@ -1,4 +1,5 @@
 search: false
+image: ../parlance_edu2.png
 listing:
   fields: [title, Speaker, Venue, date, description]
   type: table
