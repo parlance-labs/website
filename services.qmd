@@ -29,7 +29,7 @@ We will advise you on the following topics:
 
 -   LLM performance issues: (cost, quality, speed)
 -   RAG, Fine-Tuning, and Prompt Engineering
--   Upskilling your team w/pair programming: We will rapidly upskill and unblock your team with focused debugging sessions.
+-   Upskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.
 -   Strategy & Hiring: We will introduce you to talent, vendors, and partners in our network.
 -   Evaluation Systems
 
