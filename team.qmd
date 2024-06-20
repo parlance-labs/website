@@ -1,5 +1,7 @@
 ---
 title: "Team"
+description: "The Parlance team"
+image: cover_2.png
 ---
 
 ## Hamel Husain
