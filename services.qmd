@@ -7,7 +7,7 @@ aliases: ["hire/", "hire"]
 
 ## About
 
-We are a group of [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.  We specialize in improving LLM products. See our current and past clients [here](#current--past-clients).
+We are a group of [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.  We specialize in building & improving LLM products. See our current and past clients [here](#current--past-clients).
 
 ## Problems We Solve
 
