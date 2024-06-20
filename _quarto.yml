@@ -8,6 +8,11 @@ website:
   favicon: b.png
   bread-crumbs: true
   site-url: "https://parlance-labs.com/"
+  open-graph: true
+  twitter-card:
+     creator: "@HamelHusain"
+     site: "@HamelHusain"
+     card-style: summary_large_image
   page-footer: 
     center:
       - icon: twitter

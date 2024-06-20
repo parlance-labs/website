@@ -1,7 +1,8 @@
 ---
 id: conf
 title: Educational Resources
-description: A directory of relevant talks and presentations that we have either given or organized.
+image: parlance_edu.png
+description: A directory of educational materials regarding applied LLMs.
 metadata-files: ["_listing_root.yml"]
 listing:
   contents: 
