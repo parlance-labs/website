@@ -53,9 +53,7 @@ We work on a monthly retainer basis. The cost depends on the tier of service you
 - Strategy: $183,600 for a 3-month engagement.
 - Comprehensive: $975,000 total for a 3-month engagement.
 
-Contact us at `consultingl@parlance-labs.com` to discuss starting an engagement.  You can also book a [paid call](https://calendly.com/hamel-husain/consultation) if you need immediate short-form advice.
-
-Money-Back Guarantee: *The quality of our work is guaranteed. If you do not believe we have met mutually established objectives, we will continue to work toward those goals with you for no additional fee. If, after such an additional attempt, you still believe we have not met your objectives, we will refund your fees in total.*
+All of our work has a money-back guarantee[^2]. Contact us at `consultingl@parlance-labs.com` to discuss starting an engagement.  You can also book a [paid call](https://calendly.com/hamel-husain/consultation) if you need immediate short-form advice.
 
 ## Current & Past Clients
 
@@ -77,3 +75,5 @@ Members of [our team](team.qmd) have worked with the following companies:
 - [Pydantic](http://pydantic.dev/): Pydantic provides data validation and settings management using Python type annotations, enforcing type hints at runtime with user-friendly error handling.
 -   [Posit](https://posit.co/): Helped Posit expand into the Python AI and ML ecosystem.
 -   [Catena](https://www.catena.xyz/): LLM infrastructure such as routing, evaluation, and orchestration.
+
+[^2]: The quality of our work is guaranteed. If you do not believe we have met mutually established objectives, we will continue to work toward those goals with you for no additional fee. If, after such an additional attempt, you still believe we have not met your objectives, we will refund your fees in total.
