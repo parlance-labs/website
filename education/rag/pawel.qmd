@@ -1,0 +1,52 @@
+---
+title: Fine Tuning LLMs for Function Calling
+date: 2024-07-02
+Speaker: Pawel Garbacki
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    In this talk, we will go through the process and best practices of fine-tuning an LLM for function/tool use. We will discuss topics like data preparation, objective-based tuning, efficient serving, and evaluation.
+categories: ["fine-tuning", "llm-conf-2024"]
+---
+
+
+{{< video https://youtu.be/SEZ7j31u67A >}}
+
+This talk was given by [Pawel Garbacki](https://www.linkedin.com/in/pawel-garbacki-490422/) at the [Mastering LLMs Conference](https://maven.com/parlance-labs/fine-tuning).
+
+## Chapters
+
+**[00:00](https://youtu.be/SEZ7j31u67A?t=0) Introduction and Background**
+
+**[00:29](https://youtu.be/SEZ7j31u67A?t=29) Functional Tool Calling Overview**
+
+**[02:23](https://youtu.be/SEZ7j31u67A?t=143) Single-Turn First Call Objective**
+
+**[02:51](https://youtu.be/SEZ7j31u67A?t=171) Forced Call Explanation**
+
+**[03:28](https://youtu.be/SEZ7j31u67A?t=208) Parallel Function Calling**
+
+**[04:00](https://youtu.be/SEZ7j31u67A?t=240) Nested Calls Explanation**
+
+**[06:24](https://youtu.be/SEZ7j31u67A?t=384) Multi-Turn Chat Use Case**
+
+**[13:54](https://youtu.be/SEZ7j31u67A?t=834) Selecting Function Call Syntax**
+
+**[17:44](https://youtu.be/SEZ7j31u67A?t=1064) Full Weight Tuning vs. LoRa Tuning**
+
+**[19:19](https://youtu.be/SEZ7j31u67A?t=1159) Efficient LoRa Serving**
+
+**[23:06](https://youtu.be/SEZ7j31u67A?t=1386) Constrained Generation**
+
+**[26:21](https://youtu.be/SEZ7j31u67A?t=1581) Generic Function Calling Models**
+
+**[40:02](https://youtu.be/SEZ7j31u67A?t=2402) Q&A**
+
+## Resources
+
+- [Glaive Function Calling](https://huggingface.co/glaiveai/glaive-function-calling-v1)
+- [Pawell Garbacki's LinkedIn](https://www.linkedin.com/in/pawel-garbacki-490422/)
+- Fireworks [website](https://fireworks.ai/)
+
