@@ -5,6 +5,7 @@ Speaker: Mark Saroufim and Jane Xu
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"
+  - "../_page_meta.yml"
 abstract: |
     Have you ever hit an OOM (and wished you had more VRAM)? If you've done much fine-tuning, then you have. And if you are just starting, then you will. Hop on the bus with us and feel the road become smoother as we talk about stacking together techniques like FSDP2 + QLoRa+ CPU Offloading + Fused ADAM (thanks Intel) + more in PyTorch native.
 categories: ["fine-tuning", "llm-conf-2024"]

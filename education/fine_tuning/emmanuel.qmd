@@ -5,6 +5,7 @@ Speaker: Emmanuel Ameisen
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"
+  - "../_page_meta.yml"
 abstract: |
     Arguments for why fine-tuning has become less useful over time, as well as some opinions as to where the field is going with Emmanuel Ameisen
 categories: ["RAG", "llm-conf-2024"]

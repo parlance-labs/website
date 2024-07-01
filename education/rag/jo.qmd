@@ -5,6 +5,7 @@ Speaker: Jo Bergum
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"
+  - "../_page_meta.yml"
 abstract: |
     Adding context-sensitive information to LLM prompts through retrieval is a popular technique to boost accuracy. This talk will cover the fundamentals of information retrieval (IR) and the failure modes of vector embeddings for retrieval and provide practical solutions to avoid them. Jo demonstrates how to set up simple but effective IR evaluations for your data, allowing faster exploration and systematic approaches to improving retrieval accuracy.
 categories: ["RAG", "llm-conf-2024"]

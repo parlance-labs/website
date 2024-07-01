@@ -5,6 +5,7 @@ Speaker: Johno Whitaker
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"
+  - "../_page_meta.yml"
 abstract: |
     We will show you how to build intuition around training performance with a focus on GPU-poor fine-tuning.
 categories: ["fine-tuning", "llm-conf-2024"]
