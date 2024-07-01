@@ -33,13 +33,12 @@ website:
       file: services.qmd
     - text: Team
       file: team.qmd
-
   sidebar:
     - title: Resources
       pinned: false
       collapse-level: 1
       style: docked
-      contents: talks/
+      contents: education/
  
 
 
