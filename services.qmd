@@ -3,6 +3,7 @@ title: "Applied AI Consulting"
 sidebar: false
 image: cover_2.png
 aliases: ["hire/", "hire"]
+repo-actions: false
 ---
 
 ## About

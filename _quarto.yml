@@ -5,6 +5,9 @@ website:
   title: "Parlance"
   image: parlance_cover.png
   google-analytics: G-QXGQ6F7NKT
+  repo-branch: main
+  repo-url: https://github.com/parlance-labs/website
+  repo-actions: [edit]
   favicon: b.png
   bread-crumbs: true
   site-url: "https://parlance-labs.com/"

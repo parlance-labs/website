@@ -1,5 +1,6 @@
 search: false
 image: ../parlance_edu2.png
+repo-actions: [edit]
 listing:
   fields: [title, Speaker, Venue, date, description]
   type: table
