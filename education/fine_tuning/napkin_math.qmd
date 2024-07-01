@@ -87,7 +87,7 @@ Links to resources mentioned in the talk:
 
 ## Slides
 
-{{< pdf napkin.pdf height=500 width=100% >}}
+{{< pdf napkin.pdf height=600 width=100% >}}
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
