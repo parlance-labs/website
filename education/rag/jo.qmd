@@ -46,6 +46,11 @@ categories: ["RAG", "llm-conf-2024"]
 
 **[31:07](https://youtu.be/nc0BupOkrhI?t=1867) Resources and Closing Remarks**
 
+## Slides
+
+{{< pdf jo.pdf height=600 width=100% >}}
+
+
 ## Resources
 
 - [Jo's Twitter](https://x.com/jobergum)

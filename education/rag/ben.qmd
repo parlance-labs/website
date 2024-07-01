@@ -1,5 +1,5 @@
 ---
-title: Beyond the Basics of Retrieval for Augmenting Generation
+title: Beyond the Basics of RAG
 date: 2024-06-12
 Speaker: Ben Clavié
 Venue: Mastering LLMs Conf
@@ -99,7 +99,7 @@ Ben also discusses when to fine-tune your encoders, and explains ColBERT for adv
 
 ## Slides
 
-{{< pdf ben.pdf height=500 width=100% >}}
+{{< pdf ben.pdf height=600 width=100% >}}
 
 
 ## Additional Resources

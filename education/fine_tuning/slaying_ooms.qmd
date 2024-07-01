@@ -82,7 +82,7 @@ Jane encourages students to try this process themselves in torchtune.
 
 ## Slides
 
-{{< pdf ooms.pdf height=500 width=100% >}}
+{{< pdf ooms.pdf height=600 width=100% >}}
 
 ## Resources
 
