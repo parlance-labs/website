@@ -40,6 +40,10 @@ These are the resources mentioned in the talk:
  - [FSDP + QLoRA](https://www.answer.ai/posts/2024-04-26-fsdp-qdora-llama3.html) from AnswerAI
 - [Kyle's Twitter](https://twitter.com/corbtt)
 
+## Slides
+
+{{< pdf kyle.pdf height=600 width=100% >}}
+
 ## Notes
 
 #### Overview and Strategy
