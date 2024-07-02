@@ -42,7 +42,7 @@ These are the resources mentioned in the talk:
 
 ## Slides
 
-{{< pdf kyle.pdf height=600 width=100% >}}
+{{< pdf kyle.pdf height=610 width=100% >}}
 
 ## Notes
 
