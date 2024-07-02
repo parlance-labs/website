@@ -36,7 +36,7 @@ website:
   sidebar:
     - title: Resources
       pinned: false
-      collapse-level: 1
+      collapse-level: 3
       style: docked
       contents: education/
  
