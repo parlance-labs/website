@@ -55,6 +55,10 @@ categories: ["RAG", "llm-conf-2024"]
 
 **[49:49](https://youtu.be/h1c_jmk97Ss?t=2989) Conclusion and Final Thoughts**
 
+## Slides
+
+{{< pdf emmanuel.pdf height=600 width=100% >}}
+
 ## Resources
 
 - [Anthropic](https://www.anthropic.com/)
