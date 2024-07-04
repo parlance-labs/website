@@ -31,3 +31,8 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 
 [Dan](https://www.linkedin.com/in/dansbecker/) has been working in AI since 2012, when he finished 2nd (out of 1350 teams) in a machine learning competition with a $500,000 prize. He has contributed to open source AI tools like TensorFlow and Keras, worked as a data scientist at Google and lead the product team building AI Development Tools for DataRobot. Over 100,000 people have taken his deep learning courses on Kaggle and DataCamp.
 
+## John Berryman
+
+![](images/jnbrymn.png){width=70 style="float:left"} 
+
+[John](https://arcturus-labs.com/) has worked in technology since 2012. The first half of his career was spent building search applications. John helped build next-generation search for the U.S. Patent Office, built Eventbrite's search and recommendation platforms, built GitHub's code search, and co-authored a book – Relevant Search (Manning). While at GitHub, John moved into Data Science and then into Machine Learning with GitHub's Copilot code completions and chat products. John is currently co-authoring an O'Reilly book for LLM application development.
