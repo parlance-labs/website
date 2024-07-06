@@ -8,7 +8,7 @@ metadata-files:
   - "../_page_meta.yml"
 abstract: |
     Arguments for why fine-tuning has become less useful over time, as well as some opinions as to where the field is going with Emmanuel Ameisen
-categories: ["RAG", "llm-conf-2024"]
+categories: ["fine-tuning", "llm-conf-2024"]
 ---
 
 
