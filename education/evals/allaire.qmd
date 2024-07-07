@@ -79,8 +79,6 @@ The session transitions to a Q&A, facilitated by Hamel, where JJ addresses quest
 
 ## Notes
 
-These notes are written using the [institute's GitHub page](https://ukgovernmentbeis.github.io/inspect_ai/).
-
 ### Getting Started with Inspect
 
 To develop and run evaluations using Inspect, you’ll need access to a model. This typically involves installing a Python package and ensuring that the appropriate API key is available in your environment. Here are the steps:
@@ -111,7 +109,7 @@ Inspect supports a wide variety of models, including models hosted on Azure AI, 
 
 ### Example Evaluation: Sally-Anne Test
 
-Let’s explore a simple evaluation that assesses how models perform on the Sally-Anne test—a task that evaluates a person’s ability to infer false beliefs in others. Here are some samples from the dataset:
+Let’s explore a simple evaluation that assesses how models perform on the Sally-Anne test: a task that evaluates a person’s ability to infer false beliefs in others. Here are some samples from the dataset:
 
 
 | input | target |
