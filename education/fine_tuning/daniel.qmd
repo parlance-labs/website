@@ -7,7 +7,7 @@ metadata-files:
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
 abstract: |
-    Good data is a key component for creating a strong LLM. This talk will outline approaches to getting the best data for training your LLMs. The talk will cover: 1. How to find existing datasets to build on top of 2. Approaches to creating synthetic data 3. Practical techniques and tools for exploring, deduplicating, and filtering datasets to enhance their quality. We will deliver this talk with friends from Argilla.
+    Good data is a key component for creating a strong LLM. This talk will outline approaches to getting the best data for training your LLMs. The talk will cover: 1. How to find existing datasets to build on top of 2. Approaches to creating synthetic data 3. Practical techniques and tools for exploring, deduplicating, and filtering datasets to enhance their quality.
 categories: ["fine-tuning", "llm-conf-2024"]
 
 ---
