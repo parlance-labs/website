@@ -1,0 +1,131 @@
+---
+title: Creating, curating, and cleaning data for LLMs
+date: 2024-07-08
+Speaker: Daniel van Strien
+Venue: 
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    Good data is a key component for creating a strong LLM. This talk will outline approaches to getting the best data for training your LLMs. The talk will cover: 1. How to find existing datasets to build on top of 2. Approaches to creating synthetic data 3. Practical techniques and tools for exploring, deduplicating, and filtering datasets to enhance their quality. We will deliver this talk with friends from Argilla.
+categories: ["fine-tuning", "llm-conf-2024"]
+
+---
+
+{{< video https://youtu.be/HEGaei7k0zE >}}
+
+
+## Chapters
+
+**[00:00](https://www.youtube.com/watch?v=HEGaei7k0zE&t=0s) Introduction**
+
+Daniel Van Strien and David Berenstein introduce themselves and provide an overview of their talk. They discuss datasets in the context of Large Language Models (LLMs) and briefly outline the features available in the Huggingface datasets.
+
+**[02:31](https://www.youtube.com/watch?v=HEGaei7k0zE&t=151s) Reusing Existing Datasets**
+
+Huggingface offers a wide range of datasets that are tailored to specific domains and tasks, though their relevance to your specific use case may vary. They provide various tools for searching, viewing, and exploring datasets.
+
+**[07:14](https://www.youtube.com/watch?v=HEGaei7k0zE&t=434s) Creating Your Own Datasets**
+
+Datasets can be created by restructuring existing data, incorporating user feedback to tailor preferences, utilizing internal data sources, or generating synthetic data. The discussion includes preprocessing requirements essential for training LLMs.
+
+**[09:04](https://www.youtube.com/watch?v=HEGaei7k0zE&t=544s) Dataset Preparation**
+
+Daniel explains the importance of formatting datasets to meet specific requirements for training LLMs, emphasizing scoping and planning based on user needs.
+
+**[11:09](https://www.youtube.com/watch?v=HEGaei7k0zE&t=669s) Supervised Fine-Tuning Datasets**
+
+These datasets consist of question-answer pairs used to fine-tune models for specific tasks, facilitating the mapping of high-level concepts to data.
+
+**[12:56](https://www.youtube.com/watch?v=HEGaei7k0zE&t=776s) Direct Preference Optimization (DPO) Dataset**
+
+Pairs inputs with preferred and rejected responses to guide models in generating desired outputs using ground truth and suboptimal examples.
+
+**[14:43](https://www.youtube.com/watch?v=HEGaei7k0zE&t=883s) Kahneman Tversky Optimization (KTO) Datasets**
+
+These datasets feature binary feedback (thumbs up or thumbs down) on model responses, easily collected from user interactions in existing systems.
+
+**[15:47](https://www.youtube.com/watch?v=HEGaei7k0zE&t=947s) Spin and Orpo as Alternatives to DPO**
+
+Spin generates synthetic data from minimal initial datasets to reduce data requirements, while Orpo streamlines training by skipping the fine-tuning step, employing a format similar to DPO.
+
+**[17:56](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1076s) Synthetic Data**
+
+David discusses how LLMs generate synthetic datasets, enhancing model quality and complexity through prompts, completions, and AI-generated feedback for refining preferences.
+
+**[20:25](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1225s) Issues with Synthetic Data**
+
+David highlights concerns such as hallucinations, toxicity, and stereotypes in models trained with synthetic data, potentially stemming from biases in the data-generating models.
+
+**[21:18](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1278s) Instruction-Based Dataset Evaluation**
+
+Models complete instructions evaluated by GPT-4 for criteria like truthfulness and helpfulness, with simplification to an overall rating to reduce costs. Human review reveals coding errors, stressing the need for validation.
+
+**[24:20](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1460s) Considerations in Synthetic Data Creation**
+
+Efficient scaling requires avoiding vendor lock-in, ensuring fault tolerance, and generating structured data formats like JSON, highlighting the complexity of the process.
+
+**[25:17](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1517s) Outlines Package**
+
+Produces structured text generation with JSON output, optimizing token sampling for efficiency and accuracy to reduce inference time.
+
+**[26:10](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1570s) DSPy Package**
+
+Focuses on programming prompts for LLMs, optimizing prompts and model weights through multiple API calls to improve prediction accuracy.
+
+**[27:09](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1629s) Distilabel Framework**
+
+Uses a directed graph structure to generate synthetic data and AI feedback, enabling scalable and parallel execution for efficient data processing.
+
+**[28:19](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1699s) Improving Data Quality**
+
+David discusses the iterative process of dataset improvement, emphasizing evaluations of diversity, quality, and quantity, where better data means higher quality rather than simply more data.
+
+**[29:57](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1797s) Data Improvement Strategies**
+
+Deduplication and custom techniques like hashing and rule-based approaches using regex can enhance data quality.
+
+**[31:53](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1913s) Advanced Techniques for Data Cleaning**
+
+Utilizing zero-shot models for initial topic predictions, classifiers for precise filtering, or LLMs for rationale-backed decisions, alongside intuitive text descriptive tools for straightforward data analysis.
+
+**[32:27](https://www.youtube.com/watch?v=HEGaei7k0zE&t=1947s) Tools for Annotators**
+
+David showcases various annotation tools available, ranging from pre-made interfaces to custom Gradio setups and robust tools like Lilac and Argilla.
+
+**[41:41](https://www.youtube.com/watch?v=HEGaei7k0zE&t=2501s) Example Dataset Walkthrough**
+
+Daniel walks through example DPO and KTO datasets, detailing the approach taken during dataset creation.
+
+**[45:00](https://www.youtube.com/watch?v=HEGaei7k0zE&t=2700s) Case Study: LLM Summarizer**
+
+Daniel discusses the pipeline for a summarizer he's developing, including preparations for the preference data pipeline.
+
+**[50:48](https://www.youtube.com/watch?v=HEGaei7k0zE&t=3048s) Data Preparation Repository**
+
+Daniel shares a repository containing notebooks covering the topics discussed in the talk.
+
+**[51:42](https://www.youtube.com/watch?v=HEGaei7k0zE&t=3102s) Resources and Conclusion**
+
+Daniel briefly discusses using Huggingface course credits and highlights additional resources on data duplication strategies and synthetic data generation.
+
+## Resources
+
+Links to resources mentioned in the talk:
+
+- [Argilla](https://argilla.io/) is a collaboration platform for AI engineers and domain experts that strive for quality, time-to-value, and ownership.
+- [Huggingface DPO datasets](https://huggingface.co/datasets/?other=dpo)
+- [LilacML](https://www.lilacml.com/): Search, quantify and edit data for LLMs
+- [Huggingface Security - Malware](https://huggingface.co/docs/hub/en/security-malware)
+- [ClamAV doesn't scan a file if the extension is JSON](https://askubuntu.com/questions/1470715/clamav-doesnt-scan-a-file-if-the-extension-is-json)
+- Synthetic data: Anthropic’s CAI, from fine-tuning to pretraining, OpenAI’s Superalignment, tips, types, and open examples: [LLM Synthetic Data](https://www.interconnects.ai/p/llm-synthetic-data)
+- [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html): A Strong, Replicable Instruction-Following Model
+- [Notus-7B](https://argilla.io/blog/notus7b/): Data Curation and Open Science go a long way in shaping AI's future
+- [Structured Text Generation Outlines](https://github.com/outlines-dev/outlines)
+
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+
+:::
