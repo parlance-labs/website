@@ -42,3 +42,10 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 ![](images/jpatterson.png){width=70 style="float:left"} 
 
 [Josh Patterson](https://www.pattersonconsultingtn.com), with over 20 years in AI, has a rich history of contributions to the field. He played a key role in developing autonomous driving systems for DARPA Grand Challenge and optimizing mesh network routing with Ant Colony Optimization during his graduate studies. As a principal solutions architect and early employee at Cloudera, he significantly contributed to the company's growth. Co-author of "Deep Learning: A Practitioner's Approach" and "Kubeflow Operations Guide," Josh is also a co-founder of the Eclipse Deeplearning4j project, demonstrating his expertise in generative neural networks. Currently, he focuses on Conversational AI, Automation AI, and the intersection of data and prompt engineering, driving advancements in generative AI technologies.
+
+
+## Zach Deane-Mayer
+
+![](images/zach.png){width=70 style="float:left"} 
+
+[Zach Deane-Mayer](https://www.ai-insight-solutions.com/), a visionary AI executive and Kaggle Grandmaster, excels at transforming AI technologies into impactful business solutions. He has founded and scaled global AI teams, leading groundbreaking work in Generative AI, Visual AI, and AutoML, securing multiple patents. With a unique blend of strategic insight and technical expertise, Zach is the ideal advisor for C-suite executives navigating the AI landscape. As Head of AI/ML at AI Insight Solutions, he empowers organizations to leverage AI, providing strategic guidance to executives and hands-on coaching to engineers.
