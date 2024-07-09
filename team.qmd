@@ -48,4 +48,4 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 
 ![](images/zach.jpg){width=70 style="float:left"} 
 
-[Zach Deane-Mayer](https://www.ai-insight-solutions.com/), a visionary AI executive and Kaggle Grandmaster, excels at transforming AI technologies into impactful business solutions. He has founded and scaled global AI teams, leading groundbreaking work in Generative AI, Visual AI, and AutoML, securing multiple patents. With a unique blend of strategic insight and technical expertise, Zach is the ideal advisor for C-suite executives navigating the AI landscape. As Head of AI/ML at AI Insight Solutions, he empowers organizations to leverage AI, providing strategic guidance to executives and hands-on coaching to engineers.
+[Zach Deane-Mayer](https://www.ai-insight-solutions.com/) is an AI executive and Kaggle Grandmaster with over 15 years of experience building AI products and infrastructure. He founded and scaled global AI teams that built Generative AI, Visual AI, and AutoML products at DataRobot. Zach has deep expertise in growing and scaling AI teams, building AI products, and developing AI strategies.
