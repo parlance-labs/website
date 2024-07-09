@@ -42,3 +42,9 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 ![](images/jpatterson.png){width=70 style="float:left"} 
 
 [Josh Patterson](https://www.pattersonconsultingtn.com), with over 20 years in AI, has a rich history of contributions to the field. He played a key role in developing autonomous driving systems for DARPA Grand Challenge and optimizing mesh network routing with Ant Colony Optimization during his graduate studies. As a principal solutions architect and early employee at Cloudera, he significantly contributed to the company's growth. Co-author of "Deep Learning: A Practitioner's Approach" and "Kubeflow Operations Guide," Josh is also a co-founder of the Eclipse Deeplearning4j project, demonstrating his expertise in generative neural networks. Currently, he focuses on Conversational AI, Automation AI, and the intersection of data and prompt engineering, driving advancements in generative AI technologies.
+
+## Luke Marsden
+
+![](images/luke.png){width=70 style="float:left"}
+
+[Luke Marsden](https://mlops.consulting) is an entrepreneur and consultant in DevOps, MLOps and LLMOps. He worked on adding support for stateful containers to the early Docker and Kubernetes ecosystem, and was SIG-cluster-lifecycle lead who helped created kubeadm to make Kubernetes easier to install. He created an end-to-end MLOps platform company for training ML models, deploying to Kubernetes and statistical monitoring. He works with a team of experienced consultants including [Phil Winder](https://winder.ai), author of the O'Reilly book on Reinforcement Learning, and with [Helix](https://helix.ml) and the [AISpec](https://aispec.org) helps companies build LLM powered applications including RAG, API calling and fine-tuning (with axolotl) on top of open source LLMs.
