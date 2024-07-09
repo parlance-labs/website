@@ -1,0 +1,60 @@
+---
+title: A Deep Dive on LLM Evaluation
+date: 2024-07-08
+Speaker: Hailey Schoelkopf
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    Doing LLM evaluation right is crucial, but very challenging! We'll cover the basics of how LLM evaluation can be performed, many (but not all) of the ways it can go wrong. We'll also discuss tools available to make life easier, including the LM Evaluation Harness, along with domain-specific use cases.
+categories: ["evals", "llm-conf-2024"]
+---
+
+
+{{< video https://www.youtube.com/watch?v=IsZVCnViwhk >}}
+
+
+## Chapters
+**[00:04](https://www.youtube.com/watch?v=IsZVCnViwhk&t=4s) Introduction to LLM Evaluation Deep Dive**  
+Hailey Schoelkopf introduces the complexities of LLM evaluation. She provides an overview of her background with Eleuther AI, noting their contributions to open-source AI and model evaluation. Hailey mentions the use of LM Evaluation Harness, highlighting its adoption and evolution within the community.
+
+**[01:49](https://www.youtube.com/watch?v=IsZVCnViwhk&t=109s) Scoring Challenges in LLM Evaluation**  
+Hailey discusses the complexity of accurately scoring LLMs, focusing on the challenges faced when evaluating natural language responses to factual queries. She illustrates the limitations of simplistic scoring methods that could misclassify incorrect answers as correct, emphasizing the need for robust evaluation techniques.
+
+**[05:35](https://www.youtube.com/watch?v=IsZVCnViwhk&t=335s) Log-likelihood Evaluation**  
+Beginning her survey of LLM evaluation techniques, Hailey focuses first on log-likelihoods. She explains the mechanics behind generating next-word probabilities in sequence models, including how the autoregressive transformer architecture facilitates training and evaluation. The discussion includes practical aspects of evaluating LLM outputs and the use of log-likelihoods in determining the probability of specific responses.
+
+**[13:53](https://www.youtube.com/watch?v=IsZVCnViwhk&t=833s) Multiple Choice Evaluation and Downstream Concerns**  
+Expanding on log-likelihood evaluations, Hailey highlights the advantages of multiple choice evaluations for simplicity and cost-effectiveness compared to long-form generation. She addresses their limitations and the potential disconnect from real-world applications, underscoring the necessity of aligning evaluation strategies with practical use cases.
+
+**[18:46](https://www.youtube.com/watch?v=IsZVCnViwhk&t=1126s) Perplexity Evaluation**  
+Shifting focus to perplexity, Hailey describes its role in assessing model performance. She outlines the process for calculating perplexity and discusses its utility and limitations, particularly how different tokenizers can impact model comparability.
+
+**[22:44](https://www.youtube.com/watch?v=IsZVCnViwhk&t=1364s) Text Generation Evaluation**  
+Hailey continues by exploring the evaluation of text generation, emphasizing the challenges in scoring free-form natural language. She discusses the risks of simplistic scoring methods and the influence of tokenization on evaluation results, highlighting the need for careful evaluation setup to avoid biased outcomes.
+
+**[27:40](https://www.youtube.com/watch?v=IsZVCnViwhk&t=1660s) Importance of Transparency and Reproducibility in Evaluations**  
+As demonstrated by the survey in this talk, scoring LLMs is hard. Hailey stresses the importance of transparency and reproducibility in LLM evaluations. She highlights the challenges of achieving reproducible results and the critical need for detailed reporting and sharing of evaluation methodologies and code to foster reliable advancements in model development.
+
+**[38:23](https://www.youtube.com/watch?v=IsZVCnViwhk&t=2303s) Audience Q&A**  
+The session transitions to Q&A, where Hailey answers various questions from the audience, facilitated by Hugo, addressing topics ranging from practical advice on using specific evaluation frameworks to broader conceptual questions about the effectiveness and limitations of current LLM evaluation methods.
+
+
+## Slides
+
+
+## Resources
+
+- Hailey Schoelkopf: [Twitter / X](https://x.com/haileysch__), [GitHub](https://github.com/haileyschoelkopf)
+- EleutherAI: [Homepage](https://www.eleuther.ai/)
+- LM Evaluation Harness: [GitHub](https://github.com/EleutherAI/lm-evaluation-harness)
+- OpenLLM Leaderboard: [Link](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard)
+- Lessons from the Trenches on Reproducible Evaluation of Language Models: [arXiv](https://arxiv.org/abs/2405.14782)
+
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+
+:::
