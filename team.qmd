@@ -31,6 +31,12 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 
 [Dan](https://www.linkedin.com/in/dansbecker/) has been working in AI since 2012, when he finished 2nd (out of 1350 teams) in a machine learning competition with a $500,000 prize. He has contributed to open source AI tools like TensorFlow and Keras, worked as a data scientist at Google and lead the product team building AI Development Tools for DataRobot. Over 100,000 people have taken his deep learning courses on Kaggle and DataCamp.
 
+## Shreya Shankar
+
+![](images/shreya.jpeg){width=70 style="float:left"}
+
+[Shreya](https://www.sh-reya.com/) is a leading researcher on applied ML and AI systems.  She has led extensive research on human-computer interaction for low-code tools to program complex LLM workflows including evals, monitoring and fine-tuning.  Her research has been adopted widely and is incorporated into many commercial LLM tools such as Langsmith, Autoblocks, Parea, and more. 
+
 ## John Berryman
 
 ![](images/jnbrymn.png){width=70 style="float:left"} 
