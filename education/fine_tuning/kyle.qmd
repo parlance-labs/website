@@ -40,6 +40,7 @@ These are the resources mentioned in the talk:
  - [FSDP + QLoRA](https://www.answer.ai/posts/2024-04-26-fsdp-qdora-llama3.html) from AnswerAI
 - [Kyle's Twitter](https://twitter.com/corbtt)
 
+
 ## Slides
 
 {{< pdf kyle.pdf height=610 width=100% >}}
@@ -94,6 +95,8 @@ These are the resources mentioned in the talk:
 2. **Handling Data Drift**
    - Ongoing evaluations are necessary to maintain model relevance.
    - Retraining with updated examples can solve issues caused by data drift, ensuring continuous improvement.
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}

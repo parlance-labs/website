@@ -48,6 +48,7 @@ Practical advice and broader conceptual understanding through the Q&A session, a
 - OpenLLM Leaderboard: [Link](https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard)
 - Lessons from the Trenches on Reproducible Evaluation of Language Models: [arXiv](https://arxiv.org/abs/2405.14782)
 
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}

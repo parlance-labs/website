@@ -60,6 +60,8 @@ Links to resources mentioned in the talk:
 [tweet](https://x.com/danielhanchen/status/1796952220619157694)
 - Mistral Inference [guide](https://github.com/mistralai/mistral-inference).
 
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+
 ## Full Transcript
 :::{.callout-tip collapse="true"}
 ## Expand to see transcript

@@ -3,7 +3,7 @@ id: conf
 title: Educational Resources
 image: parlance_edu2.png
 description: Educational resources on LLMs for applied topics.
-metadata-files: ["_listing_root.yml", "../_subscribe.yml"]
+metadata-files: ["_listing_root.yml"]
 listing:
   contents: 
    - "/*.qmd"

@@ -17,7 +17,6 @@ aliases:
   - /talks/applications/simon_llm_cli/index.html
 ---
 
-
 {{< video https://www.youtube.com/watch?v=QUXQNi6jQ30 >}}
 
 ## Chapters
@@ -54,7 +53,6 @@ Simon introduces ShotScraper, a tool for browser automation and web scraping. He
 
 
 LLM has built-in support for embeddings through various plugins. Simon calculates embeddings for his blog content and performs semantic searches, showcasing how to build RAG workflows using LLM.
-
 
 ## Notes
 
@@ -179,6 +177,8 @@ llm similar links \
 - [Figure out how to serve an AWS Lambda function with a Function URL from a custom subdomain](https://github.com/simonw/public-notes/issues/1) as an example of how I use GitHub Issues
 
 ---
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
 ## Full Transcript
 
@@ -358,3 +358,4 @@ llm similar links \
 <br>[1:06:58] Hugo Bowne-Anderson: Fantastic. All right. See you all on Discord. And thanks once again, Simon.
 
 :::
+
