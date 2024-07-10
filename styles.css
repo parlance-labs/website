@@ -17,6 +17,16 @@ div[data-style="clean"] {
     margin-bottom: 1px !important;
 } */
 
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+}
+
 .margin-footer-item {
     font-size: 95% !important;
 }   

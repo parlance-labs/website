@@ -15,6 +15,14 @@ categories: ["fine-tuning", "llm-conf-2024"]
 {{< video https://youtu.be/h1c_jmk97Ss >}}
 
 
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
 ## Chapters
 
 **[00:00](https://youtu.be/h1c_jmk97Ss?t=0) Introduction and Background**
@@ -69,7 +77,6 @@ categories: ["fine-tuning", "llm-conf-2024"]
 - [Fine Tuning vs. Retrieval Augmented Generation for Less Popular Knowledge](https://arxiv.org/abs/2403.01432)
 - [Fine-Tuning or Retrieval? Comparing Knowledge Injection in LLMs](https://arxiv.org/abs/2312.05934)
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
@@ -247,3 +254,5 @@ categories: ["fine-tuning", "llm-conf-2024"]
 <br>[49:49] Emmanuel: See you, everyone.
 
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>

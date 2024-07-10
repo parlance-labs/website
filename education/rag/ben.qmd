@@ -18,6 +18,16 @@ aliases:
 
 This talk was given by [Ben Clavié](https://x.com/bclavie) at the [Mastering LLMs Conference](https://maven.com/parlance-labs/fine-tuning).
 
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
 ## Chapters
 
 **[00:00](https://youtu.be/0nA5QG3087g?t=0) Introduction**

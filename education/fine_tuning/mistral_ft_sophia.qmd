@@ -15,6 +15,16 @@ aliases:
 
 {{< video https://youtu.be/Z_oWzTuljss >}}
 
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
 ## Chapters
 
 **[00:00](https://www.youtube.com/watch?v=Z_oWzTuljss&t=0s) Introduction**

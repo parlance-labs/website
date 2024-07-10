@@ -15,6 +15,16 @@ aliases:
 
 {{< video https://youtu.be/-2ebSQROew4 >}}
 
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
 ## Chapters
 
 **[01:23](https://youtu.be/-2ebSQROew4?t=83) About Johno and AnswerAI**

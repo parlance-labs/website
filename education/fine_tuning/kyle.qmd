@@ -13,6 +13,18 @@ categories: ["fine-tuning", "llm-conf-2024"]
 
 {{< video https://youtu.be/4EPZZkVrXC4 >}}
 
+
+
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
 ## Chapters
 
 Chapters are organized in the format of the talk which is the "10 commandments of fine-tuning".
@@ -95,8 +107,6 @@ These are the resources mentioned in the talk:
 2. **Handling Data Drift**
    - Ongoing evaluations are necessary to maintain model relevance.
    - Retraining with updated examples can solve issues caused by data drift, ensuring continuous improvement.
-
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
@@ -182,3 +192,5 @@ These are the resources mentioned in the talk:
 <br>[31:42] Kyle: But I do think that this is a good place to start, especially if you haven't done this before and you want to maximize the chances that you're able to do it successfully. So anyway, it's like Pirates of the Caribbean, right? Where the pirate says, well, the pirate code is not really a code, right? It's a guideline. Anyway, same feeling.
 
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
