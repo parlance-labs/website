@@ -13,6 +13,13 @@ categories: ["RAG", "llm-conf-2024"]
 
 {{< video https://youtu.be/RrDBV6odPKo >}}
 
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
 
 ## Chapters
 **[00:04](https://youtu.be/RrDBV6odPKo&t=4) Introduction to Systematic Improvement of RAG Applications**
