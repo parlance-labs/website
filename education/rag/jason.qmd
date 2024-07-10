@@ -1,0 +1,94 @@
+---
+title: Systematically improving RAG applications
+date: 2024-07-10
+Speaker: Jason Liu
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    In this talk, we will teach you approaches that anybody can apply to improve their RAG applications.
+categories: ["RAG", "llm-conf-2024"]
+---
+
+{{< video https://youtu.be/RrDBV6odPKo >}}
+
+
+## Chapters
+**[00:04](https://youtu.be/RrDBV6odPKo&t=4) Introduction to Systematic Improvement of RAG Applications**
+Introduction to structured process for enhancing RAG applications, applicability across various AI deployments, emphasis on systematic data analysis, hypothesis testing, and continuous system enhancement.
+
+**[02:03](https://youtu.be/RrDBV6odPKo&t=123) Overview of RAG Playbook and Feedback Mechanisms**
+Discussion of a universal RAG playbook suitable for various company sizes, importance of specific feedback mechanisms, challenges of feedback scarcity, and leveraging cosine and re-ranker scores for performance insights.
+
+**[03:32](https://youtu.be/RrDBV6odPKo&t=212) Importance of Accurate Feedback and Ratings for RAG Performance**
+Significance of precise feedback for improving RAG applications, adjusting feedback prompts to enhance user response quality and quantity, leveraging minimal feedback through relevancy scores and embedding metrics.
+
+**[05:32](https://youtu.be/RrDBV6odPKo&t=332) Utilizing Unsupervised Learning to Identify Critical Topics in Usage Data**
+Application of unsupervised learning, such as BERTopic or LDA, to extract meaningful topics from RAG queries, aiding in focused improvements and resource allocation based on user satisfaction and relevancy metrics.
+
+**[07:02](https://youtu.be/RrDBV6odPKo&t=422) Analyzing User Satisfaction and Relevance in RAG Systems**
+Evaluation of user satisfaction through discovered topic clusters, correlation of high relevancy scores with low user satisfaction indicating potential improvements in response generation or question understanding.
+
+**[08:31](https://youtu.be/RrDBV6odPKo&t=511) Differentiating Between Topic and Capability Queries**
+Identification of topic vs. capability queries in RAG applications, strategy for enhancing content inventory or capabilities based on the type of query to improve overall system performance and user satisfaction.
+
+**[10:40](https://youtu.be/RrDBV6odPKo&t=640) Strategy for Addressing Low Inventory and Capability Gaps in RAG Systems**
+Tactics for addressing gaps in RAG system capabilities or content inventory, utilizing user query analysis to identify and prioritize enhancements in system responses or available information.
+
+**[11:30](https://youtu.be/RrDBV6odPKo&t=690) Monitoring and Adapting to Changes in RAG Query Patterns Over Time**
+The necessity of continuous monitoring and adaptation to shifting user queries in RAG systems, the value of real-time analytics to swiftly adjust to new user needs and prevent dissatisfaction.
+
+**[13:44](https://youtu.be/RrDBV6odPKo&t=824) Leveraging Synthetic Data for RAG System Evaluation**
+Utilization of synthetic data to simulate real-world queries for testing RAG system improvements, enabling pre-deployment evaluation of potential enhancements based on specific query topics.
+
+**[15:02](https://youtu.be/RrDBV6odPKo&t=902) Closing Remarks on Systematic Improvements and Q&A Introduction**
+Summation of strategies for systematic RAG improvements, transition to Q&A to address specific real-world applications.
+
+**[18:12](https://youtu.be/RrDBV6odPKo&t=1092) Q&A Session Begins: Real-World Application and Refinement of RAG Systems**
+Interactive Q&A session focusing on practical applications of discussed strategies in real-world scenarios, offering direct advice on implementing and refining RAG systems.
+
+**[25:10](https://youtu.be/RrDBV6odPKo&t=1510) Advanced Techniques for Capturing Implicit Feedback in RAG Applications**
+Exploration of techniques for capturing implicit user feedback in RAG systems, particularly in indirect usage scenarios, to enhance understanding of user satisfaction and system performance without direct user ratings.
+
+**[30:18](https://youtu.be/RrDBV6odPKo&t=1818) Future Relevance of RAG Systems with Advancing AI Technologies**
+Discussion on the evolving role of RAG systems amidst rapidly advancing AI technologies, strategies for maintaining relevance, and adapting to future AI enhancements (e.g., GPT-5)
+
+**[38:14](https://youtu.be/RrDBV6odPKo&t=2294) Discussion on RAG Systems from Scratch, Optimization, and Platforms**
+What to do from scratch, deep dive on techniques for pushing system performance, comparison of different platforms for implementing RAG systems, considerations for optimization, and practical advice on choosing and utilizing the right platform based on specific needs and objectives.
+
+**[50:40](https://youtu.be/RrDBV6odPKo&t=3040) Enhancing RAG Systems with Fine-Tuned Embeddings**
+Insights into enhancing RAG systems using fine-tuned embeddings, strategies for implementing these technologies to improve search relevance and user experience.
+
+**[52:37](https://youtu.be/RrDBV6odPKo&t=3157) Parsing Tables and PDFs**
+Recent advances in multimodal parsers, benefits of prompting models to generate Markdown.
+
+**[54:15](https://youtu.be/RrDBV6odPKo&t=3255) Instrumenting RAG Systems**
+Similarities between recommender systems and RAG, finding feedback mechanisms within the user flow in order to capture data for fine-tuning and enhancing the system.
+
+**[55:48](https://youtu.be/RrDBV6odPKo&t=3348) Strategic Approaches to Document Chunking in RAG Systems**
+Discussion on effective document chunking strategies within RAG systems, importance of chunk size and overlap, and their impact on system performance and user interaction quality.
+
+**[01:07:21](https://youtu.be/RrDBV6odPKo&t=4041) Conclusion and Final Thoughts on RAG System Improvement**
+Final thoughts on the continuous improvement of RAG systems, encouragement for ongoing adaptation and refinement based on user feedback and technological advancements.
+
+
+## Resources
+
+- Jason Liu: [Writing](https://python.useinstructor.com/blog/), [Twitter / X](https://x.com/jxnlco)
+- Collection ([Link](https://dub.sh/jxnl-rag)):
+  - [Systematically Improving Your RAG](https://jxnl.co/writing/2024/05/22/systematically-improving-your-rag/)
+  - [Low-Hanging Fruit for RAG Search](https://jxnl.co/writing/2024/05/11/low-hanging-fruit-for-rag-search/)
+  - [Levels of Complexity: RAG Applications](https://jxnl.co/writing/2024/02/28/levels-of-complexity-rag-applications/)
+  - [Stop using LGTM@Few as a metric (Better RAG)](https://jxnl.co/writing/2024/02/05/when-to-lgtm-at-k/)
+  - [How to build a terrible RAG system](https://jxnl.github.io/blog/writing/2024/01/07/inverted-thinking-rag/)
+  - [RAG is more than just embedding search](https://python.useinstructor.com/blog/2023/09/17/rag-is-more-than-just-embedding-search/)
+- Instructor: [Link](https://python.useinstructor.com/)
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+
+:::
