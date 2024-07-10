@@ -15,8 +15,10 @@ aliases:
 :::{.callout-caution}
 ## Under Construction
 
-This page is under construction.  We are currently processing content from our course [Mastering LLMs: A Conference For Developers & Data Scientists](https://maven.com/parlance-labs/fine-tuning).  Please check back soon for updates.
+This page is under construction.  We are currently processing content from our course [Mastering LLMs: A Conference For Developers & Data Scientists](https://maven.com/parlance-labs/fine-tuning).
+
 :::
 
-These talks are categorized by the following topics:
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
 
+These talks are categorized by the following topics:
