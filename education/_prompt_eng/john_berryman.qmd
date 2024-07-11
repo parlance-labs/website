@@ -24,33 +24,36 @@ If you enjoyed this content, subscribe to receive updates on new educational con
 
 ## Chapters
 
-**[00:00](https://youtu.be/htBTho6oEJA&t=0s) Introduction**
+[00:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=0s) Introduction
+JOhn Berryman introduces himself and tells about his careers and experience.
 
-John Berryman introduces the session, providing an overview of the talk, which will cover the fundamentals of prompt engineering, key strategies, and real-world applications.
+[00:49](https://www.youtube.com/watch?v=htBTho6oEJA&t=49s) Large langauge models
+Discussion on Large language models and its various types throughout the years.
 
-**[0:30](https://youtu.be/htBTho6oEJA&t=30s) The Basics of Prompt Engineering**
+[05:25](https://www.youtube.com/watch?v=htBTho6oEJA&t=325s) Discussion of prompt crafting
+John Berryman explains prompt crafting using techniques like few-shot prompting, chain-of-thought reasoning, and document mimicry.
+[16:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=960s) Crafting Effective Prompts
+John Berryman explains how a LLM thinks of a prompt and how you can use intuition to create better prompts.
 
-John explains the foundational concepts of prompt engineering, discussing the importance of understanding prompt structure and the elements that contribute to effective prompt creation.
+[18:04](https://www.youtube.com/watch?v=htBTho6oEJA&t=1527s) LLM and creating prompt
+SHowing how we build LLM applications and how to create a prompt in copliot with some little input from Hamel as well
 
-**[02:20](https://youtu.be/htBTho6oEJA&t=140s) Best Practices for Crafting Prompts**
+[25:27](https://www.youtube.com/watch?v=htBTho6oEJA&t=1800s) Chat and tools and their relation with LLMLs
+Introductions to chat and tools and how they integrate with building LLM is beautifully expressed by John.
 
-An in-depth look at the best practices for writing prompts, including techniques for clarity, specificity, and contextual relevance. John shares tips on how to tailor prompts to different use cases.
+[38:03](https://www.youtube.com/watch?v=htBTho6oEJA&t=2283s) Q&A session starts
+John finishes his presentaion and ask the listners to ask questions Sanyam Bhutani conveys questions asked by the listeners one by one John explains them beautifully using some real world examples.
 
-**[04:15](https://youtu.be/htBTho6oEJA&t=255s) Techniques for Iterative Improvement**
+[50:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=3000s) Interactive Session
+Sanyam Bhutane asks John about function calling and templates reformatting during this.
 
-John highlights the importance of iterative improvement in prompt engineering, showcasing methods for testing, evaluating, and refining prompts to enhance performance and accuracy.
+[57:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=3420s) practices for better code output
+Sanyam asks John on practices for better code output ,John explains how to use intuition for getting better results.
 
-**[06:00](https://youtu.be/htBTho6oEJA&t=360s) Domain-Specific Examples**
+[62:20](https://youtu.be/htBTho6oEJA?t=3740) Conclusion
+Sanyam wrap up the zoom call with thanking John for the awesome talks and interesting Q&A session.
 
-Real-world examples of domain-specific prompt engineering, including applications in healthcare, finance, and customer service. John demonstrates how to adapt prompts to various industry needs.
 
-**[08:45](https://youtu.be/htBTho6oEJA&t=525s) Common Pitfalls and How to Avoid Them**
-
-A discussion on common pitfalls in prompt engineering and strategies to avoid them. John emphasizes the importance of continuous learning and adaptation to evolving models and requirements.
-
-**[10:30](https://youtu.be/htBTho6oEJA&t=630s) Case Studies and Success Stories**
-
-John presents several case studies and success stories where effective prompt engineering significantly improved model performance and user satisfaction.
 
 ## Resources
 
