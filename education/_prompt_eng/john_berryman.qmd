@@ -30,10 +30,10 @@ JOhn Berryman introduces himself and tells about his careers and experience.
 **[00:49](https://www.youtube.com/watch?v=htBTho6oEJA&t=49s) Large langauge models**
 Discussion on Large language models and its various types throughout the years.
 
-**[05:25](https://www.youtube.com/watch?v=htBTho6oEJA&t=325s) Discussion of prompt crafting**
+**[05:25](https://www.youtube.com/watch?v=htBTho6oEJA&t=325s) Discussion on prompt crafting**
 John Berryman explains prompt crafting using techniques like few-shot prompting, chain-of-thought reasoning, and document mimicry.
 
-**[16:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=960s) Crafting Effective Prompts**
+**[16:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=960s) Crafting Effective Prompts using intuition**
 John Berryman explains how a LLM thinks of a prompt and how you can use intuition to create better prompts.
 
 **[18:04](https://www.youtube.com/watch?v=htBTho6oEJA&t=1084s) LLM and creating prompt**
@@ -48,8 +48,8 @@ John finishes his presentaion and ask the listners to ask questions Sanyam Bhuta
 **[50:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=3000s) Interactive Session**
 Sanyam Bhutane asks John about function calling and templates reformatting during this.
 
-**[57:00](https://www.youtube.com/watch?v=htBTho6oEJA&t=3420s) practices for better code output**
-Sanyam asks John on practices for better code output ,John explains how to use intuition for getting better results.
+**[55:07](https://www.youtube.com/watch?v=htBTho6oEJA&t=3307s) Sanyam asks Listener's questions**
+Sanyam asks John on practices for better code output,DSPY, Prompting techniques ,John explains them with thorough explanations.
 
 **[62:20](https://youtu.be/htBTho6oEJA?t=3740) Conclusion**
 Sanyam wrap up the zoom call with thanking John for the awesome talks and interesting Q&A session.
