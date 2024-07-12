@@ -1,5 +1,5 @@
 ---
-title: Modal: Simple Scalable Serverless Services
+title: "Modal: Simple Scalable Serverless Services"
 date: 2024-07-12
 Speaker: Charles Frye
 Venue: Mastering LLMs Conf
