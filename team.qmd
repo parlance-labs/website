@@ -48,3 +48,9 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 ![](images/luke.png){width=70 style="float:left"}
 
 [Luke Marsden](https://mlops.consulting) is a consultant with deep experience with LLMs, infrastructure and GenAI application patterns. He has a particular focus on open source models and fine-tuning, having advised clients globally on the impact and opportunity for GenAI on their business. In the [Helix](https://helix.ml) stack, he led the creation of a fine-tuning product based on Axolotl, documented in the popular blog post [How we got fine-tuning Mistral-7B to not suck](https://blog.helix.ml/p/how-we-got-fine-tuning-mistral-7b) and then extended the stack to include multi-node Ollama on Kubernetes, API calling from open LLMs, RAG with pgvector and running gptscript securely on the server.
+
+## Zach Deane-Mayer
+
+![](images/zach.jpg){width=70 style="float:left"} 
+
+[Zach Deane-Mayer](https://www.ai-insight-solutions.com/) is an AI executive and Kaggle Grandmaster with over 15 years of experience building AI products and infrastructure. He founded and scaled global AI teams that built Generative AI, Visual AI, and AutoML products at DataRobot. Zach has deep expertise in growing and scaling AI teams, building AI products, and developing AI strategies.
