@@ -82,8 +82,6 @@ Discussion on few-shot prompting best practices. Hyperparameter adjustments. Fun
 {{< pdf berryman.pdf height=580 width=100% >}}
 
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
-
 ## Full Transcript
 :::{.callout-tip collapse="true"}
 <br>[0:04] John: All right. By way of introductions, that's me. I've had several different careers at this point. Aerospace, search technology. I wrote a book for search at one point and swore never to do again. I did code search, worked in data science with Hamel, then got to work with Copilot, and I'm writing another book, which I swore never to do again. And now… I've just left Copilot. I'm going to wrap up my book, and I'm joining the ranks of Hamel and Dan and trying to see if I can be a good consultant for LLM applications.
@@ -229,3 +227,4 @@ Discussion on few-shot prompting best practices. Hyperparameter adjustments. Fun
 <br>[1:02:40] John: thank you guys so much. I hope it was enjoyable.
 :::
 
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
