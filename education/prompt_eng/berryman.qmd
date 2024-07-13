@@ -77,6 +77,10 @@ Discussion on few-shot prompting best practices. Hyperparameter adjustments. Fun
 - "...designed to teach Dolphin to obey the System Prompt, even over a long conversation": [Tweet](https://x.com/erhartford/status/1795662699700851010)
 - XML tags are a powerful tool for structuring prompts and guiding Claude’s responses: [Anthropic](https://docs.anthropic.com/en/docs/use-xml-tags)
 
+## Slides
+
+{{< pdf berryman.pdf height=580 width=100% >}}
+
 
 ## Notes
 
@@ -174,6 +178,7 @@ Function Call: {"role": "assistant", "function": {"name": "get_weather", "argume
 - Once language models reached GPT-2 scale, their emergent capabilities suggested both potential usefulness and harm, prompting OpenAI to limit its release until further research had been done.
 - Structuring the ChatGPT API in the way OpenAI has, where the call takes an `assistant` and a `user` message, provides a degree of separation from the LLM itself and control over what actually ends up in the prompt and what might come out.
 - Among hyperparameters, adjusting the `N` number of responses you get back from a model let's you evaluate multiple responses at once.
+
 
 <center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
@@ -944,3 +949,4 @@ Function Call: {"role": "assistant", "function": {"name": "get_weather", "argume
 <br>[01:02:40] Yeah, thank you guys so much. I hope it was enjoyable.
 
 :::
+
