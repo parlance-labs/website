@@ -1,13 +1,13 @@
 ---
-title: Prompt Engineering workshop 
-date: 2024-07-10
+title: Prompt Engineering Workshop
+date: 2024-07-12
 Speaker: John Berryman
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
 abstract: |
-    This session covers key strategies for effective prompt engineering. Topics include: (1) Understanding prompt structure (2) Best practices for crafting prompts (3) Techniques for iterative improvement (4) Domain-specific examples (5) Avoiding common pitfalls
+    John Berryman is the author of the O'Reilly book "Prompt Engineering For LLMs" https://learning.oreilly.com/library/view/prompt-engineering-for/9781098156145/ Slides: https://docs.google.com/presentation/d/1PXzENGNN5NFbEDJ59wbSp8fro6dPt4xHGNN6X0KU82A
 categories: ["prompt-eng", "llm-conf-2024"]
 
 ---
@@ -24,154 +24,119 @@ If you enjoyed this content, subscribe to receive updates on new educational con
 
 ## Chapters
 
-**[00:00](https://youtu.be/htBTho6oEJA&t=0s) Introduction**
+**[00:00](https://youtu.be/htBTho6oEJA&t=0) Introduction and Background**
+John's career: aerospace, search technology, GitHub Copilot.
 
-John Berryman introduces the session, providing an overview of the talk, which will cover the fundamentals of prompt engineering, key strategies, and real-world applications.
+**[00:47](https://youtu.be/htBTho6oEJA&t=47) Understanding Large Language Models**
+Definition and functionality of large language models. Importance of the "large" aspect. Historical progression: RNNs, attention mechanism, transformers. Emergence of models like BERT and GPT.
 
-**[0:30](https://youtu.be/htBTho6oEJA&t=30s) The Basics of Prompt Engineering**
+**[05:33](https://youtu.be/htBTho6oEJA&t=333) Overview of Prompt Crafting Techniques**
+Introduction to prompt crafting techniques. Focus on evolving techniques and recent trends.
 
-John explains the foundational concepts of prompt engineering, discussing the importance of understanding prompt structure and the elements that contribute to effective prompt creation.
+**[06:09](https://youtu.be/htBTho6oEJA&t=369) Few-Shot Prompting**
+Technique: Controlling output with few-shot examples. Importance of setting predictable patterns.
 
-**[02:20](https://youtu.be/htBTho6oEJA&t=140s) Best Practices for Crafting Prompts**
+**[07:39](https://youtu.be/htBTho6oEJA&t=459) Chain of Thought Reasoning**
+Addressing reasoning challenges in LLMs. Use of few-shot prompting to improve logical reasoning. CoT examples.
 
-An in-depth look at the best practices for writing prompts, including techniques for clarity, specificity, and contextual relevance. John shares tips on how to tailor prompts to different use cases.
+**[10:36](https://youtu.be/htBTho6oEJA&t=636) Think Step by Step**
+Simplification of chain of thought reasoning. Direct instruction to model for step-by-step thinking. Advantages: reduced need for extensive examples, prompt capacity management.
 
-**[04:15](https://youtu.be/htBTho6oEJA&t=255s) Techniques for Iterative Improvement**
+**[12:25](https://youtu.be/htBTho6oEJA&t=745) Document Mimicry**
+Technique of document mimicry in prompt crafting. Examples: transcripts, common document structures. Conditioning model with familiar patterns and formats like Markdown.
 
-John highlights the importance of iterative improvement in prompt engineering, showcasing methods for testing, evaluating, and refining prompts to enhance performance and accuracy.
+**[16:01](https://youtu.be/htBTho6oEJA&t=961) Intuitions for Effective Prompt Crafting**
+LLMs as "dumb mechanical humans." Use familiar language and constructs. Avoid overwhelming the model with too much information. Ensuring clarity in prompts.
 
-**[06:00](https://youtu.be/htBTho6oEJA&t=360s) Domain-Specific Examples**
+**[18:11](https://youtu.be/htBTho6oEJA&t=1091) Building Applications with LLMs**
+LLM applications as transformation layers. Converting user requests into LLM-compatible text. Process: user input, LLM processing, actionable outputs.
 
-Real-world examples of domain-specific prompt engineering, including applications in healthcare, finance, and customer service. John demonstrates how to adapt prompts to various industry needs.
+**[19:33](https://youtu.be/htBTho6oEJA&t=1173) Context Collection for Prompt Crafting**
+Importance of context collection for prompt crafting. Steps: collecting, ranking, trimming, assembling context. Copilot example structure: file paths, snippets from open tabs, current document; document mimicry with comments. Importance of context relevance.
 
-**[08:45](https://youtu.be/htBTho6oEJA&t=525s) Common Pitfalls and How to Avoid Them**
+**[25:27](https://youtu.be/htBTho6oEJA&t=1527) Introduction of Chat Interfaces**
+Shift to chat-based interfaces in LLM applications. Use of special syntax for role differentiation. Benefits of structured chat interactions.
 
-A discussion on common pitfalls in prompt engineering and strategies to avoid them. John emphasizes the importance of continuous learning and adaptation to evolving models and requirements.
+**[28:22](https://youtu.be/htBTho6oEJA&t=1702) Function Calling and Tool Usage With LLMs**
+Introduction and advantages of function calling. Structure: names, descriptions, arguments. Expansion of LLM capabilities with tool usage. Cycling through tool usage, tool responses, assistant responses.
 
-**[10:30](https://youtu.be/htBTho6oEJA&t=630s) Case Studies and Success Stories**
+**[33:56](https://youtu.be/htBTho6oEJA&t=2036) Example: Tool Calling in a Thermostat Application**
+Detailed example: thermostat application. Process: user request, tool calling, context awareness. Iterative approach for better user interactions.
 
-John presents several case studies and success stories where effective prompt engineering significantly improved model performance and user satisfaction.
+**[38:14](https://youtu.be/htBTho6oEJA&t=2294) Q&A**
+Discussion on few-shot prompting best practices. Hyperparameter adjustments. Function calling complexities and solutions. Considerations for better code outputs and prompt tuning.
+
 
 ## Resources
 
-Links to resources mentioned in the Workshop:
-
-- [Slides from the presentation](https://docs.google.com/presentation/d/1PXzENGNN5NFbEDJ59wbSp8fro6dPt4xHGNN6X0KU82A/)
-- [John Berryman's book](https://www.oreilly.com/library/view/prompt-engineering-for/9781098156145/)
-- [John's Twitter / X](https://x.com/jnbrymn)
-- [Relevant Search](https://www.manning.com/books/relevant-search)
-- [Better language models and their implications (GPT-2 release)](https://openai.com/index/better-language-models/)
-- [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
-- [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903)
-- [Large Language Models are Zero-Shot Reasoners](https://arxiv.org/abs/2205.11916)
-- [Introducing ChatGPT](https://openai.com/index/chatgpt/)
-- [Function calling and other API updates](https://openai.com/index/function-calling-and-other-api-updates/)
-- [🦍 Gorilla: Large Language Model Connected with Massive APIs](https://gorilla.cs.berkeley.edu/)
-- [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629)
-- ["...designed to teach Dolphin to obey the System Prompt, even over a long conversation"](https://x.com/erhartford/status/1795662699700851010)
-- [XML tags are a powerful tool for structuring prompts and guiding Claude’s responses](https://docs.anthropic.com/en/docs/use-xml-tags)
-
+- John Berryman : [Book](https://www.oreilly.com/library/view/prompt-engineering-for/9781098156145/), [Twitter / X](https://x.com/jnbrymn)
+- Chain-of-Thought Prompting Elicits Reasoning in Large Language Models: [arXiv](https://arxiv.org/abs/2201.11903)
+- Function calling and other API updates: [OpenAI](https://openai.com/index/function-calling-and-other-api-updates/)
+- 🦍 Gorilla: Large Language Model Connected with Massive APIs: [Link](https://gorilla.cs.berkeley.edu/)
+- ReAct: Synergizing Reasoning and Acting in Language Models: [arXiv](https://arxiv.org/abs/2210.03629)
+- "...designed to teach Dolphin to obey the System Prompt, even over a long conversation": [Tweet](https://x.com/erhartford/status/1795662699700851010)
+- XML tags are a powerful tool for structuring prompts and guiding Claude’s responses: [Anthropic](https://docs.anthropic.com/en/docs/use-xml-tags)
 
 
 ## Notes
 
-### Introduction to Language Models
+### Few-shot Prompting
 
-#### What is a Language Model?
-
-- Language models are algorithms that predict the next word in a sequence of words.
-- Historically, Recurrent Neural Networks (RNNs) were the top language models until the introduction of the Attention mechanism in 2014.
-- The Transformer architecture, introduced in 2017, replaced RNNs by allowing better handling of context.
-- GPT (Generative Pre-trained Transformer) models use the decoder side of the Transformer architecture.
-
-#### GPT Evolution
-
-- **GPT-1:** Introduced the use of the decoder side of the Transformer.
-- **GPT-2:** Trained on 10x the data of GPT-1, leading to significantly better performance.
-- **GPT-3 and beyond:** Continued scaling up in terms of parameters and training data, enhancing capabilities further.
-
-#### Capabilities and Responsibilities
-
-- GPT-2 and similar models can outperform task-specific models in various NLP tasks (e.g., summarization, translation).
-- With great power comes great responsibility: potential misuse includes generating misleading news, impersonating others, and creating spam.
-
-### Prompt Crafting Techniques
-
-#### Few-shot Prompting
-
-- Provide a few examples to set a pattern for the model to follow.
-- Effective for simple tasks and quick adjustments.
-- Example: Translation prompts.
-
-```text
+```
 > How are you doing today?
 < ¿Cómo estás hoy?
 
 > My name is John.
 < Mi nombre es John.
+
+> Can I have fries with that?
+<
 ```
 
-#### Chain-of-Thought Reasoning
+### Chain-of-Thought Prompting
 
-- Encourage the model to break down the reasoning process step-by-step.
-- Useful for complex problems requiring logical steps.
-- Example: Solving age-related problems.
-
-```text
-Q: Jim is twice as old as Steve. Jim is 12 years old. How old is Steve?
-A: Jim is 12 years old, which is twice as old as Steve. Therefore, Steve is 6 years old.
+[Original](https://arxiv.org/abs/2201.11903):
+```
+Q: Roger has 5 tennis balls. He buys 2 more cans of
+tennis balls. Each can has 3 tennis balls. How many
+tennis balls does he have now?
+A: Roger started with 5 balls. 2 cans of 3 tennis balls
+each is 6 tennis balls. 5 + 6 = 11. The answer is 11.
+Q: The cafeteria had 23 apples. If they used 20 to
+make lunch and bought 6 more, how many apples
+do they have?
 ```
 
-#### Document Mimicry
+[Even better](https://arxiv.org/abs/2205.11916):
+```
+Q: A juggler can juggle 16 balls. Half of the balls are golf balls,
+and half of the golf balls are blue. How many blue golf balls are
+there?
+A: *Let’s think step by step.*
+```
 
-- Structure the prompt in a way that mimics a specific document type (e.g., transcripts, emails).
-- Helps in conditioning the model to generate responses in a particular style.
-- Example: IT support transcript.
+### Document Mimicry
 
-```text
+```
 # IT Support Assistant
 The following is a transcript between an award-winning IT support rep and a customer.
 
 ## Customer:
 My cable is out! And I'm going to miss the Superbowl!
 
-## Support Assistant:
-Let's figure out how to diagnose your problem…
+## Assistant:
+Let's figure out how to diagnose your problem...
 ```
 
-### Building LLM Applications
+All of the above play into next-token prediction. Takeaway: Set up a pattern for the LLM to follow.
 
-#### Creating Effective Prompts
+### Context
 
-- Collect context from various sources (e.g., current documents, open tabs, prior messages).
-- Rank and trim context to fit the most relevant information into the prompt.
-- Assemble the prompt ensuring clarity and relevance for the task at hand.
+Collect context, rank it, trim it, then assemble the prompt.  
 
-```go
-// Example for code completion
-package searchskill
+![](berryman.png)
 
-import (
-    "context"
-    "encoding/json"
-    "fmt"
-    "strings"
-    "time"
-)
-
-type Skill struct {
-    // Skill implementation
-}
-
-type params struct {
-    // Parameters definition
-}
-```
-
-#### Introduction of Chat and Tools
-
-- **Chat:** Models can simulate conversations with predefined roles and responses.
-- **Tools:** Models can call functions to interact with real-world APIs, enhancing their capabilities.
+### Function-Calling and Tool Use
 
 ```json
 {
@@ -197,29 +162,18 @@ type params struct {
   }
 }
 ```
+
 ```
 // Usage example
 Input: {"role": "user", "content": "What's the weather like in Miami?"}
-Function Call: {"role": "assistant", "function": {"name": "get_weather", "arguments": '{"location": "Miami, FL"}'}}
+Function Call: {"role": "assistant", "function": {"name": "get_weather", "arguments": {"location": "Miami, FL"}}}
 ```
 
-### Key Tips
+### Tidbits
 
-#### Understand the Model's Limitations
-
-- LLMs are not psychic; they require clear and relevant prompts.
-- Avoid overloading the prompt with unnecessary information.
-- Use familiar language and clear constructs to improve the model's understanding.
-
-#### Safety and Ethical Considerations
-
-- Ensure prompts and applications do not facilitate harmful or unethical use.
-- Regularly evaluate the model's output for safety and accuracy.
-
-### Conclusion
-
-Prompt engineering is a critical skill in harnessing the power of large language models. By understanding different prompting techniques and the nuances of crafting effective prompts, one can significantly enhance the performance and reliability of these models in various applications. Always consider the ethical implications and responsibilities when deploying these powerful tools.
-
+- Once language models reached GPT-2 scale, their emergent capabilities suggested both potential usefulness and harm, prompting OpenAI to limit its release until further research had been done.
+- Structuring the ChatGPT API in the way OpenAI has, where the call takes an `assistant` and a `user` message, provides a degree of separation from the LLM itself and control over what actually ends up in the prompt and what might come out.
+- Among hyperparameters, adjusting the `N` number of responses you get back from a model let's you evaluate multiple responses at once.
 
 <center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
