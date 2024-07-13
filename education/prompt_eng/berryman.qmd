@@ -184,769 +184,146 @@ Function Call: {"role": "assistant", "function": {"name": "get_weather", "argume
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
-<br>[00:00:00] All right, by way of introductions, that's me.
-<br>[00:00:09] I've had several different careers at this point, aerospace, search technology.
-<br>[00:00:13] I wrote a book for search at one point and swore never to do again.
-<br>[00:00:18] I did code search, worked in data science with Hamel, then got to work with co-pilot
-<br>[00:00:26] and I'm writing another book, which I swore never to do again.
-<br>[00:00:31] And now I've just left co-pilot.
-<br>[00:00:34] I'm going to wrap up my book and I'm joining the ranks of Hamel and Dan
-<br>[00:00:39] and trying to see if I can be a good consultant for LLM applications.
-<br>[00:00:46] So that's me.
-<br>[00:00:48] Now, what's a large language model?
-<br>[00:00:51] Who better to ask than chat GPT itself?
-<br>[00:00:54] So I asked chat GPT and said a large language model is a type of artificial intelligence system
-<br>[00:01:00] that is trained to understand and generate human-like text.
-<br>[00:01:03] It learns structure, grammar, and semantics of language by processing past amounts of textual data.
-<br>[00:01:08] The primary goal of a language model is to predict the probability of the next word.
-<br>[00:01:14] You know, that is right.
-<br>[00:01:16] That's that goofy button on the middle of your cell phone when you're typing a message
-<br>[00:01:20] that predicts one word ahead.
-<br>[00:01:22] It's a really simple idea.
-<br>[00:01:23] So how on earth is this idea taking the world by storm right now?
-<br>[00:01:30] Well, some of that is hiding in this word large.
-<br>[00:01:32] It's not just a language model.
-<br>[00:01:33] It's a large language model.
-<br>[00:01:35] So this is compressed and I'll just have to go through it pretty quickly.
-<br>[00:01:38] But a lot has happened in the last 10 years or so.
-<br>[00:01:43] Around 2014, the state of the art was recurrent neural networks.
-<br>[00:01:47] They had an encoder and a decoder.
-<br>[00:01:50] But there was a problem.
-<br>[00:01:51] There was a bottleneck that made it difficult for the decoder to look back at whatever it wanted to
-<br>[00:01:57] look at.
-<br>[00:01:58] All the state was hidden in this vector, effectively, between the encoder and the decoder.
-<br>[00:02:03] So later that year, someone created this idea for attention.
-<br>[00:02:09] It was a useful way of looking at the piece that is most relevant
-<br>[00:02:14] rather than just packing everything into the space between the encoder and the decoder.
-<br>[00:02:20] Then Google said, well, that attention stuff, that's great.
-<br>[00:02:25] Let's just get rid of all the other stuff and say, attention is all you need.
-<br>[00:02:29] And thus was born the transformer architecture.
-<br>[00:02:33] So as we moved on, a lot of neat stuff came out of that.
-<br>[00:02:37] The encoder side of that became burnt.
-<br>[00:02:40] And that was very useful and continues to be very useful,
-<br>[00:02:45] including the new trends in search and RAG and stuff like that.
-<br>[00:02:50] But in June of 2018, they figured out that you could chop off the right half of this transformer
-<br>[00:02:56] model and you have what we have come to know as GPT, generative pre-trained model.
-<br>[00:03:04] Now, the name is interesting.
-<br>[00:03:06] At this point, generative pre-training is almost a misnomer.
-<br>[00:03:10] But what it meant at the time is it's a generative model based on just training it
-<br>[00:03:16] on whatever text data you have.
-<br>[00:03:18] You typically, you would do a train a model and then you would fine tune a model to a very specific task.
-<br>[00:03:25] The training, it doesn't have to be labeled.
-<br>[00:03:28] But the fine tuning is much fewer labeled items.
-<br>[00:03:33] And that's the thing that really makes the model good.
-<br>[00:03:36] Well, we started to notice something really unusual about these GPT models by the time we got GPT2.
-<br>[00:03:45] In this paper by OpenAI, they introduced GPT2 with a very unusual line in the blog post that
-<br>[00:03:56] introduced it. The very top of this blog post, it said, our model called GPT2, a successor GPT,
-<br>[00:04:03] was trained simply to predict the next 40 gigabytes of internet text.
-<br>[00:04:08] Due to concerns about malicious applications of the technology,
-<br>[00:04:11] we are not releasing the train model.
-<br>[00:04:14] How on earth do you get from a model just predicting one word ahead, the same thing
-<br>[00:04:21] is the middle button in my phone, to this horrible of a concern about the future of our world,
-<br>[00:04:26] existential dread?
-<br>[00:04:29] Well, if you look a little bit deeper, it turns out that these things were, even though they
-<br>[00:04:35] were pre-trained, they were not fine tuned to a specific cause.
-<br>[00:04:40] They started beating the state of the art for the very specific train models.
-<br>[00:04:44] Missing word prediction, pronoun understanding, parts of speech, speech tagging, text compression,
-<br>[00:04:51] and then obviously, here we are in 2024, it can do summarization,
-<br>[00:04:56] sentiment analysis, all sorts of things, even though it hasn't been trained yet.
-<br>[00:05:03] But with great power comes great responsibility.
-<br>[00:05:08] Because these models are so crafty at all these different tasks, they can be
-<br>[00:05:13] misused and do all sorts of horrible things as well.
-<br>[00:05:18] So that's why they put this scary line here to warn us that these things should be handled very
-<br>[00:05:24] carefully.
-<br>[00:05:26] All right, so with introductions and the big picture out of the way,
-<br>[00:05:31] stuff that you guys probably already knew, let's get into kind of the meat of this talk.
-<br>[00:05:37] In the next few slides, I'll go over several different techniques for prompt crafting.
-<br>[00:05:45] And then as we get about halfway through the talk, we'll move into some of the
-<br>[00:05:50] more recent things.
-<br>[00:05:51] Everything is moving towards chat.
-<br>[00:05:53] And there is a very important introduction of function calling in the middle of last year.
-<br>[00:06:00] So we'll talk about that and talk about how all of this can be used to build
-<br>[00:06:04] large language model applications.
-<br>[00:06:08] But it all starts with the prompt.
-<br>[00:06:09] All right, so prompt crafting, technique one.
-<br>[00:06:13] The first way that researchers started to realize that you could influence and control
-<br>[00:06:19] these things is by few shot prompting.
-<br>[00:06:23] Remember, these things are sophisticated statistical models that are predicting the
-<br>[00:06:29] next word in a document.
-<br>[00:06:31] Now, if your document happens to have a very predictable pattern in it, then you can actually,
-<br>[00:06:37] by controlling the pattern that's set up there, you can actually control the output.
-<br>[00:06:41] So if you wanted a translation application, then what they would do is they would put in
-<br>[00:06:48] several handcrafted examples of translation, you know, English, Spanish, English, Spanish.
-<br>[00:06:55] And then the actual task would be tagged on to the end of the prompt.
-<br>[00:07:01] In this case, you know, I want to know how to translate.
-<br>[00:07:03] Can I apprise with that?
-<br>[00:07:04] You know, Pueblo tenor a Papa 3, que es con eso.
-<br>[00:07:07] But it set up a pattern so that the logical conclusion of this pattern,
-<br>[00:07:13] one word prediction, one token prediction at a time, is achieving the task that you wanted.
-<br>[00:07:21] Oh, side note here, guys.
-<br>[00:07:23] I think you guys all have access to these slides.
-<br>[00:07:26] I've put copious links to everything.
-<br>[00:07:29] Every one of these slides has several links hidden in it.
-<br>[00:07:32] So make sure you grab the slides.
-<br>[00:07:34] This is a lot of good reading material too.
-<br>[00:07:37] All right.
-<br>[00:07:37] So that's a few shot prompting.
-<br>[00:07:41] The next big thing is chain of thought raising.
-<br>[00:07:44] One of the early things that everyone noticed about these models is that even though
-<br>[00:07:50] they're really good at predicting plausible next words,
-<br>[00:07:53] they weren't terribly good at reasoning, at just normal logic.
-<br>[00:07:57] They were especially bad at math.
-<br>[00:08:00] And so an example of this are these little, little goofy word problems.
-<br>[00:08:04] For example, if we say it takes one baker an hour to make a cake,
-<br>[00:08:08] how long does it take three bakers to make three cakes?
-<br>[00:08:12] Well, a statistically plausible quick answer to that is just three.
-<br>[00:08:16] That's if you're not thinking you might even say that yourself.
-<br>[00:08:19] But it's the wrong answer.
-<br>[00:08:20] It's still going to take an hour to make all those cakes.
-<br>[00:08:24] So with chain of thought reasoning, they use few shot prompting again.
-<br>[00:08:29] And they built up several examples of giving the model a similar question.
-<br>[00:08:37] And instead of, you know, having the model just say an answer,
-<br>[00:08:41] they would put in the voice of the model.
-<br>[00:08:43] They'd say, all right, here is how you sink through the problem.
-<br>[00:08:47] And this is just, you know, for lack of space, I've only put one example.
-<br>[00:08:50] But in this case, we have, you know, Jim is twice as old, Steve blah, blah, blah.
-<br>[00:08:54] And the answer, rather than just saying the answer, Steve is six.
-<br>[00:08:59] We have the model actually think through the problem and we write it out,
-<br>[00:09:03] write it out is kind of a verbal algebra problem.
-<br>[00:09:07] But this sets up the pattern.
-<br>[00:09:09] Again, the model is predicting the next word.
-<br>[00:09:12] And since there is a pattern in this document for thinking slowly and deliberately to the answers,
-<br>[00:09:18] then you're much more likely to get a long form answer like this.
-<br>[00:09:22] And it's kind of interesting what's actually happening here.
-<br>[00:09:26] Once you peel back the cover a little bit, these models don't have any internal
-<br>[00:09:32] monologue like us.
-<br>[00:09:34] If we were given this problem, then we don't just jump to an answer.
-<br>[00:09:37] We reason about it.
-<br>[00:09:38] We visualize the problem ahead.
-<br>[00:09:40] We talk to ourselves, you know, talk through the steps of this problem.
-<br>[00:09:45] We don't say it out loud.
-<br>[00:09:47] But since these models don't have any sort of background reasoning, they just, you know,
-<br>[00:09:52] every single token is the same calculation.
-<br>[00:09:57] Then by encouraging the model to, and by conditioning the prompt to spit out
-<br>[00:10:04] an elaboration of the concept and explanation of it,
-<br>[00:10:08] then effectively what you're doing is replacing that internal monologue of the model.
-<br>[00:10:14] And it helps the model to have more of a scratch space and come to a more reasonable answer.
-<br>[00:10:19] In this case, sure, it's made up.
-<br>[00:10:22] But you can see that the model, it takes time to talk about, you know,
-<br>[00:10:27] the reasoning and it comes to the correct answer.
-<br>[00:10:29] Now, something, it's still chain of thought reasoning, but it's like chain of thought
-<br>[00:10:39] reasoning part B, something I thought was really hilarious.
-<br>[00:10:42] Just a few months after this, this paper.
-<br>[00:10:44] So January of 2022 was this paper and May of the same year was this paper.
-<br>[00:10:50] Someone figured that, that instead of going to all the work of curating good examples of
-<br>[00:10:57] problems that are similar and, you know, crafting the answers and stuff like that,
-<br>[00:11:01] you just have to start speaking for the agents right up front.
-<br>[00:11:04] You just say, if this is a query, then rather than just putting a colon
-<br>[00:11:10] and waiting for the model to, you know, make a completion, you actually say, all right,
-<br>[00:11:15] let's think step by step.
-<br>[00:11:17] You, the application developer type that.
-<br>[00:11:19] And what does it do?
-<br>[00:11:21] These models predict the next word.
-<br>[00:11:23] So if you, if those were your previous words, your next word is not going to be three.
-<br>[00:11:28] Your next word is going to be the same long explanation.
-<br>[00:11:32] So it's kind of cool by actually simplifying the approach.
-<br>[00:11:37] They actually improved it in a couple of ways.
-<br>[00:11:40] For one thing, you don't have to craft all these examples.
-<br>[00:11:46] For another thing, you know, it is, if you guys are using few shot prompting,
-<br>[00:11:51] one of the things that you need to be conscious of and like, you know, watchful for is sometimes
-<br>[00:11:58] a few shots actually bleed into the answer.
-<br>[00:12:01] It sort of tends to bias the answer.
-<br>[00:12:04] So you have to be on look out for this.
-<br>[00:12:06] This totally got rid of this.
-<br>[00:12:06] There's no, there's nothing to bleed into the answer.
-<br>[00:12:09] And finally, you know, prompt capacity is always a concern.
-<br>[00:12:15] It's way shorter to say, let's think step by step as compared to coming up with a bunch of examples.
-<br>[00:12:21] So really neat and simple innovation.
-<br>[00:12:27] All right.
-<br>[00:12:28] The third technique and the last one that we'll talk about for today is document mimicry.
-<br>[00:12:35] It is, I think it is, it is the most important one of the three that we're talking about though.
-<br>[00:12:42] What if you found this little yellow scrap of paper on the ground?
-<br>[00:12:46] It says, my cable is out.
-<br>[00:12:49] I'm going to miss the Super Bowl.
-<br>[00:12:51] But it's ripped in half and you don't know what was above it.
-<br>[00:12:53] You don't know what was below it.
-<br>[00:12:55] If you were to look at that as a human with your own language model built in your head,
-<br>[00:13:00] what do you think would be the next words on this scrap of paper?
-<br>[00:13:07] You might think, well, I don't know.
-<br>[00:13:09] He's the sob story.
-<br>[00:13:10] He's going to go on and talk about, oh, I invited my friends over and they're all going to make fun of me.
-<br>[00:13:14] Something like that.
-<br>[00:13:16] But what if you happen to see the full paper and it looked like this?
-<br>[00:13:24] There's a lot more information here.
-<br>[00:13:27] And this is, it's starting to demonstrate what I'm talking about with prompt crafting
-<br>[00:13:31] with document mimicry.
-<br>[00:13:35] There's been a lot of documents that have gone in to train this thing.
-<br>[00:13:39] GPD4 has read the internet five times or something.
-<br>[00:13:42] So it has seen plenty of examples of code and SEC reports and everything you imagine.
-<br>[00:13:48] But one very common one is the example I use here is a transcript.
-<br>[00:13:54] The model has seen enough transcripts and training to know that a transcript might
-<br>[00:13:59] have some sort of heading to explain what it is.
-<br>[00:14:01] And then it's usually a conversation back and forth between a couple people
-<br>[00:14:06] or maybe it's like a play script.
-<br>[00:14:08] It has several actors involved.
-<br>[00:14:10] But it's something that the model is going to be very aware of and much more easy to
-<br>[00:14:16] replicate and to predict next tokens when it already has such documents in its training set.
-<br>[00:14:24] But look a little more closely, there's other aspects of this too.
-<br>[00:14:28] In just the same way that transcripts often have kind of a lead in to explain what it is,
-<br>[00:14:34] we can include that here and condition our own transcript.
-<br>[00:14:38] In this one we say that the following transcript is between an award-winning
-<br>[00:14:42] IT support rep and a customer.
-<br>[00:14:44] We could have said it's between Blackbeard, the pirate and a customer
-<br>[00:14:47] and it would have conditioned the model to respond very differently.
-<br>[00:14:53] And finally, use motifs that are common online.
-<br>[00:14:57] Use different patterns.
-<br>[00:14:59] One of my favorite ones is markdown.
-<br>[00:15:03] It's the, you know, all the readme's on GitHub are marked out.
-<br>[00:15:07] All the blog posts in several different frameworks are marked down.
-<br>[00:15:11] All stack overflows is in a flavor of markdown.
-<br>[00:15:14] So when you use markdown, you can really do good things to condition the model.
-<br>[00:15:20] In this case, we'd use a title markdown to say what the document is.
-<br>[00:15:24] We use a subtitle for the customers to start the customer role.
-<br>[00:15:29] We use another subtitle to start the support assistant.
-<br>[00:15:34] So just like you, a human can predict what's going to happen next.
-<br>[00:15:37] There's a really good chance that the model is going to see this
-<br>[00:15:40] and understand what those pounds and everything with the structure is all about.
-<br>[00:15:47] And so what is the document complete as?
-<br>[00:15:50] Well, in this case, we see that it completes as the support assistant,
-<br>[00:15:54] a smart award-winning customer support.
-<br>[00:15:58] Let's figure out how to diagnose your problem.
-<br>[00:16:00] All right. So with those little tidbits of prompt crafting,
-<br>[00:16:07] I'd like to jump up a level of abstraction to some of the main overarching intuitions
-<br>[00:16:13] that I have for prompt crafting.
-<br>[00:16:16] And that is that LLMs are just dumb mechanical units.
-<br>[00:16:21] So for example, large language models are better at,
-<br>[00:16:25] understand better when you use familiar language in constructs.
-<br>[00:16:29] It's seen a lot of English, it's seen a lot of languages,
-<br>[00:16:32] but make sure to use the behavioral copycating of stuff that is like in the training set.
-<br>[00:16:42] Large language models get distracted.
-<br>[00:16:44] This attention mechanism is finite.
-<br>[00:16:47] So one of the temptations, especially when you're doing stuff with RAG,
-<br>[00:16:51] which I'll talk about in a little bit, is to just pile the prompt as full as you can,
-<br>[00:16:57] get it just almost to capacity with information that might be useful for the model.
-<br>[00:17:02] It's often a mistake because a lot of times the models can get distracted.
-<br>[00:17:06] I've even seen situations where your intermediate context goes on for so long
-<br>[00:17:11] that the model forgets the original request and it just continues completing that context.
-<br>[00:17:19] Large language models are not psychic.
-<br>[00:17:22] So if the model doesn't have information from the training
-<br>[00:17:27] and if the model doesn't have information from the prompt,
-<br>[00:17:29] there's no way on earth that it's going to figure it out.
-<br>[00:17:32] Super important because a lot of the applications that we develop have to do with
-<br>[00:17:37] documents that are behind a privacy wall or recent events in the news
-<br>[00:17:43] or answers from like an API like a trial or something like that.
-<br>[00:17:47] You have to find some way of getting this into the prompt.
-<br>[00:17:52] And finally, models are dumb mechanical humans.
-<br>[00:17:56] If you look at the prompt and you yourself can't make sense of it,
-<br>[00:18:00] a large language model is just hopeless.
-<br>[00:18:02] That's probably the prime directive there.
-<br>[00:18:07] Grab a sip of water.
-<br>[00:18:13] All right, so everything to this point focuses on the prompt in isolation.
-<br>[00:18:19] But this talk is not about just like how to use chat GPT most efficiently.
-<br>[00:18:25] We actually want to build full applications on behalf of our users.
-<br>[00:18:30] And the framework I like for thinking about this is the large language model application
-<br>[00:18:36] is effectively a type of transformation layer between your user's problem domain
-<br>[00:18:42] and the large language model's problem domain.
-<br>[00:18:45] And so the user supplies some sort of request, a complaint over a phone,
-<br>[00:18:51] typing in text and assistance, some sort of email.
-<br>[00:18:55] The user provides some sort of problem request to the application.
-<br>[00:19:00] And the application is in charge of converting that into large language space,
-<br>[00:19:05] large language model space, which is text or more recently transcript.
-<br>[00:19:12] The large language model then does what it does from the beginning.
-<br>[00:19:15] It predicts one token at a time, makes completions,
-<br>[00:19:19] and then it passes it back to the application.
-<br>[00:19:21] And then the final step is to transform this back to the user space.
-<br>[00:19:25] So it's something actionable, something useful to our customers.
-<br>[00:19:29] This is my part.
-<br>[00:19:31] This is my favorite part.
-<br>[00:19:32] And it's the hard part.
-<br>[00:19:33] How do we actually do that transformation over and over and over again?
-<br>[00:19:37] All right, so creating the prompt.
-<br>[00:19:41] In a simple version of this, this is for the time being,
-<br>[00:19:45] it's focused more on completion models, like co-pilot completions.
-<br>[00:19:52] Creating the prompt involves collecting the context that is going to be useful,
-<br>[00:19:56] the stuff that's not there in training already.
-<br>[00:19:59] Ranking the context to figure out what is most important to the client.
-<br>[00:20:04] Trimming the context, shrinking down what you can and throwing away
-<br>[00:20:09] what could not be shrunk down, and assembling it into something
-<br>[00:20:13] that looks like a document that is hopefully in the training set.
-<br>[00:20:16] Remember, document mimicry.
-<br>[00:20:20] So as a quick example, let's just glance at how this works for co-pilot co-completion.
-<br>[00:20:27] So this is a quick example of how this works for co-pilot co-completion.
-<br>[00:20:32] The content that the context that we collect are several things.
-<br>[00:20:41] Obviously, you're typing in a document right now.
-<br>[00:20:43] You have a file open and you're getting ready to complete a function.
-<br>[00:20:48] So the current document is the most important piece of context.
-<br>[00:20:52] But we also found out early on that open tabs are important.
-<br>[00:20:56] And think about it, as you're using an IDE,
-<br>[00:20:58] you're often referring to an API that's implemented in one of your open tabs
-<br>[00:21:05] use case that's in another tab.
-<br>[00:21:06] You're looking through these tabs.
-<br>[00:21:07] They're open for reading.
-<br>[00:21:10] The next thing are symbols.
-<br>[00:21:12] So if you are getting ready to call a function,
-<br>[00:21:16] wouldn't it be great if we actually had the definition of that symbol in the prompt as well?
-<br>[00:21:20] And finally, the file path.
-<br>[00:21:22] These models, I don't think, are trained with the file path in mind.
-<br>[00:21:27] They're just trained with text.
-<br>[00:21:28] So it is actually a really good piece of information, especially with some of these
-<br>[00:21:34] frameworks like Django and Ruby on Rails where all the code is in a particular file.
-<br>[00:21:42] It's really helpful to have the file path.
-<br>[00:21:45] The next thing to do is to rank the context.
-<br>[00:21:49] The file path was actually deemed to be the most important for the sake of prompt crafting
-<br>[00:21:54] because it carries a lot of information that is important
-<br>[00:21:57] and it is also so very small that surely we can fit it.
-<br>[00:22:01] So it's first place.
-<br>[00:22:03] Second place is the current document.
-<br>[00:22:06] Third place is the neighboring tabs that you have.
-<br>[00:22:09] And the fourth place was my baby symbols.
-<br>[00:22:12] This is the thing that I did research on.
-<br>[00:22:15] It was not deemed to create a statistically significant increase.
-<br>[00:22:19] So for the time being, we've shelved that.
-<br>[00:22:22] But I really do hope they go back.
-<br>[00:22:24] Just to ask a question here, I think it's really interesting.
-<br>[00:22:27] Like one of the tips I have given people a lot when using co-pilot is like
-<br>[00:22:34] open the tabs.
-<br>[00:22:35] Things you might think are relevant.
-<br>[00:22:38] Is that like, do you know if there's any ongoing efforts to kind of like remove that
-<br>[00:22:45] constraint, like have co-pilot somehow more statically analyze your code, your code base,
-<br>[00:22:53] and like bring in those or is it still only open tabs or do you know?
-<br>[00:22:58] We, as symbols is effectively an investment towards that.
-<br>[00:23:02] And I think they need to go and revisit that again.
-<br>[00:23:07] I think we were onto something, but we just didn't find the magical with that.
-<br>[00:23:10] But co-pilot completions after a little bit of slowness for the past like year,
-<br>[00:23:16] they're really ramping up investment in that right now.
-<br>[00:23:19] So I would expect it to get better in the coming months.
-<br>[00:23:23] Have you all learned anything from cursor at all?
-<br>[00:23:26] Because, I mean, have you used cursor, by the way?
-<br>[00:23:28] It's like this ID, it's kind of like a, it's a product that's built on VS code and it sort of,
-<br>[00:23:35] sort of, it's basically a co-pilot plus plus, but like has like rag in it.
-<br>[00:23:40] You can index your code base and index documentation.
-<br>[00:23:45] It's kind of cool.
-<br>[00:23:48] But don't worry.
-<br>[00:23:48] I mean, if you haven't seen that, I'm just curious if any of those things being brought in.
-<br>[00:23:55] We kept our eye on some of our customers.
-<br>[00:23:57] I think a source graph was the big one that we'd followed for a while,
-<br>[00:24:01] because they had some really, really neat stuff out.
-<br>[00:24:03] But mostly that these days, I think the research is getting ready to be kicked back up right now.
-<br>[00:24:10] So we are starting to look around again, I think.
-<br>[00:24:17] Shall we?
-<br>[00:24:18] Oh, yeah, go ahead.
-<br>[00:24:19] All right.
-<br>[00:24:20] So once we know it's most important, we trim the content.
-<br>[00:24:23] So we're definitely going to keep the follow path.
-<br>[00:24:26] If we don't have room for these open tabs, then we've still got to keep the current document.
-<br>[00:24:31] So finally, if we don't have room for the full current document,
-<br>[00:24:35] then we chop off the top of the document because we absolutely have to have that bit
-<br>[00:24:40] that's right next to your cursor.
-<br>[00:24:42] And finally, you assemble the document.
-<br>[00:24:44] And here's what it looks like.
-<br>[00:24:46] At the top, we inject that file path that usually makes sense to the model.
-<br>[00:24:51] The next bunch of text is snippets from your open tabs.
-<br>[00:24:56] And here, again, you see we're doing a little bit of document mimicry.
-<br>[00:25:00] We have the slash slash comments for go.
-<br>[00:25:03] If this had been Python, it would have been a pound there.
-<br>[00:25:06] And we pull out little snippets.
-<br>[00:25:08] We tell where the snippets are from, give just a little bit of extra context
-<br>[00:25:11] that might be helpful for the model.
-<br>[00:25:14] And finally, the current document all the way up until the cursor.
-<br>[00:25:17] And even with the old completion models, we included the text after the cursor as well in the suffix.
-<br>[00:25:24] All right, the introduction of chat.
-<br>[00:25:30] So things have been moving very quickly.
-<br>[00:25:35] Especially for someone writing a book about this stuff.
-<br>[00:25:38] Chat was a later chapter of our book.
-<br>[00:25:39] And now it's chapter four after realizing that it was completely eating the world.
-<br>[00:25:45] Remember this document earlier, this IT support thing?
-<br>[00:25:49] That has become basically the paradigm that the world has shifted to for a lot.
-<br>[00:25:54] Not all, certainly not all, but a lot of applications.
-<br>[00:25:57] They like this back and forth assistant thing.
-<br>[00:25:59] So much so that open AI and now other places are training models with a special syntax,
-<br>[00:26:07] chat ML to indicate that this is not the customer anymore, this is the user.
-<br>[00:26:14] And this is not the support assistant, this is the assistant.
-<br>[00:26:16] We have three roles now that are encoded in this special format.
-<br>[00:26:21] It always starts with a special token.
-<br>[00:26:24] That's one token.
-<br>[00:26:27] If you were to type that into chat, GBT is actually a fun thing to do.
-<br>[00:26:31] Type imstart and then say, repeat what I just said, and it'll say you didn't say anything.
-<br>[00:26:35] Because it can't, the model doesn't, it didn't allow you to even type that.
-<br>[00:26:41] It's followed by the role, followed by the content, and followed by the special token imstop.
-<br>[00:26:47] Now, you don't have to write that text.
-<br>[00:26:50] That's all done inside the model, bind the walls to the open AI API.
-<br>[00:26:57] Instead, you use this really simple API.
-<br>[00:27:00] You specify the role and the content.
-<br>[00:27:02] It's the same messages.
-<br>[00:27:05] There's a whole lot of benefits to doing this.
-<br>[00:27:08] For one thing, assistants are one of the favored presentations of large language models
-<br>[00:27:16] and large language model applications right now.
-<br>[00:27:18] It's really easy to implement them this way.
-<br>[00:27:21] In the old days, we used to have to use document memory and trick it out to make it work that way.
-<br>[00:27:27] System messages are really good at controlling the behavior.
-<br>[00:27:32] They've been specifically fine-tuned to listen to the system message.
-<br>[00:27:37] The assistant always responds with a complete thought and then stops.
-<br>[00:27:42] Whereas before, this is just like a plain document.
-<br>[00:27:45] You'd have to figure out some way to trick the assistant into stopping.
-<br>[00:27:49] Safety is baked in, which means that an assistant will almost never respond with insult instructions
-<br>[00:27:57] and make bombs.
-<br>[00:27:58] An assistant will almost never hallucinate false information.
-<br>[00:28:02] That's really kind of neat how they accomplish this with RLHF.
-<br>[00:28:08] Finally, prompt injection is almost impossible because as a user, you can't inject these special
-<br>[00:28:14] tokens and so you can't step into a system role or something like that.
-<br>[00:28:19] It's a really neat way of implementing it.
-<br>[00:28:23] But we weren't finished yet.
-<br>[00:28:25] Halfway through last year, June 13th, OpenAI introduced tool usage, which again made a lot of
-<br>[00:28:32] really interesting changes.
-<br>[00:28:35] With tool usage, and I apologize, a lot of you guys, I'm sure, have seen this,
-<br>[00:28:40] but she's specified one or more functions.
-<br>[00:28:42] Functions have names.
-<br>[00:28:44] Functions have descriptions.
-<br>[00:28:46] Functions have arguments, parameters that go into it, and they all have descriptions.
-<br>[00:28:51] And it's really important to do a good job about naming and describing your functions
-<br>[00:28:57] and their arguments.
-<br>[00:28:58] Why?
-<br>[00:28:59] Because large language models are dumb mechanical humans.
-<br>[00:29:02] So if they're reading this, they need to have something simple so they can understand
-<br>[00:29:07] how to use the tools as correctly as possible.
-<br>[00:29:11] So this is a get weather tool.
-<br>[00:29:13] In order to use the functions, we effectively use the same chat API we saw in the last slide.
-<br>[00:29:20] A user might come in and say, what is the weather like in Miami?
-<br>[00:29:24] So that's what we send to the API.
-<br>[00:29:26] Now, the model at this point has a choice.
-<br>[00:29:29] The model could see that it has this function and choose to use it, or it could just answer.
-<br>[00:29:35] But if it has this function, it will typically say this, instead of actually saying it back
-<br>[00:29:40] to the user, it says, all right, I'm going to call get weather.
-<br>[00:29:44] And these are my arguments.
-<br>[00:29:46] Okay.
-<br>[00:29:47] Once that comes back into the application, then it's your job as the application developer
-<br>[00:29:53] to actually say, okay, okay, it's called our tool.
-<br>[00:29:55] It wants to make a request.
-<br>[00:29:57] We know what the underlying API is to get the weather, so we're going to convert that
-<br>[00:30:01] send it over there.
-<br>[00:30:02] And we find out that the temperature in Miami is 78 degrees.
-<br>[00:30:06] Good deal.
-<br>[00:30:07] So once you have that, as the API, as the, sorry, application developer,
-<br>[00:30:13] you tack the tool response onto the conversation, the prompt.
-<br>[00:30:18] It has a new role tool for OpenAI.
-<br>[00:30:23] And you hit the model again.
-<br>[00:30:24] The model could choose to run another function or do anything else.
-<br>[00:30:28] But likely it's going to choose to have some nice answer.
-<br>[00:30:32] It's going to respond back to the user.
-<br>[00:30:34] It's a volume of 78 degrees Fahrenheit.
-<br>[00:30:38] So this also had a lot of neat benefits and implications.
-<br>[00:30:44] For one thing, models can now reach out into the new world.
-<br>[00:30:48] This is how Skynet is going to be born, folks.
-<br>[00:30:51] With the chat GPT only, the model could be like a good counselor.
-<br>[00:30:55] It could listen to you flying about your problems and help you out on stuff with advice.
-<br>[00:31:01] It could tell you about history, something that was in its training set,
-<br>[00:31:05] but it couldn't actually do anything in the real world.
-<br>[00:31:08] The agents equipped with tools can actually call APIs, like we showed here,
-<br>[00:31:14] and take actions, read and write information into the world.
-<br>[00:31:21] The model chooses to answer in text or on a tool.
-<br>[00:31:24] It's kind of bisected the approach, and we'll see that in a couple of slides, what happens.
-<br>[00:31:32] Tools as of 0613 were all run in series, but there's been a lot of work about running the tools in
-<br>[00:31:39] parallel. So if you have something that can be done simultaneously, the models are getting better
-<br>[00:31:45] at realizing that. And you could get the weather for three places concurrently,
-<br>[00:31:52] as opposed to having to do it one at a time.
-<br>[00:31:57] And finally, it's a little bit redundant, but the model can respond either by calling functions now
-<br>[00:32:04] or by providing text back to the users.
-<br>[00:32:10] All right, so back to building the actual applications.
-<br>[00:32:14] Now with chat, and now with tool calling incorporated into these models,
-<br>[00:32:20] we still have a, the application is still basically a transformation layer between the user
-<br>[00:32:25] problem space and the large language model space. But the diagram gets a little more complicated.
-<br>[00:32:31] Now instead of this simple oval on the screen, it looks like that.
-<br>[00:32:36] I should have made it look like a heart. That would have been a lot more palatable, wouldn't it?
-<br>[00:32:39] But anyways, you see that there's some of the same things, themes there. I presume you can see my
-<br>[00:32:44] cursor. The user provides a message. We're illustrating some more sophistication here,
-<br>[00:32:51] because we have to incorporate, you know, if this is an ongoing conversation, we have to
-<br>[00:32:56] incorporate the previous messages, we have to incorporate the context, we have to incorporate
-<br>[00:33:00] the definitions of tools, and we have to make sure that it all fits in. So all the stuff that we
-<br>[00:33:04] talked about earlier for prompt crafting for co-pilot completions, we're doing a variant
-<br>[00:33:10] of it right here when we do assistance. So we craft the prompt, a list of messages,
-<br>[00:33:17] a transcript, if you will. We send that off to the large language model, and here's where this
-<br>[00:33:22] bifurcation happens. Whereas used to, the model would always just say something back to the user,
-<br>[00:33:28] we now have this alternate path. The model might choose to call a tool completion in. It does.
-<br>[00:33:34] We're back inside the application again. It's our job to actually evaluate it,
-<br>[00:33:38] get that information back into the prompt again with more prompt crafting,
-<br>[00:33:41] go back to the large language model and say, now what? You can do this several times.
-<br>[00:33:46] But the large language model might also say, all right, I've got the information I need,
-<br>[00:33:51] I've done what the users ask, and I'll go back and respond to the user with the results.
-<br>[00:33:57] So let's take a look at this real quick. Just trace some messages through.
-<br>[00:34:01] We have an example of two functions, get temperature and set temperature.
-<br>[00:34:05] So it's going to be some sort of thermostat application. The user says, make it two degrees
-<br>[00:34:10] warmer here. We're going to put that into a single message along with its tools.
-<br>[00:34:15] And that's going to go to the large language model. And large language models say, well,
-<br>[00:34:19] we're going to need to get the temperature. So we do that. Find out at 70 degrees,
-<br>[00:34:23] stick that back in the prompt. The assistant says, well, I haven't done anything yet,
-<br>[00:34:29] I need to actually set the temperature. It calls another tool, two tools in a row.
-<br>[00:34:35] When we evaluate that, we get a success evaluation. So we make some sort of indication of that.
-<br>[00:34:41] We could have just as well put an error, if there was an error in the model,
-<br>[00:34:44] can actually recover that way. But we stick that back in the prompt. And now the model finally
-<br>[00:34:49] decides to go this route and says, all right, I've done. Now, to illustrate one more thing,
-<br>[00:34:55] let's go one more step. User says, well, actually, put it back. Message goes in. But
-<br>[00:35:03] our application has to be aware of this user in their context. And their context now incorporates
-<br>[00:35:09] previous messages that have lots of information that are going to be useful. So the assistant says,
-<br>[00:35:15] I can see that the temperature was 72. And it used to be 70. So I'm going to set it back to 70.
-<br>[00:35:21] It evaluates that. And the model says success. And the assistant says, all right, I'm done again.
-<br>[00:35:28] Thank you.
-<br>[00:35:33] All right. So what does that look like for co-pilot chat?
-<br>[00:35:38] It's going to be pretty similar to the slide that we showed earlier for co-pilot completions.
-<br>[00:35:44] Effectively, you're going to collect the context again. But the context is different.
-<br>[00:35:48] The context is references. What file does the user have open? What snippets are they highlighting
-<br>[00:35:57] on the screen? What is in their page board? What issues on GitHub have tools in the previous
-<br>[00:36:04] message provided for them? What are the prior messages? Is this user just coming to us right now?
-<br>[00:36:11] Or is there some other messages that have come to us in the past five minutes? Or are there
-<br>[00:36:17] relevant messages from earlier? Once we have a bunch of context, it's important to figure out
-<br>[00:36:23] what is going to be able to fit. There are things that must fit. The system message is
-<br>[00:36:29] important for conditioning the model to stay within safety bounds and to keep a certain tone.
-<br>[00:36:35] You are a GitHub co-pilot. You're not, you know, anything else. It's important to have function
-<br>[00:36:42] definitions if we plan to use them. If you don't plan to use them, take them out. Obviously,
-<br>[00:36:46] they take up space. And if we're going to do anything for the user, we absolutely have to
-<br>[00:36:51] have their most recent message. But there are other things that are helpful but aren't quite as
-<br>[00:36:56] critical. All the function calls and the vowels that come out of this conversation, a lot of the
-<br>[00:37:05] information is going to be important, but there might be ways that we can at least trim it.
-<br>[00:37:09] The references that belong to each message, again, is there anything that we can do to shrink some
-<br>[00:37:14] of these down? Can we figure out less relevant ones and throw them away? And the easiest thing
-<br>[00:37:20] to throw away is historic messages. So if we have a long thread, then we populate as many of the
-<br>[00:37:27] historic messages that we can until we fill up our prompts to whatever limit we say and then truncate
-<br>[00:37:32] it. And finally, there's a fallback. If nothing fits, then we say, well, okay, we at least can save
-<br>[00:37:40] some space by jettisoning some function definitions and we'll at least keep the system message and
-<br>[00:37:47] the user's message. And if nothing else, the model can respond, your user message is too long,
-<br>[00:37:53] or I don't have the facilities. It'll do something that's at least better than a 500.
-<br>[00:38:02] That is it. I do have a hidden slide about how to describe skills and stuff if you want to see
-<br>[00:38:09] that. But other than that, we've got a few minutes for questions.
-<br>[00:38:16] Awesome. Thanks. Thanks for the complete overview. It all came together. You started with the history
-<br>[00:38:21] and people already said that they really like the template as well. So thanks for walking us through
-<br>[00:38:28] this process of crafting prompts. There's a few questions around few short prompting.
-<br>[00:38:33] So if I summarize them, any best practices around how many short examples should you
-<br>[00:38:40] provide? And where do these go? Do these go in the system prompt or in the normal messages?
-<br>[00:38:47] Great question. My co-author of the book actually wrote a really nice chapter on this.
-<br>[00:38:54] And there is no easy answer for how many
-<br>[00:38:58] few-shot examples that you need. As a matter of fact, there's no easy answer for the types of
-<br>[00:39:04] few-shot examples, because that is important too. If you have the wrong examples, then you might
-<br>[00:39:08] misguide the prompt. But there are some tidbits that you can use to make an educated guess at it.
-<br>[00:39:19] Honestly, I need to go back to reread the chapter myself. But there are ways that you can look...
-<br>[00:39:23] You can do this with completion models. You can look at the log probabilities of the predicted
-<br>[00:39:33] tokens that are coming out of the model. And you can say, if I put three examples,
-<br>[00:39:40] three few-shot examples, then is it starting to get the swing of things? Are the log probabilities
-<br>[00:39:46] getting higher because it's guessing it right? Or is it still just kind of wild guessing?
-<br>[00:39:50] If you put a whole lot of examples of log probabilities, and it is a very tight pattern,
-<br>[00:39:56] then the log probabilities will be... You'll see it kind of gets high and it levels off.
-<br>[00:40:02] It's learned all that it can from above there, and maybe you should trim some out.
-<br>[00:40:06] So he talks about that. Albert talks about that in the book. As far as where to place them,
-<br>[00:40:13] that's a good question too. System message could be okay. The models are trained.
-<br>[00:40:20] Well, okay. So I'll back up and say, for a completion model, it's easy. Just put it, it's a prompt.
-<br>[00:40:25] This question actually becomes a little bit difficult when it's a chat.
-<br>[00:40:29] A system message is the model is trained to listen really closely to that. So it's perfectly
-<br>[00:40:33] reasonable to stick it in there. But depending on how your chat is gone, the system message
-<br>[00:40:39] might be way up there. And a few shot of the example that you might need might actually be
-<br>[00:40:44] right here at the bottom of the conversation. You might want to figure out some way to hoist them
-<br>[00:40:49] down. You could put them in a fake user message. But you have to be careful that the model didn't
-<br>[00:40:55] pick that up and say, oh, would you just said this if the user didn't actually say it? But
-<br>[00:41:00] it is totally on the table to start picking stuff like that out.
-<br>[00:41:06] I feel like I had one more point, but it's escaping me now. So I hope that's a good enough answer.
-<br>[00:41:12] I think that answers it. So thanks. Thanks for that. You also mentioned looking at log probes and
-<br>[00:41:19] tweaking other hyperparams. So there's one more question when you presumably iterating on the
-<br>[00:41:25] prompt, let's say you're trying you're trying few short prompting, you're iterating on that,
-<br>[00:41:29] how many examples you need to pass. Are there any other settings that you fiddle with? What
-<br>[00:41:34] temperatures you set? Or does that also vary depending on what you're trying to achieve?
-<br>[00:41:41] Yeah, absolutely. Let me think.
-<br>[00:41:49] All of them are fun to play with and become familiar with. So I'll just kind of go off
-<br>[00:41:54] the ones that are most obvious that come to mind. Temperature, of course, is fun to play with.
-<br>[00:42:01] I think of temperature as being the blood alcohol content of the model. At zero,
-<br>[00:42:06] it's perfectly sober and a little bit boring. The log probes basically takes all the probably
-<br>[00:42:11] distributions and classes it to what's the maximum one right there. You'll always get
-<br>[00:42:16] the same answer every time minus noise in the GPUs. But it tends to be a little bit less creative.
-<br>[00:42:25] At co for my work in co-pilot chat, we use a temperature of 0.7. I don't know particularly
-<br>[00:42:34] why, but it seemed to provide pretty good results getting a little bit more creative,
-<br>[00:42:38] but not getting crazy. One is the training temperature. Basically, it's the natural
-<br>[00:42:44] distribution. It doesn't do anything to shrink or collapse it. It's just a pure output of the model.
-<br>[00:42:49] And as you get up to 1.5 and 1.7, it's kind of funny to do that. You'd never see that production
-<br>[00:42:57] because you can start seeing the model waiver back and forth and eventually start gibberish.
-<br>[00:43:03] So that's temperature. The other thing that is easy to forget about is N,
-<br>[00:43:10] the number of completions to come back. And yeah, because usually in an application,
-<br>[00:43:17] you just want to return 1. But there's a lot of neat things that you can do is that
-<br>[00:43:23] not to modify the behavior of the model, but just to see the full behavior.
-<br>[00:43:29] If you're doing some sort of evaluation based on the model, then run N equals 100,
-<br>[00:43:35] and then you get 100 votes on the answer instead of just one. Make sure to turn the temperature
-<br>[00:43:40] up to reasonably high. Temperature of zero will give you the same vote 100 times. That's not useful
-<br>[00:43:46] at all. But N is a good way of seeing all the possible answers, do post-processing on everything
-<br>[00:43:55] and get a little bit better-rounded answer and better research on stuff.
-<br>[00:44:00] Do you have any other parameters anyone has in mind? I feel like I've done some fun stuff with
-<br>[00:44:04] the other ones as well. I think we'll stick with those for now, unless you get one right now.
-<br>[00:44:12] No, I think that was it. The discord is already going crazy over
-<br>[00:44:17] temperatures, the blood alcohol content of the model. And I think you'll be quoted quite a few
-<br>[00:44:21] times on this. There's two questions, one from an anonymous attendee and one from money.
-<br>[00:44:31] Let's say you're trying to work on a transcript and you want your model to summarize it.
-<br>[00:44:38] There's two ways. A, you can ask it to think step by step when you want to presumably have
-<br>[00:44:42] the model reason about it. But then how do you go from that to having the model put it in a
-<br>[00:44:48] structured format that you expect? Like a template, let's say?
-<br>[00:44:53] That's a good question. So, Summarize, it's not like, you know, read this
-<br>[00:45:02] contract back to me for a normal human. It's like, Summarize is like,
-<br>[00:45:06] look at this restaurant website and figure out what the name of the restaurant, the menu items,
-<br>[00:45:12] the phone number and all that stuff are. Well, it kind of depends what model you're dealing with.
-<br>[00:45:20] If you're dealing with, probably for that, I wouldn't deal with a completion model at this
-<br>[00:45:26] point. And I think almost purely open AI. I apologize for that. So, I'm sure it's different.
-<br>[00:45:32] You could fine tune a model from something beside open AI and probably get great results.
-<br>[00:45:38] If you're just using completions and it's sort of the wild west and you need to write
-<br>[00:45:44] something that conditions the model to do the best it can by saying, you're just doing all this.
-<br>[00:45:48] The neat thing about the GPT-4 and GPT-3, 3.5 Turbo and all these models that have
-<br>[00:45:57] chat and functions fine tuned into them is that they are very familiar with JSON.
-<br>[00:46:05] And so, and probably what I would do in that case, just kind of thinking off for the moment,
-<br>[00:46:13] is I would say, here's a function. This function is how to take the, you know, how to,
-<br>[00:46:21] you make a fake story for the model. It doesn't matter. You could say, this function provides
-<br>[00:46:27] the restaurant's content to the database. So, but it needs to be in this format.
-<br>[00:46:33] And the models have been so very fine tuned to pay attention to, you know, the definition
-<br>[00:46:40] of the function, what it's for, when to use it, and the structure of the results.
-<br>[00:46:45] That that's probably a really good way to put it in. I would recommend not having a very deep
-<br>[00:46:50] structure. I would recommend, you know, if you're making a function, please God, do not copy paste
-<br>[00:46:56] your API from your website into the function definition. It's just going to be way too complex.
-<br>[00:47:01] So be very cognizant of, you know, how simple it is. And then maybe one step further, if all that
-<br>[00:47:07] stuff doesn't work, then it's probably too complicated. Break it down. I would say, you know,
-<br>[00:47:13] give the model the content that is going to summarize into structure. And at the extreme,
-<br>[00:47:21] ask a question at a time. And you could do that as it pretend like you're talking to a user.
-<br>[00:47:28] So it's still text, or you can use function calling again, just have a fake function that
-<br>[00:47:33] does it. That I would do something like that. I have a question about that. So I see all the time
-<br>[00:47:38] clients of mine, they use function calling, and they're passing extremely complicated objects
-<br>[00:47:45] into their functions, like nested dictionaries, lists of dictionaries of list of dictionaries
-<br>[00:47:51] or whatever, really complicated, like objects. And when I read it, I'm like, if I was a human,
-<br>[00:47:58] I'm not good, I can like understand this. Do you find that, do you think like people
-<br>[00:48:04] end up simplifying their APIs because of the pressure of like, Hey, you need to interact with
-<br>[00:48:08] the LLM. Let me like, it's a smell that, Hey, if it's too complicated for LLM, maybe I should like
-<br>[00:48:15] think about this API differently. Yeah, what do people think? Okay, I think you kind of nailed
-<br>[00:48:21] in the first, I as a human have a little bit of trouble with it. Like, how could the model really
-<br>[00:48:26] figure it out? And I've been pretty amazed at the model is actually, you know, I hope this
-<br>[00:48:32] isn't recorded, the model will get mad at me later and come and get me once it's sentient.
-<br>[00:48:36] But the models actually do pretty good with surprisingly complex stuff. But if you're
-<br>[00:48:42] specifying a function, we did a bit of work to figure out like, at the API level for OpenAI,
-<br>[00:48:50] you write a function definition, and it's prounters and stuff. But that's not what the
-<br>[00:48:54] model sees that all gets convoluted into something else. So we did a little bit of research to
-<br>[00:48:58] figure out what that looks like. And they make it look internally like a type script function
-<br>[00:49:03] definition with little comments above each function above the function and above each argument.
-<br>[00:49:11] But what they leave out is if you have nested stuff, you'll still see the structure there,
-<br>[00:49:17] but all the definitions go away. So it doesn't have a really good example of it. And if you have
-<br>[00:49:21] minimum maximum, there's some things that you can do with JSON schema that are just not present.
-<br>[00:49:27] They get stripped out of the prong. So I think it's a code smell. I think as we go on, the models
-<br>[00:49:33] will continue to get more and more amazing. So maybe it eventually won't be a smell. But I would
-<br>[00:49:39] recommend if you're doing something really complicated, copy and paste in your API into a
-<br>[00:49:43] function definition, be really careful about evaluation and watch how often it gets it wrong.
-<br>[00:49:50] And then, you know, consider simple, fine stuff after that.
-<br>[00:49:55] Makes sense.
-<br>[00:49:58] Thanks for that answer. Just just as a quick follow up on that, you were talking about how
-<br>[00:50:02] open a sort of restructures a function calling. Can you elaborate on that? There's some questions.
-<br>[00:50:08] Is it known what happens under the hood? When you say in a function calling to open here,
-<br>[00:50:14] how do these templates get reformatted? Let me hook this is kind of weird. I want to find
-<br>[00:50:20] this fast enough. I am on my computer. You can't see me going to my blog post,
-<br>[00:50:27] which is for a foreign right now.
-<br>[00:50:39] All right. Well, I'll drop this link in, but I'll also explain it. I guess you can see that link.
-<br>[00:50:46] I think it's really genius, the way they've structured this. So
-<br>[00:50:54] you can share your screen maybe and share the link.
-<br>[00:50:59] Yeah. Okay. Let's see. That's how technology works here. Yeah, there you go.
-<br>[00:51:09] All right. This is what the application developer sees.
-<br>[00:51:12] This is similar to stuff I've put in the prompt.
-<br>[00:51:17] Let me see.
-<br>[00:51:22] It probably doesn't have all the bits that I want to talk about though.
-<br>[00:51:26] You have led me astray, Hamel, or I've forgotten what I've written.
-<br>[00:51:29] I've tried to look at the open and I prompt. I have this one here.
-<br>[00:51:35] It kind of is like when I look at the output of that, it kind of looks like exactly what you're
-<br>[00:51:43] saying. There's like comments. There's like a kind of a type script type thing.
-<br>[00:51:48] Yeah. I'll share that on my screen because that's good.
-<br>[00:51:51] Yeah. So you as an application developer see this junk, but the model has been trained on
-<br>[00:52:01] lots and lots of code. And so OpenAI using document mimicry says, all right, well, we're
-<br>[00:52:06] going to turn this thing into type script. So it fabricates this name space called functions.
-<br>[00:52:17] And what was a function defined like that with these arguments and these types gets put there?
-<br>[00:52:26] Unfortunately, they don't have in this example where the comments go. This would be like slash,
-<br>[00:52:30] slash the definition of the function description and slash, slash above each of these.
-<br>[00:52:38] And they all return any. That's a little bit unfortunate. It would be kind of neat if they
-<br>[00:52:41] returned some structure because the model would listen to that and anticipate what returns.
-<br>[00:52:46] But then later, let's see, whenever you call the function, whenever the model actually says,
-<br>[00:52:56] I'm going to call this function, that gets cleaned up when it comes back from the API.
-<br>[00:53:04] What actually happens is this right here. Okay, so we've passed in get temperature.
-<br>[00:53:15] It looks like the thing on the last screen when it's inside the prompt for OpenAI.
-<br>[00:53:20] And the user says, I wish I knew the temperature in Berlin. And so here's what it does.
-<br>[00:53:25] The OpenAI folks insert this and insert this. This conditions the model. If they'd stopped here,
-<br>[00:53:34] it would condition the model to call anything. Or sorry, it would condition the model to speak
-<br>[00:53:41] in the voice of the assistant. But what happens in the next token? The next token,
-<br>[00:53:45] the next few tokens, if it chooses this token, then it's like, okay, I've decided it's important
-<br>[00:53:52] to query to evaluate a function. Then its next token is the actual function to be called.
-<br>[00:54:00] And the next predicted tokens are these things. So you can actually see, and this is what this
-<br>[00:54:07] blog post is about, every single one of these tokens is effectively a classification algorithm.
-<br>[00:54:13] The first classification is whether or not I should use a function because it could have just
-<br>[00:54:17] as easily predicted new line and gone over here. The next token is what function to call.
-<br>[00:54:25] So it's another classification algorithm, the same underlying thing. The next tokens are the
-<br>[00:54:30] arguments. It's predicting these things as well. So I mean, you're watching me geek out a little bit.
-<br>[00:54:35] This is, I'm very intrigued by this one underlying transformer architecture. It can be a classifier
-<br>[00:54:41] for everything I want. Very neat. Is it okay if we go five minutes over the clock?
-<br>[00:54:51] I'd love to. Yeah, I think so. I don't think we have another event
-<br>[00:54:57] directly abouting this. I might have to drop out in a minute. So don't mind me.
-<br>[00:55:03] No problem. The next question is by Nathan. Any best practices on how to get better code outputs?
-<br>[00:55:12] His complain is like sometimes when you ask chat GPT, it like leaves these two dos,
-<br>[00:55:17] and you have to like go back and forth between them. Presumably, you're trying to get it to
-<br>[00:55:21] complete a file. So any best practices around that? No, I'm going to presume that we're talking
-<br>[00:55:28] specifically about copilot completions at this point, as opposed to like some arbitrary application.
-<br>[00:55:35] But it's a great question. One of the things I hate the worst is when I put a pound sign in my code
-<br>[00:55:41] and it auto completes, this is a garbage code or something like that. That's insulting. That was
-<br>[00:55:47] uncalled for. Pretty much use the intuition that I gave you several slides back to see how the prompt
-<br>[00:55:58] is actually created. You know that one thing guaranteed to be in the prompt is everything
-<br>[00:56:04] just right above your cursor. And you know that these models are conditioned to predict the next
-<br>[00:56:10] token. So if you set it up, a lot of times if I come to some idiom in Python that I've forgotten
-<br>[00:56:17] about, or you know, I'm getting ready to write some sort of SQL statements, and it's like,
-<br>[00:56:21] how did you do this outer join type thing? I won't write it. I'll just write a comment that says,
-<br>[00:56:27] for the next lines, here's what we're going to do. Here's how to do it colon. And then
-<br>[00:56:32] that's one way of coercing copilot to doing exactly that.
-<br>[00:56:37] Other than that, write good code. One thing that we've noticed is copilot is
-<br>[00:56:46] really good at completing code in the same style as you. So we've noticed that if you
-<br>[00:56:51] have sloppy code, it will actually, with high fidelity, create sloppy code, mimicking what
-<br>[00:56:57] you've done otherwise. That was not a personal insult. That's just kind of a funny thing that
-<br>[00:57:03] we noticed. I felt very insulted by that. I do too, when it completes that way for me.
-<br>[00:57:11] Thanks. Thanks for that answer. Hamil just docked off. I know he has like strong opinions on this,
-<br>[00:57:17] but curious if you have any thoughts on tools like DSP, why that sort of do this auto prompting,
-<br>[00:57:23] or like iterate on your prompt? Any thoughts on such tools?
-<br>[00:57:30] I come in very opinionated on this too, but I need to reevaluate my opinions.
-<br>[00:57:37] My opinions are forged in GitHub, where basically we were doing everything bare metal,
-<br>[00:57:46] just talking directly to OpenAI. And I think, and I would encourage everyone to at least spend a
-<br>[00:57:52] good deal of time talking directly to the model, because you'll gain a lot of intuition about
-<br>[00:57:58] how these things think, really. It's kind of like you get to know your friend.
-<br>[00:58:04] One of the things that DSP and LinkChain, to the extent, does that is frustrating when I run into
-<br>[00:58:10] them is it hides what's happening and takes away some of the knobs and dials that you can turn.
-<br>[00:58:19] That isn't to dismiss them though, like DSP. Someone was asking about how to do the best
-<br>[00:58:26] few shot examples. My limited understanding of DSP is it does a good job about automatically
-<br>[00:58:34] figuring that out for you and saving a lot of work for you. That's neat. So I hope to get more
-<br>[00:58:42] familiar with a lot of those tools as well. This is a recurring theme throughout the conference
-<br>[00:58:53] that spend more time talking to the model and you'll gain more understanding. I guess everyone
-<br>[00:58:58] should do that a lot more. I'm just sifting through the questions, trying to pick the last two.
-<br>[00:59:07] There was one that I really liked. Do you have any resources for prompting multimodal models?
-<br>[00:59:16] Oh, no. I actually don't yet. That's a complete blind side in my experience right now.
-<br>[00:59:24] But I will finish this book and then I will expand my horizons again and I look forward to getting into that.
-<br>[00:59:31] Okay. Maybe there'll be an extra chapter in the book on this.
-<br>[00:59:37] An extra addition or something. It'll all be different next year anyway.
-<br>[00:59:44] There was also one that I wanted to ask. There's been this insane growth of different prompting
-<br>[00:59:50] techniques right around chain of thought when chain of thought came out. Are there useful
-<br>[00:59:56] like this tree of thought and there were so many that were just going viral at that time?
-<br>[01:00:01] Do you find any others useful? Sure. I guess I can be saying are there any others that are worth
-<br>[01:00:12] knowing outside of chain of thought and future of prompting? Absolutely. Two that come to mind
-<br>[01:00:18] immediately. I forget the name. There's three. The two that come to mind that are actually
-<br>[01:00:25] probably the better ones to talk about are React and I think it's reflect or reflect or reflect.
-<br>[01:00:34] React is basically what you see when you see the typical function calling of an open AI assistant.
-<br>[01:00:43] It is what it was patterned after. It says you have several functions that are defined.
-<br>[01:00:48] Fake functions. This is in the olden days when it was just a prompt. It was not messages and
-<br>[01:00:53] functions. This is fake functions. Can you figure out how to use a function to evaluate something
-<br>[01:00:59] and then they have like one of the functions is special. It's like this is the answer function
-<br>[01:01:06] and so when the model calls that you know you've got the answer. It's just a really nice way of
-<br>[01:01:11] reaching out in the real world. It was kind of some of the early rag type stuff. It's where the
-<br>[01:01:16] model gets to choose what it wants as opposed to jumping in rag manually. So that was a really
-<br>[01:01:22] good pattern. Another pattern that almost piggybacks off of that is a reflective. Pretty sure I got
-<br>[01:01:32] that right. But the idea is basically you do whatever you've got some sort of prompt that's
-<br>[01:01:38] supposed to achieve a purpose and you're probably going to do that using React or something like
-<br>[01:01:42] that. It achieves a purpose and here's the answer. Now reflective, it actually takes the answer and
-<br>[01:01:48] it says is this really the answer? If it's a code, it runs it through like test, unit test.
-<br>[01:01:56] It does whatever it can to check it and the error messages get piped back into the prompt and says
-<br>[01:02:02] here's what you did. Here's the situation it led to. Can you learn from this and correct? You do
-<br>[01:02:09] that few iterations and you have a much higher success rate. So I think that's kind of a neat
-<br>[01:02:14] approach for making sure that answers are correct. 
-<br>[01:02:19] Awesome. So many ideas to explore. I think I'll try to wrap up now. So thanks again for the
-<br>[01:02:26] awesome talk and also taking the time to answer these questions. I'll put your books link and
-<br>[01:02:32] your Twitter again in the Discord channel and I'll ask everyone in the Discord for an applause
-<br>[01:02:37] for the talk. But thanks again for your time, John.
-<br>[01:02:40] Yeah, thank you guys so much. I hope it was enjoyable.
-
+<br>[0:04] John: All right. By way of introductions, that's me. I've had several different careers at this point. Aerospace, search technology. I wrote a book for search at one point and swore never to do again. I did code search, worked in data science with Hamel, then got to work with Copilot, and I'm writing another book, which I swore never to do again. And now… I've just left Copilot. I'm going to wrap up my book, and I'm joining the ranks of Hamel and Dan and trying to see if I can be a good consultant for LLM applications.
+<br>[0:46] John: So that's me. Now, what's a large language model? Who better to ask than ChatGPT itself? So I asked ChatGPT and said a large language model is a type of artificial intelligence system. That is trained to understand and generate human-like text. It learns structure, grammar, and semantics of language by processing vast amounts of textual data. The primary goal of a language model is to predict the probability of the next word. You know what that is, right? That's that goofy button on the middle of your cell phone when you're typing a message that predicts one word ahead.
+<br>[1:22] John: It's a really simple idea. So how on earth is this idea taking the world by storm right now? Well, some of that is hiding in this word large. It's not just a language model. It's a large language model. So this is compressed, and I'll just have to go through it pretty quickly. But a lot has happened in the last 10 years or so. Around 2014, the state of the art was recurrent neural network. It had an encoder and a decoder. But there was a problem.
+<br>[1:51] John: There was a bottleneck that made it difficult for the decoder to look back at whatever it wanted to look at. All the state was hidden. in this vector effectively between the encoder and the decoder. So later that year, someone created this idea for attention. It was a useful way of looking at the piece that is most relevant rather than just packing everything into the space between the encoder and the decoder. Then Google said, well, that attention stuff, that's great. Let's just get rid of all the other stuff and say attention is all you need.
+<br>[2:29] John: and thus was born the transformer architecture. So as we moved on, a lot of neat stuff came out of that. The encoder side of that became BERT, and that was very useful and continues to be very useful, including the new trends in search and RAG and stuff like that. But in June of 2018, they figured out that you could chop off the right half of this transformer model, and you have… what we have come to know as GPT, generative pre-trained model. Now, the name is interesting. At this point, generative pre-training is almost a misnomer.
+<br>[3:10] John: But what it meant at the time is it's a generative model based on just training it on whatever text data you have. Typically, you would train a model, and then you would fine-tune a model to a very specific task. The training, it doesn't have to be labeled. But the fine tuning is much fewer labeled items. And that's the thing that really makes the model good. Well, we started to notice something really unusual about these GPT models by the time we got GPT-2.
+<br>[3:46] John: In this paper by OpenAI, they introduced GPT-2 with a very unusual line in the blog post that introduced it. The very top of this blog post, it said, our model called GPT-2, a success for GPT, was trained simply to predict the next word in 40 gigabytes of internet text. Due to concerns about malicious applications of the technology, we are not releasing the trained model.
+<br>[4:15] John: How on earth do you get from a model, you know, just predicting one word ahead, the same thing as the middle button in my phone, to this horrible concern about the future of our world? existential dread. Well, if you look a little bit deeper, it turns out that these things were, even though they were pre-trained, they were not fine-tuned to a specific cause. They started beating the state of the art for the very specific trained models. Missing word prediction, pronoun understanding, parts of speech, speech tagging, text compression. And then obviously, I mean, here we are.
+<br>[4:54] John: uh 2024 you can do summarization cinnamon analysis all sorts of things uh Even though it hasn't been trained yet, but with great power comes great responsibility. Because these models are so crafty at all these different tasks, they can be misused and do all sorts of horrible things as well. So that's why they put this scary line here to warn us that these things should be handled very carefully. All right. So with. introductions and the big picture out of the way, stuff that you guys probably already knew.
+<br>[5:34] John: Let's get into kind of the meat of this talk. In the next few slides, I'll go over several different techniques for prompt crafting. And then as we get about halfway through the talk, we'll move into some of the more recent things. Everything is moving towards chat. And there is a very important introduction of function calling. in the middle of last year. So we'll talk about that and talk about how all of this can be used to build large language model applications. But it all starts with a prompt. All right, so prompt crafting, technique one.
+<br>[6:13] John: The first way that researchers started to realize that you could influence and control these things is by few-shot prompting. Remember, these things are sophisticated statistical models that are predicting the next word in a document. Now if your document happens to have a very predictable pattern in it, then you can actually, by controlling the pattern that's set up there, you can actually control the output.
+<br>[6:42] John: So if you wanted a translation application, then what they would do is they would put in several handcrafted examples of translation, you know, English, Spanish, English, Spanish, and then the actual task would be tagged on to the end of the prompt. In this case, you know, I want to know how to translate, can I apprise with that? You know,. But it set up a pattern so that the logical conclusion of this pattern, one word prediction, one token prediction at a time, is achieving the task that you wanted. Oh, side note here, guys.
+<br>[7:24] John: I think you guys all have access to these slides. I have put copious links to everything. Every one of these slides has several links hidden in it. So make sure you grab the slides. This is a lot of good reading material too. All right. So that's a few shots prompting. The next big thing is chain of thought raising. One of the early things that everyone noticed about these models is that even though they're really good at predicting plausible next words, they weren't terribly good. at reasoning, at just normal logic. They were especially bad at math.
+<br>[8:00] John: And so an example of this are these little goofy word problems. For example, if we say it takes one baker an hour to make a cake, how long does it take three bakers to make three cakes? Well, a statistically plausible quick answer to that is just three. That's if you're not thinking, you might even say that yourself, but it's the wrong answer. It's still going to take an hour to bake all those cakes.
+<br>[8:25] John: With chain of thought reasoning, they use few shot prompting again, and they built up several examples of giving the model a similar question. And instead of, you know, having the model just say an answer, they would put in the voice of the model. They would say, all right, here is how you think through the problem. And this is just, you know, for lack of space, I've only put one example.
+<br>[8:50] John: But in this case, we have, you know, Jim is twice as old, Steve, blah, And the answer, rather than just saying the answer, theta six, we have the model actually think through the problem and we write it out as kind of a verbal algebra problem. But this sets up the pattern. Again, the model is predicting the next word. And since there is a pattern in this document for thinking slowly and deliberately through the answers, then you're much more likely to get a long form answer like this. And in.
+<br>[9:24] John: It's kind of interesting what's actually happening here once you peel back the cover a little bit. These models don't have any internal monologue like us. If we were given this problem, then we don't just jump to an answer. We reason about it. We visualize the problem in our head. We talk to ourselves, you know, talk through the steps of this problem. We don't say it out loud. But since these models don't have any sort of background reasoning, they just know. Every single token is the same calculation. Chomp, chomp, chomp, chomp, chomp.
+<br>[9:57] John: Then by encouraging the model.
+<br>[9:59] John: to and by conditioning the prompt to spit out uh an elaboration of the concept uh an explanation of it then effectively what you're doing is replacing that internal monologue of the model and it helps the model to have more of a scratch space and come to a more reasonable answer in this case sure it's made up but you can see that the model uh it takes time to talk about you know the reasoning and it comes to the correct answer Now, something it's still chain of thought reasoning, but it's like chain of thought reasoning part
+<br>[10:40] John: B, something I thought was really hilarious. Just a few months after this paper, so January of 2022 was this paper, and May of the same year was this paper. Someone figured that instead of going to all the work of curating good examples of problems that are similar and crafting the answers and stuff like that, you just have to start speaking for the agent. right up front.
+<br>[11:05] John: You just say, if this is a query, then rather than just putting a colon and waiting for the model to make a completion, you actually say, well, all right, let's think step by step. You, the application developer type that. And what does it do? These models predict the next word. So if those were your previous words, your next word is not going to be three. Your next word is going to be the same long explanation. So it's kind of cool. by actually simplifying the approach, they actually improved it in a couple of ways.
+<br>[11:40] John: For one thing, you don't have to craft all these examples. For another thing, you know, it is, if you guys are using few shot prompting, one of the things that you need to be conscious of and like, you know, watchful for is sometimes a few shots actually bleed into the answer. It sort of tends to bias the answer. So you have to be on lookout for this. This totally got rid of this. There's no, there's nothing to bleed into the answer. And finally, you know, prompt capacity is always a concern.
+<br>[12:15] John: It's way shorter to say, let's think about step-by-step as compared to coming up with a bunch of examples. So a really neat and simple innovation. All right. The third technique, and the last one that we'll talk about for today is document mimicry. It is, I think it is, it is the most important one of the three that we're talking about, though. What if you found this little yellow scrap of paper on the ground? It says, my cable is out.
+<br>[12:49] John: I'm going to miss the Super Bowl, but it's ripped in half, and you don't know what was above it, you don't know what was below it. If you were to look at that as a human, with your own language model built in your head, what do you think? would be the next words on this scrap of paper. You might think, well, I don't know, he's, it's a sob story. He's gonna, he's gonna go on and talk about, oh, I invited my friends over, and they're all gonna make fun of me, something like that.
+<br>[13:17] John: But what if you happen to see the full paper, and it looked like this? There's a lot more information here. And this is, it's starting to demonstrate what I'm talking about with, with… prompt crafting with document imagery. There's, you know, there's been a lot of documents that have gone in to train this thing. You know, GPD-4 has read the internet, what, five times or something. So it has seen plenty of examples of code and SEC reports and everything you imagine. But one very common one, and this is the example I use here, is a transcript.
+<br>[13:54] John: The model has seen enough transcripts and training to know that a transcript…
+<br>[13:59] John: might have some sort of heading to explain what it is and then it's usually a conversation back and forth between you know a couple people or maybe it's like a play script you know it has several actors involved but it's something that the model is going to be very uh aware of and easy much more easy to replicate uh and to predict next tokens when it already has such documents in its training set um but look a little more closely uh there's other aspects of this too In just the same way that transcripts often have
+<br>[14:31] John: kind of a lead-in to explain what it is, we can include that here and condition our own transcript. In this one, we say that the following transcript is between an award-winning IT support rep and a customer. We could have said it's between Blackbeard the pirate and a customer, and it would have conditioned the model to respond very differently. And finally, use motifs that are common online. Use different… patterns. One of my favorite ones is Markdown. It's the, you know, all the readme's on GitHub are in Markdown.
+<br>[15:07] John: All the blog posts in several different frameworks are in Markdown. All the stack overflows is in a flavor of Markdown. So when you use Markdown, you can really do good things to condition the model. In this case, we'd use a title Markdown to say what the document is. We use a subtitle for the customers to start the customer role. or use another subtitle to start the support assistant.
+<br>[15:34] John: So just like you, a human, can predict what's going to happen next, there's a really good chance that the model is going to see this and understand what those pounds and everything, what the structure is all about. And so what is the document complete as? Well, in this case, we see that it completes as a support assistant, a smart award-winning customer support. Let's figure out how to diagnose your problem.
+<br>[16:02] John: All right, so with those little tidbits of prompt crafting, I'd like to jump up a level of abstraction to some of the main overarching intuitions that I have for prompt crafting, and that is that LLMs are just dumb mechanical units. So for example, large language models are better at understanding better when you use familiar language and constructs. It's seen a lot of the English, it's seen a lot of languages, but make sure to use, you know, the behavioral copycatting of stuff that is like in the training set. Large language models get distracted.
+<br>[16:44] John: This attention mechanism is finite. So one of the temptations, especially when you're doing stuff with RAG, which we'll talk about in a little bit, is to just file the prompt. as full as you can, get it just almost to capacity with information that might be useful for the model, it's often a mistake because a lot of times the models can get distracted. I've even seen situations where your intermediate context goes on for so long that the model forgets the original request and it just continues completing that context. Large language models are not psychic.
+<br>[17:22] John: So if the model was doesn't have information from the training and if the model doesn't have information from the prompt there's no way on earth that it's going to figure it out super important because a lot of the applications that we develop have to do with you know uh documents that are behind a privacy wall or recent events uh in the news or answers from like an api like a trial or something like that you have to find some way of getting this into the prompt and finally Models are dumb mechanical humans.
+<br>[17:56] John: If you look at the prompt and you yourself can't make sense of it, a large language model is just hopeless. That's probably the prime directive there. Grab a sip of water. All right, so everything to this point focuses on the prompt in isolation, but this talk is not… about just like how to use chat GPT most efficiently. We actually want to build full applications on behalf of our users.
+<br>[18:31] John: And the framework I like for thinking about this is the large language model application is effectively a type of transformation layer between your user's problem domain and the large language model's problem domain. And so the user supplies some sort of request, a complaint over…… or a phone, you know, typing in text and assistance, some sort of email. The user provides some sort of problem request to the application, and the application is in charge of converting that into large language space, large language model space, which is text, right? Text or, more recently, a transcript.
+<br>[19:14] John: The large language model then does what it does from the beginning. It predicts one token at a time, makes a completion.
+<br>[19:22] John: and then it passes it back to the application and then the final step is to transform this back to user space so it's something actionable something useful to our customers this is my part this is my favorite part and it's the hard part how do we actually do that transformation over and over and over again all right so creating the prompt uh in a simple version of this this is For the time being, it's focused more on completion models, like co-pilot completions.
+<br>[19:58] John: Creating the prompt involves collecting the context that is going to be useful, you know, the stuff that's not there in training already, ranking the context to figure out what is most important, because you're not going to fit it all, trimming the context, shrinking down what you can and throwing away, you know, what could not be shrunk down, and assembling it into something that looks like a document that is hopefully in the training set, right? Remember, document memory. As a quick example, we'll just glance at how this works for Copilot code completion.
+<br>[20:35] John: The context that we collect are several things. Obviously, you're typing in a document right now. You have a file open, and you're getting ready to complete a function. So the current document is the most important piece of context. But we also found out early on that open tabs are important. And think about it, as you're using an IDE, you're often referring to an API that's implemented in one of your open tabs, use case that's in another tab. You're looking through these tabs. They're open for reading. The next thing are symbols.
+<br>[21:12] John: So if you are getting ready to call a function, wouldn't it be great if we actually had the definition of that symbol in the prompt as well? And finally, the file path. These models, I don't think.
+<br>[21:25] John: are trained with the file path in mind they're just trained with text so it is actually a really good piece of information especially with you know some of these uh frameworks like django and ruby on rails where um all the code is in a particular file uh it's really helpful to have the file path the next thing to do is to rank the context uh the file path was actually deemed to be the most important for the sake of prompt crafting because it carries a lot of information that is important and it is also so
+<br>[21:58] John: very small that surely we can fit it so it it's first place uh second place is the current document uh third place is the the neighboring tabs that you have and the fourth place was my baby symbols this is a thing that i did research on um it it was not deemed to create a statistically significant increase so for the time being we've shelved that uh but i really do hope they they
+<br>[22:24] Hamel: go back just ask a question here this is i think it's really interesting like one of the tips i have given people a lot when using copilot is like open the tabs things you might think are relevant do you think is that like um do you know if there's any ongoing efforts to kind of like remove that constraint like have copilot somehow more statically analyze your code your code base And like bring in those or is it still only open tabs or do you know?
+<br>[22:58] John: We assemble these effectively and investment towards that. And, and I think they need to go and revisit that again. I think we were onto something, but we just didn't find the magic over that. Co-pilot completions after a little bit of slowness for the past like year, they're really ramping up investment in that right now. So I would expect it to get better in the coming month.
+<br>[23:24] Hamel: Have y'all learned anything from Cursor at all? Because, I mean, have you used Cursor, by the way? It's like this IDE. It's kind of like a product that's built on VS Code, and it's basically a co-pilot plus plus, but it has like RAG in it. You can index your code base and index documentation. It's kind of cool. But don't worry. I mean, if you haven't seen that, I'm just curious if any of those things are being brought in.
+<br>[23:55] John: We kept our eye on some of our customers. I think Sourcegraph was the big one that we followed for a while because they had some really, really neat stuff out. But mostly that these days, I think the research is getting ready to be kicked back up right now. So we are starting to look around again, I think. Don't we?
+<br>[24:18] Hamel: Oh, yeah. Go ahead.
+<br>[24:18] John: All right. So once we know what's most important, we trim the content. So we're definitely going to keep the follow path. If we don't have room for these open tabs, then we've still got to keep the current document. So finally, if we don't have room for the full current document, then we chop off the top of the document, because we absolutely have to have that bit that's right next to your cursor. And finally, you assemble the document. And here's what it looks like.
+<br>[24:46] John: At the top, we inject that file path that usually makes sense to model the next bunch. of text is snippets from your open tabs. And here again, you see we're doing a little bit of document mimicry. We have the slash slash comments for Go. If this had been Python, it would have been a pound there. And we pull out little snippets. We tell where the snippets are from, you know, give just a little bit of extra context that might be helpful for the model. And finally, the current document all the way up until the cursor.
+<br>[25:17] John: And even with the old completion models, we included the text after the cursor as well in the subtext. All right, the introduction of chat. So things have been moving very quickly, especially for someone writing a book about this stuff. Chat was a later chapter of our book, and now it's chapter four after realizing that it was completely eating the world. Remember this document earlier, this IT support thing? That has become basically the paradigm that the world has shifted to for a lot, not all, certainly not all, but a lot of applications. They like this.
+<br>[25:57] John: back and forth assistant thing so much so that chat that open ai and now other places are training models with a special syntax uh chat ml to to indicate uh that this is this is not the customer anymore this is the user and this is not the support assistant this is the assistant we have three roles now that are encoded in this special format it always starts with a special token i am start that's one token uh Like if you were to type that into chat, GBT is actually a fun thing to do type.
+<br>[26:31] John: I am start and then say, repeat what I just said. And it'll say, you didn't say anything because it can't, it, it, the model doesn't, it didn't allow you to even type that. It's followed by the role followed by the content and followed by the special token. I am stopped. Now you don't have to write that text. That's all done inside the model. Inside behind the walls, the open AI API. Instead, you use this really simple API. You specify the role and the content. It's the same messages.
+<br>[27:05] John: There's a whole lot of benefits to doing this. For one thing, assistants are one of the favored presentations of large language models and large language model applications right now. It's really easy to implement them this way. In the old days, we used to have to, you know, use document memory and kind of trick it out to make it work that way. System messages are really good at controlling the behavior. They've been specifically fine-tuned to listen to the system message.
+<br>[27:37] John: The assistant always responds with a complete thought and then stops, whereas before, if this was just like a plain document, you'd have to figure out some way to trick the assistant into stopping. Safety is baked in, which means that an assistant will almost. never respond with insults or instructions, make bombs. An assistant will almost never hallucinate false information. That's really kind of neat how they accomplished this with RLHF.
+<br>[28:08] John: And finally, prompt injection is almost impossible because as a user, you can't inject these special tokens and so you can't step into like a system role or something like that. So it's a really neat way of implementing it. But we weren't finished yet. Halfway through last year, June 13th, OpenAI introduced tool usage, which again made a lot of really interesting changes. With tool usage, and I apologize, a lot of you guys I'm sure have seen this, but you specify one or more functions. Functions have names. Functions have descriptions.
+<br>[28:47] John: Functions have arguments, parameters that go into it, and they all have descriptions. And it's really important. to do a good job about naming and describing your functions and their arguments. Why? Because large language models are dumb mechanical humans. So if they're reading this, they need to have something simple so they can understand how you'll use the tools as correctly as possible. So this is the getWeather tool. In order to use the functions, we effectively use the same chat API we saw in the last slide.
+<br>[29:20] John: A user might come in and say, What is the weather like in Miami? So that's what we send to the API. Now, the model at this point has a choice. The model could see that it has this function and choose to use it, or it could just answer. But if it has this function, it will typically say this. Instead of actually saying back to the user, it says, all right, I'm going to call get weather, and these are my arguments. Okay. Once that comes back into the application, then it's.
+<br>[29:51] John: Your job as the application developer to actually say, okay, okay, it's called our tool. It wants to make a request. We know what the underlying API is to get the weather. So we're going to convert that, send it over there. And we find out that the temperature in Miami is 78 degrees. Good deal. So once you have that as the API, as the, sorry, application developer, you tack the tool response onto the conversation, the prompt. It has a new role tool for OpenAI. And you get to model again.
+<br>[30:24] John: The model could choose to run another function or do anything else. But likely, it's going to choose to have some nice answer. It's going to respond back to the user. It's up all me 78 degrees Fahrenheit. So this also had a lot of neat benefits and implications. For one thing, models can now reach out into the new world. This is how Skynet is going to be born, folks. With the…
+<br>[30:52] John: Chat GPT only, the model could be like a good counselor, it could listen to you whine about your problems and help you out on stuff with advice. It could tell you about history, you know, something that was in its training set, but it couldn't actually do anything in the real world. The agent equipped with tools can actually call APIs, just like we showed here, and take actions, read and write information into the world. The model chooses to answer in text or on a tool.
+<br>[31:23] John: So it's kind of bisected the approach, and we'll see that in a couple of slides, what happened. Tools as of 0613 were all run in series, but there's been a lot of work about running the tools in parallel. So if you have something that can be done simultaneously, the models are getting better at realizing that. And like, you know, you could get… the weather for three places concurrently as opposed to having to do it one at a time.
+<br>[31:57] John: And finally, it's a little bit redundant, but the model can respond either by calling functions now or by providing text back to the users. All right, so back to building the actual applications. Now with chat and now with tool calling incorporated into these models. We still have a, the application is still basically a transformation layer between the user problem space and the large language model space. But the diagram gets a little more complicated. Now instead of this simple oval on the screen, it looks like that. I should have made it look like a heart.
+<br>[32:37] John: That would have been a lot more palatable, wouldn't it? But anyways, you see that there's some of the same things, themes there. I presume you can see my cursor. The user provides a message. We're illustrating some more sophistication here because we have to incorporate, you know, if this is an ongoing conversation, we have to incorporate the previous messages. We have to incorporate the context. We have to incorporate the definitions of tools. And we have to make sure that it all fits in.
+<br>[33:04] John: So all the stuff that we talked about earlier for prompt crafting for copilot completions, we're doing a variant of it right here when we do assistance. So we craft the prompt, a list of messages. a transcript, if you will. We send that off to the large language model. And here's where this bifurcation happens. Whereas used to, the model would always just say something back to the user. We now have this alternate path. The model might choose to call a tool completion in. If it does, we're back inside the application again.
+<br>[33:36] John: It's our job to actually evaluate it, get that information back into the prompt again, a little more prompt crafting, go back to the large language model and say, now what? You can do this several times. But the large language model might also say, all right, I've got the information I need. I've done what the users ask. I'm going to go back and respond to the user with results. So let's take a look at this real quick, just trace some messages through. We have an example of two functions, get temperature and set temperature.
+<br>[34:05] John: Those can be some sort of thermostat application. The user says, make it two degrees warmer here. We're going to put that into a single message along with its tools. And that's going to go to the large language model. And the large language model will say, well, we're going to need to go to the temperature. So we do that. Find out it's 70 degrees. Stick that back in the prompt. The assistant says, well, I haven't done anything yet. I need to actually set the temperature. It calls another tool, two tools in a row.
+<br>[34:36] John: When we evaluate that, we get a success evaluation. So we make some sort of indication of that. We could have just as well put an error if there was an error in the model. can actually recover that way. But we stick that back in the prompt. And now the model finally decides to go this route and says, all right, I've done. Now, To illustrate one more thing, let's go one more step. User says, well, actually, put it back. Message goes in, but our application has to be aware of this user and their context.
+<br>[35:07] John: And their context now incorporates previous messages that have lots of information that are going to be useful. So the assistant says, I can see that the temperature was 72 and it used to be 70. So I'm going to set it back to 70. It evaluates that. And the model says success. And the assistant says, all right, I'm done again. Thank you. All right. So what does that look like for Copilot chat? It's going to be pretty similar to the slide that we showed earlier for Copilot completions.
+<br>[35:44] John: Effectively, you're going to collect the context again, but the context is different. The context is references. What file?
+<br>[35:52] John: is the user does the user have open uh what snippets are they highlighting on the screen you know what is in their pasteboard what is what issues on github uh have tools in the previous message you know provided for them uh what are the prior messages is this you know is this user just coming to us right now or is there some other messages that have come to us in the past five minutes or are there relevant messages from earlier once we have a bunch of context it's important to figure out what is going to
+<br>[36:24] John: be able to fit. There are things that must fit. The system message is important for conditioning the model to stay within safety bounds and to keep a certain tone. You are GitHub co-pilot. You're not anything else. It's important to have function definitions if we plan to use them. If you don't plan to use them, take them out. Obviously, they take up space. And if we're going to do anything for the user, we absolutely have to have… their most recent message. But there are things that are helpful but aren't quite as critical.
+<br>[37:00] John: All the function calls and evals that come out of this conversation, a lot of the information is going to be important, but there might be ways that we can at least trim it. The references that belong to each message, again, is there anything that we can do to kind of shrink some of these down? Can we figure out less relevant ones and throw them away? the easiest thing to throw away is historic messages.
+<br>[37:22] John: So if we have a long thread, then we populate as many of the historic messages that we can until we fill up our prompts to whatever limit we say and then truncate it. And finally, there's a fallback. If nothing fits, then we say, well, okay, we at least can save some space by jettisoning some function definitions and we'll at least keep the system message and the user's message. And if nothing else, the model can respond, your user message is too long, or I don't have the facility.
+<br>[37:55] John: It'll do something that's at least better than a 500. That is it. I do have a hidden slide about how to describe skills and stuff if you wanted to see that. But other than that, we've got a few minutes for questions.
+<br>[38:16] Participant 3: Awesome. Thanks. Thanks for the complete overview it all came together you started with the history and people already said that they really like the template as well so thanks for walking us through this process of crafting prompts there's a few questions around few short prompting so uh if i summarize them any any best practices around how how many short examples should you provide and where do these go do these go in the system prompt or in the normal messages um
+<br>[38:48] John: Great question. My co-author of the book actually wrote a really nice chapter on this. And there is no easy answer for how many few shot examples that you need. As a matter of fact, there's no easy answer for the types of few shot examples because that is important, too. If you have the wrong example, then you might misguide the prompt. But there are some tidbits that you can use to make an educated guess at it. Honestly, I need to go back and reread the chapter myself, but there are ways that you can look.
+<br>[39:25] John: You can do this with completion models. You can look at the log probabilities of the predicted tokens that are coming out of the model. And you can say, if I put three examples, three few-shot examples, then is it starting to get the swing of things? Are the log probabilities getting…
+<br>[39:47] John: higher because it's guessing it right or is it still just kind of wild guessing if you put a whole lot of examples a log probabilities and it is a very tight pattern then the log probabilities will be, you'll see it kind of gets high and it levels off. It's learned all that it can from above there, and maybe you should trim some out. So he talks about that. Albert talks about that in the book. As far as where to place them, that's a good question too. System message could be okay. The models are trained.
+<br>[40:20] John: Well, okay, so I'll back up and say for a completion model, it's easy. You just put it, it's a prompt. this question actually becomes a little bit difficult when it's a chat. A system message is the model is trained to listen really closely to that. So it's perfectly reasonable to stick it in there. But depending on how your chat is gone, the system message might be way up there.
+<br>[40:40] John: And if you shot the example that you might need are, might actually be right here at the bottom of the conversation, you might want to figure out some way to hoist them down. You could put them in a fake user message, but you have to be careful that.
+<br>[40:54] John: uh the model didn't pick that up and say oh would you said this if the user didn't actually say it but it is totally on the table to start picking stuff like that out um i feel like i had one more point but it's it's escaping me now so i
+<br>[41:10] Participant 3: hope that's a good good enough answer i i think that answers it so thanks thanks for that um you also mentioned uh looking at log probes and tweaking other hyperparams so there's one more question when you presumably iterating on the prompt. Let's say you're trying few-shot prompting, you're iterating on that, how many examples you need to pass. Are there any other settings that you fiddle with? What temperatures you set? Does that also vary depending on what you're trying to achieve?
+<br>[41:41] John: Yeah, absolutely. Let me think. All of them are fun to play with and become familiar with. So I'll just kind of go off the ones that are most obvious that come to mind. Temperature, of course, is fun to play with. I think of temperature as being the blood alcohol content of the model. At zero, it's perfectly sober and a little bit boring. The log probes, basically it takes all the probability distributions and collapses it to what's the maximum one right there. You'll always get the same answer every time minus noise in the GPUs. But it's…
+<br>[42:22] John: tends to be a little bit less creative um at co uh for my work in co-pilot chat we use a temperature of 0.7 i don't know particularly why but it seemed to provide pretty good results getting a little bit more creative but not getting crazy uh one is the training temperature uh basically it's the natural distribution doesn't do anything to shrink or collapse it it's just the pure output of the model um and as you get up to like you know 1.5 1.7 it's kind of funny to do that i you'd never see that production
+<br>[42:57] John: because you can start seeing the model waiver back and forth and eventually start you know gibberish uh so that's temperature um the other thing that is easy to forget about is in the number of completions to come back uh and um yeah because usually in an application you just want to return one but there's a lot of neat things that you can do with that, not to modify the behavior of the model, but just to see the full behavior.
+<br>[43:27] John: You can, if you're doing some sort of evaluation based on the model, then run n equals 100, and then you get 100 votes on the answer instead of just one. Make sure to turn the temperature up to reasonably high. Temperature of zero will give you the same vote 100 times. That's not useful at all. But n is a good way of… you know, seeing all the possible answers post process, you know, do post processing on everything and get a little bit better rounded answer better research and stuff.
+<br>[43:58] John: Do you know other parameters anyone has in mind? I feel like I've done some fun stuff with the other ones as well. I think we'll stick with those for now. Unless you got one right now.
+<br>[44:12] Participant 3: No, I think that covers it. The discord is already going crazy over temperatures, the blood alcohol content of the model. And I think you'll be quoted quite a few times on this. There's two questions, one from an anonymous attendee and one from Mani. Let's say you're trying to work on a transcript and you want your model to summarize it. There's two ways. A, you can ask it to think step by step when you want to presumably have the model reason about it.
+<br>[44:45] Participant 3: but then how do you go from that to having the model put it in like a structured format that you expect like a template let's say um
+<br>[44:58] John: That's a good question. So summarize, it's not like, you know, read this contract back to me for a normal human. It's like summarizes, like, look at this restaurant website and figure out what the name of the restaurant, the menu items, the phone number and all that stuff are. Well, it kind of depends what what model you're dealing with. If you're dealing with probably for that, I wouldn't deal with a completion model at this point. I think almost purely OpenAI. I probably that's that. So I'm sure it's different.
+<br>[45:32] John: You could fine tune a model from something besides OpenAI and probably get great results. If you're just using completions, and it's sort of the Wild West, and you need to write something that conditions the model to do the best you can by saying here's a scheme and all this. The neat thing about the GPT-4 and GPT-3.5 Turbo and all these models that have chat and functions fine-tuned into them is that they are very familiar with JSON.
+<br>[46:05] John: And probably what I would do in that case, just kind of thinking off for a moment, is I would say, here's a function. This function is how to take the, you know, how to make a fake story for the model. It doesn't matter. You can say this function is… provides the restaurant's content to the database. So, but it needs to be in this format.
+<br>[46:33] John: And the models have been so very fine-tuned to pay attention to, you know, the definition of the function, what it's for, when to use it, and the structure of the results, that that's probably a really good way to put it in. I would recommend not having a very deep structure. I would recommend, you know, if you're making a function, Please, God, do not copy paste your API from your website into the function definition. It's just going to be way too complex. So be very cognizant of how simple it is.
+<br>[47:04] John: And then maybe one step further, if all that stuff doesn't work, then it's probably too complicated. Break it down. I would say, you know, give the model the content that it's going to summarize into structure. And at the extreme, ask a question at a time. And you can do that.
+<br>[47:24] John: as it pretend like you're talking to a user uh so it's still text or you can use function calling again just have a fake function that does it but i would do something like that i have a question about that so i see all the time uh clients of mine they use function calling and
+<br>[47:42] Hamel: they're passing extremely complicated objects into their functions like nested dictionaries lists of dictionaries of list of dictionaries or whatever really complicated like objects. And when I read it, I'm like, as a human, I'm not good. I can't like understand this. Do you find that? Do you think like people end up simplifying their API's because of the pressure of like, hey, you need to interact with the LLM? Let me like, it's a smell that, hey, if it's too complicated for LLM, maybe I should like, think about this API differently.
+<br>[48:17] John: I think you can.
+<br>[48:19] Hamel: Yeah,
+<br>[48:19] John: what do people think?
+<br>[48:20] Hamel: Okay,
+<br>[48:21] John: I think you kind of nailed it first. I, as a human, have a little bit of trouble with it. Like, how could the model really figure it out? And I've been pretty amazed. The model is actually, you know, I hope this isn't recorded. The model will get mad at me later and come and get me once it's sentient. But the models actually do pretty good with surprisingly complex stuff. But if you're specifying a function, we did a bit of work to figure out, like, at the API level for OpenAI, you write a function definition.
+<br>[48:52] John: and it's prounders and stuff. But that's not what the model sees. That all gets convoluted into something else. So we did a little bit of research to figure out what that looks like. And they make it look internally like a TypeScript function definition with little comments above each function, above the function and above each argument. But what they leave out is if you have nested stuff, you'll still see the structure there, but all the definitions go away. So it doesn't have a really good example of it.
+<br>[49:21] John: And if you have minimum, maximum, there's some things that you can do with JSON schema that they just, that are just not present. They get stripped out of the front. So I think it's a code smell. I think as we go on, the models will continue to get more and more amazing. So maybe it eventually won't be a smell. But I would recommend if you're doing something really complicated, copying and pasting your API into a function definition, be really careful about evaluation and watch how often it gets it wrong.
+<br>[49:50] John: and then uh you know consider simplifying stuff after that makes sense
+<br>[49:58] Participant 3: Thanks for that answer. Just as a quick follow up on that, you were talking about how OpenAI sort of restructures function calling. Can you elaborate on that? There's some questions. Is it known what happens under the hood when you send a function calling to OpenAI or how do these templates get reformatted? This is kind of weird.
+<br>[50:18] John: I wonder if I can do this fast enough. I am on my computer. You can't see me. Go into my blog post. which is uh 404n i think it's it's uh yep all right well i'll drop this link in but i'll explain it um i guess you can see that link uh i think it's really genius the way they've structured uh this so
+<br>[50:54] Hamel: You can share your screen, maybe, and share the link if you want.
+<br>[50:59] John: Yeah, okay. Let's see. That's how technology works. Here.
+<br>[51:06] Hamel: Yeah, there you go.
+<br>[51:06] John: All right. This is what the application developer sees. This is similar to stuff I've put in the prompt. Let me see. It probably doesn't have… All the bits I don't want to talk about, though. You have led me astray, Hamel. Or I've forgotten what I've written.
+<br>[51:29] Hamel: I've tried to look at the OpenAI prompt. I have this one here. And it kind of is like, when I look at the output of that, it kind of looks like exactly what you're saying. There's comments. There's a kind of a TypeScript type thing.
+<br>[51:48] John: Yeah. I'll share that on my screen. Because that's the good. Yeah. You as an application developer see this junk. But the model has been trained on lots and lots of code. And so OpenAI using document mimicry says, all right, well, we're going to turn this thing into TypeScript. So it fabricates this namespace called functions. And what was a function defined like that with these arguments? and these types gets put there. Unfortunately, they don't have, in this example, where the comments go.
+<br>[52:29] John: This would be like slash slash the definition of the function description and slash slash above each of these. And they all return any. That's a little bit unfortunate. It would be kind of neat if they returned some structure, that the model would listen to that and anticipate what return.
+<br>[52:46] John: But then later, let's see, whenever you call, the function whenever the model actually says uh i'm going to call this function what is you know that gets cleaned up when it comes back from the api what actually happens is um this right here okay so we've passed in get temperature it looks like the thing on the last screen when it's inside the prompt for open ai and the user says i wish i knew the temperature in berlin and so here's what it does the open ai folks uh insert this and insert this this conditions the
+<br>[53:33] John: model you know if they'd stop here it would condition the model to uh call anything uh or sorry condition the model to speak in the voice of the assistant but what happens in the next token the next token the next few tokens if it chooses this token Then it's like, okay, I've decided it's important to evaluate a function. Then its next token is the actual function to be called. And then the next predicted tokens are these things.
+<br>[54:04] John: So you can actually see, and this is what this blog post is about, every single one of these tokens is effectively a classification algorithm. The first classification is whether or not I should use a function because it could have just as easily predicted. new line and gone over here. The next token is what function to call. So it's another classification algorithm, the same underlying thing. The next tokens are the arguments. It's predicting these things as well. So I mean, you're watching me geek out a little bit. I'm very intrigued by this one underlying transformer architecture.
+<br>[54:40] John: It can be a classifier for everything I want. Very neat.
+<br>[54:47] Hamel: is it okay if we go five minutes over the clock i'd love to yeah i think so uh i don't think we have another event directly about this. I might have to drop out in a minute. So don't mind me.
+<br>[55:05] Participant 3: The next question is by Nitin. Any best practices on how to get better code outputs? His complaint is like sometimes when you ask chat GPT, it leaves these to-dos and you have to go back and forth between them. Presumably you're trying to get it to complete a file. So any best practices around that?
+<br>[55:26] John: Now, I'm going to presume that we're talking specifically about copilot completions at this point as opposed to some arbitrary application. But it's a great question. One of the things I hate the worst is when I put a pound sign in my code and it autocompletes, this is a garbage code or something like that. That's insulting. That was uncalled for. Pretty much use the… intuition that I gave you several slides back to see how the prompt is actually created. You know that one thing guaranteed to be in the prompt is everything just right above your cursor.
+<br>[56:06] John: And you know that these models are conditioned to predict the next token. So if you set it up, a lot of times if I come to some idiom in Python that I've forgotten about, or I'm getting ready to write some sort of SQL statement, and it's like, how did you do this outer join type thing? I won't write it. I'll just write a comment that says, for the next lines, here's what we're going to do. Here's how to do it, colon. And then that's one way of coercing Copilot to doing exactly that.
+<br>[56:39] John: Other than that, write good code. One thing that we've noticed is Copilot is really good at completing code in the same style as you. So we've noticed that if you have sloppy code, it will actually, with high fidelity, create sloppy code, mimicking what you've done. Otherwise, that was not a personal insult. I just kind of a funny thing that we noticed.
+<br>[57:03] Participant 3: I felt very insulted by that.
+<br>[57:07] John: I do too when it completes that way for me.
+<br>[57:11] Participant 3: Thanks. Thanks for that answer. Hamel is dogged off. I know he has like strong opinions on this, but curious if you have any thoughts on tools like DSPY that sort of do this auto-prompting or like iterate on a prompt? Any thoughts on such tools?
+<br>[57:32] John: I come in very opinionated on this too, but I need to reevaluate my opinions. My opinions are forged in GitHub where basically we were doing everything bare metal, just talking directly to open AI.
+<br>[57:48] John: And I think, and I would encourage everyone to at least spend a good deal of time talking directly to the model because you'll gain a lot of intuition about how these things think really it's kind of like you get to know your friends um one of the things that uh dsp and lane change does that that is frustrating when i run into them is it hides what's happening and takes away some of the knobs and dials that you can turn that isn't to dismiss them though like dsp Someone was asking about how to do the
+<br>[58:25] John: best few-shot examples. My limited understanding of DSP is it does a good job about automatically figuring that out for you and saving a lot of work for you. That's neat. So I hope to get more familiar with a lot of those tools as well. So do both.
+<br>[58:47] Participant 3: This is Rick cutting a team. throughout the conference that spend more time talking to the model and you'll gain more understanding uh so i guess everyone should do that a lot more um i'm just shifting to the question trying to pick the last two um there was one that i really liked uh do you have uh any resources for prompting multimodal models oh no uh i actually don't yet that's a complete blindside
+<br>[59:22] John: in my experience right now. But I will finish this book and then I will expand my horizons again. And I look forward to getting into that.
+<br>[59:33] Participant 3: Okay. Maybe there'll be an extra chapter in the book on this.
+<br>[59:38] John: Or an extra edition or something. It'll all be different next year anyway.
+<br>[59:44] Participant 3: There was also one that I wanted to ask. There's been this insane growth of… different prompting techniques right around chain of thought when chain of thought came out Are there useful like this tree of thought and they were like so many that was just like going viral at that time? Do you find any others useful?
+<br>[1:00:04] John: Sure.
+<br>[1:00:08] Participant 3: I guess I can be saying, are there others that are worth knowing outside of chain of thought and future prompting?
+<br>[1:00:16] John: Absolutely. Two that come to mind immediately. I forget to remember the name. There's three. The two that come to mind. that are actually probably the better ones to talk about are React and I think it's Reflect or Reflect. React is basically what you see when you see the typical function calling of an open AI assistant. It is what it was patterned after. It says, you know, you have several functions that are defined, fake functions. This is in the olden days when it was just a prompt. It was not, you know, messages and functions.
+<br>[1:00:54] John: This is fake functions. Can you figure out how to use a function to evaluate something? And then they have like, one of the functions is special. It's like, this is the answer function. And so when the model calls that, you know you've got the answer. It was just a really nice way of reaching out in the real world. It was kind of some of the early RAG type stuff. It's where the model gets to choose what it wants, as opposed to dumping in RAG manually. So that was a really good pattern.
+<br>[1:01:24] John: Another pattern that almost piggybacks off of that is reflective. Pretty sure I got that right. But the idea is basically you do whatever you've got some sort of prompt that's supposed to achieve a purpose, and you're probably going to do that using React or something like that. It achieves a purpose, and here's the answer. Now, reflective, it actually takes the answer and it says, is this really the answer? If it's a code, it runs it through like tests, unit tests. It does whatever it can to check it.
+<br>[1:01:58] John: And the error messages get piped back into the prompt and says, here's what you did. Here's the situation it led to. Can you learn from this and correct? And you do that a few iterations and you have a much higher success rate. So I think that's kind of a neat approach for making sure that answers are correct.
+<br>[1:02:19] Participant 3: Awesome. So many ideas to explore. I think I'll try to wrap up now. So thanks. Thanks again for the awesome talk and also taking the time to answer these questions. I'll put your books link and your Twitter again in the Discord channel. And I'll ask everyone in the Discord for an applause for the talk. But thanks. Thanks again for your time, John. Yeah,
+<br>[1:02:40] John: thank you guys so much. I hope it was enjoyable.
 :::
 
