@@ -1,0 +1,185 @@
+---
+title: Train (almost) any llm model using 🤗 autotrain
+date: 2024-07-15
+Speaker: Abhishek Thakur
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    In this talk, we will show you how to use HuggingFace AutoTrain to train/fine-tune llms without having to write any code. Links: https://huggingface.co/autotrain Abishek's Youtube Channel: https://www.youtube.com/@abhishekkrthakur
+categories: ["fine-tuning", "llm-conf-2024"]
+
+---
+
+{{< video https://youtu.be/a8p7Yr82iq4 >}}
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
+## Chapters
+
+**[00:00](https://youtu.be/a8p7Yr82iq4&t=0) Introduction and Overview**
+Introduction to Autotrain and fine-tuning LLMs for practical use
+
+**[03:28](https://youtu.be/a8p7Yr82iq4&t=208) Key Features and Capabilities**
+Autotrain's no-code interface, support for various NLP tasks (token classification, text classification, etc.), ability to fine-tune models without choosing them manually, streamlined workflow for various ML tasks.
+
+**[06:43](https://youtu.be/a8p7Yr82iq4&t=403) Getting Started, Project Setup, and Configuration**
+Steps to start a project with Autotrain on Hugging Face: creating a project, attaching hardware, using local or cloud resources. Autotrain supports supervised fine-tuning, embedding fine-tuning (e.g., for RAG), and tabular data tasks.
+
+**[09:28](https://youtu.be/a8p7Yr82iq4&t=568) Fine-tuning Large Language Models**
+Overview of fine-tuning tasks like SFT, generic fine-tuning, ORPO, DPO, and reward modeling. Differences between SFT and generic fine-tuning, importance of data preparation, column mapping in datasets, and use of chat templates for data formatting.
+
+**[11:23](https://youtu.be/a8p7Yr82iq4&t=683) Data Format and Column Mapping**
+Importance of dataset format for Autotrain, recommendation to use JSON lines for better readability and processing, explanation of data column requirements for various tasks, and examples of proper dataset formatting for different models.
+
+**[13:00](https://youtu.be/a8p7Yr82iq4&t=780) Reward Models and Optimization**
+Introduction to reward models and their training, dataset requirements for reward modeling (chosen and rejected columns), recommendation to use ORPO over DPO for memory and compute efficiency, chat templates support.
+
+**[16:34](https://youtu.be/a8p7Yr82iq4&t=994) Installation and Running the App**
+Steps to install Autotrain, running the app locally.
+
+**[17:43](https://youtu.be/a8p7Yr82iq4&t=1063) Config Files and CLI Usage**
+Details on using config files and CLI for training, defining tasks and parameters in config files, example configuration for different tasks, logging options (TensorBoard, Weights and Biases), storing trained models locally or pushing to the Hugging Face Hub.
+
+**[20:44](https://youtu.be/a8p7Yr82iq4&t=1244) Running on Jarvis Labs and DGX Cloud**
+Options for running Autotrain on cloud platforms like Jarvis Labs and DGX Cloud, steps to set up training instances, attaching GPUs, and model storage.
+
+**[23:32](https://youtu.be/a8p7Yr82iq4&t=1412) Other Runtime Environments - Colab, Spaces, ngrok, Docker**
+Using Autotrain on Google Colab, steps to set up Colab environment, using ngrok for UI access, including to run the same UI as on Hugging Face Spaces. Docker support.
+
+**[25:14](https://youtu.be/a8p7Yr82iq4&t=1514) Live Training Demo**
+Instructions on selecting datasets from Hugging Face Hub or uploading local datasets, advanced use of full parameter mode, and examples of setting parameters for training.
+
+**[28:30](https://youtu.be/a8p7Yr82iq4&t=1710) Continued Demo, Multi-GPU Support**
+Tracking training progress. One-click deployment on Hugging Face inference endpoints. Tracking training progress with TensorBoard. Support for multi-GPU setups, Autotrain's integration with accelerate.
+
+**[32:54](https://youtu.be/a8p7Yr82iq4&t=1974) Conclusion and Final Q&A**
+Final discussion on documentation, config file details, parameters selection, hyperparameter optimization, use of Mac for training, and synthetic data considerations.
+
+
+## Resources
+
+- AutoTrain Advanced, a robust, no-code platform designed to simplify the process of training state-of-the-art models:
+  - [Hugging Face](https://huggingface.co/autotrain)
+  - [Docs](https://huggingface.co/docs/autotrain/index)
+  - [GitHub](https://github.com/huggingface/autotrain-advanced)
+- Configs / Examples: [Link](https://github.com/huggingface/autotrain-advanced/tree/main/configs)
+- LLM Fine-Tuning Parameters: [Link](https://github.com/huggingface/autotrain-advanced/blob/main/docs/source/llm_finetuning_params.mdx)
+
+## Notes
+
+Autotrain is a no-code platform, integrated with the wider Hugging Face ecosystem, that automates many typical fine-tuning tasks.
+
+Getting started is simple: Go to https://huggingface.co/autotrain and click "Create new project." From there, fill out the dialogue, after which a Hugging Face Space (duplicated from a template) will be created for you.
+
+### Features and Considerations
+
+Autotrain can handle LLM fine-tuning specifically but can also handle supervised fine-tuning more generally (SFT). SFT accommodates either your available input text data as is as well as the ability to transform it to various chat templates, including ChatML, Sapphire, and any given tokenizer's internal chat template.  
+
+Autotrain also handles the special case of reward fine-tuning; we must format the data according to accepted/rejected based on the hypothetical (or actual) user's choice. Abhishek recommends ORPO over DPO because it does not require a reference model and demands less resources (memory).  
+
+Autotrain streamlines the workflow for different fine-tuning tasks by choosing models and hyperparameters for you; so even for experts, Autotrain speeds up iteration cycles.  
+
+Abhishek recommends JSON lines (JSONL) over CSV for datasets when using Autotrain. It avoids some of the issues of converting from CSV (like having to stringify lists, etc.)
+
+### Local Usage
+
+To run and serve the Autotrain UI locally, simply:
+
+```bash
+$ pip install autotrain-advanced
+```
+
+Then:
+
+```bash
+$ export HF_TOKEN=your_hugging_face_write_token
+$ autotrain app --host 127.0.0.1 --port 8000
+```
+
+This assumes a number of dependencies in your environment (e.g., PyTorch); for more detail, see [Use Autotrain Locally](https://huggingface.co/docs/autotrain/quickstart). Autotrain will only use your HF token in order to push to Hub; otherwise, the app can be run entirely locally.  
+
+Alternatively, you can also run Autotrain via CLI:
+
+```bash
+$ export HF_TOKEN=your_hugging_face_write_token
+$ autotrain --help
+```
+
+This will print out a list of commands for use with the CLI. The recommended usage is:
+
+```bash
+$ autotrain --config your-config.yml
+```
+
+The `--config` parameter accepts both local files as well as URLs to config files hosted on GitHub.
+
+Example config:
+
+```yaml
+task: llm-sft
+base_model: meta-llama/Meta-Llama-3-70B-Instruct
+project_name: autotrain-llama3-70b-math-v1
+log: tensorboard
+backend: local
+
+data:
+  path: rishiraj/guanaco-style-metamath-40k
+  train_split: train
+  valid_split: null
+  chat_template: null
+  column_mapping:
+    text_column: text
+
+params:
+  block_size: 2048
+  model_max_length: 8192
+  epochs: 2
+  batch_size: 1
+  lr: 1e-5
+  peft: true
+  quantization: null
+  target_modules: all-linear
+  padding: right
+  optimizer: paged_adamw_8bit
+  scheduler: cosine
+  gradient_accumulation: 8
+  mixed_precision: bf16
+
+hub:
+  username: ${HF_USERNAME}
+  token: ${HF_TOKEN}
+  push_to_hub: true
+```
+
+Note that the dataset can be local; simply supply a local path.
+
+### (Cloud) Templates
+
+Besides running on Hugging Face Spaces, you can also run on:
+- Jarvislabs: [Template](https://jarvislabs.ai/templates/autotrain)
+- Colab: [Basic](https://colab.research.google.com/github/huggingface/autotrain-advanced/blob/main/colabs/AutoTrain.ipynb), [LLM](https://colab.research.google.com/github/huggingface/autotrain-advanced/blob/main/colabs/AutoTrain_LLM.ipynb)
+- Docker: `huggingface/autotrain-advanced:latest`
+
+### Other Notes
+
+- Autotrain template config files for use with the CLI can be found in the GitHub repo (see Resources)
+  - Template examples include training embedding models for RAG
+- Automatically generating synthetic data and auto-training on that is not supported
+- It's possible to provide your own chat templates, technically, by cloning a model, going intto its `tokenizer-config.json` and changing the chat template there; afterwards, you can use it as normal with Autotrain
+- Autotrain supports multi-GPU out-of-the-box, including managing the `accelerate` configs
+
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+
+:::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
