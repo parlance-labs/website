@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-15">
+
+<title>Train (almost) any LLM using 🤗 autotrain – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<script async="" data-uid="fbcda700a8" src="https://hamel.ck.page/fbcda700a8/index.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Parlance - Train (almost) any LLM using 🤗 autotrain">
+<meta property="og:description" content="In this talk, we will show you how to use HuggingFace AutoTrain to train/fine-tune llms without having to write any code. Links: https://huggingface.co/autotrain Abishek’s Youtube Channel: https://www.youtube.com/@abhishekkrthakur">
+<meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="540">
+<meta property="og:image:width" content="960">
+<meta name="twitter:title" content="Parlance - Train (almost) any LLM using 🤗 autotrain">
+<meta name="twitter:description" content="In this talk, we will show you how to use HuggingFace AutoTrain to train/fine-tune llms without having to write any code. Links: https://huggingface.co/autotrain Abishek’s Youtube Channel: https://www.youtube.com/@abhishekkrthakur">
+<meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="540">
+<meta name="twitter:image-width" content="960">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/index.html">Fine-Tuning</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/abhishek.html">Train (almost) any LLM using 🤗 autotrain</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fine Tuning Course</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 1: When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/fine_tuning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/prompt_eng/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering Workshop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs on the command line</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a>
+  <ul class="collapse">
+  <li><a href="#features-and-considerations" id="toc-features-and-considerations" class="nav-link" data-scroll-target="#features-and-considerations">Features and Considerations</a></li>
+  <li><a href="#local-usage" id="toc-local-usage" class="nav-link" data-scroll-target="#local-usage">Local Usage</a></li>
+  <li><a href="#cloud-templates" id="toc-cloud-templates" class="nav-link" data-scroll-target="#cloud-templates">(Cloud) Templates</a></li>
+  <li><a href="#other-notes" id="toc-other-notes" class="nav-link" data-scroll-target="#other-notes">Other Notes</a></li>
+  </ul></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/abhishek.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/index.html">Fine-Tuning</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/abhishek.html">Train (almost) any LLM using 🤗 autotrain</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Train (almost) any LLM using 🤗 autotrain</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">fine-tuning</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 15, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>In this talk, we will show you how to use HuggingFace AutoTrain to train/fine-tune llms without having to write any code. Links: https://huggingface.co/autotrain Abishek’s Youtube Channel: https://www.youtube.com/<span class="citation" data-cites="abhishekkrthakur">@abhishekkrthakur</span></p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/a8p7Yr82iq4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=0">00:00</a> Introduction and Overview</strong> Introduction to Autotrain and fine-tuning LLMs for practical use</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=208">03:28</a> Key Features and Capabilities</strong> Autotrain’s no-code interface, support for various NLP tasks (token classification, text classification, etc.), ability to fine-tune models without choosing them manually, streamlined workflow for various ML tasks.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=403">06:43</a> Getting Started, Project Setup, and Configuration</strong> Steps to start a project with Autotrain on Hugging Face: creating a project, attaching hardware, using local or cloud resources. Autotrain supports supervised fine-tuning, embedding fine-tuning (e.g., for RAG), and tabular data tasks.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=568">09:28</a> Fine-tuning Large Language Models</strong> Overview of fine-tuning tasks like SFT, generic fine-tuning, ORPO, DPO, and reward modeling. Differences between SFT and generic fine-tuning, importance of data preparation, column mapping in datasets, and use of chat templates for data formatting.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=683">11:23</a> Data Format and Column Mapping</strong> Importance of dataset format for Autotrain, recommendation to use JSON lines for better readability and processing, explanation of data column requirements for various tasks, and examples of proper dataset formatting for different models.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=780">13:00</a> Reward Models and Optimization</strong> Introduction to reward models and their training, dataset requirements for reward modeling (chosen and rejected columns), recommendation to use ORPO over DPO for memory and compute efficiency, chat templates support.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=994">16:34</a> Installation and Running the App</strong> Steps to install Autotrain, running the app locally.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=1063">17:43</a> Config Files and CLI Usage</strong> Details on using config files and CLI for training, defining tasks and parameters in config files, example configuration for different tasks, logging options (TensorBoard, Weights and Biases), storing trained models locally or pushing to the Hugging Face Hub.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=1244">20:44</a> Running on Jarvis Labs and DGX Cloud</strong> Options for running Autotrain on cloud platforms like Jarvis Labs and DGX Cloud, steps to set up training instances, attaching GPUs, and model storage.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=1412">23:32</a> Other Runtime Environments - Colab, Spaces, ngrok, Docker</strong> Using Autotrain on Google Colab, steps to set up Colab environment, using ngrok for UI access, including to run the same UI as on Hugging Face Spaces. Docker support.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=1514">25:14</a> Live Training Demo</strong> Instructions on selecting datasets from Hugging Face Hub or uploading local datasets, advanced use of full parameter mode, and examples of setting parameters for training.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=1710">28:30</a> Continued Demo, Multi-GPU Support</strong> Tracking training progress. One-click deployment on Hugging Face inference endpoints. Tracking training progress with TensorBoard. Support for multi-GPU setups, Autotrain’s integration with accelerate.</p>
+<p><strong><a href="https://youtu.be/a8p7Yr82iq4&amp;t=1974">32:54</a> Conclusion and Final Q&amp;A</strong> Final discussion on documentation, config file details, parameters selection, hyperparameter optimization, use of Mac for training, and synthetic data considerations.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li>AutoTrain Advanced, a robust, no-code platform designed to simplify the process of training state-of-the-art models:
+<ul>
+<li><a href="https://huggingface.co/autotrain">Hugging Face</a></li>
+<li><a href="https://huggingface.co/docs/autotrain/index">Docs</a></li>
+<li><a href="https://github.com/huggingface/autotrain-advanced">GitHub</a></li>
+</ul></li>
+<li>Configs / Examples: <a href="https://github.com/huggingface/autotrain-advanced/tree/main/configs">Link</a></li>
+<li>LLM Fine-Tuning Parameters: <a href="https://github.com/huggingface/autotrain-advanced/blob/main/docs/source/llm_finetuning_params.mdx">Link</a></li>
+</ul>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<p>Autotrain is a no-code platform, integrated with the wider Hugging Face ecosystem, that automates many typical fine-tuning tasks.</p>
+<p>Getting started is simple: Go to https://huggingface.co/autotrain and click “Create new project.” From there, fill out the dialogue, after which a Hugging Face Space (duplicated from a template) will be created for you.</p>
+<section id="features-and-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="features-and-considerations">Features and Considerations</h3>
+<p>Autotrain can handle LLM fine-tuning specifically but can also handle supervised fine-tuning more generally (SFT). SFT accommodates either your available input text data as is as well as the ability to transform it to various chat templates, including ChatML, Sapphire, and any given tokenizer’s internal chat template.</p>
+<p>Autotrain also handles the special case of reward fine-tuning; we must format the data according to accepted/rejected based on the hypothetical (or actual) user’s choice. Abhishek recommends ORPO over DPO because it does not require a reference model and demands less resources (memory).</p>
+<p>Autotrain streamlines the workflow for different fine-tuning tasks by choosing models and hyperparameters for you; so even for experts, Autotrain speeds up iteration cycles.</p>
+<p>Abhishek recommends JSON lines (JSONL) over CSV for datasets when using Autotrain. It avoids some of the issues of converting from CSV (like having to stringify lists, etc.)</p>
+</section>
+<section id="local-usage" class="level3">
+<h3 class="anchored" data-anchor-id="local-usage">Local Usage</h3>
+<p>To run and serve the Autotrain UI locally, simply:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> pip install autotrain-advanced</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> export HF_TOKEN=your_hugging_face_write_token</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> autotrain app <span class="at">--host</span> 127.0.0.1 <span class="at">--port</span> 8000</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This assumes a number of dependencies in your environment (e.g., PyTorch); for more detail, see <a href="https://huggingface.co/docs/autotrain/quickstart">Use Autotrain Locally</a>. Autotrain will only use your HF token in order to push to Hub; otherwise, the app can be run entirely locally.</p>
+<p>Alternatively, you can also run Autotrain via CLI:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> export HF_TOKEN=your_hugging_face_write_token</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> autotrain <span class="at">--help</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will print out a list of commands for use with the CLI. The recommended usage is:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> autotrain <span class="at">--config</span> your-config.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>--config</code> parameter accepts both local files as well as URLs to config files hosted on GitHub.</p>
+<p>Example config:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">task</span><span class="kw">:</span><span class="at"> llm-sft</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">base_model</span><span class="kw">:</span><span class="at"> meta-llama/Meta-Llama-3-70B-Instruct</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">project_name</span><span class="kw">:</span><span class="at"> autotrain-llama3-70b-math-v1</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span><span class="kw">:</span><span class="at"> tensorboard</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">backend</span><span class="kw">:</span><span class="at"> local</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">path</span><span class="kw">:</span><span class="at"> rishiraj/guanaco-style-metamath-40k</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">train_split</span><span class="kw">:</span><span class="at"> train</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">valid_split</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">chat_template</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">column_mapping</span><span class="kw">:</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">text_column</span><span class="kw">:</span><span class="at"> text</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">block_size</span><span class="kw">:</span><span class="at"> </span><span class="dv">2048</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">model_max_length</span><span class="kw">:</span><span class="at"> </span><span class="dv">8192</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">epochs</span><span class="kw">:</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">batch_size</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">lr</span><span class="kw">:</span><span class="at"> </span><span class="fl">1e-5</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">peft</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">quantization</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">target_modules</span><span class="kw">:</span><span class="at"> all-linear</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">padding</span><span class="kw">:</span><span class="at"> right</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">optimizer</span><span class="kw">:</span><span class="at"> paged_adamw_8bit</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">scheduler</span><span class="kw">:</span><span class="at"> cosine</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">gradient_accumulation</span><span class="kw">:</span><span class="at"> </span><span class="dv">8</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mixed_precision</span><span class="kw">:</span><span class="at"> bf16</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="fu">hub</span><span class="kw">:</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${HF_USERNAME}</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">token</span><span class="kw">:</span><span class="at"> ${HF_TOKEN}</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push_to_hub</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the dataset can be local; simply supply a local path.</p>
+</section>
+<section id="cloud-templates" class="level3">
+<h3 class="anchored" data-anchor-id="cloud-templates">(Cloud) Templates</h3>
+<p>Besides running on Hugging Face Spaces, you can also run on: - Jarvislabs: <a href="https://jarvislabs.ai/templates/autotrain">Template</a> - Colab: <a href="https://colab.research.google.com/github/huggingface/autotrain-advanced/blob/main/colabs/AutoTrain.ipynb">Basic</a>, <a href="https://colab.research.google.com/github/huggingface/autotrain-advanced/blob/main/colabs/AutoTrain_LLM.ipynb">LLM</a> - Docker: <code>huggingface/autotrain-advanced:latest</code></p>
+</section>
+<section id="other-notes" class="level3">
+<h3 class="anchored" data-anchor-id="other-notes">Other Notes</h3>
+<ul>
+<li>Autotrain template config files for use with the CLI can be found in the GitHub repo (see Resources)
+<ul>
+<li>Template examples include training embedding models for RAG</li>
+</ul></li>
+<li>Automatically generating synthetic data and auto-training on that is not supported</li>
+<li>It’s possible to provide your own chat templates, technically, by cloning a model, going intto its <code>tokenizer-config.json</code> and changing the chat template there; afterwards, you can use it as normal with Autotrain</li>
+<li>Autotrain supports multi-GPU out-of-the-box, including managing the <code>accelerate</code> configs</li>
+</ul>
+</section>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Train (almost) Any LLM Model Using 🤗 Autotrain <br>[0:03] Abhishek: Okay, great. So I changed the title a little bit because we ended up adding embedding models fine tuning in AutoTrain. And I think that’s also an interesting topic for this conference. Because you will fine tune LLMs and then you’re going to use it. So a little bit about me, I work at Hugging Face where I’ve been auto trained and everything around it. <br>[0:42] Abhishek: And as you can see like even from my posts I talk a lot about auto train and I am also a caggler but these days I’m not competing much but I was the first one to get a Grandmaster in all categories. <br>[1:02] Abhishek: that’s something I like to brag about everywhere I go and now today we are going to look into what is AutoML, there was a question what is AutoML and AutoTrain I was I was very much interested in AutoML for a long long time but now nowadays it’s not about tuning the parameters so much it’s about like finding the correct loss and correct data set and that’s probably what you need um so we’re going to take a look at what autotrain is and who should use it the key features and what are the benefits of autotrain <br>[1:47] Abhishek: how to use what are the available tasks what are the features which are available and we’re going to take a look at fine-tuning elements we’ll try to see if we can fine-tune something live today hopefully nothing breaks and then we’re going to take a look at the recently added task of sentence transformers fine tuning and yeah if you have any questions feel free to stop me at any point so autoframe uh was previously known as auto nlp and it was a closed project i don’t know how many people know about that but like BERT had <br>[2:31] Abhishek: just come out and everyone was crazy about BERT fine tuning for different downstream tasks. So we made something called AutoNLP where you could just upload your data and select the columns and select the model you want to fine tune. And that’s it. And then we would fine tune on different sets of hyperparameters and present how one model compares to the other. <br>[3:00] Abhishek: like a different set of models so you don’t even have to choose the model if you don’t want to choose the one so uh that developed into auto train and uh we open sourced it uh i think end of last year or mid of last year and uh since then we have been continuously adding many many more tasks and listening to what the community says um So AutoTrain is the no-code platform. There’s a lot of different types of no-code platforms. AutoTrain is one of them. <br>[3:39] Abhishek: And it’s valuable for those who want to use advanced machine learning, but they don’t have a lot of expertise in which is traditionally required. But it’s not just for… those who don’t have a lot of traditional expertise, but it’s also for data science. So I use AutoTrain all the time and it’s because it makes my iterations faster. If I just have to check what parameters are working or which model is good enough for me, I can just put in the dataset and let AutoTrain do its job. So it’s like It can be used by everyone. <br>[4:31] Abhishek: There’s a lot of different kinds of trainers and AutoTrain is not just about training or fine-tuning large language models. It can do a lot more. So you have different types of natural language processing tasks that you can accomplish with AutoTrain. Like you have token classification, text classification. Then you have all different kinds of LLM tags. some computer vision tasks like image recognition, sorry image classification, object recognition and even data. And AutoTrain tries to streamline the workflow for you. <br>[5:20] Abhishek: So like yeah like today we are going to talk more about large language models and how you can use AutoTrain to fine-tune your own elements like for others for chat or for on your date for your own data um so auto training tries to like uh close the gap between sophisticated or new models that are coming in and makes it easier to train models and it leverages everything in Hugging Phase. So like you have transformers, datasets, diffusers, the theft library and others. <br>[6:12] Abhishek: One more important library framework I’ve got here is Accelerate and thanks to Zach for that. So yeah it leverages almost everything which is already there in Hugging Phase and that’s why like Whenever a new model comes and it’s supported in Transformers, it doesn’t take much time or let’s say it’s also immediately supported by AutoTrain. Yeah, so let’s move on. To start with AutoTrain, you can go to huggingface.co.au and you will come across this page where you can click on create new project. <br>[6:57] Abhishek: and it will show you a screen like this where it shows you who owns it so you can put in an organization if you want just give the space a name and then you can attach hardware from Hugging Face but it doesn’t mean that you cannot do it locally I’m going to come to that part too you can train the model anywhere you want So you can attach a hardware and HuggingFace has a huge list of hardware you can choose from and Then you click on duplicate space. <br>[7:35] Abhishek: After a few minutes, it’s going to show you a space which has a login and you need to log in with your HuggingFace account and After you have done that you will get a screen like this one Now here you can see, I think you might have seen some previous version of AutoTrain. This is the new one that we have tried to build, trying to make it much more user-friendly by providing drop-downs and inputs for different parameters. And on the side panel you can select what kind of task you are interested in. <br>[8:14] Abhishek: Here we have selected LMSD and the hardware is local or spatial. your training is going to run in this space. So when you’re running it locally, it’s going to say the same thing as a local space and then you have logs and documentation and all different kinds of things. So these are the tasks that we currently support. We have the supervised fine tuning, different kinds of different other kinds of tasks like tuning. <br>[8:47] Abhishek: you have different kinds of sentence other test tasks like a seek to seek token classification you can you also have some image tableau tasks and all it requires you to like upload your data choose the parameters or change the parameters if you want to change them most of the time they work out of the box sometimes And you can either choose to upload your own dataset or you can just use the dataset from the Hugging Face Hub for almost all the tasks. <br>[9:29] Abhishek: So moving on, coming to fine-tuning large language models, we have Autorun offers you different tasks like SFT or Generate Fine Tuning or Core DPU and Reward. And they… When we talk about supervised fine-tuning or generic tasks, both of them are very much similar. The only difference here is SFT comes from TRLs, which is another library by Halley-Pace. <br>[10:00] Abhishek: a safety trainer is being used but for generic fine-tuning it’s not used but both are pretty close to each other and it’s called supervised since we are collecting data from humans but we still use entropy loss and in like generic what generic trainer does is to combine all the rows in one and like divide by block size that you have provided and the only column here required here is text so you must have seen like in the previous slide there is something called column mapping so this is something different in auto train so it doesn’t <br>[10:49] Abhishek: expect you to have your data with the same columns as required are the same column names but you can actually map so let’s say in your dataset. The column containing all the conversations is called conversation. So here you can write conversation. And yeah, so chat template is also available if your data is not formatted. If you want to format it using some kind of chat template, you can also do that. So this is an example of the dataset. So this is like Wikitext. <br>[11:28] Abhishek: So a lot of people think like SFT can be can be can do instruction tuning. Yeah that’s not true. You can use any dataset you want and you can just fine tune your existing large language model. So here we have a subset and we have a training and we can use this. So this is the asset from Hugging Face Hub and you can just plug it into AutoTrain and use it directly. And I’ll show you that in a small demo later on. <br>[12:04] Abhishek: Here is another format where you have, which is a chat format, and where you have content and you have the role and this is like the JSON lines format but the one I’m showing you right now is obviously from Hugging Face Hub, so it’s datasets for that. So here you can just use whatever kind of chat template which is suitable for your data. In this case, it’s chat ML. And you can also select the Zapier template which expects a system prompt or the tokenizer’s chat template. <br>[12:41] Abhishek: So when you’re selecting a model to fine-tune, the tokenizer may have a chat template and you can select that. But if you don’t want to select a chat template and your data is in this format, you have to convert to plaintext. Then we come to RewardModel RewardTrainer, which is also offered by AutoTrain. And you can train Custom Model, which is sequence classification task, and determines which example pair is more relevant. And in that case, your data set consists of two different columns. One is a chosen column, and one is a rejected column. <br>[13:25] Abhishek: So when it comes to AutoTrain, it always has a text column for the data set, and the column will become rejected. Then, ORPO or DPO, a lot of people are famous, are really interested in training a DPO model. But I’m moving more towards ORPO because ORPO doesn’t require a reference model, and it’s much less memory and much less compute. So I would. <br>[13:54] Abhishek: recommend like if you try to train a DPO model you can probably try orpoo one first and see how it performs and in this case the data set has three different columns one is prompt and then you have the chosen column and the rejected column which are all conversations and the one that we are looking at right now and even in case of orpoo or DPO trainer you can use the chat templates So dataset format, I think it’s the most important thing when you’re using AutoPrint. <br>[14:34] Abhishek: All you have to do is create the data and create it in a proper format. And once you have that, so like you can use a CSV dataset, you can use a JSON lines, JSONL dataset. In most cases, I would recommend you to use JSON lines because then if you’re using csv you have to convert then here you can see the chosen or rejected columns and their list of dictionaries and then you have to convert it then into stringified list, which is not good. So JSON lines is much better, more readable. <br>[15:14] Abhishek: So one of the like formats, if I’m talking about like Alpaca dataset. So here is a JSON line file and it has like a key text and it contains the formatted text. So if I have dataset in this format, I don’t want to, I don’t have to use chat templates. But if I have dataset in the previous format that I’ve shown you, then you will probably want to use chat template. It’s not going to work without that anyways. You can use chat template offline and convert your data into plain text, a single column. <br>[15:58] Abhishek: not for orpo dbo but for safety trainer so um if you’re looking at uh everything everything auto train can be found in the hugging face repository sorry the github repository and if you have any if you have any like issues or feature requests feel free to create feature requests or issues in the issues tab so we try to resolve issues quite quickly so you don’t see many open but you have a lot of them placed. And now comes another part. I think I should go back here to the presentation. <br>[16:46] Abhishek: So let’s do this part quickly and then I can go to training model. So in the documentation you have everything that you need, hopefully. How do you install AutoTrain? All you have to do is pip install autotrain-advanced and then you can run the app. To run the app, you need to provide your hugging fees right in an environment variable called hf-on-sale. Then you can run the app. The app that I showed you before, you can run the app locally. Your trainings run locally. <br>[17:25] Abhishek: your token is only required to push your trained model to the hub or in case you want to train or fine-tune a model with a base model which is gated like most of the models that we have today like LAMA3 or MISTERL or anything. So, Alpen is not the only way to train a model. You can also use config files. Everyone loves config files. And the config file originated from AutoTrain CLI. So you also have the CLI, so you can try to write autotrain hyphen hyphen help. <br>[18:07] Abhishek: And it’s going to show you all the CLI commands. You can train all the different kinds of tasks that you can train in the UI using CLI. But sometimes, config files make it easier. So here you define the task. So where you have a list of tasks that you can find in rotation. It’s the same list as present in the UI. And so like LLM or POE. And you define the base model that you want to use. And then you give your project a name. It requires an output folder to push everything. <br>[18:42] Abhishek: And whether you want to log it using TensorBoard or weights and biases or no logger at all, and backend, which is local. <br>[18:51] Abhishek: and then you provide everything related to the data so now each each task will have something different that is required for the data here we need the data path most of most of the tasks require you to have some kind of data path and then a training split and validation split if you you don’t have validation split you can just put that’s null then if you want to use chat template chat ml or zephyr just set it to null and then a column mapping. <br>[19:24] Abhishek: Other than that you have the parameters, so whatever the parameters you want to set, if you don’t want to set all the parameters you can set only three and everything else will be default. And then if you want to push your model to the hub or not. <br>[19:43] Abhishek: So if you want to push your model to hub then in that case we require your hugging-based token in your username under which we should first push the train model and datasets if there are any but otherwise your We don’t you don’t need to provide your face token if you want to keep your model locally your model will be stored locally on this project name and like if you’re using a total data set which is a local data set so here i’ve shown like you have to use uh here i’ve shown a data set from <br>[20:23] Abhishek: the hugging face hub but you can use a local data set in that case the path will be paths to a train.csv or a train.json file and your data set won’t be pushed anywhere it’s going to be stored locally in case you have like sensitive data i don’t push it anywhere um you can also you can also like use so jarvis lab is one of the sponsors of the scores and click on templates here is auto train you can just click on auto train and you can start training a model so like you can choose <br>[21:08] Abhishek: what kind of gpu you want and here you have to enter your face factor because it’s running in cloud so you have to store your models somewhere in the end and then you just launch the instance and you have the fully-fledged train ui running in on here slabs. Or like if you don’t have much resources and you want to train a 70 billion parameter model, you can also rent them from TGX cloud where you can have up to eight H100 GPUs. So going back, I was in the GitHub repository. <br>[21:57] Abhishek: And GitHub repository also provides you a way to run Auto train on Collab where I have created a kind of like, like, I’ve created like a small UI exclusively for Collab. So you can just use that and you can upload your data to Collab. Let me see if I can run it. <br>[22:35] Participant 2: By the way, I noticed that whenever I tell people about AutoTrain and they go to the website, they actually don’t ever find the GitHub repo from that site because it has the user interface you click on and stuff like that. I actually like the GitHub repo a lot because I can like… run it locally or whatever, you know. Yeah. Is there a reason that it’s not on the website? Or is it just like, maybe just… <br>[23:06] Abhishek: Is it not on the website? <br>[23:08] Participant 2: Yeah, when I mean the website, I mean this one. Or let me just put it in our panelist chat here. <br>[23:14] Abhishek: Sure. Okay. We’ll add it tomorrow. Okay, cool. Yeah. <br>[23:26] Participant 2: So it’s the same thing, right? Like that interface you get there is like using the code here? <br>[23:33] Abhishek: Yeah, it’s the same thing. So for Colab, let it load. I will show you. But it’s the same thing. You can deploy on Hugging Face Spaces from here or you can use ngrok if you want the same UI as we run on Spaces. Or you can just run… everything locally anywhere and you will get the same user interface. But most of the time, like people I’ve seen are mostly interested in running using a config file when they’re running locally or use the CLI instead. <br>[24:11] Abhishek: But yeah, we do if you want to run the UI app or API or CLI or anything you can you can run it anywhere um one more thing like there is also a docker container so if you want to like use uh use that you don’t have to worry about installing different kinds of stuff so you can just pull from out honeyface latest and it’s always updated to the main branch of the repository You can also start from there. You don’t have to care about the different kinds of dependencies. <br>[24:59] Abhishek: okay so this is still running i’ll come back to that later on but um like after create clicking on create new project it’s a good solution i should report link here and you you’ll come to this page so let’s try to train uh so it’s right now it’s running on l4 gpu you can select the settings if you’re running on the spaces okay Here I have the safety task. I can select many different tasks here, but I don’t think you see the drop down in the video. So I’ll just select LMA safety and… <br>[25:55] Abhishek: Sure, why not? I can either upload my dataset or I can click on Hugging Face Hub. And then I have to provide the app to the dataset, so like wherever the dataset is stored on Hugging Face Hub. And you can provide the training and validation slides. But right now we can just upload the dataset, so the Alpaca JSON, the little dataset that I was showing you. <br>[26:25] Abhishek: that and it has already has column name as text let’s say the column name in 1k json file was messages then i would just write messages here so right now it’s text and then i have many different options i can choose from i also have like we don’t try to overwhelm you with all the different parameters So we have just determined the parameters that most of the users change, but you can always click on full parameter more and then you get a list of all the different kinds of parameters you can change from. <br>[27:10] Abhishek: And at any point you want, you can switch to JSON format if you feel like just copy pasting the parameters from the GitHub repository. So here I have… <br>[27:23] Abhishek: like here if I want to change things I can change the number of books you want to make faster for this one and learning rate or gradient accumulations and the explanation of like all the parameters is also provided in the repository in the parameters section so if you have any confusion you can just read up there and then you click on start training and then in the logs here you can see like what’s happening and how is the model training in the meantime i can probably switch to collab and show you okay yeah so here <br>[28:02] Abhishek: is a collab ui it looks very much similar to what we have but and probably will be improved at some point but this is a collab ui but if you want to use the full ui you can use a different link here run auto training on collab via ngrok and in that case you need to provide an ngrok token and you can run everything on collab. Okay so yeah so I think the model is training right now. Another thing like I wanted to mention was once the model is trained it’s going to be HuggingFace repository. <br>[28:51] Abhishek: And since like if you see right now like I’m running it on HuggingFace environment so downloads are pretty fast. And once you are like done training the model if you want to deploy it using inference endpoints on HuggingFace you can you can do so like it’s just like a single click. If I go back to Auto Train, see here that has created, it has already created a repository for me. <br>[29:29] Abhishek: So for the training that I have started and when once the training starts, I’ll see a TensorBoard tab here so where I can track the trainings live. And you can also, you don’t have to keep this space open, so you can close the space and come back and just remember to sleep time, which is higher than your training time. Once the training is done, feel free to use it anywhere. Auto train configs you can also find in the repository. <br>[30:10] Abhishek: So there is a configs folder and if you go inside that you have all different kinds of tasks that we offer. So like GPT-2 data set and you can just do auto train config and use the raw URL to just train on this config directly. <br>[30:36] Abhishek: One thing you should have noted already you don’t have you don’t have a lot of parameters so you cannot adjust like you want to use deep speed or FSDP these kind of things so FSDP is currently not supported so anyways you cannot use it but deep speed when it’s required will be used and generally used only for multiple GPU steps. Like if you have four GPUs, it’s going to run in deep speed mode. If you don’t have four GPUs, then it’s going to run distracted. <br>[31:10] Participant 2: Is Qlora supported on deep speed? <br>[31:15] Abhishek: Yeah, <br>[31:15] Participant 2: it is. OK. <br>[31:17] Abhishek: So thanks to.. And so you don’t have to adjust all these parameters. It’s like all you need to think about is basically the data. Yeah, that takes most of the time. After that, everything becomes easy. And like, yeah, I was saying, all of the tasks, they run, like if you have two GPUs or if you have four GPUs, they run in multi-GPU mode out of the box. You don’t have to change anything there. And everything is powered by Accelerate. So you don’t even have to do Accelerate config. It’s going to use its own config anyway. <br>[32:06] Abhishek: Auto drain command that wraps Accelerate and uses that. OK, I think we can take some questions. But before that, I will just quickly show you different kinds of sentence task that you can also do. If you want to improve your rag models, so you can tune your own embedding model, or you can also start from scratch using in that place. Just like a word based on case. OK, I think the model is. Yeah, so the model is training. And when the model is available, it’s going to show up here. <br>[32:55] Abhishek: And with that, I think, yeah, OK, so this one was the sentence transform triple task, which I’ve already shown you. And thank you very much. <br>[33:05] Participant 2: I think. Can you log? Do you have like, Axolotl has whatever logging weights and biases kind of useful. Do you have something like that? <br>[33:17] Abhishek: I’m sorry, I didn’t get the question. <br>[33:18] Participant 2: Oh. <br>[33:19] Abhishek: so like axolotl you know you can like um log to weights and biases oh yeah you can you can you can do that here as well if you’re using the ui it’s uh it’s not possible but if you’re using your own config files you can just write w and b here okay yeah you should have your token exported somewhere when you’re running the command and just so people know like um <br>[33:49] Participant 2: Is there a good documentation about the config file? What are the different key values you can have and stuff like that? <br>[33:58] Abhishek: Yeah. In documentation, we have shown you how to create the config files. But if you’re looking for any specific task, you will find the config files here. It looks like I’ve done recently for sentence transformers, I have config for each different kind of trainer. And for LLM fine tuning here, we have a config file for SFT, one ARCO, DPO, and DPO Qlora. If you want to start your train locally but run in space, so you have a config for that too. And other configs should be based on that. <br>[34:41] Abhishek: But we like We always welcome, like, if you want to improve the docs, or if you want to create your own config and share here, or in a different repository, please feel free to create an issue. And if there’s something missing, it will be added in less than 24 hours. <br>[34:59] Abhishek: so in the json so yeah there is a question about does autotrain link the parameters so you don’t pick the incompatible ones so uh yeah the parameters are based on a pydantic base model so it’s going to tell you it’s not you won’t be able to select any incompatible parameter hyper parameter optimization we currently autotrain doesn’t do for llms it’s going to take a lot of time fine tuning takes a lot of time anyways but it does help with parameter optimization for some other tasks the next question how big of a model can you train <br>[35:41] Abhishek: on auto train using a swip cpu option i’m not sure i’ve never tried but you can so one more thing i should mention here like you can also use auto train on your m1 m2 and 3 mac can you add your own chat template Technically, yes, you can. So all you have to do is clone the model and create your own model repository and go to tokenizerconfig.json. And inside that, you have the chat template. So just change it and you can use a model with a different chat template. And so… <br>[36:27] Abhishek: There are a couple of questions about creating synthetic data. So hopefully we will have something related to that soon. But as of now, we don’t have that. So you need to come up with your own data set. But you can always go and generate your own synthetic data and use that instead. <br>[36:54] Abhishek: um another question yeah okay so another question this was about tokenizers chat template tokenizer conflict with Jason so I already answered it in a different question so yeah you can um yeah that’s that’s correct uh for a couple thousand uh rows It takes, I think, 15 minutes to train. So this question was about how much time it’s going to take, like a ballpark. Yeah, I think I’ve answered most of the questions. If there’s something that I missed, please let me know. Awesome. <br>[37:44] Participant 2: Yeah. Like Hamil said, we’re big fans of the idea. I’m excited to try it out. <br>[37:52] Abhishek: So thanks so much. So just one more thing, like if we have time before. <br>[37:59] Participant 2: Yeah. <br>[38:01] Abhishek: So yeah, so this is the training that I started and it had 1000 rows of data. It was running on a T4, sorry, L4 GPU, I think. And the model training has finished, and it just pauses the space on its own so that you don’t spend money. But if you’re running it locally or on some other cloud systems, it’s not going to pause on its own. We ran this only for one epoch, so we don’t have much. But we have all the files that we need. <br>[38:34] Abhishek: And if you want to just deploy it, you can deploy it on many different options. Or you can just copy them locally and just deploy it anywhere you want. <br>[38:48] Abhishek: nice okay thank you so much then thanks for having me and yeah thank you appreciate it thanks</p>
+</div>
+</div>
+</div>
+<center>
+<script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
+</center>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/abhishek.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

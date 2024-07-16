@@ -1,0 +1,54 @@
+[
+  {
+    "listing": "/education/applications/index.html",
+    "items": [
+      "/education/applications/simon_llm_cli/index.html",
+      "/education/applications/charles.html"
+    ]
+  },
+  {
+    "listing": "/education/evals/index.html",
+    "items": [
+      "/education/evals/schoelkopf.html",
+      "/education/evals/allaire.html"
+    ]
+  },
+  {
+    "listing": "/education/fine_tuning/index.html",
+    "items": [
+      "/education/fine_tuning/mistral_ft_sophia.html",
+      "/education/fine_tuning/daniel.html",
+      "/education/fine_tuning/pawel.html",
+      "/education/fine_tuning/kyle.html",
+      "/education/fine_tuning/napkin_math.html",
+      "/education/fine_tuning/slaying_ooms.html",
+      "/education/fine_tuning/abhishek.html",
+      "/education/fine_tuning/emmanuel.html"
+    ]
+  },
+  {
+    "listing": "/education/index.html",
+    "items": [
+      "/education/applications/index.html",
+      "/education/evals/index.html",
+      "/education/fine_tuning/index.html",
+      "/education/prompt_eng/index.html",
+      "/education/rag/index.html",
+      "/education/fine_tuning_course/workshop_1.html"
+    ]
+  },
+  {
+    "listing": "/education/rag/index.html",
+    "items": [
+      "/education/rag/jo.html",
+      "/education/rag/ben.html",
+      "/education/rag/jason.html"
+    ]
+  },
+  {
+    "listing": "/education/prompt_eng/index.html",
+    "items": [
+      "/education/prompt_eng/berryman.html"
+    ]
+  }
+]

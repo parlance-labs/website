@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-05">
+
+<title>Fine-tuning when you’ve already deployed LLMs in prod – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<script async="" data-uid="fbcda700a8" src="https://hamel.ck.page/fbcda700a8/index.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Parlance - Fine-tuning when you’ve already deployed LLMs in prod">
+<meta property="og:description" content="Already have a working prompt deployed in production? Fine-tuning may be significantly easier for you, since you’re already collecting training data from your true input distribution! We’ll talk through whether it’s a good idea to replace your prompt with a fine-tuned model at all, and the flow we’ve found most effective if you choose to do so. We’ll also review important gotchas to watch out for like data drift post-deployment.">
+<meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="540">
+<meta property="og:image:width" content="960">
+<meta name="twitter:title" content="Parlance - Fine-tuning when you’ve already deployed LLMs in prod">
+<meta name="twitter:description" content="Already have a working prompt deployed in production? Fine-tuning may be significantly easier for you, since you’re already collecting training data from your true input distribution! We’ll talk through whether it’s a good idea to replace your prompt with a fine-tuned model at all, and the flow we’ve found most effective if you choose to do so. We’ll also review important gotchas to watch out for like data drift post-deployment.">
+<meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="540">
+<meta name="twitter:image-width" content="960">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/index.html">Fine-Tuning</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/kyle.html">Fine-tuning when you’ve already deployed LLMs in prod</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fine Tuning Course</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 1: When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/fine_tuning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/prompt_eng/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering Workshop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs on the command line</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/kyle.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/index.html">Fine-Tuning</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/kyle.html">Fine-tuning when you’ve already deployed LLMs in prod</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Fine-tuning when you’ve already deployed LLMs in prod</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">fine-tuning</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 5, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>Already have a working prompt deployed in production? Fine-tuning may be significantly easier for you, since you’re already collecting training data from your true input distribution! We’ll talk through whether it’s a good idea to replace your prompt with a fine-tuned model at all, and the flow we’ve found most effective if you choose to do so. We’ll also review important gotchas to watch out for like data drift post-deployment.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/4EPZZkVrXC4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p>Chapters are organized in the format of the talk which is the “10 commandments of fine-tuning”.</p>
+<p>Thou Shalt …</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=0s">0:00</a> 1st: Not Fine-Tune</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=299s">4:59</a> 2nd: Write a Freaking Prompt</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=638s">10:38</a> 3rd: Review Thy Freaking Data</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=757s">12:37</a> 4th: Use Thy Actual Freaking Data</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=1060s">17:40</a> 6th: Reserve a Test Set</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=1150s">19:10</a> 5th: Choose an Appropriate Model</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=1381s">23:01</a> 7th: Write Fast Evals</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=1550s">25:50</a> 8th: Also, Write Slow Evals</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=1687s">28:07</a> 9th: Not Fire and Forget</li>
+<li><a href="https://www.youtube.com/watch?v=4EPZZkVrXC4&amp;t=1877s">31:17</a> 10th: Not Take the Commandments Too Seriously</li>
+</ul>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p>These are the resources mentioned in the talk:</p>
+<ul>
+<li><a href="https://openpipe.ai/">Open Pipe</a></li>
+<li><a href="https://hamel.dev/notes/llm/inference/03_inference.html">LLM Inference</a></li>
+<li><a href="https://argilla.io/">Argilla</a> for curating data.</li>
+<li><a href="https://www.answer.ai/posts/2024-04-26-fsdp-qdora-llama3.html">FSDP + QLoRA</a> from AnswerAI</li>
+<li><a href="https://twitter.com/corbtt">Kyle’s Twitter</a></li>
+</ul>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p><object data="kyle.pdf" type="application/pdf" width="100%" height="610"><a href="kyle.pdf" download="">Download PDF file.</a></object></p>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<section id="overview-and-strategy" class="level4">
+<h4 class="anchored" data-anchor-id="overview-and-strategy">Overview and Strategy</h4>
+<ol type="1">
+<li><strong>Prompted Models as a Default Strategy</strong>
+<ul>
+<li>Start with prompted models for fast iterations and updates.</li>
+<li>Use them to establish a baseline before considering fine-tuning.</li>
+<li>Analyze both input and output data thoroughly to ensure model performance improvement before fine-tuning.</li>
+</ul></li>
+<li><strong>Preparation for Model Training</strong>
+<ul>
+<li>Segregate test sets and choose models with optimal parameter sizes for cost-effective training.</li>
+</ul></li>
+</ol>
+</section>
+<section id="fine-tuning-considerations" class="level4">
+<h4 class="anchored" data-anchor-id="fine-tuning-considerations">Fine-Tuning Considerations</h4>
+<ol type="1">
+<li><strong>Default Approach</strong>
+<ul>
+<li>Avoid deploying fine-tuned models unless necessary for quality, latency, or cost reasons.</li>
+</ul></li>
+<li><strong>Advantages of Prompting Over Fine-Tuning</strong>
+<ul>
+<li>Prompted models allow for faster iteration and quick updates.</li>
+<li>Tools like OpenPipe enhance the use of prompted models.</li>
+<li>Use fine-tuning only when prompted models don’t meet required standards.</li>
+</ul></li>
+</ol>
+</section>
+<section id="when-to-consider-fine-tuning" class="level4">
+<h4 class="anchored" data-anchor-id="when-to-consider-fine-tuning">When to Consider Fine-Tuning</h4>
+<ol type="1">
+<li><strong>Quality</strong>
+<ul>
+<li>Fine-tuning can improve model performance when prompting alone isn’t sufficient.</li>
+</ul></li>
+<li><strong>Latency</strong>
+<ul>
+<li>Fine-tuned smaller models respond faster, improving real-time application performance.</li>
+</ul></li>
+<li><strong>Cost</strong>
+<ul>
+<li>Fine-tuning can reduce costs by enabling the use of smaller, less expensive models.</li>
+</ul></li>
+</ol>
+</section>
+<section id="key-insights-and-best-practices" class="level4">
+<h4 class="anchored" data-anchor-id="key-insights-and-best-practices">Key Insights and Best Practices</h4>
+<ol type="1">
+<li><strong>Establishing a Baseline with Prompting</strong>
+<ul>
+<li>Start with prompted models to determine if fine-tuning is necessary.</li>
+<li>Prompting often provides valuable insights and avoids unnecessary fine-tuning.</li>
+</ul></li>
+<li><strong>Data Review</strong>
+<ul>
+<li>Analyze input and output data before fine-tuning to understand model performance.</li>
+<li>Don’t exclude data sets solely based on poor performance; they may contain essential variations.</li>
+<li>Manual relabeling and modifying instructions can improve responses to varied inputs.</li>
+<li>Training on imperfect data can still improve performance due to the generalization capabilities of larger models.</li>
+</ul></li>
+</ol>
+</section>
+<section id="evaluation-and-continuous-improvement" class="level4">
+<h4 class="anchored" data-anchor-id="evaluation-and-continuous-improvement">Evaluation and Continuous Improvement</h4>
+<ol type="1">
+<li><strong>Model Evaluation Strategies</strong>
+<ul>
+<li>Fast evaluations: quick, inexpensive, during training.</li>
+<li>Slow evaluations: detailed, assess final outcomes and production-level performance.</li>
+<li>Continuous outer loop evaluations are crucial for adjusting strategies based on real-world performance.</li>
+</ul></li>
+<li><strong>Handling Data Drift</strong>
+<ul>
+<li>Ongoing evaluations are necessary to maintain model relevance.</li>
+<li>Retraining with updated examples can solve issues caused by data drift, ensuring continuous improvement.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:00] Kyle: The topic is deploying fine-tuned models in production. The first commandment and the most important commandment of deploying fine-tuned models in production is You should not do it. Okay? All right. This is obviously not universally true or else I wouldn’t be giving this talk. But I think it’s a good default. So specifically if you have an existing flow that is working for you and you figured out a pipeline with a prompted model, or if you are able to figure out a pipeline with a prompted model, that probably should be the default. <br>[0:35] Kyle: There’s a lot of advantages there. A big one is there’s a lot of your iteration speed is much faster. If you notice something’s wrong, you can play with it. You can update the prompt really quickly. And it just leads to a better experience versus fine-tuning. I think there’s a lot of tools, and OpenPipe is one of them. But we try and get the experience as good as possible. But really, honestly, you can’t really beat the experience of you just change the words and rerun it, and you get different or better results. So… <br>[1:07] Kyle: The default should be don’t bother with fine tuning unless one of some very specific things are true. Okay? This is what I just covered. Start with prompting. If you want to get a little bit more fancy than just raw dog typing out the instructions, very often doing something like, hey, coming up with three or four examples that are really high quality and throwing them in your prompt. <br>[1:32] Kyle: Or even a little bit faster than that, maybe you have a bunch of examples that you know are good, and you can sort of like use a rag thing where you grab the examples that are most similar to the exact document or whatever you’re analyzing right now. These are all strategies I would reach for before I reach for fine tuning. Okay? Now, all of that said… there are some very specific and very good reasons why you would go past that point and why you should actually do fine tuning. <br>[1:59] Kyle: And in my experience, there’s three dominant ones. So the first reason is quality, right? So you often find that there’s only so far you can get with just prompting as far as guiding a model towards a specific outcome. And if… how far you can get with that is not all the way to where you need to be to provide a good experience. That’s a great reason to do fine tuning. <br>[2:25] Kyle: Another really good reason is because when you’re doing fine-tuning, typically, the, I guess you could say, the Pareto frontier of how far you can push a given model or a given size model, like performance-wise, is much further out with fine-tuning than with prompting. And so what that means is you can move to a much smaller model for a given quality bar. And the upshot of moving to a smaller model is that you can get responses much faster. So there are a number of use cases. <br>[2:55] Kyle: And we have users like this where, you know, you’re doing real time, you know, you’re like doing phone system work or even chat work where you just want to get a really fast response. Or kind of like the double whammy of you want to get a user’s response back fast, but you’ve got like this agentic flow where it’s, you know, you’ve got several different prompts you’re running in sequence to kind of like figure out like all the stuff that needs to happen and then to get the response back to the user. <br>[3:20] Kyle: And of course, every one of those takes a latency hit. And so if you’ve got several of those running and the user’s waiting, you’re going to have a much better experience if those are going faster. And fine tuning can get you to that spot. And then the final one, and this is actually the one we see pushing people the most often. is about cost. So in a lot of cases, there’s a lot of use cases where GPT-4 can do a fantastic job and latency is not an issue. You’re just using it for classification or whatever. <br>[3:48] Kyle: But once you’re doing this on hundreds of thousands or potentially millions of calls every day, it just gets way too expensive from a pure unit economics point of view. And so this is a very strong reason why people will go to fine tuning because again, you can move to the smaller model sizes. and still get a really strong, a really good performance. And of course, the cost per token is much lower at those lower models, smaller model sizes. Okay, so we’ve established that these are, that one of these things is true. <br>[4:21] Kyle: And again, you should not fine tune unless one of these things or some other reason that’s a very good one is true. But let’s say we’ve established this, right? That with prompting, either we can’t hit quality or latency or cost. Okay. So, now let’s go into the actual fine-tuning part and talk about what we’re doing there. Actually, trick question or trick statement, we’re still not going to go to fine-tuning, okay? <br>[4:46] Kyle: So, even if you know that this is true, even if you know it’s like, hey, I am not going to be able to deploy in production because I know, I just know that it’s going to be too expensive when I do this at scale, or I just know that, like, I can’t hit my quality bar. <br>[4:58] Participant 2: Um, <br>[4:58] Kyle: You should still start by writing a prompt that gets you as close as you can. And I’m going to explain why that’s important. Or I mean, you know, you can get away without doing this, but why I think this is for most people for most flows the way you should do it. So the first thing is it gives you a baseline, right? <br>[5:15] Kyle: It’s like, okay, if I want to know if my fine-tuned model is worth it, if I should be investing time in this, I need to know in the alternative where it’s just prompted what I’m coming from and what I’m trying to improve on. And so that’s really important. And then as we’re getting later on and we’re talking about evals, we’re talking about actually the user experience you’re providing, this gives you something to compare it to and just make sure, hey, is all the time and effort I’m investing in doing this. <br>[5:41] Kyle: like actually giving me a return. This next point is, I think, a little bit of a subtle one that people don’t think enough about, but I think a really critical one. And that is trying to solve your problem with a prompted model can give you very good information about whether the task is possible. So this is actually something we see very frequently, where someone will come to us and they’re trying to solve a problem with fine tuning, and they haven’t tried or they haven’t been able to get it working with prompting yet. <br>[6:12] Kyle: And we’ll have a conversation with them and say, okay, explain to me, can you do this with prompting? They’ll say, oh, no, it’s because the model, we have this very weird schema that we’re trying to get the model to output. And it’s just like prompting can’t get it there or some other reason why they think it doesn’t do it. But then they’ll use and so I’ll say, OK, well, we need we need data to fine tune. And often they’ll say, oh, no, that’s that’s no problem. <br>[6:38] Kyle: We have a bunch of data like we have data we can train it on. This is not a problem. <br>[6:41] Kyle: What I have found in practice is that it is very often, unfortunately, I’d say more often than not the case, where even if you think you have labeled data that should work for this, the data you have, if it’s not good enough to stick in a rag pipeline or something like that and make it work with prompting, there’s a very high chance there’s actually not enough signal in that data to do what you want it to do. <br>[7:07] Kyle: And there was actually a fantastic example that I think Dan gave in the first lecture here about a logistics company where, you know, that you may remember if you watched that lecture, he was talking about they were trying to go from the description of an item to the estimated value of the item. <br>[7:22] Kyle: And I think there was a good assumption there, like a hypothesis that like, well, the description of the item should tell you enough about the item that like a model that understands a lot about the world should be able to guess how much it’s worth. But in practice, what they found is that it actually didn’t. It didn’t capture. enough information, there was enough randomness or reasons why people weren’t putting the right thing in the value box anyway, there actually was not enough information in that training data. <br>[7:46] Kyle: Whereas if you’re going with a prompted flow and you’re trying to get that working first, you can find out very quickly, like, okay, I just don’t have the data here. You know, the model’s not able to figure this out. This point is not a universal rule. It definitely is possible to train a model that, through fine-tuning, that can have great performance on your proprietary data set or whatever, that there’s no way that a prompted model could do. <br>[8:10] Kyle: So definitely not a hard and fast rule, but I found that if you can go in this direction, it’s going to make your life much better. So just kind of like a heuristic on that point is the so if you do find that you’re able to successfully write a prompt that is able to at least, you know, more often than not do a good job on your task, then there’s like a 90 plus percent chance that you will be able through fine tuning to improve that further on the metrics you care about. <br>[8:39] Kyle: So whether that’s latency, quality, or cost, there’s like a very good chance you can get this working. Whereas on the other hand, if there is no way to formulate your task in such a way that a prompted model could ever work and you’re just hoping that it can learn from the data, that still can work. But you’re definitely playing in a hard mode at this point. This is now a hardcore data science project. You have to figure out, is there actually enough signal in this to solve the problem? And it just gets much more complicated. <br>[9:08] Kyle: And in a lot of cases, it turns out that there actually isn’t that your data is not clean enough or well labeled enough or whatever to learn what you want it to. And so there’s a high chance of failure. So you want to be in this regime. You really want to be in the regime where you know it works with prompting. And then there’s a very high chance that fine tuning is going to be able to juice your returns and get you in a way better place. <br>[9:31] Kyle: And you want to avoid being in this other regime. Okay. Okay. So, we’ve got a prompt. And now we’re going to fine tune. And okay, I guess this slide is something I just wanted to share quickly. The conceptual way I think about it, the way I encourage folks in your situation who are thinking about deployments and production to think about it is like… You’re going with the prototype. Basically, when you’re iterating fast, when you’re trying to figure out, is this even something that’s possible to do? Is this something that’s providing value? <br>[10:01] Kyle: Is this something that, with our whole whatever app or flow or whatever it is you’re building, and you’re trying to see if it’s going to work or not, and if it’s going to provide value, just do all that part with GPT-4. Don’t worry about fine-tuning. And then once you’ve got something that actually works, that scales, that you have a sense of what people are using it for, that’s the point where you’re going to drop in fine-tuning. That’s just kind of like the general mental model that, again, not universal. <br>[10:26] Kyle: There’s reasons and times when it makes sense to go straight to fine-tuning the model if you can’t get prompting working. But in general, this is the flow I would recommend trying to make work by default. Okay. So, we have, so let’s say we now have a prompt deployed in production. We have, you know, people using it, people prototyping, playing with it. What’s the next step? Well, you got to look at the actual data. <br>[10:51] Kyle: And this is going to teach you so much, both on like how good a job your existing prompted model is doing, that’s super important, but also like on the types of things that people are using your product or your model. And that’s actually the part that I find personally is the most useful part of reviewing data. It just gives me a much better sense of like, okay, it just gives me a feel for what my input distribution looks like. <br>[11:22] Kyle: And without that information, you can make assumptions about the types of tests you should write, even the types of models you think will work well or poorly based on… like, you know, just like how hard you think the task is, the types of things you think this is being used for, that can be very wrong. So you just got to look through it. There’s no magic here. The right way to look through it varies a lot. <br>[11:50] Kyle: Very often in whatever system you are writing, you have some sort of natural UI, whether it’s a chat conversation interface, whether it’s some kind of classification system and you’re putting documents in everything. So if you do have an existing UI, then that’s probably the right place to look at it in. If not, if for whatever reason that there’s not a good way, then there are tools out there you can use. And OpenPipe is one of them, but that’ll just give you a nice formatted, okay, this is what the input looks like. <br>[12:18] Kyle: This is what the output looks like. Let’s click through, let’s go through 20, 50 of these and just get a sense of what our data looks like. <br>[12:26] Kyle: and you’re wanting to look at both the input and the output um you want to get a sense of the outputs any good as well of course but honestly like i said i find a lot of the value here is is just getting a really good sense of my input distribution okay so we’ve looked at our data we have a sense of what’s going on what’s next So, okay, so this next one is like, I need to explain what I mean by this. <br>[12:51] Kyle: So you actually, once you’ve looked at this data, once you understand, okay, this data is good, now you have to like, that is the data you should use. And let me, like the failure case I see here. is there’s a lot of, there’s like a tendency where sometimes people will look through their data and they’ll be like, oh, I noticed this like particular class of data, the model I’m using in production right now, it does a bad job on. <br>[13:15] Kyle: And so what they’ll do is they’ll go and they’ll like drop that out of their data set before they fine tune on it. Because they’re like, well, I only want to fine tune. And they’ll, you know, sometimes people have like a fancier automated way of doing this where they say, okay, well, you know, I’m going to collect user thumbs ups and thumbs down on my prompt. And then the ones that get thumbs up, I’m going to go ahead and fine tune on those. And the ones that get thumbs down, I won’t. <br>[13:37] Kyle: And I’m not going to say that never works. Like that definitely can work. The failure mode that I see here that does happen, though, is if you’re rejecting all the places where the model is doing a bad job. there’s a real danger that there is some correlation between the things it does bad on and a specific space of your inputs or something that you actually do care about. And if you don’t fine tune on that, then you’re just going to do a bad job there. <br>[14:04] Kyle: So the real solution here is figure out why the model is doing a bad job. Figuring out where in your input space is it doing a bad job? And then do one of several things. You can manually relabel it. You can just spin up a relabeling UI, and there’s several of them out there that are pretty good. And kind of type out what it should be. You can try and fix your instructions. Oftentimes I find that’s the best fix is as you’re manually reviewing the data, you’re like, oh, it’s doing a bad job here. <br>[14:33] Kyle: And then you play around with it and you fix your instructions and you can get it to a place where it’s doing a much better job there. So that’s very often the right way to do it. But the main thing is, you don’t want to just drop those ones and just fine tune on the ones that it did a good job on, because there’s a very high chance that means you’re just like… chopping off big chunks of your input space. <br>[14:50] Kyle: And then when you have your fine-tuned model that you’re deploying in production, it’s never seen this data before, and it’s also just going to do a bad job in that area. Anyway, no shortcuts there. <br>[15:01] Kyle: Now, I’m going to contradict myself a tiny bit, which is, if what you find is the model is mostly doing a good job, and 10% of the time, but it’s kind of like a random 10% of the time, it forgets an instruction or gets something wrong or something like that, I have actually, but it’s not like super correlated in like this one area. It always gets it wrong. It’s more just like, well, sometimes GPT-4, it’s non-deterministic. It messes stuff up. once in a while. <br>[15:29] Kyle: I have actually found that when that is the case, it actually doesn’t really hurt to train on that data. And I, this is what I’m saying right now is like very controversial. <br>[15:38] Kyle: And I’m sure that like, you know, like I could have a great debate probably with people on this call right now about like, whether this is, you know, like how, how big of an issue this is, but I’m just saying from my own experience, what I found is like, you can very common, like basically the these models are quite smart and they’re quite good at generalization as we’re getting into these larger models. And I’m talking really, the advice I’m giving right now really is for like, you know, I’m talking about like LMs. I’m talking like… <br>[16:03] Kyle: for 8 billion plus parameter models. I’m not talking about the really small ones. But for these big ones, I actually find that the training process itself, to some extent, does a form of regularization or normalization, where even if the input data is not perfect, as long as it is pretty good on average, you can actually very commonly see the model outperform even the model that was used to train it originally because of that sort of regularization effect. And so we see that very commonly on our platform. <br>[16:35] Kyle: We have lots of users who are training their fine-tuned models directly on GPT-4 outputs, and then they’ll actually run evaluations between GPT-4 and their fine-tuned model and consistently see for a lot of tasks that their fine-tuned model is doing better than GPT-4. And again, I think this comes down to that regularization effect where GPT-4 will just like, you know, 10% of the time make a dumb error and as part of the training process. It sees those, but it sees the 90% good ones and it learns, you know, that basically the goodness. <br>[17:08] Kyle: So anyway, all this to say, don’t stress too much if there’s like a few bad examples. I think in many cases, you can get great results anyway, and it may not be worth the effort of like manually reviewing all whatever 5,000 or 10,000 examples you have. Okay. So let’s say we’ve got, you know, we’re pretty happy. We’ve reviewed our data. We’re like, okay, you know, at least like 90% of these look good. This is basically doing what I want my model to do. <br>[17:37] Kyle: Okay, so next, before we actually do our training, very important, you have to pull out a test set. Okay? And this is not news to anyone who has a background in machine learning, but I do actually see this as something that sometimes people don’t do. Or often I’ll see people who have a test set which is kind of like weirdly constructed. So they’ll like pull out like, I don’t know, they’ll come up with like 10. <br>[18:03] Kyle: random examples because they saw these are the ones that prompted poorly on, or these are ones that like, for whatever reason, you know, a customer complained about this. So, so they have like a way of constructing a test set, um, that is not representative of the input data, I guess, is the way I would put this. <br>[18:18] Participant 2: Um, <br>[18:19] Kyle: and I think that’s totally fine. Like, I think having a test set like that of like specific cases that, you know, are weird corner cases and you want to make sure it’s doing well on like, that’s, that’s a, that’s actually great. There’s nothing wrong with that. <br>[18:29] Kyle: The problem is if you are testing on that exclusively and you are not also having a test set, which is just like basically like a random sub sample of your inputs, then you can be like you can you can have you can think you’re doing well and really not be doing well. Like you really want to have a test set, which is just like, hey, grab 5%, grab 10% of my data at random. Don’t train on it and and use that as the input. So Highly recommend doing that. <br>[18:58] Kyle: This is just kind of standard stuff for machine learning. But again, something I see people that don’t have a lot of experience fine tuning maybe not realizing is really important. Okay. So now let’s talk about the actual model that you should be fine tuning. So one nice thing is if you’ve got, and I know that you’ve had, you know, like you’ve already had a chat with Wing from Axolotl. <br>[19:23] Kyle: A really nice thing about Axolotl or HuggingFace’s SFT train or things like that is, and just the HuggingFace transformers ecosystem in general, is there are a lot of… It’s pretty easy if you get a fine-tuning pipeline set up for one model to throw in several different ones and run them side by side. And as long as your dataset isn’t huge, the cost is not prohibitive. We’re talking maybe a few dollars in many cases per fine-tuning run. And so that’s great because it makes it a lot easier to kind of like try different things. <br>[19:53] Kyle: But kind of as like a rule of thumb or a place to start. So this is a chart I put together actually for a different presentation. But I think it’s kind of representative of the ecosystem and some of the models that people are fine tuning commonly. And so the sense here, so this is actually based on real data. What this is normalized to is the number of training examples it took to match a certain performance threshold. <br>[20:24] Kyle: So basically, for the specific test that this is, I looked at like, okay, how good does GPT-4 do on this? And then for each of these other models, like, how many training examples did I have to add until it was able to… match GPT-4’s performance on this specific task? And the answer to that question is task dependent, but this is kind of like, this gives you an overview. <br>[20:45] Kyle: What I find is, you know, in general, if you’ve got like a few dozen examples, like you can very often get like Lama 370 billion to match GPT-4 on your example. And then as you start getting to smaller models, it does take more training data. It takes a wider input of training data. And again, this is very task dependent. There are some tasks where like, it doesn’t matter how much training you do, you’re never going to reach GPT-4 performance. <br>[21:09] Kyle: I actually find that that’s like definitely the exception for most things I see people running in production. I find that like these fine-tune models actually usually can pretty easily match GPT-4’s performance if you have a good training set. The place where I actually see most people coming in when they’re actually doing this in production, really the sweet spot, is this 8 billion, 7 billion, 8 billion parameter model. And so things like LAMA3, 8 billion, Mistral 7 billion. <br>[21:37] Kyle: I see that as like a really nice sweet spot because the amount of training data you need to get good results out of that is not overwhelming. You know, if you have like a thousand examples or so, you can typically get really good performance out of this. And at the same time, and so if you’re running in production, like we were talking about earlier anyway, hopefully you do have a few thousand examples that you’ve gotten that have gone through GPT-4 anyway. So hopefully you’re in a good spot. And the cost savings are really significant. <br>[22:06] Kyle: So actually this, I think, yeah, I didn’t update this with the latest inference costs you can get online, but this should actually be lower. The cost you’re seeing per token for like a Lama 3, a billion is somewhere in the 15 or 20 cents per million tokens. versus GPT-4, even GPT-4.0 is, I think, about 50 times that. So it’s a huge savings you’re getting there. And you can get really good performance in that, you know, 1000 to 5000 example range. So that’s where I often recommend people go. <br>[22:36] Kyle: But again, these training runs, the nice thing is they’re really cheap to do, especially if you’re in that like, you know, less 5000 or less example thing. And so why, you know, you can try a 70 billion model and see if it works. does better. You can even go smaller. You can try like a 5.3 and see how it does. And like, ultimately, like, it’s a pretty easy test to run. But this is probably where my default would be for a lot of tasks, at least. Okay, so now we’re going to talk about evaluations. <br>[23:04] Kyle: Evaluations obviously are a huge subject all on their own. And I’m not going to go super deep into this. I think probably there’s other segments of the course where you’re going to be talking about this more. But I do think there’s some there’s like an interesting framing here, which is which is not one that I hear people talk about that much. And I think it’s pretty important because in my mind, there’s actually two different kinds of evaluations, both of which are really important. And so the first one are fast evaluations. <br>[23:31] Kyle: And fast evaluations are ones that you can run, like, in your training loop or even if you’re doing prompt engineering, as you’re updating the prompt, these are evaluations you can just update the prompt, run, and then immediately see, did I do a good job or not? So these should be relatively fast to run. They should be relatively cheap to run and not require a lot of outside input to get good results. The Where I personally have found a really good sweet spot for this category, these fast evaluations, is using LLM as judge. <br>[24:03] Kyle: And so that’s kind of like the default. That’s where I would start is basically like asking GPD4 or asking like a jury of like GPD4 and Clod3 and maybe another model or something to say, okay, this is the task, the input I had. And then these are two different outputs from two different models. And there’s some tricks here. You have to randomize the order because there’s a slight preference for the former one. And if you’re using the same model as judge and as one of the entries, it has a preference for itself. <br>[24:32] Kyle: So there’s a little bit of subtlety here. I think there’s good libraries out there that can help you do this that are built in. We also, on OpenPipe, this is the default evaluation we give people. But the main point is… These things are cheap enough to run if you’re running it against, say, 50 or 100 examples that you can just like you can update your prompt and rerun it, or you can fine tune a new model and rerun it and really quickly get a sense, okay, is this like plausibly doing, helping me or not? <br>[24:59] Kyle: And I think that having something really fast like that, that you can run quickly and get a sense, okay, am I on the right track or not, is super critical because otherwise, you know, if you get to, and I’m going to talk about the other kind of evaluation in just a moment, but like basically if you’ve got like these slower evaluations that require you to run a production, your feedback cycle is so slow. that it’s just a lot harder to make progress and to get where you need to go. <br>[25:22] Kyle: So I really recommend investing in fast evaluations. You know, I think element as judges, right, is great. If you’re doing, there’s also like for specific tasks, other evaluations that can make a lot of sense. Like if you’re doing like a classification task or something, then you can just get a golden data set and calculate an F1 score or something like that. So anyway, but the high level point is find something that you can run fast. and then have a quick inner loop and can help you figure out you’re in the right direction. Okay. <br>[25:52] Kyle: Now, the other kind of evaluation, which is also super important, are like outer loop evaluations, slow evaluations, production evaluations, and you can call it different things. But the idea is that this is the one that is actually measuring the final result that you care about, right? And so this is something like if you’re writing a chatbot, like a customer support chatbot, it’s like, okay, what percentage of customers came out of this feeling like… their problem was resolved. Right? <br>[26:22] Kyle: And so these evaluations, I don’t think there’s like, I mean, there definitely is not a one size fit all. It really basically comes back to like, what is the outcome, you know, the business outcome or the product outcome that you’re trying to drive and figuring out how can I measure that? And so you really, these are really critical as well because, you know, the fast evaluations, even if a call looks better in… isolation. Maybe it’s if like a specific model output looks better in isolation. <br>[26:54] Kyle: Maybe it is not maybe there’s there’s like, you know, like some other interaction with some other piece of the system that’s like giving you a bad result. Or maybe like the elements judge is like not perfectly accurate. And it’s not actually measuring or maybe it’s like, once you deploy to production, like you’re quantizing it or something, and there’s like some disconnect in like the actual way it’s running. So there’s all these reasons why. <br>[27:12] Kyle: the sort of fast devalues you were doing before might not tell you, might not give you the full picture and might not be perfectly accurate. And so you really want to have that outer loop and make sure that you are going in the right direction. Okay, so I have a couple of examples here just from OpenAI with ChatGPT. In their particular case, I think they measure how often do people regenerate, how often do people give a thumbs down. <br>[27:35] Kyle: They also have a more concrete flow, which they rarely put up, but I have seen it a few times where you ask a question, it’ll just give you two responses side by side, it’ll let you choose which one is better. And I think, again, obviously it’s really dependent. If you’re not writing a chatbot, then probably this is not the right form. <br>[27:56] Kyle: But I do think it’s important that you think about for your specific problem, how are you actually going to measure that you’re doing a good job and that it’s driving the outcome that you actually care about. Okay. So, we’re almost getting through this. We’re to the ninth commandment out of ten. This one is really important. So, hopefully, like in this previous one, you’ve written these slow evaluations. You’re actually looking, you have some way of measuring at least somewhat objectively or repeatedly like how well you’re doing. <br>[28:28] Kyle: Well, once you’ve deployed your fine tune model, you really have to keep running those on a constant basis. Because if you don’t, what you’re going to see is Something is going to change about the world. There’s going to be some difference in the types of users you’re getting or the things they’re sending you. Or there’s just like so much that can change out there that if you’re not continually measuring how well this is doing, like you’re going to have and like sort of the term machine learning practitioners use for this is data drift. <br>[28:58] Kyle: which can come from a lot of sources. But the main point is, like over time, it’s very likely that your model is not going to be as well adapted to the input as it should be. And like one, so one interesting concrete example, in our case, we had a customer who was doing basically structured data extraction from these call logs, actually, transcripts. <br>[29:23] Kyle: And they noticed that they had this eval that they were running in sort of this slow loop, and they noticed that their responses were getting worse right around January of this year, so I guess five months ago. And so it wasn’t huge. It was like, you know, I don’t remember exactly what the numbers were, but it went up from like, you know, 1% error rate to like a 5% error rate where it was like hitting their things and wasn’t working. <br>[29:51] Kyle: And so they ended up looking into it and they shared with us what they found, which I thought was fantastic, which was the data extraction. There were a number of fields they were trying to extract from these call logs, and one of them was a specific date. So it was people calling in about, it was call logs about people that mortgages basically and trying to get the due date on their payment, whatever. So one of the things they were extracting was what is the specific date that the next payment was due? <br>[30:18] Kyle: And what they found was because their model had been fine-tuned entirely on data from 2023, not in all cases, but in like 5% of cases, even though we were now in 2024, it would just kind of like, you know, it would get the date, like the month and day, right? But then it would like put the year as 2023 in the extracted date instead of the year of 2024. Because it was just like in every single case of the training data, it was the year was always 2023. It didn’t see any other examples. <br>[30:46] Kyle: And I didn’t do that every time. It was smart enough in most cases to figure out, okay, we should be pulling out the 2024. But anyway, that was starting to happen. So all they had to do was retrain a model with a few extra, I don’t remember how they put it in, they put in 10 or 12 2024 examples, and that was plenty to clear it up. So anyway, just an example. You never know where this stuff is coming from, but you do have to keep measuring to see if things get worse. And, okay. <br>[31:15] Kyle: And so finally, the last one is I framed these as commandments. I tried to give disclaimers as I was going through, but I think it’s really important to realize that the most important thing is that you understand your problem, that you understand your data, you understand what you’re trying to solve, and then you figure out what the right way is to solve it. So I think the flow I described is really, really helpful. I think there are other ways to do it that can also be effective. <br>[31:42] Kyle: But I do think that this is a good place to start, especially if you haven’t done this before and you want to maximize the chances that you’re able to do it successfully. So anyway, it’s like Pirates of the Caribbean, right? Where the pirate says, well, the pirate code is not really a code, right? It’s a guideline. Anyway, same feeling.</p>
+</div>
+</div>
+</div>
+<center>
+<script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
+</center>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/kyle.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

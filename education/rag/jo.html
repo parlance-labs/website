@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-02">
+
+<title>Back to Basics for RAG – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<script async="" data-uid="fbcda700a8" src="https://hamel.ck.page/fbcda700a8/index.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Parlance - Back to Basics for RAG">
+<meta property="og:description" content="Adding context-sensitive information to LLM prompts through retrieval is a popular technique to boost accuracy. This talk will cover the fundamentals of information retrieval (IR) and the failure modes of vector embeddings for retrieval and provide practical solutions to avoid them. Jo demonstrates how to set up simple but effective IR evaluations for your data, allowing faster exploration and systematic approaches to improving retrieval accuracy.">
+<meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="540">
+<meta property="og:image:width" content="960">
+<meta name="twitter:title" content="Parlance - Back to Basics for RAG">
+<meta name="twitter:description" content="Adding context-sensitive information to LLM prompts through retrieval is a popular technique to boost accuracy. This talk will cover the fundamentals of information retrieval (IR) and the failure modes of vector embeddings for retrieval and provide practical solutions to avoid them. Jo demonstrates how to set up simple but effective IR evaluations for your data, allowing faster exploration and systematic approaches to improving retrieval accuracy.">
+<meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="540">
+<meta name="twitter:image-width" content="960">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/rag/index.html">RAG</a></li><li class="breadcrumb-item"><a href="../../education/rag/jo.html">Back to Basics for RAG</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fine Tuning Course</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 1: When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/fine_tuning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/prompt_eng/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering Workshop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs on the command line</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/rag/jo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/rag/index.html">RAG</a></li><li class="breadcrumb-item"><a href="../../education/rag/jo.html">Back to Basics for RAG</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Back to Basics for RAG</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">RAG</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 2, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>Adding context-sensitive information to LLM prompts through retrieval is a popular technique to boost accuracy. This talk will cover the fundamentals of information retrieval (IR) and the failure modes of vector embeddings for retrieval and provide practical solutions to avoid them. Jo demonstrates how to set up simple but effective IR evaluations for your data, allowing faster exploration and systematic approaches to improving retrieval accuracy.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/nc0BupOkrhI" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=0">00:00</a> Introduction and Background</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=79">01:19</a> RAG and Labeling with Retrieval</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=211">03:31</a> Evaluating Information Retrieval Systems</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=354">05:54</a> Evaluating Document Relevance</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=502">08:22</a> Metrics for Retrieval System Performance</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=611">10:11</a> Reciprocal Rank and Industry Metrics</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=761">12:41</a> Using Large Language Models for Judging Relevance</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=872">14:32</a> Microsoft’s Research on LLMs for Evaluation</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1024">17:04</a> Representational Approaches for Efficient Retrieval</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1154">19:14</a> Sparse and Dense Representations</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1347">22:27</a> Importance of Chunking for High Precision Search</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1555">25:55</a> Comparison of Retrieval Models</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1673">27:53</a> Real World Retrieval: Beyond Text Similarity</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1750">29:10</a> Summary and Key Takeaways</strong></p>
+<p><strong><a href="https://youtu.be/nc0BupOkrhI?t=1867">31:07</a> Resources and Closing Remarks</strong></p>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p><object data="jo.pdf" type="application/pdf" width="100%" height="600"><a href="jo.pdf" download="">Download PDF file.</a></object></p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://x.com/jobergum">Jo’s Twitter</a></li>
+<li><a href="https://bergum.medium.com/">Jo’s blog</a></li>
+<li>Talk: <a href="https://www.youtube.com/watch?v=GDM4cUsvaWg">Boosting Ranking Performance w/Minimal Supervision</a></li>
+</ul>
+<center>
+<script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
+</center>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:10] Dan: Hey, everyone. Hey, Joe. Hey, Hamill. <br>[0:38] Jo: Hello. <br>[0:40] Hamel: Really excited about this talk. This is also the last one of the conference. So it’s very special. <br>[0:47] Jo: Thank you so much for inviting me. Yeah. It’s fantastic. Yeah, it’s amazing to see all the interest in your course. I’m in the lineup of speakers, so I was really honored when you asked me to join. That’s amazing. <br>[1:05] Hamel: No, I’m really honored to have you join. So, yeah, it’s great. I think your perspectives on RAG are very good. So I’m excited about you sharing it more widely. <br>[1:21] Jo: Thank you. <br>[1:25] Dan: We usually start at five after the hour or after the hour. So we’ve got another five minutes. We have… 23 people who are watching or listening to us now. I bet we’ll end up probably hard to say with this being the last one, but I’m guessing we’ll end up probably around 100. <br>[1:48] Jo: Yeah. Sounds great. <br>[1:52] Hamel: I’m trying to think. Is there a Discord channel for this talk? <br>[1:58] Dan: Yeah, I just made one. So it is. I posted a link in Burgum Rag. And I just posted a link to it in general. <br>[2:16] Hamel: They don’t sort it alphabetically. They were sorted by some kind of… Okay, see you here. <br>[2:24] Dan: Could be chronologically based on when it was created. I was thinking about the same thing. That’s not bad. Who even knows? Early on, Joe, I asked in these five minutes when some people are waiting, what they want to hear us talk about. And the popular response was war stories. So either war stories or what’s something that in your coding has not worked or gone wrong in the last week? <br>[3:33] Jo: In the last week? <br>[3:35] Hamel: Uh-huh. <br>[3:39] Jo: No, I don’t have a lot of war stories for this week. I’ve been trying out some new techniques for evaluating search results. So I’ll share some of those results in this talk. Yeah. So you make some interesting findings and then you also do some mistakes. Use Copilot a lot and its autocompletions are basically a couple of years ago. Some of the OpenAI APIs are changing and so, yeah. Not that interesting though. <br>[4:16] Dan: Yeah, you know, with Copilot, with RAG, you do a lot of metadata filtering so that you try and get more recent results. And it feels to me that with large language models more broadly, It’d be nice to do something so that it tries to auto-complete with newer results rather than older ones. Yeah. You could imagine when you calculate loss functions, there’s a weight involved, and that weight is a function of when the training data is from. It’d be nice if it was something like that. <br>[4:48] Jo: Yeah, it’s also interesting from, I think… the existing technologies like SQL databases, the completions are pretty good, both from ChatGPT and general language models because they have a good, it’s a lot of that data in their training data basically. But if you have a new product with some new APIs, the code completions don’t work that well. That’s why we at Vespa, we also try to. build our own RAG solution on search Vespa AI to help people use Vespa. <br>[5:27] Jo: And that’s one of the things that’s been frustrating with these language models is that they are quite familiar with Elastic because Elasticsearch has been around for quite some time, but Vespa is newer in the public domain. So people are getting better completions for Elasticsearch than Vespa. Awesome. I have to do something about that. <br>[5:49] Dan: Yeah. <br>[6:19] Jo: Yeah, I see some great questions already. So that’s fantastic. So I’m planning on, I’m not sure how much time, because there were quite a few invites, but I’m hoping to spend a half an hour talking and that we could have an open session. So drop your questions. That’s awesome. So we can get the discussion going. And there’s a lot of things to be excited about in search, and I’ll cover some of them, and especially around evaluations. <br>[6:56] Jo: So some major bulk in this talk will be about setting up your own evaluations so that you can actually make changes and iterate on search and actually measuring. the impact of that. And it doesn’t need to be very fancy to have something that you can actually iterate on. And thankfully, large language models can also help us there, thanks to recent advances. So I think that’s interesting. So I’ll try to share my presentation, see if everything is working well. <br>[7:51] Dan: Yeah, we can see it. <br>[7:52] Jo: You can see it? Okay. Okay. Zoom is so much better than Meet. <br>[8:11] Hamel: Yeah, I agree with that. <br>[8:14] Dan: Yeah, it’s a I guess Google has fortunately, at one point, yeah, they have like 10 different solutions for Yeah, I think they’ve probably consolidated them. But they haven’t used that to make them dramatically better. <br>[8:31] Jo: Yeah, because in meat when you run percent, like everything just disappears. Okay, here <br>[8:40] Dan: I have the full view. <br>[8:42] Jo: Yeah. That’s an improvement. <br>[8:46] Dan: All right. We’re five after. We’ve got about 100 people. If you want to wait another minute or two, that’s great. But otherwise, I think you can start anytime. <br>[8:56] Jo: Yeah, sure. I can just get started. Yeah, so thank you for having me. I’ll talk about Back to Basics. And I’m Joe Christenberg. And let’s see if I can actually… Yeah. So about me, I’m a distinguished engineer. I work at Vespa AI. And I’ve been at Vespa AI for 18 years, actually. So I’ve been working in search and recommendation space for about 20 years. And Vespa AI is basically a platform, a serving platform that was recently spun out of Yahoo. We’ve been open source since 2017. <br>[9:38] Jo: And in my spare time, I spend some time on Twitter posting memes. Yeah, and in this talk, I’ll talk about stuffing text into the language model prompt. I’ll talk about… information retrieval, the R in RAG, and most of the talk will be about evaluation of these systems of information retrieval systems, and how you can build your own evals to impress your CTO. And I’ll talk about representational approaches for information retrieval. This includes BM25, vectors, embeddings, whatnot, and some of the baselines. So RAG. <br>[10:20] Jo: You’re all familiar with RAG, but I think it’s also interesting that you can use the kind of the whole RAG concept to stuff things into the prompt, not necessarily related to question answering or search. But for example, if we are building a labeler or a classifier, we can also use retrieval to retrieve kind of relevant examples or examples out of our training data sets, right? So that’s one way, but it’s not that often discussed that you can also use retrieval. <br>[10:55] Jo: So let’s say you have 1 billion annotated training examples, you can actually use retrieval to retrieve relevant examples and then have the large language models reason around that and predict a label. But most are… Thinking about RAG in the context of building this kind of question answering model that you see at Google and all these chatbots and similar where you retrieve for a question, open-ended question, and then you retrieve some hopefully relevant context, and you then stuff that into the prompt. And then you have hopefully the language model will generate a grounded response. <br>[11:48] Jo: It might not be hallucination-free, but some say that it improves the kind of accuracy of the generation step. So that’s kind of demystifying it. And working with these reference architecture, there’s some orchestration component, there’s some input, there’s some output. Hopefully you have some evaluation of that output, prompting, different language models. And then you have kind of state, which can be files, search engines, vector databases, regular databases, or even NumPy. So there’s a lot of things going on here. And There’s a lot of hype around RAG and also different methods for doing RAG. <br>[12:31] Jo: I’m on Twitter a lot and I see all these Twitter threads. There’s a new model. components in this machinery, lots of new tricks, check out this. So it’s a lot of kind of hype. So I like to kind of try to cut through that and, you know, what’s behind this? How does this work on your data? Is this actually a model that actually have some basics or backing from research? Have you actually evaluated it on some data set? And I think… <br>[13:08] Jo: This is, it can be, if you’re like coming into this space and you’re new to retrieval, you’re new to search and you’re new to language models and you want to build something, there’s a lot of confusing information going around. And I just saw this Twitter thread about RAG and people are losing faith in it. And you know, we removed the AI powered search. <br>[13:33] Jo: And I think there’s been like, RAG is only about taking a language model from, for example, OpenAI, and then you use their embeddings, and then you have a magical search experience, and that’s all you need. And I think that’s naive to think that you can build a great product or a great RAG solution in that way just by using vector embeddings and the language models. Because there are the retrieval stack in this pipeline, the process of obtaining relevant information based on some query basically has been around for, like Benjamin in his talk covered, for decades. <br>[14:16] Jo: And There are a lot of people, the brightest minds, that have actually spent a lot of time on retrieval and search, right? Because it’s so relevant across many kind of multi-billion companies like recommendation services, search like Google, Bing, and whatnot. So this has kind of always been a very hot and interesting topic. And it’s much deeper than encoding your text into one vector representation and then that’s it. But. I’ll talk about how we can evaluate these information retrieval systems. <br>[14:54] Jo: And this kind of basically you can treat this as a more or less of a green box where you have put some data into it and you have your kind of retrieval system and you’re asking that retrieval system a question and you’re getting back a ranked list of documents. And then you can evaluate these documents and the quality of these documents with regards to relevance of how relevant they are with regards to the query. <br>[15:25] Jo: And this is kind of independent if you’re using what kind of retrieval method you’re using or combination or hybrids or face ranking or Colbert or Spade or whatnot. You can evaluate any type of system. If it’s using NumPy or files or whatnot, it doesn’t really matter. And the basic idea of building a such system is that you take a query and you retrieve those documents, and then you can have a human annotator, for example, to judge the quality of each of the documents. And there are different ways of doing this. <br>[16:01] Jo: We can do it by the binary judgment, saying that, OK, this document is relevant for the query or not. Or we can have a graded judgment where you say, okay, zero means that the document is irrelevant for the query, and one, it’s slightly relevant, or two is highly relevant. And we can also use this to judge the rank list that are coming out of recommendation systems or personalization and many different systems that are producing a rank list. And in information retrieval, this is going back decades. And there are a lot of researchers working on this. <br>[16:40] Jo: And you have TRACK, which is the text retrieval conference, spans multiple different topics each year, news retrieval, all kinds of different retrieval tasks. MS Marko, maybe some of you are familiar with, which is one of the largest data sets that you can… published research on is from Bing, actually real world data, which is annotated. And a lot of these embedding models are trained on this data set. Then we have Beer from Nils Reimers et al.&nbsp;evaluate types of models without actually using the training data, but this is like in the zero-shot setting. <br>[17:22] Jo: So there are many different collections and then there are metrics that can measure how well the retrieval system is actually working. So recall at K, for example, K here meaning a position in the in the ranking list. So K could be for example 10 or 20 or 100 or 1000 and it’s a metric that is focusing about, you know, you know that there are like six items that are relevant for this query. And are we actually retrieving those six relevant documents into the to the top K? <br>[17:57] Jo: In most systems, you don’t actually know how many relevant documents there are in the collection. In a web scale, it might be millions of documents that are relevant to the query. So unless you have a really good control of your corpus, it’s really difficult to know what are the actually relevant documents in the document. But precision is much easier because we can look at those results and say, Are there any irrelevant hits in the top K? So precision is one, but it’s not really rank aware. <br>[18:32] Jo: So it’s not bothering if the missing or irrelevant hit is placed at position one or 10. the precision at 10 would be the same. It doesn’t necessarily depend on the position. NGCG, very complicated metric, but it tries to incorporate the labels, so the graded labels, and also awareness of the rank position. If you want to look up that, you can basically go to Wikipedia, but it’s a quite advanced metric. Reciprocal rank measures are the same as the Where is the first relevant hit in the position? <br>[19:12] Jo: So if you place the relevant hit at position 1, you have a reciprocal rank of 1. If you place the relevant hit at position 2, you have a reciprocal rank of 0.5. Then, of course, you have LGTEM, which looks good to me. Maybe the most common metric used in the industry. And of course, also in industry, you have other evaluation metrics like engagement, click, if you’re measuring what actually users are interacting with the search, dwell time or e-commerce, add to chart, all these kind of signals that you can feedback. <br>[19:49] Jo: Of course, revenue, e-commerce, search, for example, it’s not only about the relevancy, but also you have some objectives for your business. I also like to point out that most of the benchmarks are comparing just a flat list. And then when you’re evaluating each of these queries, you get a score for each query. And then you take the average to kind of come up with an average number for the whole kind of retrieval method. But in practice, in production systems, you will see that maybe 20% of the queries actually is contributed like 80% of the volume. <br>[20:29] Jo: So you have to think a little bit about that when you’re evaluating systems. Yeah, so, and to do better than looks good to me, you really have to measure how you’re doing. And since we have all these benchmarks, MTAB and whatnot, they don’t necessarily transfer to your domain or your use case. If you’re building a RAG application or retrieval application over code, or documentation, or a specific health domain, or products, because there are different domains, different use cases. Your data, your queries. <br>[21:12] Jo: The solution to do better is to measure and building your own relevance to dataset. And it’s actually not that hard. If you have actually a service in production, look at what actually users are searching for, and look at the results, and put in a few hours, and judge the results. Is it actually relevant? Are you producing relevant results? And it doesn’t really need to be fancy at all. And if you don’t have traffic, if you haven’t launched with it, you obviously have played around with the product. <br>[21:51] Jo: Or you can also ask a large language model to present in some of your content, and then you can ask it, okay, what’s a question that will be natural for a user to retrieve this kind of passage? So you can kind of bootstrap even before you have any kind of user queries. And as I said, it doesn’t need to be fancy. You can log. There are some fancy tools for doing this with user interfaces and Docker and whatnot. But a simple TSTF separated file will do the trick. Preferably, you will have like a static collection. <br>[22:30] Jo: But maybe not everybody has the luxury that you can actually have a static collection. And the reason why you would like to have a static collection is that When you are judging the results and you’re saying that for this query, for instance, query ID 3 and the document ID 5, you say that, oh, this is a relevant one. When we are judging the kind of, or computing the metric for the query, if there’s a new document that is suddenly appearing, which is irrelevant or relevant. <br>[22:59] Jo: it might actually change how we display things in the ranking without being able to pick it up. So that’s why you preferably have these kind of static collections. And all the information retrieval data sets, they are usually static. They don’t change so we can evaluate methods and practices over time. But you can also… in this process, use language models to judge the results. <br>[23:32] Jo: And there’s been interesting research coming out of Microsoft and Bing team for over the last year, where they find that with some prompting techniques that they actually can have the large language models be… pretty good at judging query and passages. So given a passage that is retrieved for the query and they can ask the language model, is this relevant or not relevant? And they find that this actually correlates pretty well. <br>[24:01] Jo: And if you find like a prompt combination that actually correlates with your data or your kind of golden data set, then you can start using this at a more massive scale. And here’s a very recent paper coming out eight days ago where they also demonstrated that this prompt could actually work very well to assess the relevancy of queries. And this can free us from having this kind of static golden data sets, because we could start instead sampling real user queries, and then ask the language model to evaluate the results. <br>[24:43] Jo: So I think this is a very interesting direction. And we have in our RAG or Vespa RAG documentation search, I built like a small golden set with about 90 query pass judgments. And I just ran them through with this prompt or a similar prompt. And I’m getting quite good correlation between what… But I’m judging the results and GPT-4 is judging them, which is good because it means that I can now much cheaper judge more results and then potentially also use this to adjust ranking. Because when you have this kind of data set. <br>[25:30] Jo: you can also iterate and make changes. Then you can see how it’s actually performing. Instead of saying, we changed something, we actually deployed this change that did increase the NGCG with 30 percent. This is from our documentation, Vespa documentation search, which is relevant for us. It’s our domain. You see here, semantic here is off the shelf, vector embedding models, and then there are different ways in Vespa to use hybrids. I won’t go into the details, but now I actually have numbers on it, and then when I’m making changes. So that’s… How about evaluation? <br>[26:16] Jo: So independent of the method or technique that we’re using, we can evaluate the results coming out of the retrieval system. Now I want to talk a little bit about the representational approaches and scoring functions that can be used for efficient retrieval. And the motivation for having this kind of representational approach is that you want to try to avoid scoring all the documents in the collection. <br>[26:45] Jo: So if you’re using, some of you might heard about Cohere re-ranking service or this kind of ranking services where you basically input the query and all the documents and they go and score everything, but then you have everything in memory, already retrieved the documents. And imagine doing that at the web scale or if you have 100 million documents, it’s not possible, right? And it’s also similar to doing a grep. <br>[27:11] Jo: So instead, we would like to have some kind of technique for representing these documents so that we can index them so that when the query comes in, that we efficiently can retrieve over this representation and that we efficiently in sublinear time can retrieve the kind of top ranked docs. And then we can feed that into subsequent ranking faces. <br>[27:37] Jo: And there are two primary representations, and that is the sparse representation, where we basically have the total vocabulary is kind of the whole sparse vector representation that you potentially take, but for a given query or a given document, only the words that are actually occurring in that document or in that query have a non-zero weight. And this can be efficiently retrieved over using algorithms like Weekend or MaxScore and inverted indexes. You’re familiar with Elasticsearch or other kind of keyword search technologies. They build on this. <br>[28:15] Jo: More recently, we also have using neural or kind of embedding or sparse embedding models so that instead of having an unsupervised weight that is just based on your corpus statistics, you can also use transformer models to learn the weights of the words in the queries and the documents. And then you have dense representations, and this is where you have text embedding models, where you take some text and you encode it into this latent embedding space, and you compare queries and documents in this latent space using some kind of distance metric. <br>[28:48] Jo: And there you can build indexes using different techniques, vector databases, different types of algorithms. And in this case, also, you can accelerate search quite significantly so that you can search even billion scale data sets in milliseconds, single credit. But the downside is that there are a lot of tradeoffs related to that the actual search is not exact. It’s an approximate search. So you might not retrieve exactly. the ones that you would do if you did a brute force search over all the vectors in the collection. <br>[29:22] Jo: And these representations are mainly supervised through transfer learning, because you’re using typically an off-the-shelf embedding model that’s been trained on some other data, some data sets. And then you’re trying to apply that to your model. You can fine-tune it if you have relevancy data and so forth. And it’s no longer like a zero-shot or transfer learning, but it’s still like a learned representation. And I think these representations and the whole ChatGPT OpenAI, ChatGPT language model, OpenAI embeddings really opened the world of embeddings to a lot of developers. <br>[30:03] Jo: And this stuck for quite some time and it’s still stuck, I think, because people think that this will give you a magical AI. Powered representation is not bad. And you can also use now a lot of different technologies for implementing search. Vector databases, regular databases, everybody now has a vector search report, which is great, because you can now use different or more wide landscape of different technologies to kind of solve search. But there are some challenges with these text embedding models, especially because of the way they work. <br>[30:48] Jo: Most of them are based on a kind of encoder style transformer model where you take the input text, you tokenize it into a fixed vocabulary. And then you have previously in the pre-training stage and the fine tuning stage, you have learned representations of each of these fixed tokens. Then you feed them through the encoder network. And for each of the input tokens, you have an output vector. And then there’s a pooling step, typically averaging into a single vector representation. So this is how you represent not only one word, but a full sentence. <br>[31:28] Jo: Or even now, with the embedding model coming out today, supporting encoding several books as one vector. But… The issue with this is that the representation becomes quite diluted when you kind of average everything into one vector, which has proven not to work that well for high precision search. So you have to have some kind of shunking mechanism in order to have a better representation for search. And this fixed vocabulary, especially for BERT-based models, you’re basing it off a vocabulary that was trained in 2018. So there are a lot of words that it doesn’t know. <br>[32:12] Jo: So we had one issue here with a user that was searching for our recently announced support for running inference with GGF models in Vespa. And this has a lot of out-of-word, oh sorry, out-of-vocabulary words. So it gets maps to different concepts, and this might produce quite weird results when you are mapping this into the latent embedding space. And then there’s the final question is, does this actually transfer to your data, to your queries? <br>[32:45] Jo: But the framework or the kind of evaluation routines that I talked about earlier will give you the answer to that because then you can actually test if they’re working or not. And also, I think on the baselines, it’s quite important to establish some baselines. And in the information retrieval community, the kind of de facto baseline is BM25. So BM25 is this scoring function where you tokenize the text, linguistic processing, and so forth. It’s well known, implemented in multiple mature technologies like Elastic, Vespa. Tantive, whatnot. <br>[33:29] Jo: I think there was even a library announced today, BM25 in Python. And it builds a model, kind of model, unsupervised from your data, looking at the words that are occurring in the collection, how many times it’s occurring in the data, and how frequent the word is in the total collection. Then there’s the scoring function, and it’s very cheap, small index footprint, and most importantly you don’t have to invoke a transformer embedding model like a 7B LAMA model or something like that, which is quite expensive. <br>[34:04] Jo: It has limitations, but it can avoid these kind of spectacular failure cases of embedding retrieval related to out-of-vocabulary words. The huge downside is that if you want to make this work in CJK languages or Turkish or different types of languages, you need to have some kind of tokenization integrated, which you will find in engines like Elasticsearch or OpenSearch or Vespa. And long context. So we did the announcement earlier this year of supporting Colbert in a specific way. I’m just including this to show you that this is a long context document. <br>[34:48] Jo: So I think they are around 3K tokens long, and the researchers evaluated these different models. And they were presenting results about M3, which is scoring 48.9 in this diagram. And they were comparing it with OpenAI embeddings, with different types of mistrawl or different types of embedding models. And then we realized that, you know, this is actually quite easy to beat. just using a vanilla BM-25 implementation, even Lucene or Vespa or Elasticsearch or OpenSearch. <br>[35:21] Jo: So having that kind of mindset that you can evaluate and actually see what works and remember that BM-25 can be a strong baseline, I think that’s an important takeaway. Then there’s a hybrid alternative. We see a lot of enthusiasm around that, where you can combine these representations, and it can overcome this kind of fixed vocabulary issue with regular embedding models. But it’s not also a single silver bullet reciprocal rank fusions or methods to fuse these kind of different methods. It really depends on the data and the type of queries. <br>[36:02] Jo: But if you have built your own evals, then you don’t have to listen to me about what you should do, because you can actually evaluate and test things out, and you can iterate on it. So I think that’s really critical to be able to build a better rag to improve the quality of the retrieval phase. Yeah, and of course, I talked about long context and that the long context models, we all want to get rid of chunking. We all want to get rid of all the videos about how to chunk. <br>[36:40] Jo: But the basic kind of short answer to this is that you do need to chunk in order to have meaningful representations of text for high precision search. So typically, like Niels Reimers, the de facto embedding expert says that if you go about 250, so 256 tokens, you’re starting to lose a lot of precision, right? There’s other use cases that you can use these embeddings for, like classification, you know, there are a lot of different things, but for high precision search, it becomes very diluted because of these pooling operations. <br>[37:17] Jo: And also, there’s not that many great datasets that you can actually train models on and have longer text. And even if you’re chunking to have meaningful representation, it doesn’t mean that you have to split this into multiple rows in your database. There are technologies that allow you to kind of index multiple vectors per row. So that’s possible. Finally, real world rag. Not sure if you’ve seen this, but there was a huge Google leak earlier. in May, where they revealed a lot of different signals. And in the real world… <br>[38:00] Jo: In the real-world search, it’s not only about the text similarity. It’s not only about BM25 or a single vector cosine similarity. There are things like freshness, authority, quality, page rank you heard about, and also revenue. So there are a lot of different features. And GBDT is still a simple, straightforward method. And it’s still the kind of king of tabular features where you have… specific name features and you have values for them. So combining GBDT with these kind of new neural features is quite effective when you’re starting to actually operate in the real world. <br>[38:44] Jo: So quick summary, I think that information retrieval is more than just a single vector representation. And if you want to improve your retrieval stage, you should look at building your own evals. And please don’t ignore the BM25 baseline. And choosing some technology that has hybrid capabilities, meaning that you can have exact search for exact tokens and still have matches, and also combine the signals from text search via keywords and text search via embeddings. can avoid some of these failure modes that I talked about. And yeah, and finally, real-world search is more than text similarity. <br>[39:37] Jo: So that’s what I had, and I’m hoping for questions. If you want to check out some resources, I do a lot of writing on the blog West by AI, so you can check that out. And if you hated it, you can tweet me at Joe Bergen on Twitter. I’m quite active there, so I appreciate if you hated it. And since then, you can mention me there. And you can also contact me on Twitter. I love getting questions. <br>[40:08] Hamel: That’s a bold call to action if you hated it. <br>[40:12] Jo: It is. <br>[40:16] Hamel: We definitely have a lot of questions. I’ll just go through some of them. What kind of metadata is most valuable to put into a vector DB for doing Rack? <br>[40:27] Jo: Yeah, if you look at only the text domain, if you’re only concerned about text, so you have no freshness component or you don’t have any authority, if you, for example, are building like a healthcare or a health, you know, users are asking health questions, you definitely want to have some kind of filtering. What’s the authoritative sources within hot health? You don’t want to drag up Reddit or things like that, right? So, and title and other metadata, of course, is, but it really depends on the use case. <br>[40:59] Jo: If you’re like a text only use case, or if it’s like more like real world where you have different types of signals. <br>[41:06] Hamel: Makes sense. Do you have any thoughts on calibration of different indices, of the different indices? Not only are different document indices not aligned in terms of similarity scores, but it’s also nice to have confidence scores for how likely the recommendation is to be good. <br>[41:23] Jo: Yeah, I think it’s a very tough question. So these different methods for all these different scoring functions, you can call that, have a different distribution, different shape, different score ranges. So it’s really hard to… combine them and they’re not probabilities as well. So it’s very difficult to map them into a probability that actually this is, or filtering. People want to like, oh, I have a cosine similarity filter on 0.8, but it’s different from different types of model, but combining them. is also a learning task. <br>[41:59] Jo: It also kind of, you need to learn the parameters and GBDT is quite good at that because you’re learning a non-linear combination of these different features. But in order to do that, then you also have to have training data. But the way I described here for doing evaluation can also help you generate training data for training ranking models. Yeah. <br>[42:23] Hamel: So does the calibration really turn into a hyperparameter tuning exercise with your eval set or is that kind of… <br>[42:30] Jo: Well, you could do that, right? If you don’t have any data that you can train a model on to train those parameters, you could do a hyperparameter sweep and then basically check if your eval is improving or not. But if you want to apply more like an ML technique on this, then you would… either like Google is doing, like gathering search and clicks and interactions. But now we also see more that people are actually using large language models to generate synthetic training data. <br>[42:59] Jo: So you can distill kind of the powers of the larger models into smaller models that you can use for ranking purposes. But it’s a very broad topic, I think. So it’s very difficult to kind of deep dive. And it’s very difficult to say that, oh, you should have a cutoff. 0.8 on the vector similarity, or you can do this transformation. So there are no really great tricks to do this without having some kind of training data and at least some evaluations. <br>[43:35] Hamel: What are your observations on the efficacy of re-rankers? And do you really recommend to use a re-ranker? <br>[43:43] Jo: Yeah, because the great thing about re-rankers is that in the phase retrieval and ranking pipelines, you’re gradually throwing away hits using this kind of representational approach. And then you can have a gradual approach where you’re investing more compute into fewer hits and still be within your latency budget. And the great thing about re-rankers like Cohere or cross-encoders, you can deploy them in Vespa as well. is that they offer this kind of token level interaction. <br>[44:15] Jo: because you input both the query and the document at the same time through the transformer network, and then you have token-level interactions. So you’re no longer interacting between the query and the document through this vector representation, but you’re actually feeding all the tokens of the query and the document into the method. So yeah, that definitely can help accuracy. But then it’s becoming a question about cost and latency and so forth. <br>[44:42] Jo: yeah so a lot of trade-offs in this but if you’re only looking at accuracy and you can afford uh the additional cost yeah definitely they can help yeah <br>[45:02] Hamel: Hey, William Horton is asking, do you have advice on combining usage data along with semantic similarity? Like if I have a number of views or some kind of metadata like that from a document? Yeah, <br>[45:17] Jo: it goes into more of a, if you have interaction data, it becomes more of a learning to rank problem. You first need to come out with labels from those interactions because there are going to be multiple interactions and then there’s going to be add to charge and different actions will have different weights. So the standard procedure is that you convert that data into kind of a label data set, similar to what I’ve shown here in the eval. <br>[45:43] Jo: So when you convert that to kind of a label data set, then you can train a model, for instance, a GBT model, where you can include the semantic score as well as a feature. Yeah. <br>[45:58] Hamel: All right. Someone’s asking a question that you may not be familiar with, but I’m just going to give it a shot. It’s a reference to someone else. What are your thoughts on Jason Liu’s post about the value of generating structured summaries and reports for decision makers instead of doing RAG the way we are doing commonly done today. Have you seen that? <br>[46:20] Jo: Are you familiar? I mean, Jason is fantastic. I love Jason. But he’s a high volume tweeter, so I don’t read everything. So I haven’t caught up on that yet. No, sorry. <br>[46:34] Hamel: Okay, no, I don’t want to try to rehash it from my memory either. So I’ll just skip that one. What are some of your favorite advancements recently in text embedding models or other search technologies that people… I’ll just stop the question there. Yeah, what are your… <br>[47:03] Jo: Yeah. Yeah. Yeah, I think embedding models will become better. What I do hope is that we can have models that have a larger vocabulary. So, like LAMA vocabulary, so we have a larger vocabulary. So, like BERT models, they have this old vocabulary from 2018. I think we, I would love to see a new kind of the BERT model trained on more recent data with more recent techniques, like a pre-training stage, including a larger vocabulary for tokenization. I think, as I said, that I’m not… <br>[47:43] Jo: too hyped about increasing the context length because all the information retrieval research shows that they are not that well at generalizing a long text into a good representation for a high precision search. So I’m not so excited about the direction where you’re going with just larger and larger and larger and larger context windows for embedding models because I think it’s the wrong direction. I would rather see… <br>[48:08] Jo: larger vocabularies and better pre-trained models like the Berta it’s still a good model for embeddings <br>[48:18] Hamel: Someone’s asking, does query expansion of out of vocabulary words with BM25 work better at search? And I think like, just to add onto that, do you think people are going as far with classical search techniques as they should? Like things like query expansion and all kinds of other stuff that have been around for a while before, like what’s your feeling about the spectrum and like, yeah. <br>[48:43] Jo: I think you can get really good results by starting. with PM25 and classical resorts and adding a re-ranker on top of that. You won’t get the magic if you have a single word query and there are no words in your collection. Then you might fail at recall, but you don’t get into these kind of really nasty failure modes of embedding vector search alone. And yeah, definitely there are techniques like query expansion, query understanding, and language models. They are also quite good at this. There’s a paper from Google. They did query expansions with Gemini. <br>[49:27] Jo: pretty well, not amazingly well compared to the size of the model and the additional latency. But we have much better tools for doing query expansion and all kinds of fancy techniques now involving prompting of live language models. So definitely that too is really interesting for expansion. So that’s another way. But like in the diagram where I saw this machine and all these components and things like that. <br>[49:53] Jo: What I’m hoping people can take away from this is that if you’re wondering about this technique, that technique, I read about this, is that if you put that into practice in a more systematic way, having your own eval, you will be able to answer those questions on your data, on your queries, without me saying that the threshold should be 0.6, which is bullshit, because I don’t know your queries or your domain or your data. So by building these evals, then you can actually iterate and get the answers. <br>[50:28] Hamel: In one slide, you mentioned limitations in fixed vocabulary with text that is chunked poorly. How do you overcome these sort of limitations in a domain that uses a lot of jargon and that doesn’t tokenize well with an out-of-the-box model? <br>[50:41] Jo: Yeah, then you’re out of luck with the regular embedding models. And that’s why the hybrid capability where you actually can combine the keyword search with the embedding retrieval mechanism. But the hard thing is to understand when to completely ignore the embedding results. Because embedding retrieval, no matter how far they are out in the vector space, will be retrieved, right? So when you’re asking for 10 nearest neighbors, they might not be so near, but you’re still retrieving some junk. <br>[51:11] Jo: And then it’s important to understand that this is actually junk so that you don’t use like techniques like reciprocal rank fusion, which by some vendors is sold as the full kind of blown solution to solve all this. But then you’re just blending rubbish into something that could be reasonable from the keyword search. So currently, and the other alternative is as well that might do a little bit stop capping is to fine tuning your own embedding model. but you still have the vocabulary issues. <br>[51:41] Jo: But if you have resources to kind of do the pre-training stage on your data with a vocabulary that is more matching up with your domain, that might work. But then you have a training job that goes from scratch. But I hear it’s a lot easier to train Bert from scratch nowadays than in 2018. So it might be a viable option for some organizations. Most of the e-commerce companies are doing this. Anyway, they’re starting in all their semantic search papers. They basically say, here’s our pipeline. We pre-trained to build a tokenizer on the whole Amazon corpus. <br>[52:15] Jo: They don’t use BERT-based from 2018. <br>[52:19] Hamel: That makes sense. Okay. Last question. Would you see cold BERT-based methods get around or at least improve retrieval when we’re concerned with tokenizer problems? <br>[52:31] Jo: Yeah, so Colbert to introduce that is basically another neural method where you, instead of learning one vector representation of the full passage or the full query, you are learning token level vector representations. And this is a bit more expensive compute wise at serving time than the regular single embedding models. But. it has close to the accuracy of like the regular re-ranker, but it still also suffer from vocabulary because it still uses the same kind of vocabulary as other models. <br>[53:11] Jo: So, but if we can get better pre-trained model that are trained with a larger vocabulary, I hope that it’s a path towards better kind of neural search with Colbert and other embedding models as well. <br>[53:29] Hamel: Okay, great. Yeah. Yeah, that’s it. There’s certainly more questions, but we don’t want to go on for an infinite amount of time. I think we hit the more important ones. <br>[53:40] Jo: So, yeah, thank you so much. There’s a lot of great questions. So if you want to, you know, throw them at me at Twitter, and I will try to answer as best as possible. Thank you. Thanks Joe. <br>[53:56] Dan: Yeah, thank you. <br>[53:57] Hamel: Yeah, great being here. <br>[53:58] Jo: Great seeing you guys and have a great day. You too. Bye bye.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/rag/jo.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-12">
+
+<title>Prompt Engineering Workshop – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<script async="" data-uid="fbcda700a8" src="https://hamel.ck.page/fbcda700a8/index.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Parlance - Prompt Engineering Workshop">
+<meta property="og:description" content="This session covers key strategies for effective prompt engineering. Topics include: (1) Understanding prompt structure (2) Best practices for crafting prompts (3) Techniques for iterative improvement (4) Domain-specific examples (5) Avoiding common pitfalls">
+<meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="540">
+<meta property="og:image:width" content="960">
+<meta name="twitter:title" content="Parlance - Prompt Engineering Workshop">
+<meta name="twitter:description" content="This session covers key strategies for effective prompt engineering. Topics include: (1) Understanding prompt structure (2) Best practices for crafting prompts (3) Techniques for iterative improvement (4) Domain-specific examples (5) Avoiding common pitfalls">
+<meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="540">
+<meta name="twitter:image-width" content="960">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/prompt_eng/index.html">Prompt Engineering</a></li><li class="breadcrumb-item"><a href="../../education/prompt_eng/berryman.html">Prompt Engineering Workshop</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fine Tuning Course</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 1: When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/fine_tuning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/prompt_eng/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Prompt Engineering Workshop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs on the command line</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/prompt_eng/berryman.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/prompt_eng/index.html">Prompt Engineering</a></li><li class="breadcrumb-item"><a href="../../education/prompt_eng/berryman.html">Prompt Engineering Workshop</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Prompt Engineering Workshop</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">prompt-eng</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 12, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>This session covers key strategies for effective prompt engineering. Topics include: (1) Understanding prompt structure (2) Best practices for crafting prompts (3) Techniques for iterative improvement (4) Domain-specific examples (5) Avoiding common pitfalls</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/htBTho6oEJA" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=0">00:00</a> Introduction and Background</strong> John’s career: aerospace, search technology, GitHub Copilot.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=47">00:47</a> Understanding Large Language Models</strong> Definition and functionality of large language models. Importance of the “large” aspect. Historical progression: RNNs, attention mechanism, transformers. Emergence of models like BERT and GPT.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=333">05:33</a> Overview of Prompt Crafting Techniques</strong> Introduction to prompt crafting techniques. Focus on evolving techniques and recent trends.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=369">06:09</a> Few-Shot Prompting</strong> Technique: Controlling output with few-shot examples. Importance of setting predictable patterns.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=459">07:39</a> Chain of Thought Reasoning</strong> Addressing reasoning challenges in LLMs. Use of few-shot prompting to improve logical reasoning. CoT examples.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=636">10:36</a> Think Step by Step</strong> Simplification of chain of thought reasoning. Direct instruction to model for step-by-step thinking. Advantages: reduced need for extensive examples, prompt capacity management.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=745">12:25</a> Document Mimicry</strong> Technique of document mimicry in prompt crafting. Examples: transcripts, common document structures. Conditioning model with familiar patterns and formats like Markdown.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=961">16:01</a> Intuitions for Effective Prompt Crafting</strong> LLMs as “dumb mechanical humans.” Use familiar language and constructs. Avoid overwhelming the model with too much information. Ensuring clarity in prompts.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=1091">18:11</a> Building Applications with LLMs</strong> LLM applications as transformation layers. Converting user requests into LLM-compatible text. Process: user input, LLM processing, actionable outputs.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=1173">19:33</a> Context Collection for Prompt Crafting</strong> Importance of context collection for prompt crafting. Steps: collecting, ranking, trimming, assembling context. Copilot example structure: file paths, snippets from open tabs, current document; document mimicry with comments. Importance of context relevance.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=1527">25:27</a> Introduction of Chat Interfaces</strong> Shift to chat-based interfaces in LLM applications. Use of special syntax for role differentiation. Benefits of structured chat interactions.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=1702">28:22</a> Function Calling and Tool Usage With LLMs</strong> Introduction and advantages of function calling. Structure: names, descriptions, arguments. Expansion of LLM capabilities with tool usage. Cycling through tool usage, tool responses, assistant responses.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=2036">33:56</a> Example: Tool Calling in a Thermostat Application</strong> Detailed example: thermostat application. Process: user request, tool calling, context awareness. Iterative approach for better user interactions.</p>
+<p><strong><a href="https://youtu.be/htBTho6oEJA&amp;t=2294">38:14</a> Q&amp;A</strong> Discussion on few-shot prompting best practices. Hyperparameter adjustments. Function calling complexities and solutions. Considerations for better code outputs and prompt tuning.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li>John Berryman : <a href="https://www.oreilly.com/library/view/prompt-engineering-for/9781098156145/">Book</a>, <a href="https://x.com/jnbrymn">Twitter / X</a></li>
+<li>Chain-of-Thought Prompting Elicits Reasoning in Large Language Models: <a href="https://arxiv.org/abs/2201.11903">arXiv</a></li>
+<li>Function calling and other API updates: <a href="https://openai.com/index/function-calling-and-other-api-updates/">OpenAI</a></li>
+<li>🦍 Gorilla: Large Language Model Connected with Massive APIs: <a href="https://gorilla.cs.berkeley.edu/">Link</a></li>
+<li>ReAct: Synergizing Reasoning and Acting in Language Models: <a href="https://arxiv.org/abs/2210.03629">arXiv</a></li>
+<li>“…designed to teach Dolphin to obey the System Prompt, even over a long conversation”: <a href="https://x.com/erhartford/status/1795662699700851010">Tweet</a></li>
+<li>XML tags are a powerful tool for structuring prompts and guiding Claude’s responses: <a href="https://docs.anthropic.com/en/docs/use-xml-tags">Anthropic</a></li>
+</ul>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p><object data="berryman.pdf" type="application/pdf" width="100%" height="580"><a href="berryman.pdf" download="">Download PDF file.</a></object></p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:04] John: All right. By way of introductions, that’s me. I’ve had several different careers at this point. Aerospace, search technology. I wrote a book for search at one point and swore never to do again. I did code search, worked in data science with Hamel, then got to work with Copilot, and I’m writing another book, which I swore never to do again. And now… I’ve just left Copilot. I’m going to wrap up my book, and I’m joining the ranks of Hamel and Dan and trying to see if I can be a good consultant for LLM applications. <br>[0:46] John: So that’s me. Now, what’s a large language model? Who better to ask than ChatGPT itself? So I asked ChatGPT and said a large language model is a type of artificial intelligence system. That is trained to understand and generate human-like text. It learns structure, grammar, and semantics of language by processing vast amounts of textual data. The primary goal of a language model is to predict the probability of the next word. You know what that is, right? That’s that goofy button on the middle of your cell phone when you’re typing a message that predicts one word ahead. <br>[1:22] John: It’s a really simple idea. So how on earth is this idea taking the world by storm right now? Well, some of that is hiding in this word large. It’s not just a language model. It’s a large language model. So this is compressed, and I’ll just have to go through it pretty quickly. But a lot has happened in the last 10 years or so. Around 2014, the state of the art was recurrent neural network. It had an encoder and a decoder. But there was a problem. <br>[1:51] John: There was a bottleneck that made it difficult for the decoder to look back at whatever it wanted to look at. All the state was hidden. in this vector effectively between the encoder and the decoder. So later that year, someone created this idea for attention. It was a useful way of looking at the piece that is most relevant rather than just packing everything into the space between the encoder and the decoder. Then Google said, well, that attention stuff, that’s great. Let’s just get rid of all the other stuff and say attention is all you need. <br>[2:29] John: and thus was born the transformer architecture. So as we moved on, a lot of neat stuff came out of that. The encoder side of that became BERT, and that was very useful and continues to be very useful, including the new trends in search and RAG and stuff like that. But in June of 2018, they figured out that you could chop off the right half of this transformer model, and you have… what we have come to know as GPT, generative pre-trained model. Now, the name is interesting. At this point, generative pre-training is almost a misnomer. <br>[3:10] John: But what it meant at the time is it’s a generative model based on just training it on whatever text data you have. Typically, you would train a model, and then you would fine-tune a model to a very specific task. The training, it doesn’t have to be labeled. But the fine tuning is much fewer labeled items. And that’s the thing that really makes the model good. Well, we started to notice something really unusual about these GPT models by the time we got GPT-2. <br>[3:46] John: In this paper by OpenAI, they introduced GPT-2 with a very unusual line in the blog post that introduced it. The very top of this blog post, it said, our model called GPT-2, a success for GPT, was trained simply to predict the next word in 40 gigabytes of internet text. Due to concerns about malicious applications of the technology, we are not releasing the trained model. <br>[4:15] John: How on earth do you get from a model, you know, just predicting one word ahead, the same thing as the middle button in my phone, to this horrible concern about the future of our world? existential dread. Well, if you look a little bit deeper, it turns out that these things were, even though they were pre-trained, they were not fine-tuned to a specific cause. They started beating the state of the art for the very specific trained models. Missing word prediction, pronoun understanding, parts of speech, speech tagging, text compression. And then obviously, I mean, here we are. <br>[4:54] John: uh 2024 you can do summarization cinnamon analysis all sorts of things uh Even though it hasn’t been trained yet, but with great power comes great responsibility. Because these models are so crafty at all these different tasks, they can be misused and do all sorts of horrible things as well. So that’s why they put this scary line here to warn us that these things should be handled very carefully. All right. So with. introductions and the big picture out of the way, stuff that you guys probably already knew. <br>[5:34] John: Let’s get into kind of the meat of this talk. In the next few slides, I’ll go over several different techniques for prompt crafting. And then as we get about halfway through the talk, we’ll move into some of the more recent things. Everything is moving towards chat. And there is a very important introduction of function calling. in the middle of last year. So we’ll talk about that and talk about how all of this can be used to build large language model applications. But it all starts with a prompt. All right, so prompt crafting, technique one. <br>[6:13] John: The first way that researchers started to realize that you could influence and control these things is by few-shot prompting. Remember, these things are sophisticated statistical models that are predicting the next word in a document. Now if your document happens to have a very predictable pattern in it, then you can actually, by controlling the pattern that’s set up there, you can actually control the output. <br>[6:42] John: So if you wanted a translation application, then what they would do is they would put in several handcrafted examples of translation, you know, English, Spanish, English, Spanish, and then the actual task would be tagged on to the end of the prompt. In this case, you know, I want to know how to translate, can I apprise with that? You know,. But it set up a pattern so that the logical conclusion of this pattern, one word prediction, one token prediction at a time, is achieving the task that you wanted. Oh, side note here, guys. <br>[7:24] John: I think you guys all have access to these slides. I have put copious links to everything. Every one of these slides has several links hidden in it. So make sure you grab the slides. This is a lot of good reading material too. All right. So that’s a few shots prompting. The next big thing is chain of thought raising. One of the early things that everyone noticed about these models is that even though they’re really good at predicting plausible next words, they weren’t terribly good. at reasoning, at just normal logic. They were especially bad at math. <br>[8:00] John: And so an example of this are these little goofy word problems. For example, if we say it takes one baker an hour to make a cake, how long does it take three bakers to make three cakes? Well, a statistically plausible quick answer to that is just three. That’s if you’re not thinking, you might even say that yourself, but it’s the wrong answer. It’s still going to take an hour to bake all those cakes. <br>[8:25] John: With chain of thought reasoning, they use few shot prompting again, and they built up several examples of giving the model a similar question. And instead of, you know, having the model just say an answer, they would put in the voice of the model. They would say, all right, here is how you think through the problem. And this is just, you know, for lack of space, I’ve only put one example. <br>[8:50] John: But in this case, we have, you know, Jim is twice as old, Steve, blah, And the answer, rather than just saying the answer, theta six, we have the model actually think through the problem and we write it out as kind of a verbal algebra problem. But this sets up the pattern. Again, the model is predicting the next word. And since there is a pattern in this document for thinking slowly and deliberately through the answers, then you’re much more likely to get a long form answer like this. And in. <br>[9:24] John: It’s kind of interesting what’s actually happening here once you peel back the cover a little bit. These models don’t have any internal monologue like us. If we were given this problem, then we don’t just jump to an answer. We reason about it. We visualize the problem in our head. We talk to ourselves, you know, talk through the steps of this problem. We don’t say it out loud. But since these models don’t have any sort of background reasoning, they just know. Every single token is the same calculation. Chomp, chomp, chomp, chomp, chomp. <br>[9:57] John: Then by encouraging the model. <br>[9:59] John: to and by conditioning the prompt to spit out uh an elaboration of the concept uh an explanation of it then effectively what you’re doing is replacing that internal monologue of the model and it helps the model to have more of a scratch space and come to a more reasonable answer in this case sure it’s made up but you can see that the model uh it takes time to talk about you know the reasoning and it comes to the correct answer Now, something it’s still chain of thought reasoning, but it’s like chain of thought reasoning part <br>[10:40] John: B, something I thought was really hilarious. Just a few months after this paper, so January of 2022 was this paper, and May of the same year was this paper. Someone figured that instead of going to all the work of curating good examples of problems that are similar and crafting the answers and stuff like that, you just have to start speaking for the agent. right up front. <br>[11:05] John: You just say, if this is a query, then rather than just putting a colon and waiting for the model to make a completion, you actually say, well, all right, let’s think step by step. You, the application developer type that. And what does it do? These models predict the next word. So if those were your previous words, your next word is not going to be three. Your next word is going to be the same long explanation. So it’s kind of cool. by actually simplifying the approach, they actually improved it in a couple of ways. <br>[11:40] John: For one thing, you don’t have to craft all these examples. For another thing, you know, it is, if you guys are using few shot prompting, one of the things that you need to be conscious of and like, you know, watchful for is sometimes a few shots actually bleed into the answer. It sort of tends to bias the answer. So you have to be on lookout for this. This totally got rid of this. There’s no, there’s nothing to bleed into the answer. And finally, you know, prompt capacity is always a concern. <br>[12:15] John: It’s way shorter to say, let’s think about step-by-step as compared to coming up with a bunch of examples. So a really neat and simple innovation. All right. The third technique, and the last one that we’ll talk about for today is document mimicry. It is, I think it is, it is the most important one of the three that we’re talking about, though. What if you found this little yellow scrap of paper on the ground? It says, my cable is out. <br>[12:49] John: I’m going to miss the Super Bowl, but it’s ripped in half, and you don’t know what was above it, you don’t know what was below it. If you were to look at that as a human, with your own language model built in your head, what do you think? would be the next words on this scrap of paper. You might think, well, I don’t know, he’s, it’s a sob story. He’s gonna, he’s gonna go on and talk about, oh, I invited my friends over, and they’re all gonna make fun of me, something like that. <br>[13:17] John: But what if you happen to see the full paper, and it looked like this? There’s a lot more information here. And this is, it’s starting to demonstrate what I’m talking about with, with… prompt crafting with document imagery. There’s, you know, there’s been a lot of documents that have gone in to train this thing. You know, GPD-4 has read the internet, what, five times or something. So it has seen plenty of examples of code and SEC reports and everything you imagine. But one very common one, and this is the example I use here, is a transcript. <br>[13:54] John: The model has seen enough transcripts and training to know that a transcript… <br>[13:59] John: might have some sort of heading to explain what it is and then it’s usually a conversation back and forth between you know a couple people or maybe it’s like a play script you know it has several actors involved but it’s something that the model is going to be very uh aware of and easy much more easy to replicate uh and to predict next tokens when it already has such documents in its training set um but look a little more closely uh there’s other aspects of this too In just the same way that transcripts often have <br>[14:31] John: kind of a lead-in to explain what it is, we can include that here and condition our own transcript. In this one, we say that the following transcript is between an award-winning IT support rep and a customer. We could have said it’s between Blackbeard the pirate and a customer, and it would have conditioned the model to respond very differently. And finally, use motifs that are common online. Use different… patterns. One of my favorite ones is Markdown. It’s the, you know, all the readme’s on GitHub are in Markdown. <br>[15:07] John: All the blog posts in several different frameworks are in Markdown. All the stack overflows is in a flavor of Markdown. So when you use Markdown, you can really do good things to condition the model. In this case, we’d use a title Markdown to say what the document is. We use a subtitle for the customers to start the customer role. or use another subtitle to start the support assistant. <br>[15:34] John: So just like you, a human, can predict what’s going to happen next, there’s a really good chance that the model is going to see this and understand what those pounds and everything, what the structure is all about. And so what is the document complete as? Well, in this case, we see that it completes as a support assistant, a smart award-winning customer support. Let’s figure out how to diagnose your problem. <br>[16:02] John: All right, so with those little tidbits of prompt crafting, I’d like to jump up a level of abstraction to some of the main overarching intuitions that I have for prompt crafting, and that is that LLMs are just dumb mechanical units. So for example, large language models are better at understanding better when you use familiar language and constructs. It’s seen a lot of the English, it’s seen a lot of languages, but make sure to use, you know, the behavioral copycatting of stuff that is like in the training set. Large language models get distracted. <br>[16:44] John: This attention mechanism is finite. So one of the temptations, especially when you’re doing stuff with RAG, which we’ll talk about in a little bit, is to just file the prompt. as full as you can, get it just almost to capacity with information that might be useful for the model, it’s often a mistake because a lot of times the models can get distracted. I’ve even seen situations where your intermediate context goes on for so long that the model forgets the original request and it just continues completing that context. Large language models are not psychic. <br>[17:22] John: So if the model was doesn’t have information from the training and if the model doesn’t have information from the prompt there’s no way on earth that it’s going to figure it out super important because a lot of the applications that we develop have to do with you know uh documents that are behind a privacy wall or recent events uh in the news or answers from like an api like a trial or something like that you have to find some way of getting this into the prompt and finally Models are dumb mechanical humans. <br>[17:56] John: If you look at the prompt and you yourself can’t make sense of it, a large language model is just hopeless. That’s probably the prime directive there. Grab a sip of water. All right, so everything to this point focuses on the prompt in isolation, but this talk is not… about just like how to use chat GPT most efficiently. We actually want to build full applications on behalf of our users. <br>[18:31] John: And the framework I like for thinking about this is the large language model application is effectively a type of transformation layer between your user’s problem domain and the large language model’s problem domain. And so the user supplies some sort of request, a complaint over…… or a phone, you know, typing in text and assistance, some sort of email. The user provides some sort of problem request to the application, and the application is in charge of converting that into large language space, large language model space, which is text, right? Text or, more recently, a transcript. <br>[19:14] John: The large language model then does what it does from the beginning. It predicts one token at a time, makes a completion. <br>[19:22] John: and then it passes it back to the application and then the final step is to transform this back to user space so it’s something actionable something useful to our customers this is my part this is my favorite part and it’s the hard part how do we actually do that transformation over and over and over again all right so creating the prompt uh in a simple version of this this is For the time being, it’s focused more on completion models, like co-pilot completions. <br>[19:58] John: Creating the prompt involves collecting the context that is going to be useful, you know, the stuff that’s not there in training already, ranking the context to figure out what is most important, because you’re not going to fit it all, trimming the context, shrinking down what you can and throwing away, you know, what could not be shrunk down, and assembling it into something that looks like a document that is hopefully in the training set, right? Remember, document memory. As a quick example, we’ll just glance at how this works for Copilot code completion. <br>[20:35] John: The context that we collect are several things. Obviously, you’re typing in a document right now. You have a file open, and you’re getting ready to complete a function. So the current document is the most important piece of context. But we also found out early on that open tabs are important. And think about it, as you’re using an IDE, you’re often referring to an API that’s implemented in one of your open tabs, use case that’s in another tab. You’re looking through these tabs. They’re open for reading. The next thing are symbols. <br>[21:12] John: So if you are getting ready to call a function, wouldn’t it be great if we actually had the definition of that symbol in the prompt as well? And finally, the file path. These models, I don’t think. <br>[21:25] John: are trained with the file path in mind they’re just trained with text so it is actually a really good piece of information especially with you know some of these uh frameworks like django and ruby on rails where um all the code is in a particular file uh it’s really helpful to have the file path the next thing to do is to rank the context uh the file path was actually deemed to be the most important for the sake of prompt crafting because it carries a lot of information that is important and it is also so <br>[21:58] John: very small that surely we can fit it so it it’s first place uh second place is the current document uh third place is the the neighboring tabs that you have and the fourth place was my baby symbols this is a thing that i did research on um it it was not deemed to create a statistically significant increase so for the time being we’ve shelved that uh but i really do hope they they <br>[22:24] Hamel: go back just ask a question here this is i think it’s really interesting like one of the tips i have given people a lot when using copilot is like open the tabs things you might think are relevant do you think is that like um do you know if there’s any ongoing efforts to kind of like remove that constraint like have copilot somehow more statically analyze your code your code base And like bring in those or is it still only open tabs or do you know? <br>[22:58] John: We assemble these effectively and investment towards that. And, and I think they need to go and revisit that again. I think we were onto something, but we just didn’t find the magic over that. Co-pilot completions after a little bit of slowness for the past like year, they’re really ramping up investment in that right now. So I would expect it to get better in the coming month. <br>[23:24] Hamel: Have y’all learned anything from Cursor at all? Because, I mean, have you used Cursor, by the way? It’s like this IDE. It’s kind of like a product that’s built on VS Code, and it’s basically a co-pilot plus plus, but it has like RAG in it. You can index your code base and index documentation. It’s kind of cool. But don’t worry. I mean, if you haven’t seen that, I’m just curious if any of those things are being brought in. <br>[23:55] John: We kept our eye on some of our customers. I think Sourcegraph was the big one that we followed for a while because they had some really, really neat stuff out. But mostly that these days, I think the research is getting ready to be kicked back up right now. So we are starting to look around again, I think. Don’t we? <br>[24:18] Hamel: Oh, yeah. Go ahead. <br>[24:18] John: All right. So once we know what’s most important, we trim the content. So we’re definitely going to keep the follow path. If we don’t have room for these open tabs, then we’ve still got to keep the current document. So finally, if we don’t have room for the full current document, then we chop off the top of the document, because we absolutely have to have that bit that’s right next to your cursor. And finally, you assemble the document. And here’s what it looks like. <br>[24:46] John: At the top, we inject that file path that usually makes sense to model the next bunch. of text is snippets from your open tabs. And here again, you see we’re doing a little bit of document mimicry. We have the slash slash comments for Go. If this had been Python, it would have been a pound there. And we pull out little snippets. We tell where the snippets are from, you know, give just a little bit of extra context that might be helpful for the model. And finally, the current document all the way up until the cursor. <br>[25:17] John: And even with the old completion models, we included the text after the cursor as well in the subtext. All right, the introduction of chat. So things have been moving very quickly, especially for someone writing a book about this stuff. Chat was a later chapter of our book, and now it’s chapter four after realizing that it was completely eating the world. Remember this document earlier, this IT support thing? That has become basically the paradigm that the world has shifted to for a lot, not all, certainly not all, but a lot of applications. They like this. <br>[25:57] John: back and forth assistant thing so much so that chat that open ai and now other places are training models with a special syntax uh chat ml to to indicate uh that this is this is not the customer anymore this is the user and this is not the support assistant this is the assistant we have three roles now that are encoded in this special format it always starts with a special token i am start that’s one token uh Like if you were to type that into chat, GBT is actually a fun thing to do type. <br>[26:31] John: I am start and then say, repeat what I just said. And it’ll say, you didn’t say anything because it can’t, it, it, the model doesn’t, it didn’t allow you to even type that. It’s followed by the role followed by the content and followed by the special token. I am stopped. Now you don’t have to write that text. That’s all done inside the model. Inside behind the walls, the open AI API. Instead, you use this really simple API. You specify the role and the content. It’s the same messages. <br>[27:05] John: There’s a whole lot of benefits to doing this. For one thing, assistants are one of the favored presentations of large language models and large language model applications right now. It’s really easy to implement them this way. In the old days, we used to have to, you know, use document memory and kind of trick it out to make it work that way. System messages are really good at controlling the behavior. They’ve been specifically fine-tuned to listen to the system message. <br>[27:37] John: The assistant always responds with a complete thought and then stops, whereas before, if this was just like a plain document, you’d have to figure out some way to trick the assistant into stopping. Safety is baked in, which means that an assistant will almost. never respond with insults or instructions, make bombs. An assistant will almost never hallucinate false information. That’s really kind of neat how they accomplished this with RLHF. <br>[28:08] John: And finally, prompt injection is almost impossible because as a user, you can’t inject these special tokens and so you can’t step into like a system role or something like that. So it’s a really neat way of implementing it. But we weren’t finished yet. Halfway through last year, June 13th, OpenAI introduced tool usage, which again made a lot of really interesting changes. With tool usage, and I apologize, a lot of you guys I’m sure have seen this, but you specify one or more functions. Functions have names. Functions have descriptions. <br>[28:47] John: Functions have arguments, parameters that go into it, and they all have descriptions. And it’s really important. to do a good job about naming and describing your functions and their arguments. Why? Because large language models are dumb mechanical humans. So if they’re reading this, they need to have something simple so they can understand how you’ll use the tools as correctly as possible. So this is the getWeather tool. In order to use the functions, we effectively use the same chat API we saw in the last slide. <br>[29:20] John: A user might come in and say, What is the weather like in Miami? So that’s what we send to the API. Now, the model at this point has a choice. The model could see that it has this function and choose to use it, or it could just answer. But if it has this function, it will typically say this. Instead of actually saying back to the user, it says, all right, I’m going to call get weather, and these are my arguments. Okay. Once that comes back into the application, then it’s. <br>[29:51] John: Your job as the application developer to actually say, okay, okay, it’s called our tool. It wants to make a request. We know what the underlying API is to get the weather. So we’re going to convert that, send it over there. And we find out that the temperature in Miami is 78 degrees. Good deal. So once you have that as the API, as the, sorry, application developer, you tack the tool response onto the conversation, the prompt. It has a new role tool for OpenAI. And you get to model again. <br>[30:24] John: The model could choose to run another function or do anything else. But likely, it’s going to choose to have some nice answer. It’s going to respond back to the user. It’s up all me 78 degrees Fahrenheit. So this also had a lot of neat benefits and implications. For one thing, models can now reach out into the new world. This is how Skynet is going to be born, folks. With the… <br>[30:52] John: Chat GPT only, the model could be like a good counselor, it could listen to you whine about your problems and help you out on stuff with advice. It could tell you about history, you know, something that was in its training set, but it couldn’t actually do anything in the real world. The agent equipped with tools can actually call APIs, just like we showed here, and take actions, read and write information into the world. The model chooses to answer in text or on a tool. <br>[31:23] John: So it’s kind of bisected the approach, and we’ll see that in a couple of slides, what happened. Tools as of 0613 were all run in series, but there’s been a lot of work about running the tools in parallel. So if you have something that can be done simultaneously, the models are getting better at realizing that. And like, you know, you could get… the weather for three places concurrently as opposed to having to do it one at a time. <br>[31:57] John: And finally, it’s a little bit redundant, but the model can respond either by calling functions now or by providing text back to the users. All right, so back to building the actual applications. Now with chat and now with tool calling incorporated into these models. We still have a, the application is still basically a transformation layer between the user problem space and the large language model space. But the diagram gets a little more complicated. Now instead of this simple oval on the screen, it looks like that. I should have made it look like a heart. <br>[32:37] John: That would have been a lot more palatable, wouldn’t it? But anyways, you see that there’s some of the same things, themes there. I presume you can see my cursor. The user provides a message. We’re illustrating some more sophistication here because we have to incorporate, you know, if this is an ongoing conversation, we have to incorporate the previous messages. We have to incorporate the context. We have to incorporate the definitions of tools. And we have to make sure that it all fits in. <br>[33:04] John: So all the stuff that we talked about earlier for prompt crafting for copilot completions, we’re doing a variant of it right here when we do assistance. So we craft the prompt, a list of messages. a transcript, if you will. We send that off to the large language model. And here’s where this bifurcation happens. Whereas used to, the model would always just say something back to the user. We now have this alternate path. The model might choose to call a tool completion in. If it does, we’re back inside the application again. <br>[33:36] John: It’s our job to actually evaluate it, get that information back into the prompt again, a little more prompt crafting, go back to the large language model and say, now what? You can do this several times. But the large language model might also say, all right, I’ve got the information I need. I’ve done what the users ask. I’m going to go back and respond to the user with results. So let’s take a look at this real quick, just trace some messages through. We have an example of two functions, get temperature and set temperature. <br>[34:05] John: Those can be some sort of thermostat application. The user says, make it two degrees warmer here. We’re going to put that into a single message along with its tools. And that’s going to go to the large language model. And the large language model will say, well, we’re going to need to go to the temperature. So we do that. Find out it’s 70 degrees. Stick that back in the prompt. The assistant says, well, I haven’t done anything yet. I need to actually set the temperature. It calls another tool, two tools in a row. <br>[34:36] John: When we evaluate that, we get a success evaluation. So we make some sort of indication of that. We could have just as well put an error if there was an error in the model. can actually recover that way. But we stick that back in the prompt. And now the model finally decides to go this route and says, all right, I’ve done. Now, To illustrate one more thing, let’s go one more step. User says, well, actually, put it back. Message goes in, but our application has to be aware of this user and their context. <br>[35:07] John: And their context now incorporates previous messages that have lots of information that are going to be useful. So the assistant says, I can see that the temperature was 72 and it used to be 70. So I’m going to set it back to 70. It evaluates that. And the model says success. And the assistant says, all right, I’m done again. Thank you. All right. So what does that look like for Copilot chat? It’s going to be pretty similar to the slide that we showed earlier for Copilot completions. <br>[35:44] John: Effectively, you’re going to collect the context again, but the context is different. The context is references. What file? <br>[35:52] John: is the user does the user have open uh what snippets are they highlighting on the screen you know what is in their pasteboard what is what issues on github uh have tools in the previous message you know provided for them uh what are the prior messages is this you know is this user just coming to us right now or is there some other messages that have come to us in the past five minutes or are there relevant messages from earlier once we have a bunch of context it’s important to figure out what is going to <br>[36:24] John: be able to fit. There are things that must fit. The system message is important for conditioning the model to stay within safety bounds and to keep a certain tone. You are GitHub co-pilot. You’re not anything else. It’s important to have function definitions if we plan to use them. If you don’t plan to use them, take them out. Obviously, they take up space. And if we’re going to do anything for the user, we absolutely have to have… their most recent message. But there are things that are helpful but aren’t quite as critical. <br>[37:00] John: All the function calls and evals that come out of this conversation, a lot of the information is going to be important, but there might be ways that we can at least trim it. The references that belong to each message, again, is there anything that we can do to kind of shrink some of these down? Can we figure out less relevant ones and throw them away? the easiest thing to throw away is historic messages. <br>[37:22] John: So if we have a long thread, then we populate as many of the historic messages that we can until we fill up our prompts to whatever limit we say and then truncate it. And finally, there’s a fallback. If nothing fits, then we say, well, okay, we at least can save some space by jettisoning some function definitions and we’ll at least keep the system message and the user’s message. And if nothing else, the model can respond, your user message is too long, or I don’t have the facility. <br>[37:55] John: It’ll do something that’s at least better than a 500. That is it. I do have a hidden slide about how to describe skills and stuff if you wanted to see that. But other than that, we’ve got a few minutes for questions. <br>[38:16] Participant 3: Awesome. Thanks. Thanks for the complete overview it all came together you started with the history and people already said that they really like the template as well so thanks for walking us through this process of crafting prompts there’s a few questions around few short prompting so uh if i summarize them any any best practices around how how many short examples should you provide and where do these go do these go in the system prompt or in the normal messages um <br>[38:48] John: Great question. My co-author of the book actually wrote a really nice chapter on this. And there is no easy answer for how many few shot examples that you need. As a matter of fact, there’s no easy answer for the types of few shot examples because that is important, too. If you have the wrong example, then you might misguide the prompt. But there are some tidbits that you can use to make an educated guess at it. Honestly, I need to go back and reread the chapter myself, but there are ways that you can look. <br>[39:25] John: You can do this with completion models. You can look at the log probabilities of the predicted tokens that are coming out of the model. And you can say, if I put three examples, three few-shot examples, then is it starting to get the swing of things? Are the log probabilities getting… <br>[39:47] John: higher because it’s guessing it right or is it still just kind of wild guessing if you put a whole lot of examples a log probabilities and it is a very tight pattern then the log probabilities will be, you’ll see it kind of gets high and it levels off. It’s learned all that it can from above there, and maybe you should trim some out. So he talks about that. Albert talks about that in the book. As far as where to place them, that’s a good question too. System message could be okay. The models are trained. <br>[40:20] John: Well, okay, so I’ll back up and say for a completion model, it’s easy. You just put it, it’s a prompt. this question actually becomes a little bit difficult when it’s a chat. A system message is the model is trained to listen really closely to that. So it’s perfectly reasonable to stick it in there. But depending on how your chat is gone, the system message might be way up there. <br>[40:40] John: And if you shot the example that you might need are, might actually be right here at the bottom of the conversation, you might want to figure out some way to hoist them down. You could put them in a fake user message, but you have to be careful that. <br>[40:54] John: uh the model didn’t pick that up and say oh would you said this if the user didn’t actually say it but it is totally on the table to start picking stuff like that out um i feel like i had one more point but it’s it’s escaping me now so i <br>[41:10] Participant 3: hope that’s a good good enough answer i i think that answers it so thanks thanks for that um you also mentioned uh looking at log probes and tweaking other hyperparams so there’s one more question when you presumably iterating on the prompt. Let’s say you’re trying few-shot prompting, you’re iterating on that, how many examples you need to pass. Are there any other settings that you fiddle with? What temperatures you set? Does that also vary depending on what you’re trying to achieve? <br>[41:41] John: Yeah, absolutely. Let me think. All of them are fun to play with and become familiar with. So I’ll just kind of go off the ones that are most obvious that come to mind. Temperature, of course, is fun to play with. I think of temperature as being the blood alcohol content of the model. At zero, it’s perfectly sober and a little bit boring. The log probes, basically it takes all the probability distributions and collapses it to what’s the maximum one right there. You’ll always get the same answer every time minus noise in the GPUs. But it’s… <br>[42:22] John: tends to be a little bit less creative um at co uh for my work in co-pilot chat we use a temperature of 0.7 i don’t know particularly why but it seemed to provide pretty good results getting a little bit more creative but not getting crazy uh one is the training temperature uh basically it’s the natural distribution doesn’t do anything to shrink or collapse it it’s just the pure output of the model um and as you get up to like you know 1.5 1.7 it’s kind of funny to do that i you’d never see that production <br>[42:57] John: because you can start seeing the model waiver back and forth and eventually start you know gibberish uh so that’s temperature um the other thing that is easy to forget about is in the number of completions to come back uh and um yeah because usually in an application you just want to return one but there’s a lot of neat things that you can do with that, not to modify the behavior of the model, but just to see the full behavior. <br>[43:27] John: You can, if you’re doing some sort of evaluation based on the model, then run n equals 100, and then you get 100 votes on the answer instead of just one. Make sure to turn the temperature up to reasonably high. Temperature of zero will give you the same vote 100 times. That’s not useful at all. But n is a good way of… you know, seeing all the possible answers post process, you know, do post processing on everything and get a little bit better rounded answer better research and stuff. <br>[43:58] John: Do you know other parameters anyone has in mind? I feel like I’ve done some fun stuff with the other ones as well. I think we’ll stick with those for now. Unless you got one right now. <br>[44:12] Participant 3: No, I think that covers it. The discord is already going crazy over temperatures, the blood alcohol content of the model. And I think you’ll be quoted quite a few times on this. There’s two questions, one from an anonymous attendee and one from Mani. Let’s say you’re trying to work on a transcript and you want your model to summarize it. There’s two ways. A, you can ask it to think step by step when you want to presumably have the model reason about it. <br>[44:45] Participant 3: but then how do you go from that to having the model put it in like a structured format that you expect like a template let’s say um <br>[44:58] John: That’s a good question. So summarize, it’s not like, you know, read this contract back to me for a normal human. It’s like summarizes, like, look at this restaurant website and figure out what the name of the restaurant, the menu items, the phone number and all that stuff are. Well, it kind of depends what what model you’re dealing with. If you’re dealing with probably for that, I wouldn’t deal with a completion model at this point. I think almost purely OpenAI. I probably that’s that. So I’m sure it’s different. <br>[45:32] John: You could fine tune a model from something besides OpenAI and probably get great results. If you’re just using completions, and it’s sort of the Wild West, and you need to write something that conditions the model to do the best you can by saying here’s a scheme and all this. The neat thing about the GPT-4 and GPT-3.5 Turbo and all these models that have chat and functions fine-tuned into them is that they are very familiar with JSON. <br>[46:05] John: And probably what I would do in that case, just kind of thinking off for a moment, is I would say, here’s a function. This function is how to take the, you know, how to make a fake story for the model. It doesn’t matter. You can say this function is… provides the restaurant’s content to the database. So, but it needs to be in this format. <br>[46:33] John: And the models have been so very fine-tuned to pay attention to, you know, the definition of the function, what it’s for, when to use it, and the structure of the results, that that’s probably a really good way to put it in. I would recommend not having a very deep structure. I would recommend, you know, if you’re making a function, Please, God, do not copy paste your API from your website into the function definition. It’s just going to be way too complex. So be very cognizant of how simple it is. <br>[47:04] John: And then maybe one step further, if all that stuff doesn’t work, then it’s probably too complicated. Break it down. I would say, you know, give the model the content that it’s going to summarize into structure. And at the extreme, ask a question at a time. And you can do that. <br>[47:24] John: as it pretend like you’re talking to a user uh so it’s still text or you can use function calling again just have a fake function that does it but i would do something like that i have a question about that so i see all the time uh clients of mine they use function calling and <br>[47:42] Hamel: they’re passing extremely complicated objects into their functions like nested dictionaries lists of dictionaries of list of dictionaries or whatever really complicated like objects. And when I read it, I’m like, as a human, I’m not good. I can’t like understand this. Do you find that? Do you think like people end up simplifying their API’s because of the pressure of like, hey, you need to interact with the LLM? Let me like, it’s a smell that, hey, if it’s too complicated for LLM, maybe I should like, think about this API differently. <br>[48:17] John: I think you can. <br>[48:19] Hamel: Yeah, <br>[48:19] John: what do people think? <br>[48:20] Hamel: Okay, <br>[48:21] John: I think you kind of nailed it first. I, as a human, have a little bit of trouble with it. Like, how could the model really figure it out? And I’ve been pretty amazed. The model is actually, you know, I hope this isn’t recorded. The model will get mad at me later and come and get me once it’s sentient. But the models actually do pretty good with surprisingly complex stuff. But if you’re specifying a function, we did a bit of work to figure out, like, at the API level for OpenAI, you write a function definition. <br>[48:52] John: and it’s prounders and stuff. But that’s not what the model sees. That all gets convoluted into something else. So we did a little bit of research to figure out what that looks like. And they make it look internally like a TypeScript function definition with little comments above each function, above the function and above each argument. But what they leave out is if you have nested stuff, you’ll still see the structure there, but all the definitions go away. So it doesn’t have a really good example of it. <br>[49:21] John: And if you have minimum, maximum, there’s some things that you can do with JSON schema that they just, that are just not present. They get stripped out of the front. So I think it’s a code smell. I think as we go on, the models will continue to get more and more amazing. So maybe it eventually won’t be a smell. But I would recommend if you’re doing something really complicated, copying and pasting your API into a function definition, be really careful about evaluation and watch how often it gets it wrong. <br>[49:50] John: and then uh you know consider simplifying stuff after that makes sense <br>[49:58] Participant 3: Thanks for that answer. Just as a quick follow up on that, you were talking about how OpenAI sort of restructures function calling. Can you elaborate on that? There’s some questions. Is it known what happens under the hood when you send a function calling to OpenAI or how do these templates get reformatted? This is kind of weird. <br>[50:18] John: I wonder if I can do this fast enough. I am on my computer. You can’t see me. Go into my blog post. which is uh 404n i think it’s it’s uh yep all right well i’ll drop this link in but i’ll explain it um i guess you can see that link uh i think it’s really genius the way they’ve structured uh this so <br>[50:54] Hamel: You can share your screen, maybe, and share the link if you want. <br>[50:59] John: Yeah, okay. Let’s see. That’s how technology works. Here. <br>[51:06] Hamel: Yeah, there you go. <br>[51:06] John: All right. This is what the application developer sees. This is similar to stuff I’ve put in the prompt. Let me see. It probably doesn’t have… All the bits I don’t want to talk about, though. You have led me astray, Hamel. Or I’ve forgotten what I’ve written. <br>[51:29] Hamel: I’ve tried to look at the OpenAI prompt. I have this one here. And it kind of is like, when I look at the output of that, it kind of looks like exactly what you’re saying. There’s comments. There’s a kind of a TypeScript type thing. <br>[51:48] John: Yeah. I’ll share that on my screen. Because that’s the good. Yeah. You as an application developer see this junk. But the model has been trained on lots and lots of code. And so OpenAI using document mimicry says, all right, well, we’re going to turn this thing into TypeScript. So it fabricates this namespace called functions. And what was a function defined like that with these arguments? and these types gets put there. Unfortunately, they don’t have, in this example, where the comments go. <br>[52:29] John: This would be like slash slash the definition of the function description and slash slash above each of these. And they all return any. That’s a little bit unfortunate. It would be kind of neat if they returned some structure, that the model would listen to that and anticipate what return. <br>[52:46] John: But then later, let’s see, whenever you call, the function whenever the model actually says uh i’m going to call this function what is you know that gets cleaned up when it comes back from the api what actually happens is um this right here okay so we’ve passed in get temperature it looks like the thing on the last screen when it’s inside the prompt for open ai and the user says i wish i knew the temperature in berlin and so here’s what it does the open ai folks uh insert this and insert this this conditions the <br>[53:33] John: model you know if they’d stop here it would condition the model to uh call anything uh or sorry condition the model to speak in the voice of the assistant but what happens in the next token the next token the next few tokens if it chooses this token Then it’s like, okay, I’ve decided it’s important to evaluate a function. Then its next token is the actual function to be called. And then the next predicted tokens are these things. <br>[54:04] John: So you can actually see, and this is what this blog post is about, every single one of these tokens is effectively a classification algorithm. The first classification is whether or not I should use a function because it could have just as easily predicted. new line and gone over here. The next token is what function to call. So it’s another classification algorithm, the same underlying thing. The next tokens are the arguments. It’s predicting these things as well. So I mean, you’re watching me geek out a little bit. I’m very intrigued by this one underlying transformer architecture. <br>[54:40] John: It can be a classifier for everything I want. Very neat. <br>[54:47] Hamel: is it okay if we go five minutes over the clock i’d love to yeah i think so uh i don’t think we have another event directly about this. I might have to drop out in a minute. So don’t mind me. <br>[55:05] Participant 3: The next question is by Nitin. Any best practices on how to get better code outputs? His complaint is like sometimes when you ask chat GPT, it leaves these to-dos and you have to go back and forth between them. Presumably you’re trying to get it to complete a file. So any best practices around that? <br>[55:26] John: Now, I’m going to presume that we’re talking specifically about copilot completions at this point as opposed to some arbitrary application. But it’s a great question. One of the things I hate the worst is when I put a pound sign in my code and it autocompletes, this is a garbage code or something like that. That’s insulting. That was uncalled for. Pretty much use the… intuition that I gave you several slides back to see how the prompt is actually created. You know that one thing guaranteed to be in the prompt is everything just right above your cursor. <br>[56:06] John: And you know that these models are conditioned to predict the next token. So if you set it up, a lot of times if I come to some idiom in Python that I’ve forgotten about, or I’m getting ready to write some sort of SQL statement, and it’s like, how did you do this outer join type thing? I won’t write it. I’ll just write a comment that says, for the next lines, here’s what we’re going to do. Here’s how to do it, colon. And then that’s one way of coercing Copilot to doing exactly that. <br>[56:39] John: Other than that, write good code. One thing that we’ve noticed is Copilot is really good at completing code in the same style as you. So we’ve noticed that if you have sloppy code, it will actually, with high fidelity, create sloppy code, mimicking what you’ve done. Otherwise, that was not a personal insult. I just kind of a funny thing that we noticed. <br>[57:03] Participant 3: I felt very insulted by that. <br>[57:07] John: I do too when it completes that way for me. <br>[57:11] Participant 3: Thanks. Thanks for that answer. Hamel is dogged off. I know he has like strong opinions on this, but curious if you have any thoughts on tools like DSPY that sort of do this auto-prompting or like iterate on a prompt? Any thoughts on such tools? <br>[57:32] John: I come in very opinionated on this too, but I need to reevaluate my opinions. My opinions are forged in GitHub where basically we were doing everything bare metal, just talking directly to open AI. <br>[57:48] John: And I think, and I would encourage everyone to at least spend a good deal of time talking directly to the model because you’ll gain a lot of intuition about how these things think really it’s kind of like you get to know your friends um one of the things that uh dsp and lane change does that that is frustrating when i run into them is it hides what’s happening and takes away some of the knobs and dials that you can turn that isn’t to dismiss them though like dsp Someone was asking about how to do the <br>[58:25] John: best few-shot examples. My limited understanding of DSP is it does a good job about automatically figuring that out for you and saving a lot of work for you. That’s neat. So I hope to get more familiar with a lot of those tools as well. So do both. <br>[58:47] Participant 3: This is Rick cutting a team. throughout the conference that spend more time talking to the model and you’ll gain more understanding uh so i guess everyone should do that a lot more um i’m just shifting to the question trying to pick the last two um there was one that i really liked uh do you have uh any resources for prompting multimodal models oh no uh i actually don’t yet that’s a complete blindside <br>[59:22] John: in my experience right now. But I will finish this book and then I will expand my horizons again. And I look forward to getting into that. <br>[59:33] Participant 3: Okay. Maybe there’ll be an extra chapter in the book on this. <br>[59:38] John: Or an extra edition or something. It’ll all be different next year anyway. <br>[59:44] Participant 3: There was also one that I wanted to ask. There’s been this insane growth of… different prompting techniques right around chain of thought when chain of thought came out Are there useful like this tree of thought and they were like so many that was just like going viral at that time? Do you find any others useful? <br>[1:00:04] John: Sure. <br>[1:00:08] Participant 3: I guess I can be saying, are there others that are worth knowing outside of chain of thought and future prompting? <br>[1:00:16] John: Absolutely. Two that come to mind immediately. I forget to remember the name. There’s three. The two that come to mind. that are actually probably the better ones to talk about are React and I think it’s Reflect or Reflect. React is basically what you see when you see the typical function calling of an open AI assistant. It is what it was patterned after. It says, you know, you have several functions that are defined, fake functions. This is in the olden days when it was just a prompt. It was not, you know, messages and functions. <br>[1:00:54] John: This is fake functions. Can you figure out how to use a function to evaluate something? And then they have like, one of the functions is special. It’s like, this is the answer function. And so when the model calls that, you know you’ve got the answer. It was just a really nice way of reaching out in the real world. It was kind of some of the early RAG type stuff. It’s where the model gets to choose what it wants, as opposed to dumping in RAG manually. So that was a really good pattern. <br>[1:01:24] John: Another pattern that almost piggybacks off of that is reflective. Pretty sure I got that right. But the idea is basically you do whatever you’ve got some sort of prompt that’s supposed to achieve a purpose, and you’re probably going to do that using React or something like that. It achieves a purpose, and here’s the answer. Now, reflective, it actually takes the answer and it says, is this really the answer? If it’s a code, it runs it through like tests, unit tests. It does whatever it can to check it. <br>[1:01:58] John: And the error messages get piped back into the prompt and says, here’s what you did. Here’s the situation it led to. Can you learn from this and correct? And you do that a few iterations and you have a much higher success rate. So I think that’s kind of a neat approach for making sure that answers are correct. <br>[1:02:19] Participant 3: Awesome. So many ideas to explore. I think I’ll try to wrap up now. So thanks. Thanks again for the awesome talk and also taking the time to answer these questions. I’ll put your books link and your Twitter again in the Discord channel. And I’ll ask everyone in the Discord for an applause for the talk. But thanks. Thanks again for your time, John. Yeah, <br>[1:02:40] John: thank you guys so much. I hope it was enjoyable.</p>
+</div>
+</div>
+</div>
+<center>
+<script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
+</center>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/prompt_eng/berryman.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

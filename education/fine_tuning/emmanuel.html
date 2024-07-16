@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-02">
+
+<title>Why Fine Tuning is Dead – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<script async="" data-uid="fbcda700a8" src="https://hamel.ck.page/fbcda700a8/index.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Parlance - Why Fine Tuning is Dead">
+<meta property="og:description" content="Arguments for why fine-tuning has become less useful over time, as well as some opinions as to where the field is going with Emmanuel Ameisen">
+<meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="540">
+<meta property="og:image:width" content="960">
+<meta name="twitter:title" content="Parlance - Why Fine Tuning is Dead">
+<meta name="twitter:description" content="Arguments for why fine-tuning has become less useful over time, as well as some opinions as to where the field is going with Emmanuel Ameisen">
+<meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="540">
+<meta name="twitter:image-width" content="960">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/index.html">Fine-Tuning</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/emmanuel.html">Why Fine Tuning is Dead</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fine Tuning Course</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session 1: When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/fine_tuning/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/prompt_eng/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering Workshop</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs on the command line</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/emmanuel.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/index.html">Educational Resources</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/index.html">Fine-Tuning</a></li><li class="breadcrumb-item"><a href="../../education/fine_tuning/emmanuel.html">Why Fine Tuning is Dead</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Why Fine Tuning is Dead</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">fine-tuning</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 2, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>Arguments for why fine-tuning has become less useful over time, as well as some opinions as to where the field is going with Emmanuel Ameisen</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/h1c_jmk97Ss" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=0">00:00</a> Introduction and Background</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=83">01:23</a> Disclaimers and Opinions</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=113">01:53</a> Main Themes: Trends, Performance, and Difficulty</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=173">02:53</a> Trends in Machine Learning</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=196">03:16</a> Evolution of Machine Learning Practices</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=363">06:03</a> The Rise of Large Language Models (LLMs)</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=498">08:18</a> Embedding Models and Fine-Tuning</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=677">11:17</a> Benchmarking Prompts vs.&nbsp;Fine-Tuning</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=743">12:23</a> Fine-Tuning vs.&nbsp;RAG: A Comparative Analysis</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=1494">24:54</a> Practical Tips: Evaluating Fine-Tuning Needs</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=1584">26:24</a> Adding Knowledge to Models</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=1847">30:47</a> Multilingual Models and Fine-Tuning</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=1913">31:53</a> Code Models and Contextual Knowledge</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=2078">34:38</a> Moving Targets: The Challenge of Fine-Tuning</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=2290">38:10</a> Essential ML Practices: Data and Engineering</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=2683">44:43</a> Trends in Model Prices and Context Sizes</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=2842">47:22</a> Future Prospects of Fine-Tuning</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=2915">48:35</a> Dynamic Few-Shot Examples</strong></p>
+<p><strong><a href="https://youtu.be/h1c_jmk97Ss?t=2989">49:49</a> Conclusion and Final Thoughts</strong></p>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p><object data="emmanuel.pdf" type="application/pdf" width="100%" height="600"><a href="emmanuel.pdf" download="">Download PDF file.</a></object></p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.anthropic.com/">Anthropic</a></li>
+<li>Emmanuel Ameisen:
+<ul>
+<li><a href="https://www.mlpowered.com/">Personal site</a></li>
+<li>Book “Building Machine Learning Powered Applications: Going from Idea to Product”: <a href="https://www.amazon.com/Building-Machine-Learning-Powered-Applications/dp/149204511X">Amazon link</a> | <a href="https://www.mlpowered.com/book/">Alternative link</a></li>
+</ul></li>
+<li><a href="https://community.openai.com/t/fine-tuning-vs-context-injection-rag/550286">Fine-tuning vs Context-Injection (RAG)</a></li>
+<li><a href="https://arxiv.org/abs/2403.01432">Fine Tuning vs.&nbsp;Retrieval Augmented Generation for Less Popular Knowledge</a></li>
+<li><a href="https://arxiv.org/abs/2312.05934">Fine-Tuning or Retrieval? Comparing Knowledge Injection in LLMs</a></li>
+</ul>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:00] Emmanuel: Yeah, fine tuning is dead. Long live fine tuning. The idea of this talk came, I think, mostly from just like some fun tweets. I tend to believe that fine tuning is less important than it once was. And Hamill challenged me to like, actually defend that that take. And so, so that’s what I’ll try to do here. All right, so who am I? So I’m Emmanuel is my name. I’ve been doing ML for, gosh, almost 10 years now. I was doing data science originally, then I worked in ML education, actually. <br>[0:34] Emmanuel: So train models for demand prediction data science helps people train models and ML education. I wrote a practical guide on how to train ML models. Then I worked as a staff engineer at Stripe where I trained more models. And now I work in Anthropic where I fine-tune some models and also currently I’m helping out with efforts to actually understand how these models work. <br>[0:56] Hamel: Very important. And just to plug you a little bit more, because I think you’re a little bit humble. There’s a website, mlpower.com. You can see Emmanuel’s book. It’s a classic in machine learning. And I would say in applied machine learning. So definitely check it out. <br>[1:11] Emmanuel: I appreciate the plug. Yeah, check it out. I one day hope to update it with some LLM specific tips. It’s just general machine learning knowledge for now. And yeah, you can get the first chapter for free on that website. <br>[1:23] Emmanuel: no commitment if you hate it uh this this is like the most important slide of the talk uh this talk is my opinion uh non-anthropics uh mainly i say this because anthropic like among other things offers fine tuning so if they thought my tuning were dead that wouldn’t really make sense and so this is mostly like kind of yeah like hot takes and beliefs based on just seeing the field evolve over my career uh rather than anything that that like uh anthropic really believes so i’ve been training models for 10 years i don’t recommend it <br>[1:53] Emmanuel: This is, I don’t know, this is like really the talk in two slides. I think it kind of sucks for a variety of reasons. And if you’ve talked to enough people that do it a lot, as I’m sure a lot of you do, they’ll tell you all of the horror stories that come with it. I kind of want to talk about three things, though. We’ll talk about the horror stories in the third part, actually, and the difficulty. But one, I wanted to see trends I’ve observed over the past, let’s say, ten years. <br>[2:19] Emmanuel: Then some performance observations on the fine-tuning work that I’ve seen shared or various papers. And then we’ll talk about the difficulty. So first, trends. So I think that like in machine learning, the best way to kind of have a lot of impact is to just be afraid of anything that sounds cool. Like anytime in my career when there’s been anything that sounded like the cool thing to do, it tended to be the case that like if you did that, actually, that was like vaporware and really you should be doing the boring stuff. <br>[2:53] Emmanuel: And so what that means is like, you know, in 2009, maybe like people were like, oh, my God, machine learning is like a big applied thing now. We want to train models. But really, like if you look at like delivering value, really what you need is like data analysts and data scientists that like write good SQL queries. And so that’s what you should spend your time on, even though it sounded less cool to people at the time. In many places, this is still true today. <br>[3:16] Emmanuel: Fast forward to 2012, you know, like the deep learning revolution, maybe it was a bit early, 2012, 2014, let’s say. You know, everybody wanted to use deep learning. It’s like startups that were doing, you know, like, I don’t know, like fraud prediction that were using some random forest or like, ah, surely now we need to use deep learning. Actually like that was too early. At that time, it was very, very hard to get deep learning models to work. You should just use XGBoost. Do the boring thing. <br>[3:42] Emmanuel: 2015, it’s like, ah, now deep learning is in full swing. There’s a bunch of papers. The exponential is starting. Surely what you want to do is invent a new loss function or improve on the theory of an optimizer. But really, if you want to actually make your model better in practice, you just want to clean your data set, notice the obvious errors, fix them, and then that would get about 10 times larger improvement in about a tenth of the effort. <br>[4:09] Emmanuel: And I think in 2023, we have a similar thing in a way with like definitely training your own foundation models. In some cases, I think, and then also just fine tuning. It’s very appealing. It sounds very cool. As far as I can tell, it’s actually rarely the like first thing you should reach for or the most useful thing you should you should go for. So I think just based on priors, we should be suspicious of fine tuning because it’s the cool it sounds like the coolest thing. <br>[4:37] Emmanuel: And that like right away, like, it’s the coolest thing probably be the worst use of my time. I made a little chart that I think illustrates this somewhat. Oh no, hold on, fine tune in on that. Yeah, okay, same thing. We talked about this already. I made a little chart. This is this beautifully drawn chart is like my take on sort of like if you’re doing machine learning in a practical way. So like, what was the way to, you know, best leverage your time? <br>[5:04] Emmanuel: And so at the start, hopefully you can see my mouse, but at the start, you know, people just trained models. There was no fine tuning because there were sort of like no models to take and to fine tune, or at least it was like exceedingly rare. And so you like, you trained your own like random forest or your own like SVM or your own whatever, like even your like MLP. And that was that. <br>[5:22] Emmanuel: And then kind of with not really when ImageNet came out, but like a little, a few years after with like VGG and then later on ResNet, you know, that’s when sort of like fine tuning came out. I think became a thing that a lot more people started to pay attention to. You could take a pre-trained model on, in these cases, they were image models. You can take a pre-trained model and then like fine tune it on your smaller data set for cheaper and get something that was better than if you trained it from scratch. <br>[5:47] Emmanuel: And so, you know, as time went on, that became more useful. I think BERT was also a big moment where that started becoming useful for text as well, where you could fine tune BERT models or fine tune other models. And so I would say that there’s this general trend that fewer people are training, more people are fine tuning. And then around GPT-3, maybe a little after, because it took time for people to really pick up, there was this concept of, ah, do you even need to do any backwards pass on your data at all? <br>[6:15] Emmanuel: And it just made me like. take the model and maybe it just works, right? That’s sort of like, I would say that concept is like the original promise of LLMs, right? Is that like, you actually don’t need to train, they learn in context, you can just prompt them. And so I like this chart because it’s sort of like, well, I don’t know if fine tuning is dead. I don’t know if like… <br>[6:34] Emmanuel: it was just a blip or if like this chart will like kind of like go back up in prevalence but at least like the sort of like trends of like ah you know it used to be that really there was nothing else you could do than training and or at some point you could like replace your training with fine tuning and now there’s this whole other categories of applications where actually you don’t need to do any training at all And so the question is like, oh, you know, how do you extrapolate that trend? <br>[6:57] Emmanuel: And I think like the realistic, not fun, not hot take answer is nobody knows. But my hot take is that, you know, line goes up. And so I think we’re going to keep having that orange line increase in the future. Maybe I’ll pause like really briefly in case there’s questions. <br>[7:12] Participant 3: To state the semi-obvious. <br>[7:14] Emmanuel: Yeah. <br>[7:15] Participant 3: If we go back to your slides about like what not to do. <br>[7:18] Emmanuel: Yes. <br>[7:19] Participant 3: Most things that you said not to do. they were the thing to do a few years later. So you’re like, oh, don’t train ML models. And then a few years later, you’re like, yes, you should be using SG Boost. And then you’re saying don’t do deep learning. But then I think the thing after this is like, you’re saying like by 20, at some point later, you say you should do that. <br>[7:37] Participant 3: Does that mean that if you say not to train, that you shouldn’t find you now, that it’s going to be the hot thing and it’s going to be worthwhile in a few years? <br>[7:45] Emmanuel: I mean, I think like, I don’t know, right? Maybe. I think this is not true for all of them. Like notably, like I think invent a new loss function is still like not a thing that you should do, you know, even like almost 10 years later or something. So I think it depends. I think it’s certainly the case that like, as soon as something comes up, like deep learning, people want to do it. And sometimes it will actually be useful. Sometimes it’ll not be. And it’s hard. <br>[8:11] Emmanuel: when it first comes out to know whether it’ll be like the invent a new loss function category or they use deep learning. <br>[8:18] Participant 3: Let me ask a couple of questions from the chat. <br>[8:20] Emmanuel: Yes. <br>[8:22] Participant 3: We got one from some Simon Willison guy. I get the argument for not fine tuning LMs, but how about embedding models? Is there a relatively easy value to be had from, for example, fine tuning an embedding model on a few thousand blog articles to get better quality semantic search? <br>[8:40] Emmanuel: I think that’s interesting. I… I feel like to me that’s a similar question to fine-tuning a model. I feel like if you buy that these models are getting better and that we’re going to… I think right now we’re focused a lot on improving the LLMs rather than the embedding models. Comparatively, there’s not that much activity in the embedding provider space. But if you buy it, they’re going to be better. I feel like you’ll just have very general embeddings that work well. <br>[9:13] Emmanuel: I think where this gets tricky and where you might always need fine-tuning or need a different paradigm entirely is your company has a product that’s the XS23, and nobody knows about it outside of your company or something, and you want to build search based only on embeddings with this. I think that might require either some fine-tuning or some embedding or some combined. RAG, which honestly is what I’ve seen work really well, where you do a combined sort of some keyword search and some embedding search. <br>[9:49] Hamel: What about the case where, okay, with RAG and retrieval, in the domain-specific case, a lot of times what people think is a good… sort of ranking or retrieval can be very specific. It can be hard to capture that in an embedding, no matter how good the embedding is. So do you think, yeah, that’s the part that I, yeah, that’s the part I wonder about the most. <br>[10:18] Emmanuel: Yeah. I think not to add spoilers or anything, but I think at the end of the talk, I have this light where I think that fine-tuning is dead is like the hot take version. I think that like the realistic like thing that I believe could happen is like fine-tuning is, you know, 5% of the AR versus, versus like 50 or something. And so I think it’s totally possible that you can imagine that like, yeah, like for your very specific search where I think it’s complicated. <br>[10:48] Emmanuel: Cause like, This is kind of getting into what I talk about later, but as these models get better, you can imagine them just being able to, in context, understand what your specific search is. And so you could have your LLM drive your search and do some sort of query expansion just because it really understands well the context. For pure embeddings, I don’t know yet. It’s possible that you always would need to fine tune some embeddings for some retrieval. <br>[11:17] Participant 3: Is there any benchmarks or data comparisons that compare how good your results are from doing a better job of prompting versus fine-tuning? <br>[11:28] Emmanuel: Yeah, there are some. I have some later in the talk. I don’t have, actually, like, I have, like, RAG versus fine-tuning, which is kind of similar. I would imagine, like, prompting to sort of, like, be a little worse maybe than RAG. Actually, that depends. Maybe, like, comparable to RAG. So I have some, some, I looked up some of the papers I could find that I’ll share after in the next section. <br>[11:47] Hamel: Great. Cool. <br>[11:50] Emmanuel: Yeah. So I’ll say that, like, I’m also all ears. If people here have, like, papers that are comparing this performance, I was surprised to not find that much. I’m going to be completely honest. I didn’t spend super long doing literature review, but I spent, like, 15, 30 minutes looking for a bunch of papers I could find on this that I wore in addition to ones that I was already aware of. And I didn’t find that much that I found was super informative. So. This is an example, I think, from the OpenAI forum of fine-tuning GPT-3. <br>[12:23] Emmanuel: That is one of the first examples when you look at fine-tuning versus RAG, at least that I could find. And I think is relatively illustrative of what happens in some cases, not all of them, obviously. But in this one, you have the base model. And this one, the fine-tune, I think is like… I had it at the start because I think it’s like worst-case scenario or something, because it doesn’t seem to be doing any better. And then you have like… context injection, which I think is basically if I remember well, and then various different models. <br>[12:51] Emmanuel: And so it’s the case that sometimes fine tuning doesn’t work. <br>[12:55] Hamel: So I have a question about this that maybe you can help me understand. So I always see these kind of things about fine tuning versus rag. And then I get really confused because My fine tuning always includes RAG. Like, includes examples of RAG. And I’m like, what do you mean fine tuning versus RAG? It’s not like a versus thing. It’s like you do both. <br>[13:18] Emmanuel: Agreed. Agreed. Can I just say, like, I’ll answer this in two slides? <br>[13:23] Hamel: Yeah. <br>[13:24] Emmanuel: Okay. Yeah, yeah. Agreed with you, though. Well, okay. Maybe actually the one thing I’ll answer. So in two slides I have a comparison including fine tuning, RAG, and both. And the other thing I’ll say is like, I think that this is also a matter, like one of the reasons why this is a hot take I have is that I think it’s also a matter of prioritization. <br>[13:41] Emmanuel: Like, you know, if you’re like at this point in your life or something and you have the choice between fine tuning and rag, I think it’s very important to know like, OK, like which one’s gonna be harder and like which one’s gonna give me the biggest lift. And then like, of course, you can always do both. Right. But still, like if there’s if there’s two options, you kind of want to know which one is the most efficient anyways. <br>[14:01] Hamel: Oh, yeah, that makes sense. I definitely agree with that, too. Like you should do rag first. Yeah. <br>[14:07] Emmanuel: Yeah, I feel like this… Yeah, anyways, I would bet that at the end of this talk, we’re like, actually, we’ve run most things. But you gotta have a few optics. This is… Okay, so I think this is… Yeah, exactly. Okay. So this is kind of… I said in two slides, but this is basically what you were asking me about. This was a paper… I link it here. Comparing fine-tuning and RAG. It’s on relatively old models. The paper after has more recent models. But as far as I can tell, that trend actually held. <br>[14:34] Emmanuel: And this is kind of hard to read, but basically you have like this is your baseline. You haven’t done anything. This is you just do RAG. This is you just do fine tuning. And this is you do fine tuning plus RAG. And then I would like just ignore the sort of like, you know, this is like, do you do like some LoRa? Do you like some like full fine tuning? And then I think this is like, I don’t recall. These are like different prompting methodologies. If I remember well. <br>[14:56] Emmanuel: Or yeah, this is the fine-tuning data set that you use. Is it formatted as a question and answer? Anyways, you find that if you look at all of these models, really, the increase comes vast, mostly from RAG. Notably, this is even more true for the larger models, where you get 58 with RAG, and with fine-tuning per-person RAG, you get 61. And with fine-tuning alone, you get way less. This is less true for the small model, right? Where you get quite a bit more with fine-tuning plus RAG. <br>[15:26] Emmanuel: But if you look at that trend, especially for base and large, basically, you’ve gotten almost all of your benefits from RAG. And it is technically true to say, if you do fine-tuning, you’ll get more benefits, but you’ll go from 63.13 to 63.29, as opposed to a 10x. You know, going from 6.7 to 63. <br>[15:48] Hamel: So I think it’s worth stopping here because I think this is actually a very confusing like, people get stuck on this. Like you know, I’m of the mindset like, hey, if your model needs context from your data, you should just, you should always do RAT. Like you don’t want to try to fine tune all of that knowledge. you know, from all your documents and everything, like, try to, like, expect that your model is going to, like, memorize all of that and stuff. I don’t, there’s no thing that’s a good idea. <br>[16:20] Hamel: So, I feel like, yeah, I feel like if your application could use RAG, you should do RAG. Like, there’s no, yeah, I think people get confused. Like, when they see papers like this, like, oh, find two different ways to RAG, like, oh, maybe, you know, they’re like, totally, like, no, there’s no option. You have to, you have to use RAG. <br>[16:37] Emmanuel: Well, <br>[16:38] Hamel: I mean, like in most applied situations, like to make it work. <br>[16:42] Emmanuel: I think this is sort of like, you know, this is why like you doing this course is good though. Cause I don’t think this is common knowledge. Like in particular, the, like, you know, like maybe you other practitioners that I’ve talked to, like some people know or know, or have the like intuition, which I think is correct. That like fine tuning, isn’t really the right solution. If you want to like acknowledge, like it’s like, that’s just not what it’s for. in most cases. <br>[17:04] Emmanuel: And so, like, you know, like, yeah, you can, like, say, like, ah, for this use case, actually, it makes a little sense for that one, maybe a little bit more. But I actually think that that’s not well-known. And so, like, one of the reasons that I’m, like, on this hobby horse or something is to be, like, no, like, in most cases, like, you’re, like, ah, like, my problem is that, you know, like, this model doesn’t know about whatever our business model is. And it’s, like, yeah, the solution for that is not fine-tune it, usually. <br>[17:25] Emmanuel: It’s, like, just tell it where your business model is. So, yeah. <br>[17:29] Hamel: Makes sense, yeah. <br>[17:32] Emmanuel: I think I have… Yeah, this is similar. I found this paper that was doing some, like… Yeah, again, like, rag plus fine-tuning. Not to, like, belabor the point, but, like… I think I was curious on, like… Like, one thing that I was curious about is, like… Ah, okay, like… I think there’s probably a model size thing going on. Anecdotally, I think there’s some papers and some various experiments I’ve been running where it seems like fine-tuning is more beneficial in smaller models than bigger ones, potentially. <br>[17:59] Emmanuel: And so I thought it was interesting to find out this paper was doing this with small models, smallish models. And I think this is another example of what we’re talking about, right? I don’t remember what the use case is for this, but oh, it’s like… It’s like for knowledge. And so it’s like, yeah, for knowledge, even for small models, you want rag. <br>[18:15] Hamel: And so how do you interpret this table? Like the ones on the very right hand side, the ft, rag plus rag, does that mean it’s getting worse with fine-tuning and rag? <br>[18:26] Emmanuel: That’s how I interpret it. <br>[18:28] Hamel: That’s a little bit surprising, yeah. <br>[18:30] Emmanuel: My interpretation is that this is within the noise. I would guess just based on bass plus fine tune being pretty close, slash even worse here, and pretty close, that this is just like. <br>[18:42] Emmanuel: based model and fine-tune in this example like your fine-tune doesn’t do much and like i wouldn’t i wouldn’t over index on this being like slightly lower basically i’d say like yeah fine-tune plus rag probably just does as well as like rag would be you know it’s interesting to look at this without reading the paper because we don’t know what task is being scored or at least i can’t tell and <br>[19:02] Participant 3: then it’s like if you wanted to measure adherence to a writing style book you then I suspect rag doesn’t do so, so much for you. Like if it’s just writing style and fine tuning, like I think. Right. We could pick a task and then get the results to tell any story we want. But it’s just a matter of what task are we optimizing for? <br>[19:24] Emmanuel: Totally. Okay. So I think this is a great point because as I was doing this and I was writing my slides and giving a diabolical laugh, being like, ha, ha, ha, ha, like Rag is beating fine tuning or whatever. I was like, well, okay, I should do a search for papers that show fine tuning beating Rag. And I didn’t find… many examples. And I think like a lot of the examples that I’ve seen are like Twitter threads or something. <br>[19:47] Emmanuel: And so anyways, this is like mostly a call for like Either like, you know, the host of this workshop or like anybody that’s attending, if you have like good papers that show this for like, yeah, like we were talking about like style examples or things that fine tuning is more suited for, please send them my way. <br>[20:01] Hamel: I think it’s hard to explain because like even when I try to explain knowledge, like, hey. Like, hey, fine-tuning is not good for adding knowledge. That word is not fine-grained enough. What do you mean adding knowledge? There’s a certain kind of knowledge that does make sense. And they’re like, oh, what kind of knowledge? I’m like, oh, okay. I get really… It becomes an intuition. But I haven’t expressed the intuition completely clearly as much as I want to. <br>[20:29] Emmanuel: Well, and my like maybe… maybe like scaling pilled or whatever like hot take is that this this intuition or like the boundary between those changes with every model generation and so it like maybe like a good example is like i think it used to be the case that like ah like you could say like Learning a style of speaking or something is something that requires fine-tuning. Like some style, not knowledge, like a way of saying things requires fine-tuning. <br>[20:54] Emmanuel: But the better models, the more recent ones, can learn a style from a two-line prompt, which the older models can’t do. And so for that, it’s less true. But there are still other things where maybe it makes more sense. So I think that adds to the concept of what is knowledge is something that changes with every model generation, basically. <br>[21:14] Hamel: Yeah, no, that makes sense. Yeah, I have that same experience as well. <br>[21:20] Participant 3: I think that there are a bunch of cases where we could look at it and we’d be like, we’re not even sure if that counts as style or content. So if we… fine-tuned on manufacturing copy from the makers of like the XS32 widget. And everywhere when it says like the best widget is, and then you fill in the blank, it’s always XS32. Like that’s sort of knowledge. It’s knowledge that XS32 is some great widget, but actually it’s just, well, that’s whenever they express positive emotion, that’s like the widget that they express it about. <br>[21:54] Participant 3: And so it’s sort of tone and maybe. knowledge is actually not a very clear abstraction. <br>[22:00] Emmanuel: Yeah. I mean, notably, like… This is like way outside of the bounds of this presentation or something, but like it’s not clear from even like the early work that we have on like interpreting these models that, you know, like the other concept of knowledge as we’re discussing it here, like is something separate from the concept of style within their actual ways, right? Like I would bet that for many cases it isn’t. And so it’s not like there’s like, ah, like, you know, that kind of like thing that’s in like this, this like. <br>[22:28] Emmanuel: attention head or whatever, like is the knowledge versus something else? Like I think, I think it’s, it’s even the model doesn’t have like that clean separation. <br>[22:36] Participant 3: We’ve got our first audience question. You want to go ahead, Ian? <br>[22:40] Participant 4: Yeah, sure. Hi, thanks for this talk. So my company, we have a very complex knowledge base that we’ve curated like a hundred thousand hours, I bet of time for precision oncology, which is genomics and cancer. My intuition is that I’m going to be able to curate using those curated rules, a fine-tuned model that does a good job at creating a first draft of a curation, right? So we curate what are called guidelines and clinical trial documents. Does that fit in your model? What would be your advice based on that description? <br>[23:18] Emmanuel: Oh boy. I think the part that’s hard, just going back on what I was talking about, is that as a non-expert in this domain, I think I have a worse intuition than you do on where this falls on the knowledge versus style spectrum or something. I think one comparison I would draw here is like… Maybe the, actually I talk about it in the next slide, but there’s like some attempts by, you know, people to train sort of like LLMs that are specific to finance or to agriculture or whatever. <br>[23:53] Emmanuel: And those often like in the short term beat the current open models or current available models. But then I have an example after they like. they often are just beaten by the next bigger, smarter model. So I think that’s one thing I would consider. What’s the trend of maybe if you take the Cloud 3 models or the GPT models and you take the smartest and the dumbest one and you see how they compare with no fine-tuning, that could give you a hunch of the next generation is probably actually going to be good enough. <br>[24:27] Emmanuel: And then the other thing that I like to use to decide whether fine-tuning will… will help or has a chance to help, and also whether I need it at all, is to just keep adding a bunch of examples to my prompts of basically the shape of what I would fine-tune on. I feel like probably other people have said this in this conference or something, but seeing how well model performance increases with that also… can give you a hunch of how well it would increase with fine-tuning on a large data set. <br>[24:54] Emmanuel: And notably, if you see it plateau after a while, you don’t need to fine-tune, in my opinion. <br>[25:00] Hamel: We have a related question from Simon Willison, who asks, does fine-tuning ever work for adding knowledge? I see this question come up all the time. And I think, like, the thing that’s, like, confusing about answering this question is, like, there’s some knowledge that is, like, kind of intrinsic to, like, maybe, like, a world model or something. Like, I think about, like, okay… this could be wrong, but like a physics constant of like gravity of the earth or whatever. <br>[25:31] Hamel: Like it’s like, I think it’s like for my intuition tells me language model is okay with memorizing that. I’ve seen that like so many times. I don’t want to retrieve that with rag, but like something more specific about Hamel, like about my life, like changing facts. Okay. That makes sense. Like something like, you know, that it’s not trained on clearly rag, but there’s like some middle grounds of fuzzy middle ground where I have strong intuitions, but I don’t know how to like tell people. <br>[25:57] Hamel: like about adding knowledge like what is yeah like i i understand like intuitively like there’s some knowledge i want the language model to internally like grok like fundamentals about the world or in things but like others like i would never expect it to like you know internalize so i don’t know like how do you explain this aspect <br>[26:24] Emmanuel: Yeah, I think it’s also complicated, right? Because I think for most… So the first thing I’ll say is for most things where I want to add knowledge. So let’s say I want to add knowledge to some model that… I don’t know, like I like strawberries or whatever. So when it sees my name, it knows that, oh, by the way, Emmanuel likes strawberries. I think that, first of all… that’s almost always something that you could just do with a prompt, right? Or some rag, or whatever. <br>[26:48] Emmanuel: It’s like, oh, when there’s a question about me, we retrieve something, and there’s a description about Emmanuel, he likes strawberries. And if you have a good instruction following model, it’ll just do the same thing. And so then the question is, okay, if I were to change the weight of the model for it to do this, how do I do that? And I think this is often actually not that trivial, because if you just fine-tune in a bunch of prompts that are like, what does Emmanuel like? He likes strawberries. <br>[27:10] Emmanuel: If you have a dumb model, it’ll only… tell you that I like strawberries if you ask it what I like. But oftentimes what you want with your fine tuning is you want it to like know this information and use it when it’s relevant in other contexts. And so maybe then you have to like think about like, ah, like what I want to fine tune is like, you know, I don’t know, like we’re a business that does like shopping recommendations. And so when like Emmanuel logs in, like And he just asks random questions. <br>[27:34] Emmanuel: I’m just going to be like, oh, by the way, did you buy your strawberries this week or something? And you fine tune on these specific prompts for this specific context. And then I guess my qualm with this, and calling it knowledge, are you adding knowledge to the model? Or are you basically fitting it so that in this narrow distribution of these few prompts that you’ve given, it leans more towards mentioning strawberries? <br>[27:58] Emmanuel: And I think this gets at fundamentally how these models learn, and at least as far as I know, we don’t actually have a satisfying answer to this. But I’m pretty convinced that a lot of fine tuning ends up in that surface level realm of in the specific context for the specific question, shaped like the fine tuning dataset, I will tell you this thing, versus I’ve now learned whatever that means for a model that like Emmanuel likes strawberries. Hopefully that made sense. <br>[28:28] Hamel: Yeah, no, I think there’s no wrong answer, I don’t think. <br>[28:33] Emmanuel: I think the answer to a lot of this stuff, and the reason why it’s so fun to work on, is that we don’t know. Hopefully we find out soon. But, yeah. I have a few examples of… Oh, yeah, go ahead. <br>[28:45] Participant 5: Do you have a second for another question? <br>[28:47] Emmanuel: Yeah. <br>[28:49] Participant 5: Great. So in terms of knowledge, okay, so one of the examples that I feel like perhaps has worked out, that I’ve heard about, is… So if you take like multilingual models, and if those are not highly trained on non-English, but they have some non-English of the other type, and then, so it sort of understands a little bit of that language, but in general, its quality on the non-English languages is kind of crap. If you then fine-tune a lot more on the other language you want to get better quality on, that tends to work. <br>[29:28] Participant 5: And it seems like it’s sort of like giving it new knowledge, but it’s not… Like, I already knew some of that language, it was just kind of prophetic. It didn’t have a lot of examples. Is that maybe a case where that makes sense? <br>[29:40] Emmanuel: Yeah, I think that’s interesting. The first thing that this brings to mind is that like… In some of the interpretively work that we’ve shared, like if you look at some of the way that the model represents, like at least large competent models represent various things, like the concept of a table or whatever, like the Golden Gate Bridge. It’ll represent it in the same way in different languages. And this is increasingly true as the model gets smarter or something. <br>[30:12] Emmanuel: And so I could buy that fine-tuning that to be better is slightly easier than other types of fine-tuning, because it’s already seen this. It’s already kind of like learned to map different languages to like a concept for other concepts. And so it like needs a really small change to like map, you know, this like new concept that somehow like hasn’t really learned fully for this new language to be the same, like basically part of the model that does the reflection for it in English. <br>[30:41] Emmanuel: So I don’t know, like I could see that work for the specific thing. Oh, sorry. <br>[30:47] Emmanuel: Go <br>[30:47] Participant 5: So similarly, do you think that it’s a similar kind of thing that happens when people make fine-tuned code models that are good at doing software programming, essentially? Or would you think that’s a different thing happening? <br>[31:04] Emmanuel: Yeah, I think with fine-tuned models, there’s a bunch of other concerns. It depends on what you want, but if you want a code-complete… This is the style we were talking about. You kind of want the model to… It’s not gonna be like, oh, hi, I’m Claude. Let me tell you about code. You just want it to auto-complete the current line you’re writing, which I think that was the style discussion we were talking about. And then there’s speed concerns as well with code language. I think that the knowledge of your codebase actually… <br>[31:32] Emmanuel: That’s also something that Rav works really well at, and I’m not sure you need fine-tuning for. Just having the good context of what you’re currently working on. I’m not convinced, maybe to be clear, that… I don’t think there’s good data on this, this is my hot take, but I’m not convinced fine-tuning on your whole codebase or something gives huge gains compared to putting as much of that codebase in the context. <br>[31:53] Emmanuel: The other thing I’ll add that’s related to this is that both, I think, for one of Google’s launches recently and then for the Cloud 3 launches, there was an example that was shared of a model not knowing a rare language. And then you put, I think, 100 pages of that language in the context, and then all of a sudden it can do it without any fine tuning. And the reason I mention it is, like, I think the fact that this is comparable to fine tuning is really interesting. <br>[32:24] Emmanuel: And I’ll talk about it a bit more after, a bit more why I think it’s very interesting. Okay. I’m going to jump ahead. Feel free to interrupt me if I haven’t answered your question properly or if you have other ones. I’ll just go ahead and jump ahead. This is basically what Hamel was saying. Fine-tuning is not the solution for domain knowledge. This was the other paper I mentioned, which is, I think this is an agriculture paper. And it’s like, if you fine-tune like GPT-4, you get 61% performance. <br>[32:54] Emmanuel: Sorry, if you do that and you do RAG. And if you just do RAG, you get 60%. So again, strictly, if you really care about that 1%, useful, but really you got most of it from RAG. And also, I don’t know how big the error bars are here. But this is kind of confirming what we were saying, which is like this is like a domain knowledge kind of thing, and so it feels less useful. Right. <br>[33:14] Emmanuel: So the other thing that I think is challenging for fine tuning, especially if it’s like at the cutting edge, is that you’re aiming at a moving target. You know, like there’s many labs, Anthropic among them, that are like continuously working on making the model better. And so this is this example is like the Bloomberg GPT example. I’m realizing here, I apologize. I think I like used. I think I like used. <br>[33:32] Emmanuel: a bad figure but essentially the Bloomberg GPT model claims that it was doing better than chat GPT at the time or gp3 on like some financial analysis task and they like pre-trained their own model so it’s not fine-tuning it’s pre-training here um which I guess like doesn’t show really in this table um but then a few I think like six months later you know gp4 came out and chat GPT and it was just way better than like their fine-tuned model and basically everything so I have a question about this that’s a really interesting I’m glad <br>[34:01] Emmanuel: you brought this up like <br>[34:04] Hamel: First of all, the Bloomberg example, like when they made a big deal out of it. Like, hey, we like pre-trained, we did this like pre-training of this model. It costs like millions of dollars, whatever. But my first reaction was like, why did you pre-train a model? And why didn’t you fine tune a model? But that’s a different question. Second one is like, I’m curious, like, okay, yeah, these frontier models or whatever you want to call them, they’re getting better. Like you’re saying it’s moving target. <br>[34:33] Hamel: If you have a fine-tuning pipeline, let’s say one for like Claude, just because I don’t want to call attention to OpenAI, just keep it so don’t get kicked out. If you have a good fine-tuning pipeline where you’re fine-tuning these even big models. Can’t you just keep moving with the state of the art? Like, hey, okay, this new model came out. Let me fine tune that. Let me keep fine tuning that. Assuming that those APIs are exposed. Yeah, like for the most powerful models, maybe they’re not exposed yet. But just, yeah, curious. <br>[35:09] Emmanuel: I mean, like, I think like the question is, you know, can you always take the latest model and fine tune on it? I think the answer is yes. Although, obviously, if you take the BloombergGPT example, they… pre-trained, right? But presumably, the whole point of their exercise was that it’s a large data set that they have. So the cost to fine tune isn’t much cheaper, because they probably mostly train on their data set. And so it’s like, do you want to pay that much money any time there’s a new model that appears? <br>[35:45] Emmanuel: That can often be sort of like, oh, you could either, if you have a pipeline that just takes an arbitrary model, does some rag and some prompting, you can swap models easily. But if you have to re-fine tune, that gets pretty heavy. So I think it’s possible, but it’s just a matter of cost. <br>[35:59] Emmanuel: And then the other thing, like, on that note is, you know, like, I think that, like, The fine tuning of a larger and larger model seems, and I’m curious, maybe you have more experience on this, I tried to find some papers, but that’s mostly an anecdote, seems like less and less. Or it seems like as these models just get better, they just get better at everything. <br>[36:31] Hamel: Yeah. Okay. So kind of the most common tactic is to use the data generated by the most powerful model to train the faster models one step below it and to keep walking that ladder up. Like, okay, new model came out. Okay, let’s use that, get better data and whatever. And like, of course, analyze the gap, but it’s usually like, okay, you get a much faster model and hopefully similar performance or better performance. I guess like, yeah, you have to like look at the cost because there’s probably like some, you have to do the analysis. <br>[37:08] Hamel: Like does this even make sense? This exercise? <br>[37:11] Emmanuel: Yeah, exactly. I think that like, I think that a lot of, at least as far as I can tell, like a lot of teams, companies are like underestimating the cost and overestimating the value of this stuff. But yeah, I think you certainly can. Again, I’d love to like, I wish there were like a few more examples of, you know, we’re talking about words like I haven’t seen many papers where it’s like, oh, we do this and we train like the super small model and it like actually works better. <br>[37:31] Emmanuel: I think I’ve seen this like for some like evals that seem like obviously what we’re fit to in some in some examples where then like the model is in general eyes. And so it’s like nice for a paper, but can you actually use it for anything useful is not clear to me. But yeah, you can do it. I think it’s a matter of cost at this point, right? And of value. I think there’s certain use cases where it totally makes sense. <br>[37:53] Emmanuel: I think there’s certain use cases where it’s pretty far down the priority list, in my opinion. I have… Oh, no. Yeah, this is what we were talking about. Unless there’s any questions, I think this is basically what we’re talking about. And I’ll just dive into the difficulty. <br>[38:08] Hamel: Yeah, please. <br>[38:10] Emmanuel: So this is something that I’d like to be like, I’m only made like the same graph, or like, at least we’ve talked about this exactly. But it’s like really like for like, when you’re doing ml, you know, like the optimal use of your time, like, even if you’re doing fine tuning, to be clear, even if you’re training models from scratch is usually like 80% data work, collect it, label it, enrich it, clean it, get more of it, see how it’s broken. <br>[38:33] Emmanuel: You know, 18% is just general engineering, like how do you serve your model, how do you monitor your model, how do you make sure that it works, there’s no drift, all that sort of stuff. And then maybe 2% debugging some, like, my model doesn’t train, or I get a GPU, or something like that. And then you’re like, I got 0% usually cool architecture research. At least that’s been my experience. And so the reason I mentioned this is that machine learning is hard, I think, even if you don’t train the models. <br>[39:06] Emmanuel: If you actually buy this, oh, I’m not going to fine tune, I’m just going to use rag and prompt some elements, you still need to do basically all of this. You filter out maybe this, you don’t have the model code, but you still need to set up input validation, set up filtering logic, set up output validation. monitor your inputs, monitor your latency, monitor your outputs, do backtesting of your prompts and rag systems, do evaluation, have a trained test split so you can do experimentation, potentially A-B test. There’s this whole world of things. <br>[39:36] Emmanuel: And I think maybe the reasonable version of the hot take is not that fine-tuning is dead, is that if you talk to me, I will only allow you to do fine-tuning if you’ve done all of this first or something. Because I think all of these are higher on the hierarchy of needs. than fine tuning. Which, by the way, I think is something that you had this great article in O’Reilly recently that basically laid out the same thing. So I don’t think it’s a super controversial take. <br>[40:00] Emmanuel: But I think the thing that grinds my gears with fine tuning often is that people don’t do any of this and then fine tune a model before they even have an eval. Which that is, I think, problematic. <br>[40:13] Hamel: Yeah, that drives me nuts too. Can you go back to the previous slide, if you don’t mind, for one second? Okay, so this makes sense. One kind of question I have is like… <br>[40:25] Emmanuel: These are not very sensitive numbers. No, <br>[40:26] Hamel: no. But it’s fine. So, like, the collecting data set part, okay, you don’t need to do that with… If you’re not fine tuning. <br>[40:34] Emmanuel: You can do some of it for your email. <br>[40:36] Hamel: What about the looking at data? You still can do that. The looking at data… Like, for me, looking at data takes up to 80%. <br>[40:42] Emmanuel: like it’s almost the same in a way like the cleaning and the looking it’s like oh totally yeah to be clear like maybe this is like not the way i should have of formats of this but this is mostly like if you think that like when you’re when you’re going to do fine tuning you’re going to do like very different things you’re not you’re just going to spend most of your time looking at data i think it’s true in both although i think like as i mentioned the failure mode is that people just like don’t <br>[41:04] Emmanuel: want to do this and they’re like ah instead i’m going to like go on a side quest to like fine tune it’s not not all fine tuners i see okay <br>[41:12] Hamel: Okay, so I mean, you’re still doing this 80% no matter what. <br>[41:15] Emmanuel: Totally. <br>[41:15] Hamel: It’s like even more dangerous if you just like, just go straight into fine tuning without <br>[41:21] Emmanuel: Yeah, like, like, yeah, <br>[41:22] Hamel: exactly. <br>[41:24] Emmanuel: It’s like, the very one is like, you just like, don’t want to do this. You’re like, instead, I’m going to like do some fine tuning and like some random data set I’m not going to look at. And I do that. And I’ve seen that go poorly. <br>[41:36] Hamel: Makes sense. Right. <br>[41:39] Emmanuel: So, like, I think basically, like, most of your time should be spent on all of this. And once you have all of this, then I think it makes sense. And basically the way I think about it, right, it’s like this is all the stuff that’s necessary to actually have a working ML just, like, system. And so, like, before you even train your first model, you should have, like, the infrastructure to do the fine tuning. And so it’s like once you’ve done all of this, then I think you can sort of consider fine tuning. <br>[42:03] Emmanuel: But doing it before that is sort of unwise. That’s basically the same thing. I think the first things I would do, I always recommend to either my friends or people I talk to that are building is eval sets first, representative eval sets, large eval sets. Eval sets are easy to run. spending days working on prompts, I think like, I can now not even count the number of times that I, you know, told somebody like, well, have you thought hard about your prompt? They’re like, oh, yeah, I’ve worked so hard on it. <br>[42:35] Emmanuel: And then, you know, like, I look at it, and it’s like, in two hours, I get it from sort of like, 30% to like 98% accuracy. And I think that’s like, I am not a genius at this. It’s just like actually spending the time, you know, making your prompts clear, following like there’s a bunch of really good prompting guides. So I’m not going to talk about it much here. We can talk about any questions if you are curious. Yeah. <br>[42:54] Hamel: I think one observation here is like really interesting is like, okay, the first and the last bullet, those are like the same things that you should spend your time on. I feel like in classic ML. <br>[43:04] Emmanuel: Yes. Like, <br>[43:05] Hamel: and so it’s like really interesting, like, not that much feels like it’s changed in a way like totally this is the same message we’ve been repeating for years um but yeah they’re like not that much has changed but there is like some narrative like hey there’s this new profession ai engineering don’t necessarily need to do ml or think about ml and yeah yeah i’m curious like what you think about that like <br>[43:31] Emmanuel: Oh, my like, okay, so my take here is that, you know, it always was the case that like, you should spend your time on that and not on this sort of like, you know, like math part of things, let’s say. And now it’s just even clearer because like the math has been abstracted away from you for in many cases in the form of an API, you know, if you use like API providers for models. <br>[43:56] Emmanuel: And so like, there’s like a strong, I think temptation for people that are just like interested in interesting problems, a temptation that I have and understand of like, no, like I want to like. get back and do the fun ML stuff. And I think if that’s your reason for fine-tuning, it’s bad. <br>[44:11] Emmanuel: But then, to the point you were talking about, once you’ve done all of the actual work of machine learning, and then you’ve done all this and you realize, ah, the only way to get extra performance in this thing that’s important is fine-tune, or get lower price or latency or whatever, then that makes sense. But I think basically it’s like, this is… The same thing that it always was, but it’s almost like the gravitational pull of the fun stuff is even stronger now that it’s like, oh, what? I don’t even get to see the Jupyter Notebook. <br>[44:36] Emmanuel: I just have an API call. That’s no fun. <br>[44:40] Hamel: Yeah. <br>[44:43] Emmanuel: The last thing I’ll say is actually pretty important. I’ve left it in the last line. And I think it’s just like looking at trends. <br>[44:52] Emmanuel: and basically extrapolating on them and either like deciding that like the trend line is going to continue or it’s going to break and i think again the real answer is like nobody knows but if you just look at the trends of like model prices and context sizes so this is like model price for like a roughly equivalent model not even equivalent because models have gotten better but this is like the like price of like a you know cloud haiku slash gpt 3.5 ish level model um you But like the Cloud Haiku today is like better <br>[45:20] Emmanuel: than, you know, like certainly like that one was in 2021. So it’s, you know, actually like even cheaper than that. The price has gone from like, I think it’s like 60 bucks per mega token in 2021 to like now if I remember well, the blended price is something like half a dollar. And context size, you know, has gone from like, I think it was 2k at the start, maybe 4k. And now 200k, a million, 1.5 million, I think I’ve heard 10 million. <br>[45:46] Emmanuel: It’s possible that both of these trend lines stop, but I think it’s important to consider like what if they don’t? One thing that’s not pictured here is latency, which has kind of decreased in the same fashion. So models are faster and faster. It’s like, ah, if in 2025 or 2026, you have a model where it has 100 million context, it has crazy latency and it’s basically, let’s say if it keeps going, even 10 times or 100 times cheaper. <br>[46:13] Emmanuel: like you just you don’t fine-tune you just throw everything in context and these models are amazing at learning from context and if they get faster like you just get your response immediately. And so I think there’s like a really interesting question of like, obviously you can’t extrapolate, you know, like any exponential or even like straight line forever. There’s always points at which they stop. <br>[46:34] Emmanuel: And so it’s like, depending on when this line of like price per intelligence, basically plus latency, which is very important in my opinion, like stops, then I think it tells you like, ah, what use cases should you even consider for fine tuning? It’s like, you should consider the ones where it’s like, you’re well outside of the like context window limit. slash like chunking through that context at these speeds that will keep increasing will take too long for your application or something. <br>[46:57] Hamel: And then there’s like the prefix caching that starting starting to be done. <br>[47:02] Emmanuel: Yeah, exactly. <br>[47:02] Hamel: You know if Anthropic may offer that? No.&nbsp;Okay. <br>[47:07] Emmanuel: This is a manual talk, not an Anthropic talk. But but yeah, I think that like. I assume, all jokes aside, that things like prefix caching will be a common thing, certainly in a few years, right? And if that’s the case, and you can imagine that your fine-tuned data set is easy to formulate as a prefix most of the time, then yeah, that makes that equation even different. So I think like… Honestly, I think this is why I had this chart last, because I think this is what started the debate. <br>[47:37] Emmanuel: Because I think the thing that makes me the most bullish about, oh, we won’t really need to fine tune models as much as this chart, is just the direction in which we’re going. That combined with the other beautiful chart I showed earlier of prompting growing, I think is just a really interesting trend. And if it holds even for a year or two longer, I think that eliminates the need for fine tuning for many, many applications. <br>[47:57] Hamel: Yeah. There’s one question from Lorianne. I can fine-tune and replace few-shot examples, especially when I need to save on tokens. I mean, I know the answer to that. But I think like, so one correlated question is like, I talk with people like Husain a lot, you know, Langchain. And I’m like, oh, what are some interesting things people are doing? And he’s telling me that a lot of people are doing dynamic few-shot examples. Think about RAG and think about you have a database of few-shot examples, and you’re just pulling the most relevant ones. <br>[48:35] Hamel: He’s saying that works really well. Yeah. Do you see that? The people you talk to, are they doing that? Is that common? <br>[48:44] Emmanuel: Yes. I’ve seen lots of examples of this. This is common because a lot of the times, few-shot examples become unwieldy because you want them to be like, evenly distributed. So if you have a complex use case where your model can do 10 things, where it’s like you kind of want one example of each of the 10 things and maybe one example of the model doing it one way and one example of the model doing it another way. And so it’s doable, but you can just quickly blow up your context window. <br>[49:08] Emmanuel: And so fetching relevant examples is something that works really, really well. And it’s pretty common. I would say that maybe in my hierarchy of needs, there’s all the stuff we talked about and then there’s like, really work on your prompt. I tweeted something yesterday or something because I helped the 10th person with the same loop. But it’s like work on your prompt, find examples that don’t work, add them either as an example to your prompts or as one that you can retrieve and add conditionally. And do this like 10 times. <br>[49:35] Emmanuel: And then only after that consider anything else. That tends to work really well. Cool. Yeah. Well, thanks for having me. Hopefully this was interesting to everyone. <br>[49:44] Hamel: This is very interesting. Yeah. <br>[49:46] Emmanuel: Cool. Awesome. <br>[49:47] Hamel: All right. Thank you. <br>[49:49] Emmanuel: See you, everyone.</p>
+</div>
+</div>
+</div>
+<center>
+<script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
+</center>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/emmanuel.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
