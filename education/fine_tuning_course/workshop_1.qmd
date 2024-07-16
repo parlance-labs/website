@@ -1,14 +1,14 @@
 ---
-title: When and Why to Fine Tune an LLM
+title: "Session 1: When and Why to Fine Tune an LLM"
 date: 2024-07-03
 Speaker: Hamel Husain, Dan Becker
-Venue: Mastering LLMs Conf
+Venue: "Course: Fine Tuning for Data Scientists and Software Engineers"
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
-abstract: |
+description: |
     This session introduces the course "Fine Tuning for Data Scientists and Software Engineers" and lays the theoretical groundwork for future sessions. It introduces the concept of fine-tuning, and establishes a basic intuition for when it might be applied. It covers the philosophy of the course, the practicalities of fine-tuning, and case studies which demonstrate the value and pitfalls.
-categories: ["applications", "llm-conf-2024"]
+categories: ["ft-course", "llm-conf-2024"]
 ---
 
 

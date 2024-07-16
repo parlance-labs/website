@@ -5,9 +5,26 @@ image: parlance_edu2.png
 description: Educational resources on LLMs for applied topics.
 metadata-files: ["_listing_root.yml"]
 listing:
-  contents: 
-   - "/*.qmd"
-   - "/*/index.qmd"
+  - id: talks
+    contents: 
+    - "rag/index.qmd"
+    - "fine_tuning/index.qmd"
+    - "prompt_eng/index.qmd"
+    - "evals/index.qmd"
+    - "applications/index.qmd"
+    fields: [title, description]
+    type: table
+    sort-ui: false
+    filter-ui: false
+    max-description-length: 200
+  - id: course
+    contents: 
+    - "fine_tuning_course/*.qmd"
+    fields: [title, description]
+    type: table
+    sort-ui: false
+    filter-ui: false
+    max-description-length: 200
 aliases:
   - /talks/index.html
 ---
@@ -22,3 +39,11 @@ This page is under construction.  We are currently processing content from our c
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
 
 These talks are categorized by the following topics:
+
+:::{#talks}
+:::
+
+In addition, we have a course on fine-tuning LLMs:
+
+:::{#course}
+:::

@@ -1,8 +1,3 @@
 search: false
 image: parlance_edu2.png
-listing:
-  fields: [title, description]
-  type: table
-  sort-ui: false
-  filter-ui: false
-  max-description-length: 200
+  
