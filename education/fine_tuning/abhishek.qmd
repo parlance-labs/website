@@ -179,7 +179,7 @@ Besides running on Hugging Face Spaces, you can also run on:
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
-
+## Expand to see transcript
 Train (almost) Any LLM Model Using 🤗 Autotrain
 <br>[0:03] Abhishek: Okay, great. So I changed the title a little bit because we ended up adding embedding models fine tuning in AutoTrain. And I think that's also an interesting topic for this conference. Because you will fine tune LLMs and then you're going to use it. So a little bit about me, I work at Hugging Face where I've been auto trained and everything around it.
 <br>[0:42] Abhishek: And as you can see like even from my posts I talk a lot about auto train and I am also a caggler but these days I'm not competing much but I was the first one to get a Grandmaster in all categories.
