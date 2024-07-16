@@ -1,0 +1,121 @@
+---
+title: When and Why to Fine Tune an LLM
+date: 2024-07-03
+Speaker: Hamel Husain, Dan Becker
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    This session introduces the course "Fine Tuning for Data Scientists and Software Engineers" and lays the theoretical groundwork for future sessions. It introduces the concept of fine-tuning, and establishes a basic intuition for when it might be applied. It covers the philosophy of the course, the practicalities of fine-tuning, and case studies which demonstrate the value and pitfalls.
+categories: ["applications", "llm-conf-2024"]
+---
+
+
+{{< video https://www.youtube.com/watch?v=cPn0nHFsvFg >}}
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
+## Chapters
+
+**[00:00](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=0s) Introduction**  
+Dan Becker introduces the course LLM Fine Tuning for Data Scientists and Software Engineers, and outlines the lesson plan for the video, including course orientation, developing fine-tuning intuition, and understanding when to fine tune.
+
+**[01:40](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=100s) Course Overview**  
+Dan introduces Hamel Husain, and both Hamel and Dan give brief overviews of their backgrounds in language model development and deployment. They describe the emergence of this course as a means to share their combined firsthand experiences with when and how to successfully deploy LLMs to solve business problems.
+
+**[05:24](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=324s) Course Philosophy**  
+Dan emphasizes the practical nature of the course, focusing on hands-on student interaction with language model tuning. He describes the goal of the course as taking students from a superficial knowledge of fine-tuning to a confident understanding stemming from personal experience. He also clarifies a few points about class grading, communication, and resources.
+
+**[08:54](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=534s) Philosophy of AI projects**  
+Dan proposes “Keep it Simple & Stupid” as a development rule, rather than impressive sounding or “blog-driven” development. This entails starting with prompt engineering rather than fine-tuning, state-of-the-art APIs vs open source models, and beginning with “vibe-checks” and adding simple tests and assertions as you progress. These help you achieve the key goal of shipping a simple model as early as possible.
+
+**[12:31](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=751s) Case Study: Ship Fast**  
+Dan recounts an experience where after a month of unproductive meetings, three days building a simple prototype unlocked an iterative feedback cycle which allowed much faster development.
+
+**[14:47](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=887s) Eval Driven Workflow**  
+Dan hands over to Hamel, who introduces an evaluation driven development workflow which will be expanded on as the course progresses.
+
+**[16:05](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=965s) What Is Fine-Tuning**  
+Dan shifts the topic from philosophy to a more concrete discussion on when to fine-tune. He starts with a quick theoretical background in how a LLM functions.
+
+**[18:36](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=1116s) Base Models Aren’t Helpful**  
+Dan shares an example interaction with a LLM base model before any fine-tuning, and discusses how it often generates unexpected and unhelpful results.
+
+**[20:12](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=1212s) Fine-Tuning**  
+Dan introduces a means of fine-tuning LLMs by training on a dataset of Input/Output pairs. These pairs are embedded in a template, which informs the model what form of response is required. In response to a question, Hamel shares that pre-training and fine-tuning are essentially the same process, although pre-training often focuses on general skills and fine-tuning on a specific domain.
+
+**[23:30](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=1410s) Templating**  
+Dan and Hamel both stress the importance and difficulty of consistent templating. Hamel notes that abstractions used for fine-tuning and inference may build the template for you, which is often where errors are introduced.
+
+**[28:20](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=1700s) Is Fine-Tuning Dead?**  
+Dan brings up recent dialogue about whether fine-tuning is still necessary, and describes excitement surrounding fine-tuning as cyclical. Hamel proposes starting with prompt engineering until you prove to yourself that fine-tuning is necessary. He names owning your model, data privacy, and domain specific tasks as a few reasons to use fine-tuning.
+
+**[32:41](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=1961s) Case Study: Shortcomings of Fine-Tuning**  
+Dan recounts a previous project using a fine-tuned LLM to predict package value for a logistics company. He describes the underperformance of the model, stemming from poor data quality and the inappropriateness of the fine-tuning loss function for regression tasks.
+
+**[39:00](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=2340s) Case Study: Honeycomb - NL to Query**  
+Hamel introduces a case study where a LLM was used to generate domain specific structured queries for a telemetry platform. This case study will be used throughout the course, and students will replicate the solution. He describes the initial approach which combined RAG, a syntax manual, few-shot examples, and edge case handling guides into one long prompt context. Hamel highlights that when you struggle to express all of the edge cases, rules, or examples you need in one prompt, that is a “smell” that fine-tuning may be more helpful. Data privacy and latency issues also indicated that a fine-tuned smaller model might be appropriate here.
+
+**[51:06](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=3066s) Q&A Session 1**  
+Dan and Hamel open the floor to questions. Questions explore RAG vs fine-tuning, fine-tuning for function calls, data requirements for fine-tuning, preference based optimization, multi-modal fine-tuning, training with synthetic data, and which models to fine-tune.
+
+**[1:09:14](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=4154s) Breakout Time**  
+The session splits into breakout rooms to discuss factors which might affect fine-tuning success for a chatbot (the breakout sessions are skipped in this video).
+
+**[1:11:23](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=4283s) Case Study: Rechat**  
+Hamel introduces a case study where a real estate CRM group wished to use a chatbot as an interface to their wide array of tools. Hamel discusses the difficulty fine-tuning against such a wide range of functions, and the need to manage user expectations about chatbot capabilities. The compromise he introduces is increased specificity: moving functions into scoped interfaces and focused modules.
+
+**[1:18:48](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=4728s) Case Study: DPD chatbot**  
+Dan shares an example of a user convincing a commercial chatbot to swear, which garnered media attention. He warns about the difficulty of controlling scope with LLMs, and he and Hamel both caution about the inadequacy of the guard rail systems used to combat this.
+
+**[1:22:51](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=4971s) Recap: When to Fine-Tune**  
+Dan lists signs that fine-tuning may be a good option, including; desired bespoke behavior, expected value justifying operational complexity, and access to sufficient input/output training data pairs.
+
+**[1:24:08](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=5048s) Preference Optimization**  
+Dan touches on the limitations of traditional input/output pair training data, and introduces a technique called Direct Preference Optimization, which teaches models a gradient of the quality of a response, allowing it to produce responses better than its training data.
+
+**[1:27:00](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=5220s) Case Study: DPO for customer service**  
+Dan shares a project which used DPO based fine-tuning to generate customer service responses for a publishing company. After training on 200 pairs of better/worse responses to customer queries, the DPO fine-tuned LLM produced responses which managers ranked overall higher quality than those produced by human agents.
+
+**[1:29:54](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=5394s) Quiz: Fine-Tuning Use Cases**  
+The class takes a short quiz on the suitability of fine-tuning for four use cases, then Dan shares his thoughts on the scenarios. Dan and Hamel discuss how DPO might be used in situations where traditional fine-tuning would not be successful.
+
+**[1:40:22](https://www.youtube.com/watch?v=cPn0nHFsvFg&t=6022s) Q&A Session 2**  
+Dan and Hamel open the floor to any final questions. Questions explore model quantization, hallucinated outputs, limitations of instruction tuned models (such as GPT-4) for domain specific tasks, prompt engineering vs fine-tuning, combining supervised fine-tuning and DPO, and data curation. Dan and Hamel share some final notes on homework and course structure, then end the session.
+
+## Notes
+
+
+
+## Resources
+
+Links to resources mentioned in this video:
+
+- [Eval centered workflow](https://hamel.dev/blog/posts/evals)
+- [Axolotl](https://axolotl.ai) LLM fine-tuning tool
+- [Huggingface chat templating](https://huggingface.co/docs/transformers/en/chat_templating)
+- [Gorilla Leaderboard](https://gorilla.cs.berkeley.edu/leaderboard.html) for function calling
+- [LLaVA model](https://github.com/haotian-liu/LLaVA) for multi-modal fine-tuning
+- Hamel mentions using [Gradio](https://www.gradio.app/) and [Streamlit](https://streamlit.io/) to build custom tools for data annotation and curation ([here](https://hamel.dev/notes/llm/finetuning/04_data_cleaning.html) is his blog post about it)
+- Training tools [RunPod](https://www.runpod.io/) and [Modal](https://modal.com/) are mentioned, to be further explored in later sessions
+- Language models mentioned include [GPT-4](https://platform.openai.com/docs/models/gpt-4), [Claude](https://www.anthropic.com/news/claude-3-family), [Mistral](https://mistral.ai/technology/#models), [Llama](https://llama.meta.com/), [Zephyr](https://zephyr-7b.net/)
+
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+
+
+
+
+:::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
