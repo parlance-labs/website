@@ -1,0 +1,308 @@
+---
+title: LLM Eval For Text2SQL
+date: 2024-07-17
+Speaker: Ankur Goyal
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+
+categories: ["Evals", "llm-conf-2024"]
+
+---
+
+{{< video https://www.youtube.com/watch?v=UGmenkjGXqM >}}
+
+
+## Chapters
+
+**[00:00](https://www.youtube.com/watch?v=UGmenkjGXqM&t=0s) Introduction**
+Ankur introduces Braintrust, highlighting their team, history, and industry connections.
+
+**[02:11](https://www.youtube.com/watch?v=UGmenkjGXqM&t=131s) Purpose of Evaluations**
+Evaluations determine whether changes improve or worsen the system, facilitating systematic enhancements without regressions by continually assessing performance and analyzing outcomes.
+
+**[03:40](https://www.youtube.com/watch?v=UGmenkjGXqM&t=220s) Components of Evaluation**
+Ankur outlines three crucial components: Data (initially hardcoded for simplicity), Task function (transforms input into output), and Scoring functions (from simple scripts to intricate heuristics). Issues in evaluations are often resolved by adjusting these components.
+
+**[07:40](https://www.youtube.com/watch?v=UGmenkjGXqM&t=460s) Demonstration**
+Ankur presents the NBA dataset for the text-to-SQL task.
+
+**[08:33](https://www.youtube.com/watch?v=UGmenkjGXqM&t=513s) Simple text2sql Function**
+Ankur walks through the text2sql task function using the Braintrust OpenAI wrapper.
+
+**[11:58](https://www.youtube.com/watch?v=UGmenkjGXqM&t=718s) Data and Scoring Functions**
+The evaluation process for SQL query generation begins with five questions, bootstrapping a dataset through human review, error correction, and creating a "golden dataset." Binary scoring simplifies query correctness evaluation.
+
+**[13:16](https://www.youtube.com/watch?v=UGmenkjGXqM&t=796s) Braintrust Project Dashboard Overview**
+Ankur showcases the Braintrust project dashboard, enabling prompt tweaking, model experimentation, and query saving for task refinement.
+
+**[17:03](https://www.youtube.com/watch?v=UGmenkjGXqM&t=1023s) Revisiting the Evaluation Notebook with New Data**
+Using a new dataset with answers and queries, Ankur introduces the autoevals library for advanced scoring functions, enhancing evaluation.
+
+**[20:08](https://www.youtube.com/watch?v=UGmenkjGXqM&t=1208s) Results with New Scoring Functions and Data**
+Ankur demonstrates improvements with updated functions and data, detailing how the scoring functions were applied.
+
+**[24:33](https://www.youtube.com/watch?v=UGmenkjGXqM&t=1473s) Generating New Data Using Models**
+Models generate synthetic data for new datasets, validating SQL commands and questions before dataset inclusion.
+
+**[28:36](https://www.youtube.com/watch?v=UGmenkjGXqM&t=1716s) Task Evaluation with Synthetic Data**
+The dashboard compares results across datasets; no improvements were observed in this instance.
+
+**[31:30](https://www.youtube.com/watch?v=UGmenkjGXqM&t=1890s) Using GPT-4 with New Data**
+Results declined across all datasets using GPT-4 compared to GPT-4o.
+
+**[33:45](https://www.youtube.com/watch?v=UGmenkjGXqM&t=2025s) Real-World Applications of the Evaluation Pipeline**
+Hamel discusses practical applications of similar pipelines and the added value of tools like Braintrust.
+
+**[35:18](https://www.youtube.com/watch?v=UGmenkjGXqM&t=2118s) Other Scoring Functions**
+Ankur discusses various scoring functions for SQL and RAG tasks, emphasizing Braintrust's evaluation tools and workflows.
+
+**[38:22](https://www.youtube.com/watch?v=UGmenkjGXqM&t=2302s) Comparison with Langsmith**
+Both platforms offer unique UIs and workflows; choosing between them requires trial and evaluation.
+
+**[39:10](https://www.youtube.com/watch?v=UGmenkjGXqM&t=2350s) Open-Source Models on Braintrust**
+Braintrust supports open-source models, though some lack tracing features found in OpenAI and compatible APIs.
+
+**[43:04](https://www.youtube.com/watch?v=UGmenkjGXqM&t=2584s) Use Cases Where Braintrust Pipeline is Not Ideal**
+Braintrust focuses on inspecting individual examples, less suited for use cases with extensive datasets.
+
+**[47:22](https://www.youtube.com/watch?v=UGmenkjGXqM&t=2842s) Navigating Complex Databases**
+Guidance on handling text-to-SQL for large databases includes question categorization and schema optimizations.
+
+## Resources
+
+Links to resources mentioned in the talk:
+
+- [Braintrust](https://www.braintrustdata.com/) is the enterprise-grade stack for building AI products.
+- [DuckDB](https://duckdb.org/) is a fast in-process analytical database.
+- [NBA dataset](https://huggingface.co/datasets/suzyanil/nba-data) is a dataset available on Hugging Face.
+- [Autoevals](https://www.braintrustdata.com/docs/reference/autoevals/python) is a tool from Braintrust for evaluating non-deterministic LLM applications.
+- [More Autoevals](https://pypi.org/project/autoevals/) is another tool for evaluating LLM applications.
+- [Notebook](https://github.com/braintrustdata/braintrust-cookbook/blob/main/examples/Text2SQL/Text2SQL.ipynb) is a notebook from the Braintrust presentation.
+- [Braintrust cookbook](https://www.braintrustdata.com/docs/cookbook) is a collection of resources from Braintrust.
+
+
+## Notes
+
+### Improving Evaluation
+
+Evaluation consists of three main components: data, task, and scoring function. Each can be optimized using the following strategies:
+
+- **Data**
+  - Handwritten test cases
+  - Synthetic data generation
+  - Incorporation of real-world examples
+
+- **Task**
+  - Engineering prompts effectively
+  - Selecting appropriate models
+  - Structuring the program for efficiency
+
+- **Scoring**
+  - Implementing heuristic-based scoring
+  - Leveraging language model (LLM) grading
+  - Integrating human feedback mechanisms
+
+### Example: LLM Evaluation
+
+This example demonstrates how to implement text-to-SQL conversion using Braintrust's tools. It involves setting up an OpenAI client wrapped with Braintrust, querying the structure of an NBA database table, and then generating SQL queries based on user input. The generated queries are tailored to the structure of the NBA table.
+
+Here's a simple implementation:
+
+```python
+import os
+from textwrap import dedent
+from braintrust import openai
+import conn
+
+client = braintrust.wrap_openai(
+    openai.AsyncClient(
+        api_key=os.environ["OPENAI_API_KEY"],
+        base_url="https://braintrustproxy.com/v1",
+    )
+)
+
+columns = conn.query("DESCRIBE nba").to_df().to_dict(orient="records")
+TASK_MODEL = "gpt-40"
+
+@braintrust.traced
+async def generate_query(input):
+    response = await client.chat.completions.create(
+        model=TASK_MODEL,
+        temperature=0,
+        messages=[
+            {
+                "role": "system",
+                "content": dedent(f"""\
+                    You are a SQL expert, and you are given a single table named nba with the following columns: 
+                    {", ".join(column["column_name"] + ": " + column["column_type"] for column in columns)}
+                    Write a SQL query corresponding to the user's request. Return just the query text, with no formatting (backticks, markdown, etc.). """),
+            },
+            {
+                "role": "user",
+                "content": input,
+            },
+        ],
+    )
+    return response.choices[0].message.content
+
+query = await generate_query("Who won the most games?")
+print(query)
+```
+
+After generating the SQL query, it can be executed against the database:
+
+```python
+def execute_query(query):
+    return conn.query(query).fetchdf().to_dict(orient="records")
+```
+
+For evaluation, random queries can be generated for the data along with a basic scoring function, such as validating SQL syntax. More advanced scoring can involve using additional LLMs to assess the relevance and accuracy of the generated queries.
+
+Braintrust's evaluation function integrates task functions, scoring methods, and datasets to measure performance and providing detailed analytics online:
+
+```python
+from braintrust import Eval
+
+PROJECT_NAME = "LLM Evaluation for Text2SQL"
+await Eval(
+    PROJECT_NAME, 
+    experiment_name="Initial dataset", 
+    data=[{"input": q} for q in questions], 
+    task=text2sql,
+    scores=[no_error],
+)
+```
+
+### Generating New Data
+
+New data can be synthesized using models like GPT-4o or open-source variants to mitigate model biases. Combining new and existing datasets involves merging unique questions from "Golden Data," handwritten entries, and generated dataset entries not present in the golden set:
+
+```python
+def load_new_data():
+    golden_data = init_dataset(PROJECT_NAME, "Golden Data")
+    golden_questions = {d["input"] for d in golden_data}
+    return (
+        [{**x, "metadata": {"category": "Golden Data"}} for x in golden_data]
+        + [
+            {"input": q, "metadata": {"category": "Handwritten Question"}}
+            for q in questions if q not in golden_questions
+        ]
+        + [x for x in generated_dataset if x["input"] not in golden_questions]
+    )
+```
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+<br>[0:03] Ankur Goyal: I'm going to do just like a few slides to sort of set the stage on, you know, some brain trust stuff and then just talk about how we think about like how to build really good evals. And then we'll jump into a demo where we just kind of walk through step by step of how to do a bunch of the kind of classic flows in building good evals. And then I'll share the notebook afterwards. So yeah, just a little bit about brain trust. We're a startup company. We come from a variety of different backgrounds.
+<br>[0:35] Ankur Goyal: Actually, prior to Braintrust, I led the AI team at Figma. And before that, I started a company called Impura. And at both companies, we were shipping AI software. At Impura, we were in the Stone Ages, pre-ChatGPT and training our own language models. And then Figma, we were building on top of OpenAI and other models.
+<br>[0:58] Ankur Goyal: that were pre-trained but the problem was was the same it was just really hard to make changes to our code or our prompts um and uh know you know whether we had broken stuff and what we had broken and so we ended up building internal tooling at both companies that basically helped with evals and that is what turned into brain trust uh so you know you'll see some of that today um the only other thing i'll mention we're you know really fortunate to work with some really great folks as team members, investors, and customers.
+<br>[1:36] Ankur Goyal: I think one of the really fortunate things for us is we've had the opportunity to build brain trust alongside the AI teams at some of the best product companies in the world that are building AI software. And so something I take a lot of personal pride in is that a lot of the workflows and UI and just little details in the product are informed by some of the engineers at these companies who are giving us feedback all the time. Okay, enough propaganda about brain trust. Let's talk about evals.
+<br>[2:12] Ankur Goyal: So I think everyone in the course probably already knows this. You've already learned about evals, but just a very quick recap. Why do evals in the first place? I think some of the key takeaways that you want to have when you're doing an eval and maybe the bar that you should hold yourself or the tools or whatever to is, you know, can you actually solve these goals when you do an eval? Do you can you figure out very quickly? Did the change that I make improve or regress things? And if so, what?
+<br>[2:48] Ankur Goyal: Let me like quickly and clearly look. at good and bad examples and just, you know, use my human intuition and stare at them so I can learn stuff. Let me understand what the differences are between what I just generated and what I generated before so I can, you know, build some intuition about maybe what changed to the prompt led to that. And then, you know, very importantly, we don't want to play lacquer ball. Like, we don't want to improve some things and break other things and then, you know, not really know.
+<br>[3:21] Ankur Goyal: what we broke or why we broke it and so it's important to actually systematically improve the quality of a system um so uh you know the way that we suggest thinking about evals whether you use brain trust or or not um is to think about it as basically you know there's three components that go into an eval uh the data um Which, honestly, when you're starting out, and it's what we're going to do in a second in the notebook, is you should just, like, hard-code it. There's all this fancy stuff you can do.
+<br>[3:58] Ankur Goyal: You know, you can generate data. You can source it from your logs. You know, all this other stuff. But when you start, you might as well just hard-code it and sort of get going. A task function, which is, you know, the thing that takes some input and generates some output. You know, this is obviously a silly example, but… It could be a single call to an LLM. It could be a RAG pipeline. It can be an army of agents that are talking to each other for a while and then coming up with an answer.
+<br>[4:27] Ankur Goyal: But at the end of the day, it's taking some input, returning some output, and then one or more scoring functions. And there's so many different ways you can score things. Actually, in this example that we walked through, we're going to handwrite some scoring functions just to really understand how they work.
+<br>[4:45] Ankur Goyal: but there's a whole world of using you know llm based scoring functions fancy heuristics and so on um and so again like honestly the if there's one thing i could leave you with it's you know evals are you know equal equal equal to just these three things and it's important because sometimes i talk to people who are sort of lost in analysis paralysis about you know where to start um uh how do i you know i ran an eval doesn't look great what do i do um you know it's important to just remember it's just
+<br>[5:22] Ankur Goyal: these three things so if you run an eval and it doesn't look good um yes it's can be challenging to sort of figure out what to do next, but it is literally just one of these three things. Either you improve the data, you change the task function, or you change the scoring functions. And there's actually a few different things you can do in each of these. I'm happy to send these slides out as well afterwards, but we're going to actually go through a good chunk of these things in the demo today.
+<br>[5:51] Ankur Goyal: But on the data side, you can handwrite cases, you can generate cases, and you can get them from your users. That's pretty much it. There's maybe some other things you can do, but generally those are the three methods to follow. We're actually not going to spend too much time on the task function part of it. I think there's probably other material in the course that covers how to do various fancy things with prompts. We're going to do some basic things today. And then on the scoring side, again, there's really only three things you can do.
+<br>[6:26] Ankur Goyal: You can… write heuristic functions, which we'll do. You can use an LLM to sort of compare and do some reasoning about an output or an output versus an expected value. And then you can use your human eyeballs to sort of look at something and get an understanding of whether it's good or bad and then take some action on it. So with that, I'm going to switch over to walk through a notebook. Let me just see if there's any questions so far. There's no sound. Yes, there is. OK. I hope the AV is OK.
+<br>[7:08] Dan Becker: Sorry, AV is OK. So you've got the three panelists. We can talk. And we've got 230 people who can't talk.
+<br>[7:18] Ankur Goyal: OK.
+<br>[7:19] Dan Becker: But at some point, you'll see there's a bunch of, they're dropping questions in a Q&A.
+<br>[7:26] Ankur Goyal: thing so we'll come to those questions in a bit okay perfect um so uh let's run through um a real use case of of doing some text to sql stuff um i don't know if other people are watching the nba playoffs but i'm a big fan so i found some you know basic nba data on hugging face and we're going to use that to play with some text to sql stuff today um so Nowadays, it's actually really easy to just grab some data.
+<br>[7:56] Ankur Goyal: I think I actually saw a blog post this morning, and now it's even easier to load Hugging Face data into DuckDB. But I think it's a great way to play with these kinds of use cases. DuckDB is a very expressive SQL tool, and it's easy to run inside of a notebook. And then obviously, Hugging Face has so many good data sets that are available to play with for free. So, you know, this is the flavor of the data. It looks like… It's probably one row per game.
+<br>[8:24] Ankur Goyal: And I looked at this before, and I think it's 2014 to 2018. So, you know, here's the data. We're going to do something super simple to actually do the text-to-SQL stuff. So just a little bit about what's going on here. This is the standard OpenAI client. I guess Hamel sort of alluded to this earlier. But… But in the spirit of staying simple, we really believe in writing framework-free, simple code that just uses the OpenAI client directly.
+<br>[9:00] Ankur Goyal: You can use all kinds of amazing tools as you get more and more into a use case, but almost always we see people start simple. And so this is just the standard OpenAI client. We did a little fun stuff here. This face URL thing, it's totally optional, but we're actually going to use… This proxy, that's kind of like a free thing that Braintrust has. It lets you cache LLM calls. So when you're doing repetitive stuff like this, it's very helpful. And then this thing, we'll see it in a second.
+<br>[9:34] Ankur Goyal: But basically, it adds a little bit of spectral fairy dust into the client so that it traces the LLM call in a way that makes it easy to debug. But it's just the standard OpenAI client. We're going to grab the schema from the table, and then we're going to use GPT-4.0 for at least most of today. And that's it. Here's the simple prompt. Nothing too fancy. Asking it to write a SQL query. And let's give it a go. Cool. So here's the query that it generated. I don't know. Dan, does that look right?
+<br>[10:20] Ankur Goyal: We'll find out, I guess, in a few minutes. But maybe. you know, let's run it. Okay. Well, as a big Warriors fan, I definitely believe that that's right. So it looks like the Golden State Warriors won the most games in this period of time. And again, you know, that's probably right. So as we talked about, an eval is, it's literally just three things, data, task function, and scores. We've pretty much implemented our task function. This thing can take an input and then generate a query and a result. We're pretty much there on the task function.
+<br>[11:07] Ankur Goyal: We just need to figure out the data and the scores. To create the initial dataset, I just wrote five questions. Honestly, I'm too lazy to write the SQL queries and the answers, and that's okay. I would encourage you to be lazy as well in certain cases. And so let's just use these questions. And what we're going to do is actually, to start, we're not going to evaluate whether the model generates the correct answer or not. We're just going to evaluate whether it generates a valid SQL query.
+<br>[11:45] Ankur Goyal: And then we're going to do some human review to actually bootstrap a data set from there. We'll just use these questions. As I mentioned, we basically already wrote the task function. This thing just takes those two calls and puts them together into one function with a little bit of error handling so that we can distinguish between a valid and invalid query. Then the scoring function, let's just keep it very simple. We don't really know what the correct answer is to these SQL queries yet.
+<br>[12:20] Ankur Goyal: So let's just see, you know, it's, let's say it's a good output if there's no error and it's a bad output if there is an error. Again, to Hamel's point earlier, like very little sort of framework stuff in here, just, this is literally just plain Python code. Let's keep it very simple. And, and now we're just going to glue this stuff together into an eval call. And, you know, we give it a project name. The experiment name is actually optional, but it helps, you know, keep it helps us keep track of some stuff easily.
+<br>[13:01] Ankur Goyal: And then we'll give it the questions, the task function and the score. And we can run that. There we go. OK, so let's take a look at this. Okay, so welcome to Braintrust. Let me go into, let me actually just make my thing light mode. There we go. Okay, welcome to Braintrust. So you can see, you know, really quickly, it looks like three out of the five passed this no error thing. We can just quickly look at these to get a sense. Looks like there was a binder error.
+<br>[13:49] Ankur Goyal: And it looks like a binder error over here. If you recall, I mentioned that OpenAI wrapping stuff, it sort of nicely captures the exact LLM call that ran. So you can see, you know, this is how we formatted the columns. That looks about right to me. If you want to mess around with it, you can actually, you know, do that. You can rerun the query. You can try out different models and stuff. We're not going to do that right now, but just to give you a sense of some of the exploration you can do.
+<br>[14:19] Ankur Goyal: And then let's actually look at these ones that were correct. So let's see who led the league in three point shots. Pretty sure Houston is correct. That was James Harden's sort of golden era. Okay, great. So what we're going to do is actually, again, we were lazy earlier, but the model has very kindly for us generated a good piece of data. And so we can actually save this as something that we use as a reference example. And so I'm just going to add it to a data set. Let me make sure I cleared this out.
+<br>[15:02] Ankur Goyal: really from earlier yeah perfect um so i'm going to add it to that data set called uh golden data um and we'll use that back in our code in a moment but let's just look at these other ones so which team won the most games in 2015 that's an empty result that's clearly not the right answer and you know my spidey sense tells me that this is probably not the right format for the date and it's filtering out rows that it shouldn't.
+<br>[15:33] Ankur Goyal: So, you know, I don't know, Dan, probably we should give the model a preview of what some of the data looks like so that it knows what the right date format is, for example. So let's just keep that in our head for a second. And then this one, again, big Warriors fan, we know that this is correct. And so we're going to add this to the data set as well. Awesome. Let's just quickly look at the data set. So it's kind of the same thing as an experiment.
+<br>[16:06] Ankur Goyal: It has some columns, we can play with the data. But now what we've done is we've actually bootstrapped some golden data. And this is data that not only do we have a question, but we have a reference answer, both the SQL query and the output that we believe to be correct.
+<br>[16:27] Ankur Goyal: And because we have that, we can actually make some stronger assertions when we're running an eval to compare the query to the correct query and the generated answer to the correct answer so let's go back and what we're going to do is rework a few things to take advantage of the golden data that we have and also try to fix some of the issues that we saw when we were poking around. So I'm going to change how the data works a little bit.
+<br>[17:07] Ankur Goyal: Now I'm going to read the data set from Braintrust and I'm going to return those golden questions and then the remaining questions that are not in the golden data set, I'm just going to have the question itself. So now you can see for the things that are in the data set, we have this kind of fancier data structure, which has the question, it has the expected answer, it has some other stuff that is brain trust we'll take advantage of. We don't need to bother with it right now. But it's really those things that… Okay, cool.
+<br>[17:47] Ankur Goyal: And now let's change the prompt a little bit. So instead of just looking at the columns, we're going to get a row of data. and then sort of inject it into this table. I really hope I formatted this correctly. We can double check that I did in a second, but it doesn't matter too much. It's okay to be wrong every once in a while. And so let's do that. Okay, that looks like a much better thing. It's probably taking advantage of the date format that it knows about now. And then let's improve the scoring.
+<br>[18:26] Ankur Goyal: stuff a little bit. So we're gonna actually pull a few fancy scoring functions from auto evals, which is an open source library that we and our sort of community of customers and users maintain. And we're gonna add two more scoring functions. So this correct result function is going to get all the values from the query. We don't care too much about the column names. So we're just gonna look at the values. and then it's going to use this JSON diff method to just recursively compare them.
+<br>[19:00] Ankur Goyal: There's probably some better stuff we can do, but let's just start here. Then we're also going to use an LLM-based score called SQL. This actually asks a model to look at the reference query and the generated query, and try to determine if they're semantically answering the same question or not. We'll just save these.
+<br>[19:25] Ankur Goyal: is that score is that score binary or how what's the score mean or what does the score look like let's let's look at it in a second it's a good great question um so uh let's you know plug it together so again we have this eval thingy we haven't we redefined this function now we're using this load data thing to get the data and now we have these three scoring functions so we'll just Awesome. Okay, so let's start by answering your question.
+<br>[20:10] Ankur Goyal: So anytime you run a scoring function in Braintrust, we actually capture a bunch of metadata about it. We really, really believe that debugging a scoring function is as important as debugging the task function itself. So let's look at exactly what the model sees. So this is the prompt that the model saw. It said, you're comparing this. Here's the question. Here's the expert SQL. Here's the submitted SQL. This is the criteria. And then it's actually doing a function call under the hood. And the function call is just picking one of these two values, correct or incorrect.
+<br>[20:55] Ankur Goyal: And so this is a binary score, basically, that's asking it to do that and sort of explain its reasoning, which you can also debug right here. Great. Let's analyze this as a whole. The first thing you'll see is that luckily we did not break those two that we know to be correct. We didn't break the SQL queries or the results. It looks like we improved on the no error front. There's one example that did not return an error, that did return an error before. We can actually, if we want to zoom in on that.
+<br>[21:36] Ankur Goyal: we can just look at that example. It looks like before it returned an error, now it didn't. If we turn off diff mode, we can kind of look at this, determine whether this is the correct answer or not. I actually don't think it's the correct answer because it's looking at which team had the biggest difference in consecutive years, and it's like hard-coded 20 and 19. I don't think this is the right thing. So that's one for us to improve.
+<br>[22:14] Ankur Goyal: One thing you could do actually at this point is you could add it to the data set. And if you want, you could try to handwrite the correct SQL query in the answer. I'm not going to do that, but you could. And let's just poke around a little bit more. So that's still an error. Which team won the most games? And this one was still correct. Again, I really, really like to manually look at data because it allows me to double check all of my assumptions. I don't trust anything.
+<br>[22:47] Ankur Goyal: And so I spend a lot of time actually doing this when I'm evaling stuff. Which team won the most games in 2015? OK, this is the one that had an incorrect answer before. And now it looks like it's actually correct.
+<br>[23:03] Ankur Goyal: you can turn on diff mode and you can call that it returned an empty results before and now it returned something um so again you know as a warriors fan i know 100 in my heart that this answer is correct um and so i'm going to add this to the golden data set awesome so now we're you know we're building up a data set i think we're like 15 minutes in um in my experience honestly 50 good golden examples that have been lovingly curated by a passionate small team of people is really all you need
+<br>[23:42] Ankur Goyal: to have a really good AI application. We're already like a good chunk of the way there just sort of playing around with this demo, but, you know, hopefully it's kind of clear. It's not crazy rocket science to do this stuff. I think it just requires some care and like, you know, looking at the data closely. Okay, cool. So, you know, there's a bunch of stuff we could do from here. We could try to play around with the prompt a little bit more.
+<br>[24:10] Ankur Goyal: While I was building this, I was thinking about maybe like feeding the errors back to the prompt in a new message and asking it to generate another one. But just to take it in a different direction, like I said, there's like three things you could do. You can change the data, you can change the task function, you could change the scoring function. Let's keep… playing with the data. And what we're going to do is actually try to generate more data than we currently have. And we're going to use a slightly different method.
+<br>[24:40] Ankur Goyal: So the first method, we kind of hand wrote some really good questions that we thought pinpointed at the task that we're working on. What we're going to do now is more of like a coverage style thing where we actually use a model to generate questions for us. And this code, again, it's not that much code. So I'll just walk through it really quickly. We're going to use function calling to sort of force the model to generate stuff that we can easily parse.
+<br>[25:12] Ankur Goyal: And so in this case, we're going to have it generate a list of questions. And each question is going to contain SQL and a question. I'm specifically asking it to generate the SQL because my intuition is that If I have the model generate SQL and then generate an explanation about the SQL, it's more likely that the explanation is correct. Then if I have a model generate a question and then a SQL query that answers the question, it feels less likely that it would generate the correct SQL query.
+<br>[25:47] Ankur Goyal: And so I'm kind of asking it to do both at once and really focus on the SQL. And I'm doing my same sort of prompt as up above. You know, honestly, a fun thing you could do, we're not going to do this right now, but you could try using a non-open AI model here just to sort of avoid some built-in biases that one vendor's models may have. I'm not going to do that here, but you could, or you could do both.
+<br>[26:19] Ankur Goyal: And yeah, I'm just going to ask it to generate some queries, give it the schema, and that's it. So. We'll run this. Here's an example of a query and the question. What do you think, Dan? This looks about right to me.
+<br>[26:42] Dan Becker: Having trouble, are they asking for 82? Are they asking for the 82 times the number of teams there are? Oh, they're doing a group by team. Okay.
+<br>[26:52] Ankur Goyal: Yeah, Cool. Okay. And the last thing we're going to do is my guess is that some of the queries that are generated are bogus. Like they're just not valid SQL queries. So we're just going to try them. And then the ones that succeed, we're going to add them to a list. Let's do that. Okay, cool. Looks like a few of them didn't work. And then here's an example of one that did. And because we generated it, we have this really rich data structure that that we can use.
+<br>[27:23] Ankur Goyal: So we have the query or the question, we have the expected results because we run the query, and we have the SQL. So that's awesome. Now we're going to add this to our load data thing as well. We're going to kind of do the same thing where we load the golden data set, and then we get all of the questions and generated data that are not in the golden data set.
+<br>[27:54] Ankur Goyal: The reason I wrote the code this way is that now as we keep iterating on this, each time we add something to the golden dataset, if it overlaps with the generated data or the original questions, we don't need to worry about that. We don't really need to change our scoring functions because we already have scoring functions that test the correctness of the SQL, whether it's a valid query or not, and whether the results are correct. Let's just reuse the scoring functions that we had before. and run another experiment. Awesome. Great.
+<br>[28:38] Ankur Goyal: So you can see this experiment is automatically compared with the sample one that we did. We could compare it to the initial one if we want. And it's very easy to play around with this. Looks like we didn't regress anything. There's not a lot of overlap between the two. This makes sense. We didn't change the task function at all and we just added data. Makes sense that we didn't improve or regress anything compared to the previous experiment. It looks like we have a fairly rich set of values here. There's some examples like this one.
+<br>[29:21] Ankur Goyal: Looks like it was one of the generated queries. And looks like, although we have an expected answer here, maybe the generated SQL query is a little bit different. And so we should dig into this and understand which one is correct. Maybe the generated answer is incorrect. Maybe the original… data generation process yielded something incorrect, but at least we have something to diff and sort of understand that. You can also sort of break this down here.
+<br>[29:59] Ankur Goyal: So If you want to look per category and try to understand what the differences in scores are, that's really easy to do. Or if you want to break it down this way and actually see like of the three categories, how did we do? It's easy to sort of explore the data and just look at the subcomponents that you want. And so, you know, from here, again, we've just made our eval process richer. Now we have more data. We could.
+<br>[30:30] Ankur Goyal: go and generate even more data, just literally run that code again and generate 10 more examples, try a different model. We could explore some of these cases and try to understand why is essentially the model disagreeing with itself here, because we use GPT-40 in both cases. This is probably a really good example to dig into. Or we could just try changing the task function, maybe provide it two rows of data. maybe provided some summary statistics about the minimum and maximum year or something to help with some of the questions.
+<br>[31:02] Ankur Goyal: There's so many different directions that we could take it. However, just for fun, we're going to take it in kind of a simple direction, which is let's just pry GPT-4 and see how that does compared to GPT-4.0. So I'm just going to change this global variable, which I referenced above, and give it a go. Interesting. Okay. So it doesn't look like it was a slam dunk. You know, we actually, looks like regressed across the board with GPT-4 versus GPT-4.0. I would personally be curious, I guess we can sort of look at this quickly.
+<br>[31:59] Ankur Goyal: Like, does this, how does it vary between, yeah, it looks like we even regressed on the golden data. So the golden data we know, is correct. The generated data we're a little bit less certain on, but it looks like it even regressed on this. I mean, I'd actually be, I haven't looked at this myself yet, but it'd be kind of interesting to understand. Yeah, it looks like, you know, for example, GPT-4 messed up the date syntax once more. We should make sure that we gave it the right prompt. Yeah, it looks like we…
+<br>[32:36] Ankur Goyal: looks like we gave it the right sample i mean this formatting could definitely be improved it doesn't look like my new lines uh maybe made it through correctly um but yeah this just kind of gives you an idea uh there's there's so much stuff to do um in in digging through data and and understanding it and you know literally starting from nothing just a data set i think we've we've kind of iterated our way into um and sorry no data set no no eval data set we just have like an nba data set we've iterated
+<br>[33:07] Ankur Goyal: our way into a pretty rich application here where we have you know a non-trivial prompt that's generating queries we have a pretty rich data set with that attack kind of different parts of the problem and then we have three scoring functions that help us diagnose systematic things like is the query even succeeding in the first place from you know the more nuanced things like does it return the correct result or is it semantically the right sequel So, you know, there's a lot of different places to take it from here.
+<br>[33:39] Ankur Goyal: And
+<br>[33:40] Hamel Husain: I just want to just point out that for students kind of watching the class, this is actually very similar to the honeycomb example that we've been talking about in many ways. Like, you know, my workflow was actually very similar to this. We didn't have any we barely had any data to start with. We had to synthetically generate lots of data. You've seen that. And so I think it's really interesting here. Like.
+<br>[34:04] Hamel Husain: can see like what workflow might look like if you use a tool and how you know it might automate some things and help you organize all this information um so it's actually like this is not this is not necessarily like a toy example like this is actually like very closely mirrors like something that i've done in real life and um i think it's great that on that encore is like you know kind of doing the sql use case because it maps really nicely too
+<br>[34:33] Ankur Goyal: the one that you may have been practicing with already awesome yeah i'm very happy to share we'll publish the uh the notebook um uh right after this so that folks can play around with that and you know tweak it and um use it in their own environment we're
+<br>[34:49] Dan Becker: gonna have a bunch of questions but i have one right now um so there is a bunch of functionality built in if you're generating sql that is really like cool and is sort of taking advantage of the specifics of knowing that you're using sql what are the other type i think we saw something for generating json what are the other types of use cases or generated text where you've got some magic built in yeah
+<br>[35:16] Ankur Goyal: i mean um the you know the only thing that we use that was built in here that sql related is that one scoring function that compares to sql queries we have In auto evals, we sort of demised for quality over quantity. So I think there's about 20 different scoring functions that help you out with things like RAG. And, you know, within RAG, assessing the answer, the generated answer that, you know, retrieved context relative to the answer, relative to the query and so on. There's a really popular framework called RAGOS. We have the actually.
+<br>[35:58] Ankur Goyal: an implementation of the ROGOS metrics built into auto evals with a few bug fixes and uses function calling to improve the accuracy and so on. We also have a bunch of tools for measuring the output of tool calls and we see people do increasingly complex agentic tool calling workflows where you're measuring both the output of individual tool calls as well as the end-to-end flow. did you accomplish the task that you initially wanted to set out to do?
+<br>[36:33] Ankur Goyal: And then honestly, we have a bunch of just building blocks that are, they sound really simple, but having written a good chunk of the code myself, they're like, they're just a pain in the butt. Like comparing two lists of strings in today's world is really hard. First of all, like normalizing that comparison to a number between zero and one. is not trivial even if you're just comparing the strings. But doing it in a way that is semantic is even harder.
+<br>[37:03] Ankur Goyal: So we have one of the most popular scoring functions is a list of strings comparator, and you can plug in the comparison function. So you can do like GPT pairwise comparison, you can do embedding comparison, you could do Levenstein and so on. So just cut some building blocks like that that I think are. very painful to handwrite, but generally quite applicable. Cool. Awesome. Yes, I see some questions in here. Do you guys want to emcee through the questions or should I sort of read?
+<br>[37:43] Dan Becker: I'm happy either way. If you're going to do it yourself, you should sort by most upvotes.
+<br>[37:48] Ankur Goyal: Okay. Why don't you emcee them just because make it more interactive.
+<br>[37:52] Dan Becker: Great. We got two from Wade Gilliam. Brain trust looks a lot like Langsmith. Wondering what the feature differences are or pros and cons from experienced people. If you were saying like, when should someone prefer one or the other?
+<br>[38:07] Hamel Husain: What are the- Don't feel pressured to answer this question. I know certain, I know that there's some culture around, hey, let's not, you know, try to attack or try to compare ourselves to other vendors. So feel free. I mean, you don't have to answer it directly.
+<br>[38:21] Ankur Goyal: Yeah. It's not appropriate. I would say I think I will hold off. I have a lot of respect for the team at Wangchain and all the amazing stuff that they've built. So I'm not going to say anything bad about their product. Both products are pretty easy to try. You can just sign up on the websites and try them. There are a number of differences in the workflow and the UI and a bunch of other things. So if I were you, I would just try them.
+<br>[38:52] Ankur Goyal: and sort of get a sense of what feels right for what you're trying to do. I know, Hamel, you tried like 25 different tools or 30 different tools. If he can try 30, you know, you can try two. And so you might as well.
+<br>[39:05] Hamel Husain: More like a dozen. I'm not that crazy.
+<br>[39:07] Ankur Goyal: Okay, okay. Well, sure.
+<br>[39:09] Hamel Husain: It felt like 30, but yeah.
+<br>[39:12] Dan Becker: Cool. Next question. How would you run open source or open weights models in Braintrust?
+<br>[39:19] Ankur Goyal: Yeah. Great question. Let's actually answer this sort of specifically. So again, I know I sound like a dead horse or whatever, a broken record, but evals are just three things, data, task function, and scoring function. So let's talk about each of them. So data, we just hand wrote these questions. It doesn't matter. It's no open weights or closed weight model. It's just You can do the data generation however you want. It's just a script later here as well. The task function, so we have our generate query thing. You know, none of this is OpenAI specific.
+<br>[40:05] Ankur Goyal: This is in all Braintrust cares about is that you write a function that takes some input and returns some output. What happens inside of this function, it doesn't matter. If you use the OpenAI client library, then you get some nice tracing features like you get inside of Braintrust, you get, you know, this kind of like really nice formatted thing. But you don't have to do that. Most of the open-weight models hosted on platforms like Together, for example, they actually have OpenAI-compatible APIs. So you could do that and get all the tracing goodies and stuff too.
+<br>[40:54] Ankur Goyal: I know someone asked about caching. The proxy is actually an open-source project that we maintain. That's deployed on Cloudflare and you can deploy it in AWS or your own Cloudflare, wherever you want as well. In each place that you can deploy it, it just uses whatever the easy, durable key value store is. So Cloudflare has its own key value store. It end-to-end encrypts the payload and response in terms of the API key or rather a hash of the API key. And so it's… you know, very safe from that standpoint. And the proxy is also pluggable.
+<br>[41:36] Ankur Goyal: And so you can point it at self-hosted models, or you could even point it to a model that's running on your laptop. When I'm on long flights and I'm working on this stuff, I run Ollama locally and then point the proxy at it. And so you can also use kind of that abstraction with an open-weight model. And many of our customers do.
+<br>[42:00] Dan Becker: couple questions about um sharing the link to the notebook i think that may have already been shared in the discord but at some point uh i assume that you'll are you comfortable sharing a link of course yeah yeah i'll just uh we actually have this section on our website um
+<br>[42:17] Ankur Goyal: called the cookbook uh and there's a bunch of use cases here um i can share this in the discord channel i haven't published this new one yet but i'll publish it in like two minutes after we wrap up this call. And then you'll be able to sort of scroll through it like this and then access the notebook here.
+<br>[42:38] Dan Becker: Cool. How about this one? So we've got from someone, an anonymous attendee wrote, I love this workflow. Are there examples or tasks that you'd say do not lend themselves to data generation of the kind that you showcased today? Or maybe are there tasks that… you sometimes see people ask you about it like we're not a great fit for that yet um that's a good question um let me try to think of some recent examples um you know i
+<br>[43:13] Ankur Goyal: think uh one thing that comes to mind is if you're doing classical ml i think the shape of your data is quite a bit So let's say you're doing like a broad classification problem and you're training like a boosted decision tree and you are, you know, you have like one million examples that you want to test, which is totally reasonable because it takes less than five milliseconds to run on one example. I think that the workflow in brain trust theoretically will work.
+<br>[43:52] Ankur Goyal: However, as you probably saw from me clicking around, we really believe that it's important to stare at individual examples and build a lot of intuition around them. And so a lot of brain trust is looking, it's helping you way find two individual examples that you can look at in more detail. Someone asked about the difference between us and other products. And, you know, spiritually, I would actually say that's something that is very informed by my personal experience working on evals for like eight years. It's just, that's just the workflow that I've really done and refined.
+<br>[44:32] Ankur Goyal: And I think that's actually pretty unique to brain trust. And so, you know, in LLM land, I think wayfinding is really important.
+<br>[44:42] Ankur Goyal: In classical ML, I think looking at aggregate statistics with multi-dimensional visualizations and stuff is actually often a more useful way to analyze the data and so that's probably a use case where I would recommend using a different tool
+<br>[45:04] Dan Becker: I assume, two questions. I assume that you're looking for entirely text data and that you don't, you are not used to, or someone's submitting images or getting images back.
+<br>[45:15] Ankur Goyal: We actually support images natively. We also support them in our prompt playground and you know, we visualize images, LLM calls, show images and everything. Cool.
+<br>[45:27] Dan Becker: And then do people, when they're using Braintrust, is that purely during model development? or do they have some brain trust call to collect data on a deployed model?
+<br>[45:42] Ankur Goyal: Yeah. So there's two major use cases for brain trust. One is what we would call offline evals, which is what we talked about today. And the other, it's sometimes called online evals or observability or logging. And pretty much all of our customers do both, and they integrate really nicely together in brain trust. So. I can actually show you just really quickly, maybe we can kill a few birds with one stone here. But here's an example where it's actually not just generating an image, it's generating HTML.
+<br>[46:21] Ankur Goyal: And you can render the HTML that's interactive right here in Braintrust. There's a sandbox built into the product because a lot of our customers are generating UI using AI. And this is the logs view. So it's actually not very different from the eval view. It's another thing that makes Braintrust, I think, quite special and different is kind of the very tight integration and identical data structure between logs and evals. And you can capture user feedback right in the UI. You can capture it through the API from your users.
+<br>[47:00] Ankur Goyal: If your users leave comments, you can actually capture those two through the API, or you can just save stuff in the UI. And then you can also do the same thing where you add stuff to a dataset from here.
+<br>[47:12] Dan Becker: Cool. I got a couple more. Top one right now is, often when we develop text-to-SQL applications for a SQL database, there are a bunch of challenges due to lack of familiarity with the database. In our case, there's no documentation available and the database is large and complex. This complexity makes it difficult to determine the right question to ask because you don't have a clear understanding of the database's structure. Do you have any suggestions for operating when you've got a complex database and you don't actually understand the structure of it?
+<br>[47:52] Ankur Goyal: Yeah, I mean, I think that is a great question because first, in practice, things are much hairier than what we can talk about in like a 20-minute demo session um but honestly i wouldn't over complicate it like in those scenarios i think the most useful thing you can do is you know let's say that you're doing that in the context of like an internal tool that your teams can use to do to ask questions on some data i would instrument that tool from day one to generate logs like this and capture user feedback and then
+<br>[48:27] Ankur Goyal: try to categorize the questions, either using a model or asking your users to categorize them, or categorizing them manually. It's not the end of the world to do that every once in a while. You can tag them or do whatever is easy. Then what I would personally do, if you remember over here, we built these different subcategories, and then we looked at the scores within the subcategories. I think you want to get to a point.
+<br>[48:56] Ankur Goyal: where you can successfully classify the different types of questions, whether it has to do with the nature of the question or the tables or subset of the schema it's targeting. But try to build an understanding of what kinds of questions you can answer successfully and which kinds you can't. And that's not going to happen overnight. You need to sort of iterate towards it. But getting to a good taxonomy is very, very valuable. It's a little bit of an art form. So that's where a lot of your creativity. can come in.
+<br>[49:28] Ankur Goyal: And then you know exactly what to do. Either you say, hey, there's a set of questions, like I have my super complex data and none of the financial questions or auditing questions work. Maybe we focus on improving those for a while. Or we accept that the data set that we are running the Text2SQL app on is inherently too messy to do auditing questions. So let's do some schema work, like maybe let's create some views or something that make the life of the model a lot easier and see if we can improve that category.
+<br>[50:04] Dan Becker: Yep. It's also nice. It seems like a place where you see the connection between what you were showing for observability on a deployed model and maybe you even have like thumbs up or thumbs down coming back and looping back to the experimental workflow.
+<br>[50:19] Ankur Goyal: Yeah, exactly. Exactly. Yeah. There's some stuff too. For example, I'll show you really quickly. We also make it really easy for you. If you hit the R key from anywhere in the product, you can actually enter this sort of human review mode where you can just really quickly use keyboard shortcuts and actually like rate things. And this is really good, especially in a use case like that. If you have maybe an analyst audience who could look through a bunch of questions and answers and just rapidly rate them. I think it's really powerful to do that.
+<br>[50:58] Ankur Goyal: And you don't have to like… pre-populate a queue or do anything like that. You literally just hit the R key from anywhere in the log view experiment, et cetera. And you can sort of enter this workflow. Cool.
+<br>[51:10] Dan Becker: All right. Thanks so much.
+<br>[51:12] Ankur Goyal: Thanks for having me. All right.
+<br>[51:14] Dan Becker: See ya.
+:::
