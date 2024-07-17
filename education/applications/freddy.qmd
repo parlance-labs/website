@@ -1,5 +1,5 @@
 ---
-title: Modal: Building LLM Applications w/Gradio
+title: "Building LLM Applications w/Gradio"
 date: 2024-07-12
 Speaker: Freddy Boulton
 Venue: Mastering LLMs Conf
