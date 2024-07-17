@@ -60,7 +60,62 @@ If you enjoyed this content, subscribe to receive updates on new educational con
 - [Pawell Garbacki's LinkedIn](https://www.linkedin.com/in/pawel-garbacki-490422/)
 - Fireworks [website](https://fireworks.ai/)
 
+## Notes
+
+### Why Function-Calling?
+
+To provide information to the model not available in the training dataset. Example: Accessing real-time information (e.g., stock prices).
+
+### Framing the Objective of Your System
+
+Pick the right objective for your use case -- it determines the complexity of your fine-tuning approach. Common objective: Single-turn forced function call -- "forced" means the model is expected to call a function instead of providing an open-ended response. More complex objectives: Parallel function calling, nested calls, multi-turn chat with optional function calls.
+
+### Syntax for Function Calls
+
+Special "function call" token: Introduce a special token to the vocabulary to prefix function calls, which allows easier parsing, switching to "function-call mode" when streaming (waiting for the complete function output vs. normal token-by-token), switching to constrained generation.  
+
+General syntax: Python function signature or JSON schema. Python syntax is easier for models trained extensively with Python; JSON schema is better for complex, deeply nested parameter types and compatibility with OpenAI APIs and other leading models.
+
+### Preserving Model Capabilities
+
+Tune on top of instruction-tuned models, not base models, to preserve instruction-following capabilities.  
+Caveat: Forced function-calling, where you know you want a function call and don't need general chat -- then a base model is probably okay.
+
+### LoRA vs. Full Fine-Tuning
+
+Field is divided, but seems LoRA is enough for function-tuning. LoRA tuning preferred for limited data regimes, faster iterations, and less resource demand. Fireworks serves up to hundreds of models per account cheaply by keeping LoRA weights separate and intelligent batching.
+
+### Constrained Generation
+
+Limit LLM output generation to tokens which have been deemed valid for a given scenario. Reduces hallucinations and speeds up inference because we can skip generation for tokens already defined in our schema. Supported in Fireworks.
+
+### Off-the-Shelf Models and Evals
+
+Use open-source function-calling models if possible to save time and effort. Otherwise, be prepared to invest a lot to achieve high-quality models. Focus on high-quality training data over large quantities.  
+
+Public evals only indicate so much; your use case likely has special cases where a public model would fail or eval could not cover. Performance also varies along different axes (e.g., sometimes prompt engineering beats function APIs); pick the five best models and try them on your use case.
+
+Gorilla seems only to focus on forced function-calling scenarios, and their dataset only includes very simple function signatures.  
+NexusRaven tends more towards the complex function-calling scenarios, and thus is likely a stronger model.
+
+### Use Case Recommendations
+
+For security, focus on read-only functions to minimize risks. Consider precise instructions in system prompts for safety.  
+
+Potential ways to address a scenario with hundreds of functions and local serving:
+- Put function signatures in system prompt (so don't vary them); then pre-populate the KV cache before session start
+- Or, instead of putting the functions in the prompt, build a RAG system and embed the function signatures
+
+How many samples does it take to get good results? With LoRA supervised fine-tuning, as little as 1,000, maybe even less. People tend to invest in hand-curating datasets for this purpose and get decent results. For downstream alignment with DPO, even 100 samples may suffice.  
+
+If you have an audience of beta testers, you can share the model with them and gather their positive/negative feedback for DPO.
+
+### Synthetic Data Generation
+
+Open-source models tend not to provide the cleanest datasets; that said, quality is still achievable, especially with post-filtering of samples. Define clear objectives and boundary cases; having many varied synthetic data samples is likely better than repeated examples of one use case or objective.
+
 <center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
