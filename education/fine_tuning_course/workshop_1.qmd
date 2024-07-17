@@ -93,6 +93,59 @@ Dan and Hamel open the floor to any final questions. Questions explore model qua
 
 ## Notes
 
+### Introduction to Fine Tuning
+
+#### What is Fine Tuning?
+
+- Fine tuning is the process of adapting a pre-trained model to a specific task using a targeted dataset. 
+- Fine tuning improves task-specific performance and teaches bespoke behavior.
+- The dataset used for fine tuning must be a collection of input/output pairs, which are embedded in a template which informs the model what form of response is required.
+- Template consistency is essential for model performance, and can often be a complex and difficult task.
+
+#### Fine Tuning vs Prompt Engineering
+
+- Prompt engineering is used for similar tasks as fine tuning, with domain information and response formatting embedded in the prompt rather than the model weights.
+- Prompt engineering is a faster and more flexible approach than fine tuning, as it does not require training the model.
+- The two approaches are not often used together, as they acheive the same goal. Complementary techniques such as Retrieval Augmented Generation (RAG) can however be used with either.
+ 
+#### Direct Preference Optimization
+
+- Direct Preference Optimization (DPO) is a form of fine tuning where a model is given both a better and worse response to an input. 
+- This learned gradient of response quality significantly boosts model performance, making DPO useful even in cases where traditional fine tuning would not be appropriate.
+
+### When Shouldn’t You Fine Tune?
+
+#### Keep It Simple & Stupid
+
+- Fine-tuning adds operational complexity and cost, which slows down the development cycle.
+- Start with prompt engineering using established commercial models, in order to ship a prototype as quickly as possible. 
+- Depending on the success and limitations of this solution, you might then justify a fine-tuning approach.
+
+#### Data Requirements
+
+- You need sufficient high quality input/output pairs for fine tuning; if there's no reasonable way to acheive this, consider other options. 
+- This means having examples which cover the entire space of knowledge/rules/style you wish it to learn.
+- Standard rules for data quality apply, i.e. data is accurate, consistent, and conforms to format.
+
+#### Inappropriate tasks
+
+Fine tuning may not be appropriate for tasks which:
+- Require a wide range of skills and response styles. 
+- Have requirements which change often (requiring re-training)
+- Are not well approximated by the fine tuning loss function (such as regression)
+
+
+### When Should You Fine Tune?
+
+#### Domain Specific Tasks
+
+- With fine tuning, you can take information out of the prompt and bake it into the model weights. 
+- If your prompt is ballooning in an attempt to capture a growing list of rules or conditions, or if you are repeating a lot of the same content in every prompt, fine-tuning should be useful.
+
+#### Operational Requirements
+
+- A smaller fine tuned model (e.g. 7B Mistral) can meet or exceed the performance of much larger generalist LLM (e.g. GPT-4) on domain specific tasks. 
+- This is useful when you need lower latency, wish to own your model, or need to protect your data privacy.
 
 
 ## Resources
