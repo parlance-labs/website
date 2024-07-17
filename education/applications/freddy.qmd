@@ -14,6 +14,13 @@ categories: ["Building Applications", "llm-conf-2024"]
 
 {{< video https://www.youtube.com/watch?v=mkY_ENplT9Y  >}}
 
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
 
 ## Chapters
 
@@ -328,3 +335,5 @@ You can mount an existing gradio app into a FastAPI to make it part of a larger 
 <br>[57:21] Hugo Bowne Anderson: There were people tuning in from India at 4 a.m. and stuff as well.
 <br>[57:27] Freddy Boulton: That's insane. Yeah, that's super exciting. Yeah, I mean, like testament to you guys as well for building such an engaging course that everyone is loving. I'm loving it.
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
