@@ -318,6 +318,12 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../education/applications/freddy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building LLM Applications w/Gradio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">LLMs on the command line</span></a>
   </div>
@@ -337,7 +343,12 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
    
   <ul>
   <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a>
+  <ul class="collapse">
+  <li><a href="#introduction-to-fine-tuning" id="toc-introduction-to-fine-tuning" class="nav-link" data-scroll-target="#introduction-to-fine-tuning">Introduction to Fine Tuning</a></li>
+  <li><a href="#when-shouldnt-you-fine-tune" id="toc-when-shouldnt-you-fine-tune" class="nav-link" data-scroll-target="#when-shouldnt-you-fine-tune">When Shouldn’t You Fine Tune?</a></li>
+  <li><a href="#when-should-you-fine-tune" id="toc-when-should-you-fine-tune" class="nav-link" data-scroll-target="#when-should-you-fine-tune">When Should You Fine Tune?</a></li>
+  </ul></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
   </ul>
@@ -446,6 +457,73 @@ Dan and Hamel open the floor to any final questions. Questions explore model qua
 </section>
 <section id="notes" class="level2">
 <h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<section id="introduction-to-fine-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-to-fine-tuning">Introduction to Fine Tuning</h3>
+<section id="what-is-fine-tuning" class="level4">
+<h4 class="anchored" data-anchor-id="what-is-fine-tuning">What is Fine Tuning?</h4>
+<ul>
+<li>Fine tuning is the process of adapting a pre-trained model to a specific task using a targeted dataset.</li>
+<li>Fine tuning improves task-specific performance and teaches bespoke behavior.</li>
+<li>The dataset used for fine tuning must be a collection of input/output pairs, which are embedded in a template which informs the model what form of response is required.</li>
+<li>Template consistency is essential for model performance, and can often be a complex and difficult task.</li>
+</ul>
+</section>
+<section id="fine-tuning-vs-prompt-engineering" class="level4">
+<h4 class="anchored" data-anchor-id="fine-tuning-vs-prompt-engineering">Fine Tuning vs Prompt Engineering</h4>
+<ul>
+<li>Prompt engineering is used for similar tasks as fine tuning, with domain information and response formatting embedded in the prompt rather than the model weights.</li>
+<li>Prompt engineering is a faster and more flexible approach than fine tuning, as it does not require training the model.</li>
+<li>The two approaches are not often used together, as they acheive the same goal. Complementary techniques such as Retrieval Augmented Generation (RAG) can however be used with either.</li>
+</ul>
+</section>
+<section id="direct-preference-optimization" class="level4">
+<h4 class="anchored" data-anchor-id="direct-preference-optimization">Direct Preference Optimization</h4>
+<ul>
+<li>Direct Preference Optimization (DPO) is a form of fine tuning where a model is given both a better and worse response to an input.</li>
+<li>This learned gradient of response quality significantly boosts model performance, making DPO useful even in cases where traditional fine tuning would not be appropriate.</li>
+</ul>
+</section>
+</section>
+<section id="when-shouldnt-you-fine-tune" class="level3">
+<h3 class="anchored" data-anchor-id="when-shouldnt-you-fine-tune">When Shouldn’t You Fine Tune?</h3>
+<section id="keep-it-simple-stupid" class="level4">
+<h4 class="anchored" data-anchor-id="keep-it-simple-stupid">Keep It Simple &amp; Stupid</h4>
+<ul>
+<li>Fine-tuning adds operational complexity and cost, which slows down the development cycle.</li>
+<li>Start with prompt engineering using established commercial models, in order to ship a prototype as quickly as possible.</li>
+<li>Depending on the success and limitations of this solution, you might then justify a fine-tuning approach.</li>
+</ul>
+</section>
+<section id="data-requirements" class="level4">
+<h4 class="anchored" data-anchor-id="data-requirements">Data Requirements</h4>
+<ul>
+<li>You need sufficient high quality input/output pairs for fine tuning; if there’s no reasonable way to acheive this, consider other options.</li>
+<li>This means having examples which cover the entire space of knowledge/rules/style you wish it to learn.</li>
+<li>Standard rules for data quality apply, i.e.&nbsp;data is accurate, consistent, and conforms to format.</li>
+</ul>
+</section>
+<section id="inappropriate-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="inappropriate-tasks">Inappropriate tasks</h4>
+<p>Fine tuning may not be appropriate for tasks which: - Require a wide range of skills and response styles. - Have requirements which change often (requiring re-training) - Are not well approximated by the fine tuning loss function (such as regression)</p>
+</section>
+</section>
+<section id="when-should-you-fine-tune" class="level3">
+<h3 class="anchored" data-anchor-id="when-should-you-fine-tune">When Should You Fine Tune?</h3>
+<section id="domain-specific-tasks" class="level4">
+<h4 class="anchored" data-anchor-id="domain-specific-tasks">Domain Specific Tasks</h4>
+<ul>
+<li>With fine tuning, you can take information out of the prompt and bake it into the model weights.</li>
+<li>If your prompt is ballooning in an attempt to capture a growing list of rules or conditions, or if you are repeating a lot of the same content in every prompt, fine-tuning should be useful.</li>
+</ul>
+</section>
+<section id="operational-requirements" class="level4">
+<h4 class="anchored" data-anchor-id="operational-requirements">Operational Requirements</h4>
+<ul>
+<li>A smaller fine tuned model (e.g.&nbsp;7B Mistral) can meet or exceed the performance of much larger generalist LLM (e.g.&nbsp;GPT-4) on domain specific tasks.</li>
+<li>This is useful when you need lower latency, wish to own your model, or need to protect your data privacy.</li>
+</ul>
+</section>
+</section>
 </section>
 <section id="resources" class="level2">
 <h2 class="anchored" data-anchor-id="resources">Resources</h2>

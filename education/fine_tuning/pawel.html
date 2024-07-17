@@ -317,6 +317,12 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../education/applications/freddy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building LLM Applications w/Gradio</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">LLMs on the command line</span></a>
   </div>
@@ -337,6 +343,18 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
   <ul>
   <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
   <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a>
+  <ul class="collapse">
+  <li><a href="#why-function-calling" id="toc-why-function-calling" class="nav-link" data-scroll-target="#why-function-calling">Why Function-Calling?</a></li>
+  <li><a href="#framing-the-objective-of-your-system" id="toc-framing-the-objective-of-your-system" class="nav-link" data-scroll-target="#framing-the-objective-of-your-system">Framing the Objective of Your System</a></li>
+  <li><a href="#syntax-for-function-calls" id="toc-syntax-for-function-calls" class="nav-link" data-scroll-target="#syntax-for-function-calls">Syntax for Function Calls</a></li>
+  <li><a href="#preserving-model-capabilities" id="toc-preserving-model-capabilities" class="nav-link" data-scroll-target="#preserving-model-capabilities">Preserving Model Capabilities</a></li>
+  <li><a href="#lora-vs.-full-fine-tuning" id="toc-lora-vs.-full-fine-tuning" class="nav-link" data-scroll-target="#lora-vs.-full-fine-tuning">LoRA vs.&nbsp;Full Fine-Tuning</a></li>
+  <li><a href="#constrained-generation" id="toc-constrained-generation" class="nav-link" data-scroll-target="#constrained-generation">Constrained Generation</a></li>
+  <li><a href="#off-the-shelf-models-and-evals" id="toc-off-the-shelf-models-and-evals" class="nav-link" data-scroll-target="#off-the-shelf-models-and-evals">Off-the-Shelf Models and Evals</a></li>
+  <li><a href="#use-case-recommendations" id="toc-use-case-recommendations" class="nav-link" data-scroll-target="#use-case-recommendations">Use Case Recommendations</a></li>
+  <li><a href="#synthetic-data-generation" id="toc-synthetic-data-generation" class="nav-link" data-scroll-target="#synthetic-data-generation">Synthetic Data Generation</a></li>
+  </ul></li>
   <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/pawel.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
@@ -420,9 +438,56 @@ Subscribe For More Educational Content
 <li><a href="https://www.linkedin.com/in/pawel-garbacki-490422/">Pawell Garbacki’s LinkedIn</a></li>
 <li>Fireworks <a href="https://fireworks.ai/">website</a></li>
 </ul>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<section id="why-function-calling" class="level3">
+<h3 class="anchored" data-anchor-id="why-function-calling">Why Function-Calling?</h3>
+<p>To provide information to the model not available in the training dataset. Example: Accessing real-time information (e.g., stock prices).</p>
+</section>
+<section id="framing-the-objective-of-your-system" class="level3">
+<h3 class="anchored" data-anchor-id="framing-the-objective-of-your-system">Framing the Objective of Your System</h3>
+<p>Pick the right objective for your use case – it determines the complexity of your fine-tuning approach. Common objective: Single-turn forced function call – “forced” means the model is expected to call a function instead of providing an open-ended response. More complex objectives: Parallel function calling, nested calls, multi-turn chat with optional function calls.</p>
+</section>
+<section id="syntax-for-function-calls" class="level3">
+<h3 class="anchored" data-anchor-id="syntax-for-function-calls">Syntax for Function Calls</h3>
+<p>Special “function call” token: Introduce a special token to the vocabulary to prefix function calls, which allows easier parsing, switching to “function-call mode” when streaming (waiting for the complete function output vs.&nbsp;normal token-by-token), switching to constrained generation.</p>
+<p>General syntax: Python function signature or JSON schema. Python syntax is easier for models trained extensively with Python; JSON schema is better for complex, deeply nested parameter types and compatibility with OpenAI APIs and other leading models.</p>
+</section>
+<section id="preserving-model-capabilities" class="level3">
+<h3 class="anchored" data-anchor-id="preserving-model-capabilities">Preserving Model Capabilities</h3>
+<p>Tune on top of instruction-tuned models, not base models, to preserve instruction-following capabilities.<br>
+Caveat: Forced function-calling, where you know you want a function call and don’t need general chat – then a base model is probably okay.</p>
+</section>
+<section id="lora-vs.-full-fine-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="lora-vs.-full-fine-tuning">LoRA vs.&nbsp;Full Fine-Tuning</h3>
+<p>Field is divided, but seems LoRA is enough for function-tuning. LoRA tuning preferred for limited data regimes, faster iterations, and less resource demand. Fireworks serves up to hundreds of models per account cheaply by keeping LoRA weights separate and intelligent batching.</p>
+</section>
+<section id="constrained-generation" class="level3">
+<h3 class="anchored" data-anchor-id="constrained-generation">Constrained Generation</h3>
+<p>Limit LLM output generation to tokens which have been deemed valid for a given scenario. Reduces hallucinations and speeds up inference because we can skip generation for tokens already defined in our schema. Supported in Fireworks.</p>
+</section>
+<section id="off-the-shelf-models-and-evals" class="level3">
+<h3 class="anchored" data-anchor-id="off-the-shelf-models-and-evals">Off-the-Shelf Models and Evals</h3>
+<p>Use open-source function-calling models if possible to save time and effort. Otherwise, be prepared to invest a lot to achieve high-quality models. Focus on high-quality training data over large quantities.</p>
+<p>Public evals only indicate so much; your use case likely has special cases where a public model would fail or eval could not cover. Performance also varies along different axes (e.g., sometimes prompt engineering beats function APIs); pick the five best models and try them on your use case.</p>
+<p>Gorilla seems only to focus on forced function-calling scenarios, and their dataset only includes very simple function signatures.<br>
+NexusRaven tends more towards the complex function-calling scenarios, and thus is likely a stronger model.</p>
+</section>
+<section id="use-case-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="use-case-recommendations">Use Case Recommendations</h3>
+<p>For security, focus on read-only functions to minimize risks. Consider precise instructions in system prompts for safety.</p>
+<p>Potential ways to address a scenario with hundreds of functions and local serving: - Put function signatures in system prompt (so don’t vary them); then pre-populate the KV cache before session start - Or, instead of putting the functions in the prompt, build a RAG system and embed the function signatures</p>
+<p>How many samples does it take to get good results? With LoRA supervised fine-tuning, as little as 1,000, maybe even less. People tend to invest in hand-curating datasets for this purpose and get decent results. For downstream alignment with DPO, even 100 samples may suffice.</p>
+<p>If you have an audience of beta testers, you can share the model with them and gather their positive/negative feedback for DPO.</p>
+</section>
+<section id="synthetic-data-generation" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-data-generation">Synthetic Data Generation</h3>
+<p>Open-source models tend not to provide the cleanest datasets; that said, quality is still achievable, especially with post-filtering of samples. Define clear objectives and boundary cases; having many varied synthetic data samples is likely better than repeated examples of one use case or objective.</p>
 <center>
 <script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
 </center>
+</section>
 </section>
 <section id="full-transcript" class="level2">
 <h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
