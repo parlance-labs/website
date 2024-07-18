@@ -38,12 +38,13 @@ This page is under construction.  We are currently processing content from our c
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
 
-These talks are categorized by the following topics:
+## Fine-Tuning Course
+
+:::{#course}
+:::
+
+## Conference Talks
 
 :::{#talks}
 :::
 
-In addition, we have a course on fine-tuning LLMs:
-
-:::{#course}
-:::

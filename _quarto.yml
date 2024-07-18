@@ -35,12 +35,31 @@ website:
       file: team.qmd
   sidebar:
     - title: Resources
-      pinned: false
-      collapse-level: 3
+      pinned: true
+      collapse-level: 2
       style: docked
-      contents: education/
- 
-
+      contents: 
+        - education/index.qmd
+        - section: Fine-Tuning Course
+          contents: 
+            - education/fine_tuning_course/workshop_1.qmd
+        - section: Talks
+          contents:
+            - section: Evals
+              href: education/evals/index.qmd
+              contents: education/evals/**/*.qmd
+            - section: RAG
+              href: education/rag/index.qmd
+              contents: education/rag/**/*.qmd
+            - section: Fine-Tuning
+              href: education/fine_tuning/index.qmd
+              contents: education/fine_tuning/**/*.qmd
+            - section: Applications
+              href: education/applications/index.qmd
+              contents: education/applications/**/*.qmd
+            - section: Prompt Eng
+              href: education/prompt_eng/index.qmd
+              contents: education/prompt_eng/**/*.qmd
 
 
 format:
