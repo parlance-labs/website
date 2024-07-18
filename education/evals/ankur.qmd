@@ -7,13 +7,20 @@ metadata-files:
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
 abstract: |
-
+    Ankur from Braintrust discusses the systematic evaluation and enhancement of text-to-SQL models. Highlighting key components like data preparation and scoring mechanisms, Ankur demonstrates their application with the NBA dataset. The presentation emphasizes iterative refinement through advanced scoring and model-generated data, offering insights into practical AI evaluation pipelines.
 categories: ["Evals", "llm-conf-2024"]
 
 ---
 
 {{< video https://www.youtube.com/watch?v=UGmenkjGXqM >}}
 
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
 
 ## Chapters
 
@@ -306,3 +313,5 @@ def load_new_data():
 <br>[51:12] Ankur Goyal: Thanks for having me. All right.
 <br>[51:14] Dan Becker: See ya.
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
