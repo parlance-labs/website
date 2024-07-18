@@ -38,12 +38,16 @@ This page is under construction.  We are currently processing content from our c
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
 
-## Fine-Tuning Course
+## Course: Fine-Tuning LLMs w/Axolotl
+
+This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
 
 :::{#course}
 :::
 
 ## Conference Talks
+
+Hear from practitioners on a wide range of topics on LLMs, including RAG, fine-tuning, prompt engineering, evaluation, and applications.  _Speakers include Jeremy Howard, Sophia Yang, Simon Willison, JJ Allaire, Wing Lian, Mark Saroufim, Jane Xu, Jason Liu, Emmanuel Ameisen, Hailey Schoelkopf, Johno Whitaker, John Berryman, Ben Clavié, Abhishek Thakur, Kyle Corbitt, Ankur Goyal, Freddy Boulton, Jo Bergum and more_
 
 :::{#talks}
 :::
