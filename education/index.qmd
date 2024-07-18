@@ -36,8 +36,6 @@ This page is under construction.  We are currently processing content from our c
 
 :::
 
-<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
-
 ## Course: Fine-Tuning LLMs w/Axolotl
 
 This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
@@ -52,3 +50,4 @@ Hear from practitioners on a wide range of topics on LLMs, including RAG, fine-t
 :::{#talks}
 :::
 
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
