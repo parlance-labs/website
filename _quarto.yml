@@ -27,12 +27,12 @@ website:
     pinned: true
     collapse: false
     left:
-    - text: Resources
-      file: education/
     - text: Services
       file: services.qmd
     - text: Team
       file: team.qmd
+    - text: Resources
+      file: education/
   sidebar:
     - title: Resources
       pinned: true

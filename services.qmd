@@ -10,16 +10,6 @@ repo-actions: false
 
 We are a group of [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.  We specialize in building & improving LLM products. See our current and past clients [here](#current--past-clients).
 
-## Problems We Solve
-
-You should consider hiring us if ...
-
--   You don’t know how to improve your LLM products systematically.
--   Your LLMs need to be cheaper or faster.
--   You are overwhelmed by tools & frameworks.
--   Feel lost on what to prioritize and what experiments you should run.
--   Need outside expertise to evaluate your needs and vet potential talent.
-
 ## Services
 
 We offer two tiers of services to support your goals.
@@ -82,4 +72,5 @@ Members of [our team](team.qmd) have worked with the following companies:
 -   [Posit](https://posit.co/): Helped Posit expand into the Python AI and ML ecosystem.
 -   [Catena](https://www.catena.xyz/): LLM infrastructure such as routing, evaluation, and orchestration.
 - [Arize AI](https://arize.com/llm/): We are helping Arize with LLM observability and evaluation tools.
+- [dbt Labs](getdbt.com): Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.
 - [Radiant AI](https://radiantai.com/): We helped the Radiant team accelerate the development of their LLM observability platform.
