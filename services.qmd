@@ -52,7 +52,7 @@ Everything in Tier 1, plus:
 The cost depends on the tier of service you choose:
 
 - Strategy: $59,250 for a 3-month engagement.
-- Comprehensive: $528,900 total for a 3-month engagement.
+- Comprehensive: $548,900 total for a 3-month engagement.
 
 We can also provide custom pricing for longer engagements or specific projects.
 
@@ -78,3 +78,5 @@ Members of [our team](team.qmd) have worked with the following companies:
 - [Pydantic](http://pydantic.dev/): Pydantic provides data validation and settings management using Python type annotations, enforcing type hints at runtime with user-friendly error handling.
 -   [Posit](https://posit.co/): Helped Posit expand into the Python AI and ML ecosystem.
 -   [Catena](https://www.catena.xyz/): LLM infrastructure such as routing, evaluation, and orchestration.
+- [Arize AI](https://arize.com/llm/): We are helping Arize with LLM observability and evaluation tools.
+- [Radiant AI](https://radiantai.com/): We helped the Radiant team accelerate the development of their LLM observability platform.
