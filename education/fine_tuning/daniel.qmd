@@ -15,8 +15,6 @@ categories: ["fine-tuning", "llm-conf-2024"]
 {{< video https://youtu.be/HEGaei7k0zE >}}
 
 
-
-
 :::{.callout-tip .mobile-only}
 ## Subscribe For More Educational Content
 
