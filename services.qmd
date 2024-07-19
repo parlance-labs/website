@@ -33,6 +33,7 @@ We will advise you on the following topics:
 -   Upskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.
 -   Strategy & Hiring: We will introduce you to talent, vendors, and partners in our network.
 -   Evaluation Systems
+-   Access to our [team]()
 
 We will give you ongoing feedback and guidance via regular meetings with your team. This will help you avoid common pitfalls and select the right tools and techniques, saving you time and money. 
 
@@ -46,13 +47,15 @@ Everything in Tier 1, plus:
 -  **Development Tools and Infrastructure:** Build custom tools and infrastructure to streamline your AI development process.
 -   **Content and Writing:** Produce written documents and blogs to communicate best practices, methodologies, and practical case studies to your stakeholders
 -   **Team Growth & Hiring:** Work with 2-4 people individually on your team to rapidly upskill them on AI.  We will also help you source and evaluate key hires.
+- **A full-time presence of 2+ FTEs** from [our team](https://parlance-labs.com/team.html) to work on your project.
+
 
 ### Pricing
 
 The cost depends on the tier of service you choose:
 
-- Strategy: $52,250 for a 3-month engagement.
-- Comprehensive: $548,900 total for a 3-month engagement.
+- Strategy: $54,250 for a 3-month engagement.
+- Comprehensive (2+ FTEs): $725,900 total for a 3-month engagement.
 
 We can also provide custom pricing for longer engagements or specific projects.
 
