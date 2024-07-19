@@ -429,13 +429,6 @@
     "text": "We are a group of experienced AI Engineers who have built AI products at leading tech companies. We specialize in building & improving LLM products. See our current and past clients here."
   },
   {
-    "objectID": "services.html#problems-we-solve",
-    "href": "services.html#problems-we-solve",
-    "title": "Applied AI Consulting",
-    "section": "Problems We Solve",
-    "text": "Problems We Solve\nYou should consider hiring us if …\n\nYou don’t know how to improve your LLM products systematically.\nYour LLMs need to be cheaper or faster.\nYou are overwhelmed by tools & frameworks.\nFeel lost on what to prioritize and what experiments you should run.\nNeed outside expertise to evaluate your needs and vet potential talent."
-  },
-  {
     "objectID": "services.html#services",
     "href": "services.html#services",
     "title": "Applied AI Consulting",
@@ -447,7 +440,7 @@
     "href": "services.html#current-past-clients",
     "title": "Applied AI Consulting",
     "section": "Current & Past Clients",
-    "text": "Current & Past Clients\nMembers of our team have worked with the following companies:\n\nLimitless AI: Limitless AI is a personal memory assistant that helps you remember, organize, and navigate your life.\nRaycast: Raycast is a blazingly fast, totally extendable launcher. It lets you complete tasks, calculate, share common links, and much more.\nTensorlake: Build Knowledge for LLMs from un-structured data\nReplicate: development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.\nWeights & Biases: Provide product guidance for evaluation, annotation, and observability.\nHoneycomb: Currently improving the natural language query assistant through evaluation systems and fine-tuning.\nLangChain/LangSmith: provided product guidance for enterprise LLM tools.\nModal: Serverless tools for fine-tuning.\nRechat: We are working on Lucy, a conversational AI for real estate agents. You can read about my recent work on Rechat here.\nAnswer.ai: Conduct research on new LLM applications and help with product strategy.\nAxolotl: Hamel is a core contributor to axolotl, a library for efficient fine-tuning of LLMs.\nKay.ai: Retrieve relevant context from the semantic web for your LLM apps with fully hosted embeddings.\nModal Labs: Modal specializes in cloud functions, offering a platform for running generative AI models, large-scale batch jobs, and more.\nPydantic: Pydantic provides data validation and settings management using Python type annotations, enforcing type hints at runtime with user-friendly error handling.\nPosit: Helped Posit expand into the Python AI and ML ecosystem.\nCatena: LLM infrastructure such as routing, evaluation, and orchestration.\nArize AI: We are helping Arize with LLM observability and evaluation tools.\nRadiant AI: We helped the Radiant team accelerate the development of their LLM observability platform."
+    "text": "Current & Past Clients\nMembers of our team have worked with the following companies:\n\nLimitless AI: Limitless AI is a personal memory assistant that helps you remember, organize, and navigate your life.\nRaycast: Raycast is a blazingly fast, totally extendable launcher. It lets you complete tasks, calculate, share common links, and much more.\nTensorlake: Build Knowledge for LLMs from un-structured data\nReplicate: development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.\nWeights & Biases: Provide product guidance for evaluation, annotation, and observability.\nHoneycomb: Currently improving the natural language query assistant through evaluation systems and fine-tuning.\nLangChain/LangSmith: provided product guidance for enterprise LLM tools.\nModal: Serverless tools for fine-tuning.\nRechat: We are working on Lucy, a conversational AI for real estate agents. You can read about my recent work on Rechat here.\nAnswer.ai: Conduct research on new LLM applications and help with product strategy.\nAxolotl: Hamel is a core contributor to axolotl, a library for efficient fine-tuning of LLMs.\nKay.ai: Retrieve relevant context from the semantic web for your LLM apps with fully hosted embeddings.\nModal Labs: Modal specializes in cloud functions, offering a platform for running generative AI models, large-scale batch jobs, and more.\nPydantic: Pydantic provides data validation and settings management using Python type annotations, enforcing type hints at runtime with user-friendly error handling.\nPosit: Helped Posit expand into the Python AI and ML ecosystem.\nCatena: LLM infrastructure such as routing, evaluation, and orchestration.\nArize AI: We are helping Arize with LLM observability and evaluation tools.\ndbt Labs: Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.\nRadiant AI: We helped the Radiant team accelerate the development of their LLM observability platform."
   },
   {
     "objectID": "team.html",
@@ -1014,6 +1007,62 @@
     "href": "index.html#solutions",
     "title": " ",
     "section": "Solutions",
-    "text": "Solutions\nWe offer two tiers of services to support your goals.\n\nContact\nEmail: consulting@parlance-labs.com"
+    "text": "Solutions\nWe offer two tiers of services. Contact us at consulting@parlance-labs.com to get started."
+  },
+  {
+    "objectID": "index.html#heres-what-our-clients-are-saying",
+    "href": "index.html#heres-what-our-clients-are-saying",
+    "title": " ",
+    "section": "Here’s what our clients are saying",
+    "text": "Here’s what our clients are saying"
+  },
+  {
+    "objectID": "index.html#phillip-carter-principal-pm",
+    "href": "index.html#phillip-carter-principal-pm",
+    "title": " ",
+    "section": "Phillip Carter, Principal PM",
+    "text": "Phillip Carter, Principal PM\n\nHighly recommend working with these folks. Hamel and Jeremy in particular were crucial to Honeycomb’s AI successes, especially in the early days."
+  },
+  {
+    "objectID": "index.html#director-of-product",
+    "href": "index.html#director-of-product",
+    "title": " ",
+    "section": "Director of Product",
+    "text": "Director of Product\n\nWorking with Hamel and his team has been really great. Anyone who joined the Mastering LLMs conf knows this group is super sharp and focused on results. Working with Hamel is no different. He helps us with everything from setting product vision to prioritizing tools and methods."
+  },
+  {
+    "objectID": "index.html#taylor-holiday-director-of-engineering-ai",
+    "href": "index.html#taylor-holiday-director-of-engineering-ai",
+    "title": " ",
+    "section": "Taylor Holiday, Director of Engineering, AI",
+    "text": "Taylor Holiday, Director of Engineering, AI\n\nJason helped deliver enterprise grade RAG to Zapier and our customers. You’re not going to want to miss this if you’re serious about building with AI."
+  },
+  {
+    "objectID": "index.html#emil-sedgh-cto",
+    "href": "index.html#emil-sedgh-cto",
+    "title": " ",
+    "section": "Emil Sedgh, CTO",
+    "text": "Emil Sedgh, CTO\n\nWe have had the chance to work with Hamel and it’s been a very successful partnership for us. He has a massive technical knowledge and is also high-level executive that can help you on all different levels. Couldn’t have asked for a better partner."
+  },
+  {
+    "objectID": "index.html#carl-atupem-ceo",
+    "href": "index.html#carl-atupem-ceo",
+    "title": " ",
+    "section": "Carl Atupem, CEO",
+    "text": "Carl Atupem, CEO\n\nWorking with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!"
+  },
+  {
+    "objectID": "index.html#christian-bryant-ceo",
+    "href": "index.html#christian-bryant-ceo",
+    "title": " ",
+    "section": "Christian Bryant, CEO",
+    "text": "Christian Bryant, CEO\n\nCan attest that you’ve been tremendously helpful for the team at Dunbar, the value has gone beyond acceleration of our product too - best way I describe it is full-stack AI-business guidance in a box."
+  },
+  {
+    "objectID": "index.html#avthar-sewrathan-lead-technical-pm",
+    "href": "index.html#avthar-sewrathan-lead-technical-pm",
+    "title": " ",
+    "section": "Avthar Sewrathan, Lead Technical PM",
+    "text": "Avthar Sewrathan, Lead Technical PM\n\nI highly recommend working with Jason. He’s brought a wealth of experience and developer understanding to our team, helping us develop better ideas and move faster. 100% worth it."
   }
 ]

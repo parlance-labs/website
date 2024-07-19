@@ -180,3 +180,12 @@ input[type="text"], textarea {
 .figcaption{
     text-align: center!important;
  }
+
+.quarto-figure-center > figure > figcaption {
+text-align: center;
+}
+  
+.figure-caption {
+font-size: 75%;
+font-style: italic;
+}
