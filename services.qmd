@@ -33,7 +33,7 @@ We will advise you on the following topics:
 -   Upskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.
 -   Strategy & Hiring: We will introduce you to talent, vendors, and partners in our network.
 -   Evaluation Systems
--   Access to our [team]()
+-   Access to our [our team](https://parlance-labs.com/team.html) to pair you with the right expert at all times.
 
 We will give you ongoing feedback and guidance via regular meetings with your team. This will help you avoid common pitfalls and select the right tools and techniques, saving you time and money. 
 
@@ -54,7 +54,7 @@ Everything in Tier 1, plus:
 
 The cost depends on the tier of service you choose:
 
-- Strategy: $37,500 for a 2-month engagement.
+- Strategy: $36,500 for a 2-month engagement.
 - Comprehensive (2+ FTEs): $725,900 total for a 3-month engagement.
 
 We can also provide custom pricing for longer engagements or specific projects.
