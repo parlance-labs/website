@@ -53,112 +53,78 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 ---
 
-::: {.testimonial-section}
+:::{.testimonial-section}
+```{python}
+#| output: asis
+#| echo: false
 
-::: {.hero-banner}
-## Here's what our clients are saying
-:::
+from idx import generate_testimonials
+testimonials = [
+    {
+        "image": "phillip.jpeg",
+        "company": "Honeycomb",
+        "name": "Phillip Carter",
+        "title": "Principal PM",
+        "quote": "Highly recommend working with these folks. Hamel and Jeremy in particular were crucial to Honeycomb's AI successes, especially in the early days."
+    },
+    {
+        "image": "nick.jpeg",
+        "company": "dbt Labs",
+        "name": "Nick Handel",
+        "title": "Director of Product",
+        "quote": "Working with Hamel and his team has been really great. Anyone who joined the Mastering LLMs conf knows this group is super sharp and focused on results. Working with Hamel is no different. He helps us with everything from setting product vision to prioritizing tools and methods."
+    },
+    {
+        "image": "taylor.jpeg",
+        "company": "Zapier",
+        "name": "Taylor Holiday",
+        "title": "Director of Engineering, AI",
+        "quote": "Jason helped deliver enterprise grade RAG to Zapier and our customers. You're not going to want to miss this if you're serious about building with AI."
+    },
+    {
+        "image": "emil.jpeg",
+        "company": "Rechat",
+        "name": "Emil Sedgh",
+        "title": "CTO",
+        "quote": "We have had the chance to work with Hamel and it's been a very successful partnership for us.  He has a massive technical knowledge and is also high-level executive that can help you on all different levels. Couldn't have asked for a better partner."
+    },
+    {
+        "image": "carl.jpeg",
+        "company": "Bytebot",
+        "name": "Carl Atupem",
+        "title": "CEO",
+        "quote": "Working with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!"
+    },
+    {
+        "image": "christian.jpg",
+        "company": "Dunbar",
+        "name": "Christian Bryant",
+        "title": "CEO",
+        "quote": "Can attest that you've been tremendously helpful for the team at Dunbar, the value has gone beyond acceleration of our product too - best way I describe it is full-stack AI-business guidance in a box."
+    },
+    {
+    "image": "anuj.jpeg",
+    "company": "ServiceMob",
+    "name": "Anuj Bhalla",
+    "title": "CEO",
+        "quote": "Hamel & team allowed serviceMob to save hundreds of hours of engineering time by showing us the best tools, techniques, and processes. We shipped industry-leading AI in few weeks instead of months, and kept shipping thereafter thanks to how his team up-skilled our company."
+    },
+    {
+        "image": "avthar.jpeg",
+        "company": "TimescaleDB",
+        "name": "Avthar Sewrathan",
+        "title": "Lead Technical PM",
+        "quote": "I highly recommend working with Jason. He's brought a wealth of experience and developer understanding to our team, helping us develop better ideas and move faster. 100% worth it."
+    }
+]
 
-::: {.content-block .grid .gap-4}
-
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/phillip.jpeg)
-
-# Honeycomb
-
-## _Phillip Carter, Principal PM_
-
-### Highly recommend working with these folks. Hamel and Jeremy in particular were crucial to Honeycomb's AI successes, especially in the early days.
-
-:::
-
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/nick.jpeg)
-
-# dbt Labs
-
-## _Nick Handel, Director of Product_
-
-### Working with Hamel and his team has been really great. Anyone who joined the Mastering LLMs conf knows this group is super sharp and focused on results. Working with Hamel is no different. He helps us with everything from setting product vision to prioritizing tools and methods.
-
-:::
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/taylor.jpeg)
-
-# Zapier
-
-## _Taylor Holiday, Director of Engineering, AI_
-
-### Jason helped deliver enterprise grade RAG to Zapier and our customers. You're not going to want to miss this if you're serious about building with AI.
-
-:::
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/emil.jpeg)
-
-# Rechat
-
-## _Emil Sedgh, CTO_
-
-### We have had the chance to work with Hamel and it's been a very successful partnership for us.  He has a massive technical knowledge and is also high-level executive that can help you on all different levels. Couldn't have asked for a better partner.
-
-:::
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/carl.jpeg)
-
-# Bytebot
-
-## _Carl Atupem, CEO_
-
-### Working with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!
-
-:::
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/christian.jpg)
-
-# Dunbar
-
-## _Christian Bryant, CEO_
-
-### Can attest that you’ve been tremendously helpful for the team at Dunbar, the value has gone beyond acceleration of our product too - best way I describe it is full-stack AI-business guidance in a box. 
-
-:::
-
-
-::: {.testimonial .g-col-12 .g-col-md-6}
-
-![](testimonial_headshots/avthar.jpeg)
-
-# TimescaleDB
-
-## _Avthar Sewrathan, Lead Technical PM_
-
-### I highly recommend working with Jason. He's brought a wealth of experience and developer understanding to our team, helping us develop better ideas and move faster. 100% worth it.
-
-:::
-
-
-
-
-
-
-:::
+# Generate and print the testimonials
+print(generate_testimonials(testimonials))
+```
 
 <br>
 
 [Get Started](./services.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
-
 
 
 :::
