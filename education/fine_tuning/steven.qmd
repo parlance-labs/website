@@ -1,0 +1,267 @@
+---
+title: Fine Tuning OpenAI Models - Best Practices
+date: 2024-07-20
+Speaker: Steven Heidel
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    We will discuss best-practices on how to fine-tune OpenAI models.
+categories: ["Fine-Tuning", "llm-conf-2024"]
+
+---
+
+{{< video https://www.youtube.com/watch?v=Q0GSZD0Na1s  >}}
+
+
+## Chapters
+
+**[00:00](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=0s) What is Fine-Tuning**  
+Fine-tuning a model involves training it on specific input/output examples to enable it to respond appropriately to similar inputs in the future. This section includes an analysis of when and when not to fine-tune.
+
+**[02:50](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=170s) Custom Models**  
+While the API is the main offering, custom models are also available. These are tailored and crafted around user data and their specific use cases.
+
+**[06:11](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=371s) Optimizing LLMs for Accuracy**  
+Steven discusses prompt engineering, retrieval-augmented generation (RAG), fine-tuning, and how these techniques can be used at different stages and for various use cases to improve model accuracy.
+
+**[11:20](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=680s) Fine-Tuning Failure Case**  
+A case study on when fine-tuning failed.
+
+**[13:08](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=788s) Preparing the Dataset**  
+This section shows the training data format along with some general guidelines on the type of data to be used for fine-tuning.
+
+**[14:28](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=868s) Using the Weight Parameter**  
+The weight parameter allows you to control which assistant messages to prioritize during training.
+
+**[19:36](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=1176s) Best Practices**  
+Best practices for fine-tuning involve carefully curating your training examples, iterating on the available hyperparameters, establishing a baseline, and more.
+
+**[20:53](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=1253s) Hyperparameters**  
+Steven discusses the various hyperparameters available for fine-tuning, including epochs, batch size, and learning rate multiplier.
+
+**[24:06](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=1446s) Fine-Tuning Example**  
+A real-world example illustrates how fine-tuning a model can boost its performance, showing how a smaller fine-tuned model can outperform a much larger non-fine-tuned model.
+
+**[29:49](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=1799s) Fine-Tuning OpenAI Models vs. Open Source Models**  
+OpenAI models are state-of-the-art with support for features like tool calling and function calling, eliminating the hassle of deploying models.
+
+**[31:50](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=1910s) More Examples**  
+Steven discusses additional examples covering fine-tuning models for function calling and question answering.
+
+**[36:51](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=2211s) Evaluations**  
+Evaluating language model outputs can involve simple automated checks for specific formats or more complex evaluations by other models or graders for aspects like style, tone, and content inclusion.
+
+**[38:46](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=2326s) OpenAI on Fine-Tuning Models on Custom Data**  
+Customers control their data lifecycle; OpenAI does not train on customer data used for fine-tuning.
+
+**[43:37](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=2617s) General Discussion**  
+A general discussion on agents, the assistance API, and other related topics.
+
+## Resources
+
+Links to resources mentioned in the talk:
+
+- [Fine-Tuning OpenAI Models with Weights & Biases](https://cookbook.openai.com/examples/third_party/gpt_finetuning_with_wandb): Explore how to fine-tune OpenAI models using Weights & Biases.
+- [Data Prep and Analysis for Fine-Tuning](https://cookbook.openai.com/examples/chat_finetuning_data_prep): Guidelines for preparing and analyzing data for fine-tuning.
+- [Fine-Tuning for Function Calling](https://cookbook.openai.com/examples/fine_tuning_for_function_calling): Learn how to fine-tune models specifically for function calling.
+- [How to Fine-Tune Chat Models](https://cookbook.openai.com/examples/how_to_finetune_chat_models): A comprehensive guide on fine-tuning chat models.
+- [Fine-Tuning Documentation](https://platform.openai.com/docs/guides/fine-tuning): Detailed documentation and guidance on when to use fine-tuning.
+- [Fine-Tuning for Retrieval-Augmented Generation (RAG)](https://cookbook.openai.com/examples/fine-tuned_qa/ft_retrieval_augmented_generation_qdrant): Techniques for fine-tuning models for RAG.
+
+## Notes
+
+| **When to fine-tune** |   |
+|-----------------------|---|
+| **Good for**         | - Following a given format or tone for the output<br>- Processing the input following specific, complex instructions<br>- Improving latency<br>- Reducing token usage |
+| **Not good for**     | - Teaching the model new knowledge (Use RAG or custom models instead)<br>- Performing well at multiple, unrelated tasks (Do prompt-engineering or create multiple FT models instead)<br>- Including up-to-date content in responses (Use RAG instead) |
+
+
+### Dataset For Fine-tuning
+
+Some guidelines when fine-tuning the data:
+- Have 50 - 100 examples. There should be at least 10 examples
+- Ensure that each fine-tuned model is for one task only
+- Keep system and user prompts similar between training and production
+
+
+The dataset to be used for finetuning should have the following format:
+
+```json
+{
+  "messages":[
+    {
+      "role": "system", 
+      "content": "Marv is a factual chatbot that is also sarcastic."
+    },
+    {
+      "role": "user", 
+      "content": "What's the capital of France?"
+    }, 
+    {
+      "role": "assistant", 
+      "content": "Paris, as if everyone doesn't know that already."
+    }
+  ]
+}
+```
+
+### Best Practices
+
+- **Curate examples carefully:**
+  - Datasets can be difficult to build, start small and invest intentionally.
+  - Optimize for fewer high-quality training examples.
+  - Consider "prompt baking", or using a basic prompt to generate your initial examples.
+  - If your conversations are multi-turn, ensure your examples are representative.
+  - Collect examples to target issues detected in evaluation.
+  - Consider the balance & diversity of data.
+  - Make sure your examples contain all the information needed in the response.
+
+- **Iterate on hyperparameters:**
+  - Start with the defaults and adjust based on performance.
+  - If the model does not appear to converge, increase the learning rate multiplier.
+  - If the model does not follow the training data as much as expected, increase the number of epochs.
+  - If the model becomes less diverse than expected, decrease the number of epochs by 1-2.
+
+- **Establish a baseline:**
+  - Often users start with a zero-shot or few-shot prompt to build a baseline evaluation before graduating to fine-tuning.
+
+- **Automate your feedback pipeline:**
+  - Introduce automated evaluations to highlight potential problem cases to clean up and use as training data.
+  - Consider the G-Eval approach of using GPT-4 to perform automated testing using a scorecard.
+
+- **Optimize for latency and token efficiency:**
+  - When using GPT-4, once you have a baseline evaluation and training examples, consider fine-tuning 3.5 to get similar performance for less cost and latency.
+  - Experiment with reducing or removing system instructions with subsequent fine-tuned model versions.
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+<br>[0:04] Steven Heidel: So briefly, what is fine-tuning? Fine-tuning is training a model to follow a set of given input and output examples. So basically when faced with some sort of input, if you don't like the way that the public model is responding by default, you can teach it to output responses in a particular format. or whatnot when it sees that input in the future. So when do you want to use fine-tuning is a question that we get a lot. It's very good for following a specific format, processing the input, following specific complex instructions.
+<br>[0:50] Steven Heidel: So if the base model just kind of isn't following some instructions that you're giving it, fine-tuning can help with that. It's also good for improving latency and reducing token usage. So your alternative here is like multi-shot examples take up a lot of space in the input prompt and a lot of you know additional cost and latency.
+<br>[1:12] Steven Heidel: If you can teach the Model 2 output or behave in the way you want it without all those examples you can save on both the the latency, the processing time, as well as you know the amount of money you're sending to us. So those are those those are some things that fine tuning is good for. Some things that fine tuning is not good for that I think people still try but it doesn't work that well is firstly teaching the model new knowledge.
+<br>[1:41] Steven Heidel: So again we're really using fine tuning mostly to do to follow a given format or tone or to do some cost savings but not to kind of add things that it previously doesn't know. Reg or if we're in our case the the custom models offering that we have are better options for that. It's also not great at performing multiple unrelated tasks. So the best use case for fine tuning is really sort of the same task over and over again, and not a combination of tasks.
+<br>[2:18] Steven Heidel: If you have a combination of tasks, either do prompt engineering, or just create one fine tune model for each one of those tasks.
+<br>[2:27] Steven Heidel: And then finally, kind of on the first one, a similar theme to the teaching the model new knowledge uh it's not helpful to use fine tuning for um including up-to-date content um because a you can't learn new knowledge but b you're you know you can't fine tune and deploy that quickly um to get up-to-date knowledge into the response so um what do you mean by custom models in this in that in this uh yeah yeah good question so we have uh kind of a range of fine tuning offerings there's the self-serve api where you can
+<br>[3:02] Steven Heidel: just go into our platform sign up upload your training files and get a fine-tuned model out and then we have a custom models program which is actually you're sort of partnering with us over multiple months kind of multiple million dollars engagements and we take a large corpus of your data and work with you to train, retrain the model at a sort of deeper level. And so the, you know, we're able to incorporate techniques and research and so forth there kind of on a case by case basis that the self-serve API just doesn't have.
+<br>[3:42] Steven Heidel: And so that's for kind of a select group of partners that we've started working with. That's the way that we've been able to get them models that understand new knowledge. So for instance. One case study that we have is Harvey, which is this legal company we've trained on a bunch of case law that the base model was not very good at, and given them a model that performs much better on the case law-related tasks that they have.
+<br>[4:16] Hamel Husain: That's a really interesting example. Is GPT-4 not trained on case law?
+<br>[4:24] Steven Heidel: GPT, you should look at the case study because they have some data there on the output. But the base model tends to hallucinate more cases. There was, I think, that news article of a lawyer who got called out basically for making up a fake citation from ChatGPT or some other model. And so for their legal product, they obviously care a lot about reducing hallucinations down to as close to zero as possible. And the custom model does a lot better for that.
+<br>[5:00] Hamel Husain: Gotcha. I have one actually related question from Simon Willison. Simon Willison is asking, are there any really good fully fleshed out examples of fine tuning against open AI models with realistic real world examples of fine tuning training data and examples of the kinds of prompts that can be answered using the fine tune model that don't work as well with the default models?
+<br>[5:25] Steven Heidel: We have a good example in our cookbook. of a Q&A model that is also that is trying to teach the model to respond with I don't know more often if the question is sort of not in the theme or not included in the examples and you can see from that that you're kind of when you measure how often does the model say I don't know when it actually doesn't know that that's higher with the fine-tuned model than it is with the base model. So cookbooksopenai.com is where you can go to find some of those notebooks.
+<br>[6:08] Steven Heidel: It's the first one that comes to mind for me. Also, just kind of wanted to call out on our developer site this new guide we have for optimizing LLMs for accuracy. There's the link there at the bottom. But we talk about kind of… you know, when to use fine tuning, when to use RAG, when to use both, when to use neither. And in that guide, we have this chart here where basically this kind of going up on the chart means you're adding more context, more sort of new information to the model.
+<br>[6:45] Steven Heidel: And then going to the right on this chart is optimizing the model or changing rather how it sort of responds and acts to your inputs. And we find that…
+<br>[6:56] Steven Heidel: kind of a lot of use cases our base models are really really good and so most people end up you know just in sort of this this bottom left quadrant here where all you need is is prompt engineering maybe few shot examples as you go to introduced more contexts uh you know teach the model more things she'll start to move in kind of the rag direction um uh if you're primarily looking to change the way the rest the model follows instructions or formats responses, you know, you're moving in the fine tuning direction.
+<br>[7:29] Steven Heidel: If you want both, you know, you kind of move up and to the right. But again, just calling out that guide and that link there because it contains sort of the sum of some of the experience that we've gained over the past year working with people on when to fine tune, when not to fine tune. and when to use some of these other techniques. So fine tuning actually tends to be, you know, one of the later techniques that we look for when we're working with someone to try and help them build for their application.
+<br>[8:08] Steven Heidel: It's not kind of the first tool that you reach for in your toolbox. It's for the people who use it. It works very well, but a lot of people are able to, due to the strength of our base models, get away with kind of avoiding fine tuning.
+<br>[8:22] Hamel Husain: Can I ask you a question about the upper right-hand quadrant? Yeah, go for it. It's bouncing back between fine-tuning a model and then adding RAG to the training examples. Yeah. What does this mean exactly? You find that people don't add RAG to their training examples? They're not adding RAG to their training examples. Doesn't that mess up the production? Doesn't that create a drift in production? Just curious what this… graphic means right here.
+<br>[8:52] Steven Heidel: Yeah, I don't know if this graphic is supposed to be 100% true or just kind of representing sort of the general trend here. But it sort of depends what you need, right? If you want to add more knowledge or context, you use reg. If you want to change how the model's responding, you use fine tuning. And if you…
+<br>[9:18] Steven Heidel: you know want to do both then you're going to use a combination of both i don't know if that really answered your question but yeah i mean you kind of did you say like don't take it too literally don't take it too literally um and you know this is kind of an example path that someone would take but obviously your application you might you know you might stop here you might not have any need for reg at all and just sort of go straight to the fine-tuning quadrant again we really advise that you find a
+<br>[9:46] Steven Heidel: set of just in general for optimizing llms on openai or elsewhere that you build for yourself a set of eight evals that you know make sense for you in your application and then just work towards whatever's the simplest kind of thing to get you the performance you need on those evals and if that's just prompt engineering great um if it involves fine tuning you know we have that offering too um if it involves retrieval or access to a different additional tools like code interpreter and so forth you know we want to give you those options
+<br>[10:20] Steven Heidel: but the key thing is that you know what works for one person one use case one customer is not going to work for someone else
+<br>[10:28] Hamel Husain: New client evals, I think that's the most important topic in many cases. Do you recommend things to your customers who are fine-tuning in terms of evals, like tools or patterns or starting points or anything, any kind of…
+<br>[10:50] Steven Heidel: Yeah, I don't have particular tool recommendations right now, but the thing we always recommend is building your own set of evals. rather than saying like oh look i found mmlu or whatever online um and i think this performs a little bit better on that like it's not going to matter for you unless you're actually answering textbook questions like mmlu does uh what's going to matter is is real prompts from your sort of application and what what the desired responses should be um i wanted to share a cautionary tale when fine-tuning doesn't work.
+<br>[11:25] Steven Heidel: It's kind of a funny example we saw last year. Someone took, their goal was basically to fine-tune a Slack bot that would answer questions, onboarding questions from new employees at their company, and then automatically respond to them versus having to wait for someone to respond for you.
+<br>[11:48] Steven Heidel: So, you know that that kind of falls into our what not to do category of adding new knowledge and what happened when they fine-tuned the um model against their entire slack corpus was that the model learned uh the format of the responses but not necessarily the information so for instance someone asked you know uh this slack bot write a 500 word blog post on prompt engineering and based on the slack corpus of data the format that it learned was you know i'll do that tomorrow um and uh you know you can probably get to say
+<br>[12:25] Steven Heidel: write it now and it'll say things like okay which was you know occurred far more often than the training data um so here's where uh i guess that kind of previous uh slide on what to do and what not to do comes into play uh what the model has learned here is how to respond to these inputs with the most common outputs it saw which in this case was sort of deferring work, and it wasn't learning the new knowledge.
+<br>[12:55] Steven Heidel: So the better kind of approach to this would likely have been something like RAG on the Slack data. If you've used the fine-tuning API, this will be familiar to you. You format your data the same way as the chat completions API. So you have a system message, a user message. But then the only difference is here in the fine tuning data, you're including the desired response from the assistant. So we recommend using between 50 and 100 examples.
+<br>[13:37] Steven Heidel: all the advice i said before applies previously like you're trying to one model should kind of learn one set of tasks and not a diverse set of tasks so lots of examples of the same set of tasks and it's also important to keep the shape of the system and user prompts that you use in your fine tuning data similar to what you'll actually use when you call the model so um remember that the fine tuning makes the model learn how to respond to a particular sort of pattern or format of inputs and so if you
+<br>[14:18] Steven Heidel: want them if you wanted to do that you need to make sure that the inputs are kind
+<br>[14:22] Hamel Husain: of similar from training off to when you're actually calling it i have an advanced question for you about this topic so uh emil and i actually face this all the time um So if you have multi-turn conversations and you have like RAG and function calling and all this stuff, and like a lot of times, let's say you're using a library like Langchain, a lot of like internal thoughts, quote internal thoughts. So like the first turn of the conversation might include internal thoughts. The second turn of the conversation won't repeat all of those internal thoughts.
+<br>[14:55] Hamel Husain: It'll just give like the result of whatever.
+<br>[14:58] Hamel Husain: uh you know those thoughts were or whatever and then like the question then quickly becomes like well how do how do you what's the best way to prepare your fine-tuning data like because yeah like you know should you include those and like because sometimes in production you will have those internal thoughts sometimes you will not have those internal thoughts should you just like shove both in there you know and then like the question becomes oh that's feels really duplicative
+<br>[15:27] Steven Heidel: because you know multi-training conversations can be very long and then like whatever internal thoughts and whatever so i just want to throw like see if you have any reaction to that yeah yeah um i mean i don't know off the top of my head exactly what the best thing to do there would be but we do um you can experiment with the weight parameter which also can be added to this training file input so um it allows you to say you know do you want to only train for instance on the the final assistant response
+<br>[15:55] Steven Heidel: and learn learn that format or do you also want to look kind of learn the the the chain of thought or the um process it got to get there um in general though the uh kind of from my oops what not to do at some point um uh well it's on a different slide but um a if you're trying to fine-tune something that's too complicated um it's sort of less likely to work So, you know, the best advice, I guess, is to make some e-bells, try experimenting with the weight parameter.
+<br>[16:33] Steven Heidel: And then if it just isn't working for these kind of multi-turn conversations, it could be that it's too complicated for our self-serve fine tuning.
+<br>[16:42] Hamel Husain: So when the weight parameter is zero, is that equivalent to setting the label of those tokens to like negative 100 or whatever? You know, like, does it like in the…
+<br>[16:54] Steven Heidel: is it basically what is what is happening exactly when you it's not going to learn any information from those messages um so by default the the user for instance uh the the the like user and system messages um uh the weight is set to zero like it's learning that's the context for what it's learning there for the messages where the weight is set to one
+<br>[17:20] Hamel Husain: Okay, but will it still give that context to the model during training? It'll just ignore the, it just won't.
+<br>[17:27] Steven Heidel: It won't be learning about how to respond or how to output that message, but it will be using it to learn sort of as input.
+<br>[17:36] Hamel Husain: Okay, I see. Yeah,
+<br>[17:38] Emil Sedgh: I do believe that what we did was actually to experiment with the weight parameter, and we finally managed to get it to work. But the one question I had in mind was that, In more complex examples like this, what happened was that there was no weight parameter and it was added silently. So it took us like a month of scratching our heads until we realized there's a change in the documentation and there's a new weight parameter. But my question from you would be, generally speaking, how does OpenAI decide what direction to take on these?
+<br>[18:12] Emil Sedgh: Where is the feedback coming from? Is this your internal products that you're building? Or is it with…
+<br>[18:19] Steven Heidel: collaboration with your clients and could that process be more open or more documented in the future yeah um i mean we we get feedback from a lot of places there's the open ai developer forum we work with with customers 101 um and we have account managers for some of our larger customers we'll we'll pull in feedback and then honestly events like like this and conferences and talks and so forth and just going out and talking to people we hear requests and ideas on things we want to add and um kind of you know collate that
+<br>[18:54] Steven Heidel: and try and decide what's important so the weight parameter which was introduced recently is something that came from discussions like this um i i'm you know i guess we could have made we should have made more of splashy uh a roll out of that uh given the the amount it's been uh or how well it's been received um so um but uh yeah it's you can expect going forward that we're going to continue to add more models, more methods, more customization to the offering, but I can't give you any specifics today.
+<br>[19:38] Steven Heidel: Here's a slide you maybe want to just kind of screenshot. These are a collection of some of our learnings from working with people over the past year. on best practices for getting fine-tuning to work, some of which I've already covered, like making sure that you have…
+<br>[19:58] Steven Heidel: fewer high quality training examples that all are on a particular you know a single task um i'll talk in the next slide about the different hyper parameters we offer currently um again the the evals there on the bottom uh important to make sure you're using your own evals and running a baseline and optimizing against that. And then, you know, if it's important for your application to reduce latency and cost, then you can try fine-tuning 3.5 on and comparing that to GPT-4 for your use case.
+<br>[20:39] Steven Heidel: And sometimes you'll see that the fine-tuned 3.5 is going to be as good as the base 4, but obviously cheaper and faster. Hyperparameters we offer today, again, this slide was kind of designed to be just a screenshot. You can also look at the documentation. The hyperparameter which affects training the most is epochs. This is basically how many times is your training data iterated over during the training process. If it's one, then the model, the fine-tuning process will only see each example one time.
+<br>[21:27] Steven Heidel: By default, if you don't set it, we will choose something based on the size of the dataset. So if you have a really, really large dataset, we don't want to iterate over it multiple times. But you also have control over this and can try sweeping over this parameter as necessary. If you set it too high, you're going to overflow. If you set it too low, you're not going to learn enough from your training set, depending on the size. Batch size and learning rate multiplier have a smaller impact on the finding tuning, but are still important.
+<br>[22:01] Steven Heidel: And you can see some recommendations there we have on setting those. But again, the default will try and do the best thing for the most number of people. And if you need to change it, you can.
+<br>[22:19] Hamel Husain: Are you going to talk about how to interpret the… you know, the training loss graph, whatever telemetry that y'all provide.
+<br>[22:30] Steven Heidel: Yeah, I'm not an expert on that, actually, that portion of it. So I don't want to get it wrong. But in general, you want to see that graph go down and to the right to indicate that things are working. And if it's sort of spiky and all over the place, that means maybe something has gone wrong.
+<br>[22:50] Hamel Husain: Yeah, I mean, what I always… It's quite interesting. Whenever I fine-tune an OpenAI model, I see it go down very quickly, like with the default, every single time. And it just kind of bounces around near zero.
+<br>[23:02] Steven Heidel: Yep.
+<br>[23:03] Hamel Husain: Even with just one epoch. And it's very interesting. I'm like, oh, okay. Should I interpret this the same as when I train Open models, like when I'm fine-tuning Open models, is there something special here that I don't know about?
+<br>[23:18] Steven Heidel: that i'm like interpreting it wrong i'd like all these thoughts go through my mind uh yeah i mean we're basically exposing the loss that you know we our infrastructure uses for doing our own training so uh i'd expect that to act behave as as you would for any other loss curve um if it's going down really quickly immediately then you know you might try with with fewer epochs or a smaller training file and see if you get basically the same performance
+<br>[23:50] Hamel Husain: okay so it should look the same of what you expect from like open models or whatever something like idiosyncratic about it per se um just
+<br>[24:05] Steven Heidel: some examples of uh success stories we've seen in the past um uh you know as you fine-tune larger models The, for instance, adaptation can get better. And these are both better than the base model. This, we worked with the government of Iceland, there's a case study, I think, online, to do grammar correction for them. And you can see that, you know, if you remember kind of that two by two grid I was showing about.
+<br>[24:41] Steven Heidel: optimizing responses that the kind of farther right up and right you go the better in this case examples or results you're getting so with zero shot prompting you know their their evals were were lower than with few shot prompting which were lower than with 3.5 fine tuning and then which were in turn lower than um gpt4 fine tuning uh so um for you know if it if it's working well on your evals you can kind of continue moving up that that
+<br>[25:15] Hamel Husain: mountain and get better and better results we're moving to the right and that graph and getting better and better results the uh the thing on the left hand side of this slide is confusing me a little bit like this is this saying you move from g point gpt 3.5 to gpt4 and saw a increase in performance. But they're both fine-tuned. So I guess it doesn't really.
+<br>[25:37] Steven Heidel: Yeah, sorry. The graphic here doesn't have the un-fine-tuned version. But those are also smaller numbers. But you can fine-tune larger models as well and get better performance in some cases.
+<br>[25:53] Steven Heidel: But on the right here, you can see that, like, this just the 3.5 fine tune is doing better than the gpt4 few shot prompt or zero shot prompt um which you know this this i don't know if you can see my cursor but this third this middle bar graph here not only is getting better results than the ones on the left but it's also going to be faster and cheaper than the gpt4 prompts without fine tunes
+<br>[26:24] Hamel Husain: i think it's curious in that graph like why is rag like fine tuning plus a rag going down um i don't know i should have looked that up before including it in my presentation maybe if
+<br>[26:40] Steven Heidel: the um it could be kind of a cautionary tale of like if the uh use case here did not require you to introduce new context then adding on techniques that are not needed will actually make things more complicated and worse.
+<br>[27:04] Emil Sedgh: One question I have is, do you know which exact model of GPT-4 are we discussing here? Because to my knowledge, the very early GPT-4 0613 is the one that is available for fine tuning. Is that the model that has been fine tuned in these graphs? or is it the newer Turbo or GPT for all models also included?
+<br>[27:26] Steven Heidel: To the best of my knowledge, this is the original GPT-4 because we did this engagement last year. And that's still where we have a beta program with some select partners for that.
+<br>[27:45] Emil Sedgh: And I think we had the question that I'm…
+<br>[27:50] Steven Heidel: is relevant now are the newer models like gpt4 all going to become available for fine tuning uh we're working on it we're working with a select group of partners on uh on on beta testing that um and um again i can't really share like timelines or exact plans but but you shouldn't be surprised if over the next year we have uh more models and more methods more hyper parameters etc available in the fine tuning product
+<br>[28:19] Hamel Husain: I have a question that you may not be able to answer, but we'll try. It reminded me because I saw GPT… Okay, so one of the things that is really common is people take GPT-4 and use the data to fine-tune GPT-3.5 or something like that. Now, there's some confusion. There's tons of confusion out there whether it's against the OpenAI terms of service to use GPT-4 data. that is like some data to train your own model, like an open model.
+<br>[28:53] Hamel Husain: Like you're not trying to compete with open AI, not trying to sell the model or do anything, but like you're just trying to train your own like for certain use cases. Do you know if that's against the terms of service or not?
+<br>[29:05] Steven Heidel: I'm not the right person to ask. I don't say something and get someone in trouble.
+<br>[29:10] Steven Heidel: I know for sure that fine tuning uh or distilling a model onto an open source model and then distributing that um you know is against our terms of service i don't know the answer to your particular question though about if you use it just in your own application uh whether or not that's against terms of service um i can tell you that distilling gpt4 into gpt 3.5 fully through our platform for fine tuning is is is completely fine and we have a lot of people using that so um uh but yeah i don't want to
+<br>[29:43] Steven Heidel: answer no problem
+<br>[29:45] Emil Sedgh: i know i knew it was a little bit tricky uh alex has asked the uh a question on topic that is what are the advantages of fine-tuning open ai models over an open source model And when do you think it makes sense to use OpenAI against OpenOne?
+<br>[30:02] Steven Heidel: So the OpenAI models, when we move forward with the GPT-4 fine tuning and some of the newer models, obviously those are state of the art right now, so you have that advantage. We also feel that the OpenAI models offer tool calling and function calling and a lot of other features, but And there's some advantages to just not having to worry about deploying your own models and so forth. But, you know, there's a lot of places within OpenAI's product offerings API where, like, we're just not covering stuff that you can do better elsewhere.
+<br>[30:48] Steven Heidel: And so I think, you know, provided you're not violating the terms of service, like I said before, the…
+<br>[30:55] Steven Heidel: uh there's options for people yeah
+<br>[30:58] Emil Sedgh: I'm also gonna uh have a stab at answering that um because when you try to do more complex stuff or in large scales none of the we have never managed to get something working as good as open AI even the GPT 3.5 models so that's my stuff at it if you really want to get to a product that that works I think as of right now still especially if you're using something like tool calling or you want to call them in large numbers and you don't want to hit API rate limits or anything like that,
+<br>[31:29] Emil Sedgh: definitely working with OpenAI is significantly easier option.
+<br>[31:33] Steven Heidel: Yeah, awesome. That's great to hear. We put a lot of work into trying to make everything turn key and just work. So I'm glad it's working for a lot of people. Speaking of function calling, actually, this is another use case where you'll find some folks have found advantages from doing fine tuning. And that is just kind of instructing or teaching the model to respond exactly with the right function that they need or the right output format. But I guess one caution with fine tuning for function calling is that unlike sort of, unlike when…
+<br>[32:23] Steven Heidel: The context for functions and putting all the definitions, all the parameters, the descriptions of everything is kind of large enough or complicated enough in many use cases that you cannot get away from including those when you actually do your prompt, if that makes sense. So, you know, sometimes we're seeing cost savings from other use cases where you have a big, long prompt. and you can fine-tune that prompt away at the chat completion time. But because function calling, with a really long list of complex functions, it doesn't reliably work right now to fully fine-tune that away.
+<br>[33:09] Steven Heidel: So sometimes it works, like I said, but just a caution there, we've seen this not always works.
+<br>[33:15] Hamel Husain: That's interesting. Why do you think that is? If you give a whole bunch of training data that has… lists of function tools and then like how like examples of calling all of those functions and whatever why wouldn't why why doesn't that work do you think that's very all the same category as the trying to teach a model to do a bunch of different unrelated tasks or
+<br>[33:37] Steven Heidel: i guess these are sort of somewhat related but trying to teach trying to fine-tune too many tasks into one model um uh does not work as well as uh working as reliably as the same task over and over again.
+<br>[33:55] Hamel Husain: What's the order of magnitude that you have in mind when you say too many functions, like a list of… I'm just curious.
+<br>[34:01] Steven Heidel: Yeah, I wish I could give you a number and say at five functions it breaks, but we've run a lot of evals internally and seen it fail at small numbers and succeed at larger numbers. So it also depends…
+<br>[34:19] Steven Heidel: on kind of the the complexity of each individual function and um i also you know whether you're trying to use parallel function calling some of these other advanced features so i you know i i hate to be a broken record a lot of the time when i'm doing these talks and just say you know well run evals and try it but um uh unfortunately that's our best answer in a lot of cases um
+<br>[34:48] Emil Sedgh: Is there an evaluation framework that is focused purely on function calling and the intelligence of function calling that we can look at?
+<br>[34:58] Steven Heidel: I don't know. There was the name.
+<br>[35:03] Hamel Husain: It's the Berkeley Gorilla leaderboard. Yeah, that's really focused on function calling.
+<br>[35:09] Steven Heidel: So that's a good set of evals for generic function calling. But again, you'll want to try and like the best evals for your function calling are going to be your functions. So, yeah.
+<br>[35:25] Steven Heidel: this was actually the answer to um simon's question from earlier um but here's this is on our cookbook for the q a um examples where you're training uh fine-tuning a model to respond more often with i don't know um and kind of reducing uh hallucinations by adding both sort of questions that you're allowed i think the cookbook in particular uses questions about the olympics So it says, you know, if the question is about the Olympics and you know about these things, you can answer it.
+<br>[36:00] Steven Heidel: Otherwise, you should respond with I don't know if it's outside that kind of knowledge base. And fine tune does really well at sort of reducing the number of false positives. That's all I had in terms of slides. I guess it's kind of up to you guys whether we should do some more questions. Or I can run through a demo of our UI. I've got a demo of just running a fine-tuning process mechanically, how it works.
+<br>[36:34] Hamel Husain: I know that Emil has some good questions. So we should let him ask him some questions.
+<br>[36:39] Emil Sedgh: Yeah, I'm pretty much sure we can. There's a lot of YouTube videos on how to use OpenAI, but we don't find you elsewhere. So maybe we can use the time to extract as much as we can here. On the topic of evals, I also see a lot of people asking questions that it's very abstract that you should run your evals. Let's maybe get a little bit more elaborate into that.
+<br>[37:05] Emil Sedgh: One question I'm generally speaking thought I have is that when speaking about evals, what I'm finding out is that a lot of people think that evals also should all be AI based. It should all be another.
+<br>[37:19] Emil Sedgh: language model evaluating the output of is that what you mean by eval or but in our case for example we did the opposite we did software doing evaluations for uh for the language model outputs but can you elaborate a little bit in terms of what do we mean by eval exactly yeah
+<br>[37:35] Steven Heidel: we mean really whatever works for you so it's obviously cheaper and easier if you don't have to use a model to do the grading of whether an eval is correct so maybe it's like if you're fine-tuning a model to respond in a particular format that you just write some code that checks yes or no, did it respond in that format, and can quickly tell you how well the model is done.
+<br>[38:05] Steven Heidel: For sort of more complex questions about style, tone, whether or not the model included some details about this or that, you know, that's when you'd also… need to call a grader. We do this a lot internally as well. We have all manners of graders from like simple set.contains Python function all the way to calling our latest models on the response and asking it a yes-no question about whether it's met some criteria. Okay, perfect.
+<br>[38:43] Emil Sedgh: And I see some people asking about the IP and licensing terms for the data they provide for fine-tuning data. I know that you're not a lawyer and you may not be necessarily the best person to ask this, but what happens to the data that we provide as examples for fine-tuning data?
+<br>[39:01] Steven Heidel: Yeah. So one thing to say right off the bat is we do not ever train on customer data. So any of our foundation models, there's…
+<br>[39:13] Steven Heidel: that's covered you know it's i think it's one of the first lines of our privacy doc and our terms of service but we do not use that data at all for internal purposes and also you have control over the life cycle of that data so you can upload the data for fine tuning once the fine tuning completes you delete it it gets deleted from our servers or you can leave it on leave it with us and fine-tune future models it's up to you you have full control over that um i'll uh you know point people
+<br>[39:44] Steven Heidel: towards our platform enterprise privacy documents um which is available on platformopenai.com and just say that yeah you know we we have a number of customers who are trusting us with their um a number of customers are trusting us with sort of their application their their business use case their um you know their reason for existing and we take that uh responsibility very seriously um
+<br>[40:11] Hamel Husain: one question i have is like what like in order of magnitude like what percent of prediction requests get routed to fine-tuned models just out of curiosity like how popular is that segment of models
+<br>[40:25] Steven Heidel: be really interesting to know yeah um i don't have the numbers in front of me but i would say pretty confidently it's like less than one percent of our api users are using fine tuning um you know when when i when i said at the beginning of this the presentation that like fine tuning is one of the last tools you should reach for it you know serious about that it's it's kind of um It's what you use when you're at the final stage of your application and you're trying to optimize cost or latency.
+<br>[40:56] Steven Heidel: Or it's what you use when the few shots, many shot prompting and your standard toolbox of tools isn't working for you. And to be honest, like, you know, few, I guess those tools work pretty well. And so, you know, not everyone needs fine tuning. But for the people who do end up need fine tuning, they're really happy with it and they wouldn't have been able to get there without it. But it's a fraction of what we do.
+<br>[41:31] Steven Heidel: It's kind of the long tail of, you know, tends to be larger customers with more LLM expertise that are working on fine tuning. Less so the.
+<br>[41:47] Hamel Husain: you know people who are uh using chat completions and and getting getting enough out of that on its own are you finding that a lot of people who were fine-tuning as you continue to release more and more powerful models they like pivot away from it completely and they say okay like let's stop fine-tuning let's
+<br>[42:04] Steven Heidel: you know improve our prompt engineering rag whatever let's like they were able to get off or just like yeah sometimes uh like the diff between a 3.5 fine-tune and the four base model is large enough that it's worth sort of abandoning your fine tune and just going to our one of our new you know 4o models sometimes when that diff is small though people will stay with the 3.5 fine tunes because it's cheaper and faster so
+<br>[42:34] Emil Sedgh: yeah it really it really depends uh that answer worries me a little bit maybe because you've been burned by google so many times but from a sustainability perspective uh
+<br>[42:45] Steven Heidel: as we continue to invest in our infrastructure for fine-tuning can we count on fine-tuning being available and being pushed forward but by open area as well yeah um uh we you know continue to support any application or like applications that are working well um and uh I don't want to leave anyone high and dry um with work invested we recognize that like fine-tuning is different than than chat completions and that it's not something, you know, there's the work you've put into preparing your data set, there's the work you've put in, and the money you've already
+<br>[43:24] Steven Heidel: spent with us actually training the model. So there's, you know, a higher switching cost there, and we recognize that and respect that.
+<br>[43:35] Emil Sedgh: That's great. There's a lot of speculation about agents and what language models can do in to enable agents finally becoming a reality. Are there some flagship products that you guys have seen on OpenAI that you're like, this is a great use of OpenAI that ended up creating a good agent or generally speaking, some of products that are doing more than just simple completions. Maybe they're great use cases for function calling or great RAG use cases that you guys, you maybe can point us to take a look at.
+<br>[44:12] Steven Heidel: I'm the wrong person to ask for agent stuff. We have another team that works on the assistance API and a lot of the tool calling. I guess speaking for myself and just kind of personal interest, I find the Devon, the GitHub workspaces, GitHub AI workspaces stuff really cool. Basically like the ability to create a plan. engage with a bunch of tools and work, have, you know, different LLM threads working together to solve a more complicated coding task. I think that's gonna be really cool.
+<br>[44:51] Steven Heidel: But uh yeah more more broadly than my kind of personal interests i i i'm the wrong person to ask that question is there is there a tension between like okay like if open ai starts to offer higher level services like agents
+<br>[45:09] Hamel Husain: or functions that you can call that they will execute for you and fine tuning because then where will you get the data for fine tuning if it's not you're you don't log it yourself or whatever you know what i'm trying to ask like If it's a service, for example, already the assistance API, you all will keep track of the conversation for you. You have to be careful to capture all the data yourself if you're trying to reuse it for fine-tuning. And then it's also somewhat not clear sometimes.
+<br>[45:47] Hamel Husain: You have to wonder, okay, what is the assistant API actually doing? How is it being cut off? Or is it being summarized or doing something fancy? Is there a tension between fine-tuning and then these products are abstracting some of what's happening away?
+<br>[46:06] Steven Heidel: I don't think so. I mean, you can use fine-tuned models within the assistance API, for instance, and for the same reasons that you'd use them in the contract completions API to craft your outputs in a certain way. The assistance API is really helping with, one, giving you access to more tools, but two, also just managing the context for you. So rather than needing to store previous turns in the conversation on your own systems, it's quicker to get to an MVP or a product through letting us manage that.
+<br>[46:42] Hamel Husain: Yeah, what I was asking is mainly like, okay, if the assistance API is… truncating context, then when you fine tune your model, I suppose you should truncate that context too. You have to know what it's doing for you.
+<br>[46:57] Steven Heidel: Yeah. Another question I'm not qualified to answer, but I don't know the details on the context truncation within the assistance API right now. So it'd be hard for me to answer that.
+<br>[47:13] Emil Sedgh: Let me ask another question regarding function calling. Playing with function calling, our understanding is that we provide functions as JSON schemas, but down the road before they are being processed, they are actually translated into a TypeScript-like format before the language model actually processes them. Can you explain that a little bit? Is that true? And is that something that enables us to do something like maybe providing easier… Sure. function definitions for the language model?
+<br>[47:49] Steven Heidel: Yeah. They're all great questions. A lot of them I'm not qualified to answer. I can't tell you the details because I don't know them, but I can tell you that our models only understand tokens, which are just integers. And so the JSON schema, whatever function, everything that goes into the chat completions eventually turns into tokens in sort of our own format. So… I…
+<br>[48:17] Hamel Husain: the like I said I can't show the details because I don't know them but also I think there's all these fun experiments like where you can try to get the system prompt or the the prompt and then like people fill around and say oh okay like the function the function like the tools are being like flattened into these like TypeScript definitions
+<br>[48:38] Steven Heidel: I'll tell you that I think in general a goal with the API and with chat GPT is that like The experience that we offer through the function calling input or through kind of prompting ChatGPT, the default experience without tricks is the one that we're trying to make the best. So like, you know, that earlier this year, there was that thing where like you could you could tell ChatGPT we're going to tip it $20 and it would give you a better response.
+<br>[49:14] Steven Heidel: uh you know i appreciate that people are like interested in trying to get that extra little percentage of uh of uh performance by understanding what happens under the hood but like our goal is that the default what what you provide us is just the one that works the best without needing to do any kind of weird weird runarounds and tricks and things
+<br>[49:05] Steven Heidel: You know, we then trained it to just give the good response without having to promise to tip it. So, you know, our kind of.
+:::
