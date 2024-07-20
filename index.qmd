@@ -30,7 +30,7 @@ toc: false
 
 :::{.testimonial-section}
 ::: {.hero-banner}
-### Practical consulting to improve your AI, reliably.
+### Practical consulting that improves your AI, reliably.
 :::
 :::
 
