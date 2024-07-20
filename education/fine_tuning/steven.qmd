@@ -15,6 +15,16 @@ categories: ["fine-tuning", "llm-conf-2024"]
 {{< video https://www.youtube.com/watch?v=Q0GSZD0Na1s  >}}
 
 
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
 ## Chapters
 
 **[00:00](https://www.youtube.com/watch?v=Q0GSZD0Na1s&t=0s) What is Fine-Tuning**  
@@ -134,6 +144,9 @@ The dataset to be used for finetuning should have the following format:
 - **Optimize for latency and token efficiency:**
   - When using GPT-4, once you have a baseline evaluation and training examples, consider fine-tuning 3.5 to get similar performance for less cost and latency.
   - Experiment with reducing or removing system instructions with subsequent fine-tuned model versions.
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
