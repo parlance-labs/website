@@ -24,9 +24,15 @@ toc: false
 </style>
 <center>
 <h1><img src="b.png" alt="Parlance Labs" width="70" class="cube"> <img src="c.png" width="280"></img></h1>
-<h4> A consultancy focused on LLMs</h4>
+<!-- <h4> A consultancy focused on LLMs</h4> -->
 </center>
 ```
+
+:::{.testimonial-section}
+::: {.hero-banner}
+### Practical consulting to improve your AI, reliably.
+:::
+:::
 
 ## Why
 
@@ -41,10 +47,10 @@ You should consider hiring us if:
 
 Our expertise includes:
 
-1. Building domain-specific evaluation systems
+1. Domain-specific evaluation systems
 2. Optimizing RAG
 3. Fine-tuning
-4. Creating dev tools and infrastructure to help you iterate quickly on LLMs.
+4. Dev tools and infrastructure to help you iterate quickly.
 5. LLM vendor evaluation and selection
 
 ## Solutions
@@ -124,7 +130,6 @@ print(generate_testimonials(testimonials))
 
 <br>
 
-[Get Started](./services.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
-
+[Work With Us](./services.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 
 :::
