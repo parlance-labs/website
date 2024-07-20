@@ -68,7 +68,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # Honeycomb
 
-## Phillip Carter, Principal PM
+## _Phillip Carter, Principal PM_
 
 ### Highly recommend working with these folks. Hamel and Jeremy in particular were crucial to Honeycomb's AI successes, especially in the early days.
 
@@ -81,7 +81,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # dbt Labs
 
-## Director of Product
+## _Nick Handel, Director of Product_
 
 ### Working with Hamel and his team has been really great. Anyone who joined the Mastering LLMs conf knows this group is super sharp and focused on results. Working with Hamel is no different. He helps us with everything from setting product vision to prioritizing tools and methods.
 
@@ -93,7 +93,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # Zapier
 
-## Taylor Holiday, Director of Engineering, AI
+## _Taylor Holiday, Director of Engineering, AI_
 
 ### Jason helped deliver enterprise grade RAG to Zapier and our customers. You're not going to want to miss this if you're serious about building with AI.
 
@@ -105,7 +105,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # Rechat
 
-## Emil Sedgh, CTO
+## _Emil Sedgh, CTO_
 
 ### We have had the chance to work with Hamel and it's been a very successful partnership for us.  He has a massive technical knowledge and is also high-level executive that can help you on all different levels. Couldn't have asked for a better partner.
 
@@ -117,7 +117,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # Bytebot
 
-## Carl Atupem, CEO
+## _Carl Atupem, CEO_
 
 ### Working with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!
 
@@ -129,7 +129,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # Dunbar
 
-## Christian Bryant, CEO
+## _Christian Bryant, CEO_
 
 ### Can attest that you’ve been tremendously helpful for the team at Dunbar, the value has gone beyond acceleration of our product too - best way I describe it is full-stack AI-business guidance in a box. 
 
@@ -142,7 +142,7 @@ We offer [two tiers of services](services.qmd). Contact us at `consulting@parlan
 
 # TimescaleDB
 
-## Avthar Sewrathan, Lead Technical PM
+## _Avthar Sewrathan, Lead Technical PM_
 
 ### I highly recommend working with Jason. He's brought a wealth of experience and developer understanding to our team, helping us develop better ideas and move faster. 100% worth it.
 
