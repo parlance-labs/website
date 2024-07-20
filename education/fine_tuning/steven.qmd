@@ -7,8 +7,8 @@ metadata-files:
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
 abstract: |
-    We will discuss best-practices on how to fine-tune OpenAI models.
-categories: ["Fine-Tuning", "llm-conf-2024"]
+    Best-practices on fine-tuning OpenAI models.
+categories: ["fine-tuning", "llm-conf-2024"]
 
 ---
 
