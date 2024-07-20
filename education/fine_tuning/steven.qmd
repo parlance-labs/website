@@ -7,14 +7,12 @@ metadata-files:
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
 abstract: |
-    Best-practices on fine-tuning OpenAI models.
+    How to fine-tune OpenAI models like a pro.
 categories: ["fine-tuning", "llm-conf-2024"]
 
 ---
 
 {{< video https://www.youtube.com/watch?v=Q0GSZD0Na1s  >}}
-
-
 
 
 :::{.callout-tip .mobile-only}
@@ -82,10 +80,16 @@ Links to resources mentioned in the talk:
 
 ## Notes
 
-| **When to fine-tune** |   |
-|-----------------------|---|
-| **Good for**         | - Following a given format or tone for the output<br>- Processing the input following specific, complex instructions<br>- Improving latency<br>- Reducing token usage |
-| **Not good for**     | - Teaching the model new knowledge (Use RAG or custom models instead)<br>- Performing well at multiple, unrelated tasks (Do prompt-engineering or create multiple FT models instead)<br>- Including up-to-date content in responses (Use RAG instead) |
+- **When to fine-tune**:
+  - **Good for**:
+    - Following a given format or tone for the output
+    - Processing the input following specific, complex instructions
+    - Improving latency
+    - Reducing token usage
+  - **Not good for**:
+    - Teaching the model new knowledge (Use RAG or custom models instead)
+    - Performing well at multiple, unrelated tasks (Do prompt-engineering or create multiple FT models instead)
+    - Including up-to-date content in responses (Use RAG instead)
 
 
 ### Dataset For Fine-tuning
