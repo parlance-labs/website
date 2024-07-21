@@ -327,8 +327,6 @@ Latency and throughput can be optimized using the following methods:
 - **Continuous Batching**: A process of aggregating data into batches in a seamless, ongoing manner to optimize computational efficiency and throughput.
 - **Speculative Decoding**: A method in natural language processing where multiple potential outputs are generated in parallel to speed up the decoding process.
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
-
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}
@@ -644,3 +642,5 @@ Latency and throughput can be optimized using the following methods:
 [2:28:13] Dan Becker: Yeah, but I would start by trying to figure out, not by starting, well, here's the hourly rate, but instead, like, think about… What's the metric in their business that they're trying to move? And I think that will help you think through, back of the envelope, what is it worth to them?
 
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
