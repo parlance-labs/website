@@ -1,5 +1,5 @@
 ---
-title: Deploying Fine-Tuned Models
+title: "Session 4: Deploying Fine-Tuned Models"
 date: 2024-07-21
 Speaker: Hamel Husain, Dan Becker, Travis Addair, Charles Frye, Joe Hoover
 Venue: Mastering LLMs Conf
