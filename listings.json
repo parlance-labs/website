@@ -21,15 +21,8 @@
       "/education/fine_tuning/index.html",
       "/education/prompt_eng/index.html",
       "/education/rag/index.html",
-      "/education/fine_tuning_course/workshop_1.html"
-    ]
-  },
-  {
-    "listing": "/education/evals/index.html",
-    "items": [
-      "/education/evals/schoelkopf.html",
-      "/education/evals/allaire.html",
-      "/education/evals/ankur.html"
+      "/education/fine_tuning_course/workshop_1.html",
+      "/education/fine_tuning_course/workshop_4.html"
     ]
   },
   {
@@ -44,6 +37,14 @@
       "/education/fine_tuning/slaying_ooms.html",
       "/education/fine_tuning/abhishek.html",
       "/education/fine_tuning/emmanuel.html"
+    ]
+  },
+  {
+    "listing": "/education/evals/index.html",
+    "items": [
+      "/education/evals/schoelkopf.html",
+      "/education/evals/allaire.html",
+      "/education/evals/ankur.html"
     ]
   },
   {
