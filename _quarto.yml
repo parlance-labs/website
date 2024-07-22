@@ -43,6 +43,7 @@ website:
         - section: Fine-Tuning Course
           contents: 
             - education/fine_tuning_course/workshop_1.qmd
+            - education/fine_tuning_course/workshop_4.qmd
         - section: Talks
           contents:
             - section: Evals
