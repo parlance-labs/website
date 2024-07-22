@@ -81,9 +81,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-Speaker','listing-date','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-title-sort'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-Speaker","listing-Venue","listing-date","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -283,14 +283,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Systematically improving RAG applications</span></a>
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Back to Basics for RAG</span></a>
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
   </div>
 </li>
       </ul>
@@ -306,14 +306,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -324,26 +318,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Napkin Math For Fine Tuning</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -354,8 +336,26 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../education/fine_tuning/steven.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fine Tuning OpenAI Models - Best Practices</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
   </div>
 </li>
       </ul>
@@ -371,8 +371,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
+  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLMs on the command line</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -383,8 +383,8 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">LLMs on the command line</span></a>
+  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
   </div>
 </li>
       </ul>
@@ -447,97 +447,84 @@ window.Quarto = {
 
 
 
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-Speaker" data-direction="asc">
-          Speaker
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-description" data-direction="asc">
-          Description
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
+<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1718175600000" data-listing-file-modified-sort="1721689120919" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="49" data-listing-word-count-sort="9767">
+<a href="../../education/rag/ben.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../education/rag/ben.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Beyond the Basics of RAG
+</h5>
+<div class="card-text listing-description">
+LLMs are powerful, but have limitations: their knowledge is fixed in their weights, and their context window is limited. Worse: when they don’t know something, they might just make it up. RAG, for Retrieval Augmented Generation, has emerged as a way to mitigate both of those problems. However, implementing RAG effectively is more complex than it seems. The nitty gritty parts of what makes good…
 </div>
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
-</th>
-<th>
-<a class="sort" data-sort="listing-Speaker" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Speaker</a>
-</th>
-<th>
-<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
-</th>
-<th>
-<a class="sort" data-sort="listing-description" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Description</a>
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721137884853" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7552" data-listing-title-sort="Back to Basics for RAG" data-listing-filename-sort="jo.qmd">
-<td>
-<a href="../../education/rag/jo.html" class="title listing-title">Back to Basics for RAG</a>
-</td>
-<td>
-<span class="listing-Speaker">Jo Bergum</span>
-</td>
-<td>
-<span class="listing-date">Jul 2, 2024</span>
-</td>
-<td>
-<span class="listing-description">Adding context-sensitive information to LLM prompts through retrieval is a popular technique to boost accuracy. This talk will cover the fundamentals of information retrieval (IR) and the failure modes of vector embeddings for retrieval and provide practical solutions to avoid them. Jo demonstrates how to set up simple but effective IR evaluations for your data, allowing faster exploration and…</span>
-</td>
-</tr>
-<tr data-index="1" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1718175600000" data-listing-file-modified-sort="1721137884848" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="49" data-listing-word-count-sort="9767" data-listing-title-sort="Beyond the Basics of RAG" data-listing-filename-sort="ben.qmd">
-<td>
-<a href="../../education/rag/ben.html" class="title listing-title">Beyond the Basics of RAG</a>
-</td>
-<td>
-<span class="listing-Speaker">Ben Clavié</span>
-</td>
-<td>
-<span class="listing-date">Jun 12, 2024</span>
-</td>
-<td>
-<span class="listing-description">LLMs are powerful, but have limitations: their knowledge is fixed in their weights, and their context window is limited. Worse: when they don’t know something, they might just make it up. RAG, for Retrieval Augmented Generation, has emerged as a way to mitigate both of those problems. However, implementing RAG effectively is more complex than it seems. The nitty gritty parts of what makes good…</span>
-</td>
-</tr>
-<tr data-index="2" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1720594800000" data-listing-file-modified-sort="1721137884848" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="703" data-listing-title-sort="Systematically improving RAG applications" data-listing-filename-sort="jason.qmd">
-<td>
-<a href="../../education/rag/jason.html" class="title listing-title">Systematically improving RAG applications</a>
-</td>
-<td>
-<span class="listing-Speaker">Jason Liu</span>
-</td>
-<td>
-<span class="listing-date">Jul 10, 2024</span>
-</td>
-<td>
-<span class="listing-description">In this talk, we will teach you approaches that anybody can apply to improve their RAG applications. </span>
-</td>
-</tr>
-</tbody>
-</table>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Jun 12, 2024
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721689151307" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7552">
+<a href="../../education/rag/jo.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../education/rag/jo.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Back to Basics for RAG
+</h5>
+<div class="card-text listing-description">
+Adding context-sensitive information to LLM prompts through retrieval is a popular technique to boost accuracy. This talk will cover the fundamentals of information retrieval (IR) and the failure modes of vector embeddings for retrieval and provide practical solutions to avoid them. Jo demonstrates how to set up simple but effective IR evaluations for your data, allowing faster exploration and…
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Jul 2, 2024
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1720594800000" data-listing-file-modified-sort="1721689139904" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="703">
+<a href="../../education/rag/jason.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../education/rag/jason.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Systematically improving RAG applications
+</h5>
+<div class="card-text listing-description">
+<p>In this talk, we will teach you approaches that anybody can apply to improve their RAG applications.</p>
+</div>
+<div class="card-attribution card-text-small justify">
+<div class="listing-author">
+
+</div>
+<div class="listing-date">
+Jul 10, 2024
+</div>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
