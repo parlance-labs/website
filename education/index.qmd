@@ -33,9 +33,14 @@ aliases:
 
 :::{.callout-caution}
 ## Under Construction
-
 This page is under construction.  We are currently processing content from our course [Mastering LLMs: A Conference For Developers & Data Scientists](https://maven.com/parlance-labs/fine-tuning).
+:::
 
+## Course: Fine-Tuning LLMs w/Axolotl
+
+This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
+
+:::{#course}
 :::
 
 ## Conference Talks
@@ -45,11 +50,6 @@ Hear from practitioners on a wide range of topics on LLMs, including RAG, fine-t
 :::{#talks}
 :::
 
-## Course: Fine-Tuning LLMs w/Axolotl
 
-This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
-
-:::{#course}
-:::
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
