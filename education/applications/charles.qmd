@@ -3,9 +3,11 @@ title: "Modal: Simple Scalable Serverless Services"
 date: 2024-07-12
 Speaker: Charles Frye
 Venue: Mastering LLMs Conf
+order: 6
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
+image: modal.png
 abstract: |
     Modal makes it easy to run code in the cloud. In this talk, we will deliver a guided tour of the tutorials that show you how to use it, with an emphasis on the applications that matter for LLM fine-tuners.
 categories: ["Applications", "llm-conf-2024"]

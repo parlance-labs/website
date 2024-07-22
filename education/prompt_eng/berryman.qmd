@@ -2,6 +2,7 @@
 title: Prompt Engineering Workshop
 date: 2024-07-12
 Speaker: John Berryman
+image: john.png
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"

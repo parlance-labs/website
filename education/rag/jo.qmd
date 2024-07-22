@@ -3,6 +3,8 @@ title: Back to Basics for RAG
 date: 2024-07-02
 Speaker: Jo Bergum
 Venue: Mastering LLMs Conf
+order: 2
+image: jo.png
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

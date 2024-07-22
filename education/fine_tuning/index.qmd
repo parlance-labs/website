@@ -3,6 +3,7 @@ title: Fine-Tuning
 search: false
 description: Fine-tuning LLMs for specific tasks
 metadata-files: ["../_listing_meta.yml"]
+order: 3
 listing:
   contents:
    - "**index.qmd"

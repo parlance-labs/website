@@ -2,6 +2,7 @@
 title: Train (almost) any LLM using 🤗 autotrain
 date: 2024-07-15
 Speaker: Abhishek Thakur
+image: abhishek.png
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"

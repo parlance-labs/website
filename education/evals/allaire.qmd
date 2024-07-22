@@ -2,7 +2,9 @@
 title: Inspect, An OSS framework for LLM evals
 date: 2024-07-06
 Speaker: JJ Allaire
+image: jj.png
 Venue: Mastering LLMs Conf
+order: 1
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

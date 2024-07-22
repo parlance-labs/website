@@ -4,24 +4,26 @@ title: Educational Resources
 image: parlance_edu2.png
 description: Educational resources on LLMs for applied topics.
 metadata-files: ["_listing_root.yml"]
+order: 2
 listing:
   - id: talks
     contents: 
+    - "evals/index.qmd"
     - "rag/index.qmd"
     - "fine_tuning/index.qmd"
-    - "prompt_eng/index.qmd"
-    - "evals/index.qmd"
     - "applications/index.qmd"
+    - "prompt_eng/index.qmd"
     fields: [title, description]
     type: table
+    sort: order
     sort-ui: false
     filter-ui: false
     max-description-length: 200
   - id: course
     contents: 
     - "fine_tuning_course/*.qmd"
-    fields: [title, description]
-    type: table
+    fields: [title, image, description]
+    type: grid
     sort-ui: false
     filter-ui: false
     max-description-length: 200
@@ -36,18 +38,18 @@ This page is under construction.  We are currently processing content from our c
 
 :::
 
-## Course: Fine-Tuning LLMs w/Axolotl
-
-This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
-
-:::{#course}
-:::
-
 ## Conference Talks
 
 Hear from practitioners on a wide range of topics on LLMs, including RAG, fine-tuning, prompt engineering, evaluation, and applications.  _Speakers include Jeremy Howard, Sophia Yang, Simon Willison, JJ Allaire, Wing Lian, Mark Saroufim, Jane Xu, Jason Liu, Emmanuel Ameisen, Hailey Schoelkopf, Johno Whitaker, John Berryman, Ben Clavié, Abhishek Thakur, Kyle Corbitt, Ankur Goyal, Freddy Boulton, Jo Bergum and more_
 
 :::{#talks}
+:::
+
+## Course: Fine-Tuning LLMs w/Axolotl
+
+This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
+
+:::{#course}
 :::
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>

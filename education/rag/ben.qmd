@@ -3,6 +3,8 @@ title: Beyond the Basics of RAG
 date: 2024-06-12
 Speaker: Ben Clavié
 Venue: Mastering LLMs Conf
+order: 1
+image: ben.jpg
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

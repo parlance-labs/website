@@ -3,6 +3,7 @@ title: Fine Tuning LLMs for Function Calling
 date: 2024-07-02
 Speaker: Pawel Garbacki
 Venue: Mastering LLMs Conf
+image: pawel.png
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

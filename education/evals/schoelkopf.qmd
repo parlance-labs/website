@@ -3,6 +3,8 @@ title: A Deep Dive on LLM Evaluation
 date: 2024-07-08
 Speaker: Hailey Schoelkopf
 Venue: Mastering LLMs Conf
+order: 3
+image: schoelkopf.png
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

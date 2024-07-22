@@ -2,6 +2,8 @@
 title: Fine Tuning OpenAI Models - Best Practices
 date: 2024-07-20
 Speaker: Steven Heidel
+image: steven.png
+order: 7
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"

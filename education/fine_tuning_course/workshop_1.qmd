@@ -1,6 +1,7 @@
 ---
 title: "Session 1: When and Why to Fine Tune an LLM"
 date: 2024-07-03
+image: w1.png
 Speaker: Hamel Husain, Dan Becker
 Venue: "Course: Fine Tuning for Data Scientists and Software Engineers"
 metadata-files: 

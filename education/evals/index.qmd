@@ -1,6 +1,7 @@
 ---
 title: Evals
 search: false
+order: 1
 description: Measuring the performance of LLM products
 metadata-files: ["../_listing_meta.yml"]
 listing:

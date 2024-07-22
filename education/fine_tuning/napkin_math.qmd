@@ -3,6 +3,8 @@ title: Napkin Math For Fine Tuning
 date: 2024-07-01
 Speaker: Johno Whitaker
 Venue: Mastering LLMs Conf
+image: johno.png
+order: 3
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

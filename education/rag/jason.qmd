@@ -3,6 +3,8 @@ title: Systematically improving RAG applications
 date: 2024-07-10
 Speaker: Jason Liu
 Venue: Mastering LLMs Conf
+order: 3
+image: jason.png
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

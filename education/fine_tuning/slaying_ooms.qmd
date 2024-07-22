@@ -3,6 +3,8 @@ title: Slaying OOMs with PyTorch FSDP and torchao
 date: 2024-06-11
 Speaker: Mark Saroufim and Jane Xu
 Venue: Mastering LLMs Conf
+image: mark.png
+order: 5
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

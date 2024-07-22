@@ -2,6 +2,8 @@
 title: "Building LLM Applications w/Gradio"
 date: 2024-07-12
 Speaker: Freddy Boulton
+image: gradio.png
+order: 2
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"

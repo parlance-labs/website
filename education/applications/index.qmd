@@ -4,6 +4,7 @@ Topic: Building Applications
 search: false
 description: Examples and best practices of building applications with LLMs
 metadata-files: ["../_listing_meta.yml"]
+order: 5
 listing:
   contents:
    - "**index.qmd"

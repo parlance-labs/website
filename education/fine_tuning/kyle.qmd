@@ -3,6 +3,8 @@ title: Fine-tuning when you've already deployed LLMs in prod
 date: 2024-07-05
 Speaker: Kyle Corbitt
 Venue: Mastering LLMs Conf
+image: kyle.png
+order: 1
 metadata-files: 
   - "../../_subscribe.yml"
   - "../_page_meta.yml"

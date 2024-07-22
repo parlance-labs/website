@@ -2,6 +2,8 @@
 title: Best Practices For Fine Tuning Mistral
 date: 2024-06-11
 Speaker: Sophia Yang
+image: sophia.png
+order: 6
 Venue: Mastering LLMs Conf
 metadata-files: 
   - "../../_subscribe.yml"

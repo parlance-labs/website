@@ -2,7 +2,8 @@
 title: LLMs on the command line
 date: 2024-06-11
 Speaker: Simon Willison
-image: ../../parlance_edu2.png
+order: 1
+image: "19.png"
 metadata-files: 
   - "../../../_subscribe.yml"
 Venue: Mastering LLMs Conf
