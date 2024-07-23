@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
     };
@@ -428,15 +428,7 @@ window.Quarto = {
 Fine-tuning when you’ve already deployed LLMs in prod
 </h5>
 <div class="card-text listing-description">
-Already have a working prompt deployed in production? Fine-tuning may be significantly easier for you, since you’re already collecting training data from your true input distribution! We’ll talk through whether it’s a good idea to replace your prompt with a fine-tuned model at all, and the flow we’ve found most effective if you choose to do so. We’ll also review important gotchas to watch out…
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jul 5, 2024
-</div>
+Already have a working prompt deployed in production? Fine-tuning may be…
 </div>
 </div>
 </div>
@@ -453,15 +445,7 @@ Jul 5, 2024
 Why Fine Tuning is Dead
 </h5>
 <div class="card-text listing-description">
-<p>Arguments for why fine-tuning has become less useful over time, as well as some opinions as to where the field is going with Emmanuel Ameisen</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jul 2, 2024
-</div>
+Arguments for why fine-tuning has become less useful over time, as well…
 </div>
 </div>
 </div>
@@ -478,15 +462,7 @@ Jul 2, 2024
 Napkin Math For Fine Tuning
 </h5>
 <div class="card-text listing-description">
-<p>We will show you how to build intuition around training performance with a focus on GPU-poor fine-tuning.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jul 1, 2024
-</div>
+We will show you how to build intuition around training performance with…
 </div>
 </div>
 </div>
@@ -503,15 +479,7 @@ Jul 1, 2024
 Creating, curating, and cleaning data for LLMs
 </h5>
 <div class="card-text listing-description">
-<p>Good data is a key component for creating a strong LLM. This talk will outline approaches to getting the best data for training your LLMs. The talk will cover: 1. How to find existing datasets to build on top of 2. Approaches to creating synthetic data 3. Practical techniques and tools for exploring, deduplicating, and filtering datasets to enhance their quality.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jul 8, 2024
-</div>
+Good data is a key component for creating a strong LLM. This talk will…
 </div>
 </div>
 </div>
@@ -528,15 +496,7 @@ Jul 8, 2024
 Slaying OOMs with PyTorch FSDP and torchao
 </h5>
 <div class="card-text listing-description">
-<p>Have you ever hit an OOM (and wished you had more VRAM)? If you’ve done much fine-tuning, then you have. And if you are just starting, then you will. Hop on the bus with us and feel the road become smoother as we talk about stacking together techniques like FSDP2 + QLoRa+ CPU Offloading + Fused ADAM (thanks Intel) + more in PyTorch native.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jun 11, 2024
-</div>
+Have you ever hit an OOM (and wished you had more VRAM)? If you’ve done…
 </div>
 </div>
 </div>
@@ -553,15 +513,7 @@ Jun 11, 2024
 Best Practices For Fine Tuning Mistral
 </h5>
 <div class="card-text listing-description">
-<p>We will discuss best practices for fine-tuning Mistral models. We will cover topics like: (1) The permissive Mistral ToS and how it’s perfect for fine tuning smaller models from bigger ones (2) How should people collect data (3) Domain specific evals (4) Use cases &amp; examples (5) Common mistakes</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jun 11, 2024
-</div>
+We will discuss best practices for fine-tuning Mistral models. We will…
 </div>
 </div>
 </div>
@@ -580,44 +532,11 @@ Fine Tuning OpenAI Models - Best Practices
 <div class="card-text listing-description">
 <p>How to fine-tune OpenAI models like a pro.</p>
 </div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jul 20, 2024
-</div>
-</div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="7" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721688480070" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="69" data-listing-word-count-sort="13733">
-<a href="../../education/fine_tuning/pawel.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../education/fine_tuning/pawel.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Fine Tuning LLMs for Function Calling
-</h5>
-<div class="card-text listing-description">
-<p>In this talk, we will go through the process and best practices of fine-tuning an LLM for function/tool use. We will discuss topics like data preparation, objective-based tuning, efficient serving, and evaluation.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jul 2, 2024
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="8" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1721026800000" data-listing-file-modified-sort="1721688311296" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6054">
+<div class="g-col-1" data-index="7" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1721026800000" data-listing-file-modified-sort="1721688311296" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6054">
 <a href="../../education/fine_tuning/abhishek.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -628,15 +547,24 @@ Jul 2, 2024
 Train (almost) any LLM using 🤗 autotrain
 </h5>
 <div class="card-text listing-description">
-<p>In this talk, we will show you how to use HuggingFace AutoTrain to train/fine-tune llms without having to write any code. Links: https://huggingface.co/autotrain Abishek’s Youtube Channel: https://www.youtube.com/<span class="citation" data-cites="abhishekkrthakur">@abhishekkrthakur</span></p>
+In this talk, we will show you how to use HuggingFace AutoTrain to…
 </div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
 </div>
-<div class="listing-date">
-Jul 15, 2024
 </div>
+</a>
+</div>
+<div class="g-col-1" data-index="8" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721688480070" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="69" data-listing-word-count-sort="13733">
+<a href="../../education/fine_tuning/pawel.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../../education/fine_tuning/pawel.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Fine Tuning LLMs for Function Calling
+</h5>
+<div class="card-text listing-description">
+In this talk, we will go through the process and best practices of…
 </div>
 </div>
 </div>
