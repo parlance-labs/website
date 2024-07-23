@@ -16,7 +16,7 @@ We will advise you on:
 
 -   LLM performance issues: (cost, quality, speed)
 -   Evals, RAG, Fine-Tuning, and Prompt Engineering
--   Upskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.
+-   Unblock your team with focused debugging sessions and education.
 
 We will give your team ongoing feedback and guidance via regular meetings, saving them time and money. 
 
