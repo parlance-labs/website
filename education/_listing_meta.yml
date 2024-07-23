@@ -3,4 +3,8 @@ image: ../parlance_edu2.png
 repo-actions: [edit]
 listing:
   type: grid
-  max-description-length: 400
+  sort: order
+  fields: ["image","title", "description"]
+  sort-ui: false
+  filter-ui: false
+  max-description-length: 75

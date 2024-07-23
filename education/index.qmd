@@ -16,7 +16,7 @@ listing:
     fields: ["image","title", "description"]
     sort-ui: false
     filter-ui: false
-    max-description-length: 100
+    max-description-length: 75
   - id: talks-rag
     contents: 
       - "rag/*.qmd"
@@ -26,7 +26,7 @@ listing:
     fields: ["image","title", "description"]
     sort-ui: false
     filter-ui: false
-    max-description-length: 100
+    max-description-length: 75
   - id: talks-ft
     contents: 
       - "fine_tuning/*.qmd"
@@ -44,7 +44,7 @@ listing:
     sort-ui: false
     filter-ui: false
     fields: ["image","title", "description"]
-    max-description-length: 125
+    max-description-length: 75
   - id: talks-pe
     contents: "prompt_eng/index.qmd"
     type: grid
@@ -52,14 +52,14 @@ listing:
     sort-ui: false
     filter-ui: false
     fields: ["image","title", "description"]
-    max-description-length: 100
+    max-description-length: 75
   # - id: course
   #   contents: "fine_tuning_course/*.qmd"
   #   type: grid
   #   sort-ui: false
   #   fields: ["image","title", "description"]
   #   filter-ui: false
-  #   max-description-length: 150
+  #   max-description-length: 75
 aliases:
   - /talks/index.html
 ---
