@@ -11,7 +11,6 @@ metadata-files:
 abstract: |
     How to fine-tune OpenAI models like a pro.
 categories: ["fine-tuning", "llm-conf-2024"]
-
 ---
 
 {{< video https://www.youtube.com/watch?v=Q0GSZD0Na1s  >}}
