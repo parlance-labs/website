@@ -40,22 +40,19 @@ You should consider hiring us if:
 
 - You don’t know how to consistently and quickly improve your LLM products.
 - Your LLMs are too expensive or slow.
-- You feel blind re: how good/reliable your LLMs are.
 - You are overwhelmed by tools/frameworks.
 
 ## Expertise
 
 Our expertise includes:
 
-1. Domain-specific evaluation systems
-2. Optimizing RAG
-3. Fine-tuning
-4. Dev tools and infrastructure to help you iterate quickly.
-5. LLM vendor evaluation and selection
+1. Improving AI products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.
+2. Building tools and infrastructure to speed up your AI development process.
+3. Upskilling your team with workshops and focused debugging sessions.
 
 ## Solutions
 
-We offer [two tiers of services](services.qmd). Contact us at `consulting@parlance-labs.com` to get started.
+See [this page](./services.qmd) for info on our consulting services.
 
 ---
 

@@ -6,52 +6,44 @@ aliases: ["hire/", "hire"]
 repo-actions: false
 ---
 
-## About
+We are [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.
 
-We are a group of [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.  We specialize in building & improving LLM products. See our current and past clients [here](#current--past-clients).
+# Services
 
-## Services
+## Tier 1: Strategy
 
-We offer two tiers of services to support your goals.
-
-### Tier 1: Strategy
-
-We will advise you on the following topics:
+We will advise you on:
 
 -   LLM performance issues: (cost, quality, speed)
--   RAG, Fine-Tuning, and Prompt Engineering
+-   Evals, RAG, Fine-Tuning, and Prompt Engineering
 -   Upskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.
--   Strategy & Hiring: We will introduce you to talent, vendors, and partners in our network.
--   Evaluation Systems
--   Access to our [our team](https://parlance-labs.com/team.html) to pair you with the right expert at all times.
 
-We will give you ongoing feedback and guidance via regular meetings with your team. This will help you avoid common pitfalls and select the right tools and techniques, saving you time and money. 
+We will give your team ongoing feedback and guidance via regular meetings, saving them time and money. 
 
-### Tier 2: Comprehensive
+## Tier 2: Comprehensive
 
 Everything in Tier 1, plus:
 
--  **Implementation:** We will write production-ready code and/or prototypes to accelerate your AI product development.
-- **Domain-Specific Evaluation Systems:** We will design and implement custom evaluation systems to measure the performance and reliability of your LLMs.
--   **Hands-On Model Optimization:** We will fine-tune, prompt engineer and debug models to improve performance and efficiency.
--  **Development Tools and Infrastructure:** Build custom tools and infrastructure to streamline your AI development process.
--   **Content and Writing:** Produce written documents and blogs to communicate best practices, methodologies, and practical case studies to your stakeholders
--   **Team Growth & Hiring:** Work with 2-4 people individually on your team to rapidly upskill them on AI.  We will also help you source and evaluate key hires.
+-  **Implementation:** We will write production-ready code to accelerate your AI product development.
+-  **Model Optimization:** We will implement domain-specific eval systems, fine-tune, prompt engineer and debug models to improve performance.
+-  **Tools and Infrastructure:** We will implement tools that will enable you to execute consistently and quickly on your AI products.
 - **A full-time presence of 2+ FTEs** from [our team](https://parlance-labs.com/team.html) to work on your project.
 
+# Pricing
 
-### Pricing
-
-The cost depends on the tier of service you choose:
+The cost depends on the tier of service:
 
 - Strategy: $36,500 for a 2-month engagement.
 - Comprehensive (2+ FTEs): $725,900 total for a 3-month engagement.
 
-We can also provide custom pricing for longer engagements or specific projects.
+We also provide custom pricing for longer engagements or specific projects.
 
-**Contact us at `consultingl@parlance-labs.com` to discuss starting an engagement.**
+**Contact us at `consultingl@parlance-labs.com` or fill out [this form](https://llms.typeform.com/to/M8f89mlM) to discuss starting an engagement.**
 
-## Current & Past Clients
+# Current & Past Clients
+
+::: {.callout-tip collapse="true"}
+## Expand To See Clients
 
 Members of [our team](team.qmd) have worked with the following companies:
 
@@ -74,3 +66,4 @@ Members of [our team](team.qmd) have worked with the following companies:
 - [Arize AI](https://arize.com/llm/): We are helping Arize with LLM observability and evaluation tools.
 - [dbt Labs](getdbt.com): Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.
 - [Radiant AI](https://radiantai.com/): We helped the Radiant team accelerate the development of their LLM observability platform.
+:::
