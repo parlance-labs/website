@@ -34,7 +34,7 @@ Everything in Tier 1, plus:
 Below is a rough estimate of our pricing.  We provide custom pricing for longer engagements or specific projects.
 
 - **Strategy:** $36,500 for a 2-month minimum engagement.
-- **Comprehensive (2+ FTEs):** $725,900 for a minimum 3-month engagement.
+- **Comprehensive (2+ FTEs):** $725,900 for a 3-month minimum engagement.
 
 **Contact us at `consultingl@parlance-labs.com` or fill out [this form](https://llms.typeform.com/to/M8f89mlM) to discuss starting an engagement.**
 
