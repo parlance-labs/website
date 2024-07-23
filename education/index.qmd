@@ -5,28 +5,61 @@ image: parlance_edu2.png
 description: Educational resources on LLMs for applied topics.
 metadata-files: ["_listing_root.yml"]
 order: 2
+toc-expand: true
 listing:
-  - id: talks
+  - id: talks-evals
     contents: 
-    - "evals/index.qmd"
-    - "rag/index.qmd"
-    - "fine_tuning/index.qmd"
-    - "applications/index.qmd"
-    - "prompt_eng/index.qmd"
-    fields: [title, description]
-    type: table
+      - "evals/*.qmd"
+      - "!evals/index.qmd"
+    type: grid
+    sort: order
+    fields: ["image","title", "description"]
+    sort-ui: false
+    filter-ui: false
+    max-description-length: 100
+  - id: talks-rag
+    contents: 
+      - "rag/*.qmd"
+      - "!rag/index.qmd"
+    type: grid
+    sort: order
+    fields: ["image","title", "description"]
+    sort-ui: false
+    filter-ui: false
+    max-description-length: 100
+  - id: talks-ft
+    contents: 
+      - "fine_tuning/*.qmd"
+      - "!fine_tuning/index.qmd"
+    type: grid
     sort: order
     sort-ui: false
     filter-ui: false
-    max-description-length: 200
-  - id: course
-    contents: 
-    - "fine_tuning_course/*.qmd"
-    fields: [title, image, description]
+    fields: ["image","title", "description"]
+    max-description-length: 75
+  - id: talks-app
+    contents: "applications/*.qmd"
     type: grid
+    sort: order
     sort-ui: false
     filter-ui: false
-    max-description-length: 200
+    fields: ["image","title", "description"]
+    max-description-length: 125
+  - id: talks-pe
+    contents: "prompt_eng/index.qmd"
+    type: grid
+    sort: order
+    sort-ui: false
+    filter-ui: false
+    fields: ["image","title", "description"]
+    max-description-length: 100
+  # - id: course
+  #   contents: "fine_tuning_course/*.qmd"
+  #   type: grid
+  #   sort-ui: false
+  #   fields: ["image","title", "description"]
+  #   filter-ui: false
+  #   max-description-length: 150
 aliases:
   - /talks/index.html
 ---
@@ -36,20 +69,65 @@ aliases:
 This page is under construction.  We are currently processing content from our course [Mastering LLMs: A Conference For Developers & Data Scientists](https://maven.com/parlance-labs/fine-tuning).
 :::
 
-## Conference Talks
+---
 
-Hear from practitioners on a wide range of topics on LLMs, including RAG, fine-tuning, prompt engineering, evaluation, and applications.  _Speakers include Jeremy Howard, Sophia Yang, Simon Willison, JJ Allaire, Wing Lian, Mark Saroufim, Jane Xu, Jason Liu, Emmanuel Ameisen, Hailey Schoelkopf, Johno Whitaker, John Berryman, Ben Clavié, Abhishek Thakur, Kyle Corbitt, Ankur Goyal, Freddy Boulton, Jo Bergum and more_
-
-:::{#talks}
-:::
-
-## Course: Fine-Tuning LLMs w/Axolotl
-
-This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.
+<!-- # Course: Fine-Tuning LLMs with Practical Applications
+This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.  A real-world case study will be used to demonstrate the concepts.
 
 :::{#course}
-:::
+::: 
 
+_Note that there is additional content on fine-tuning in the [Fine-Tuning](#fine-tuning) section of the survey course below._
 
+-->
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+
+
+# LLM Survey Course
+
+Hear from practitioners on a wide range of topics on LLMs, including [RAG](#rag), [evaluation](#evals), [applications](#building-applications), [fine-tuning](#fine-tuning) and [prompt engineering](#prompt-engineering).
+
+## RAG
+
+Retrieval Augmented Generation
+
+:::{#talks-rag}
+:::
+
+---
+
+## Evals
+
+Measuring the performance of LLM products
+
+:::{#talks-evals}
+:::
+
+---
+
+## Building Applications
+
+Examples and best practices of building applications with LLMs
+
+:::{#talks-app}
+:::
+
+---
+
+## Fine-Tuning
+
+Fine-tuning LLMs for specific tasks
+
+:::{#talks-ft}
+:::
+
+---
+
+## Prompt Engineering
+
+
+Effective prompt engineering techniques for LLMs
+
+:::{#talks-pe}
+:::

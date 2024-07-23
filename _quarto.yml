@@ -40,11 +40,12 @@ website:
       style: docked
       contents: 
         - education/index.qmd
-        - section: Fine-Tuning Course
-          contents: 
-            - education/fine_tuning_course/workshop_1.qmd
-            - education/fine_tuning_course/workshop_4.qmd
-        - section: Talks
+        # - section: Applied Fine-Tuning
+        #   contents: 
+        #     - education/fine_tuning_course/workshop_1.qmd
+        #     - education/fine_tuning_course/workshop_4.qmd
+        - section: Survey Course
+          href: education/index.qmd#conference-talks
           contents:
             - section: Evals
               href: education/evals/index.qmd
