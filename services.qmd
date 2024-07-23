@@ -25,7 +25,7 @@ Everything in Tier 1, plus:
 
 -  **Implementation:** We will write production-ready code to accelerate your AI product development.
 -  **Model Optimization:** We will implement domain-specific eval systems, fine-tune, prompt engineer and debug models to improve performance.
--  **Tools and Infrastructure:** We will implement tools that will enable you to execute consistently and quickly on your AI products.
+-  **Tools and Infrastructure:** We will build tools that will enable you to execute consistently and quickly.
 - **A full-time presence of 2+ FTEs** from [our team](https://parlance-labs.com/team.html) to work on your project.
 
 # Pricing
