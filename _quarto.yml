@@ -31,7 +31,7 @@ website:
       file: services.qmd
     - text: Team
       file: team.qmd
-    - text: Resources
+    - text: Education
       file: education/
   sidebar:
     - title: Resources
