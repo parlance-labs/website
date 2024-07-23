@@ -417,28 +417,21 @@
     "href": "services.html",
     "title": "Applied AI Consulting",
     "section": "",
-    "text": "We are a group of experienced AI Engineers who have built AI products at leading tech companies. We specialize in building & improving LLM products. See our current and past clients here."
+    "text": "We are experienced AI Engineers who have built AI products at leading tech companies."
   },
   {
-    "objectID": "services.html#about",
-    "href": "services.html#about",
+    "objectID": "services.html#tier-1-strategy",
+    "href": "services.html#tier-1-strategy",
     "title": "Applied AI Consulting",
-    "section": "",
-    "text": "We are a group of experienced AI Engineers who have built AI products at leading tech companies. We specialize in building & improving LLM products. See our current and past clients here."
+    "section": "Tier 1: Strategy",
+    "text": "Tier 1: Strategy\nWe will advise you on:\n\nLLM performance issues: (cost, quality, speed)\nEvals, RAG, Fine-Tuning, and Prompt Engineering\nUpskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.\n\nWe will give your team ongoing feedback and guidance via regular meetings, saving them time and money."
   },
   {
-    "objectID": "services.html#services",
-    "href": "services.html#services",
+    "objectID": "services.html#tier-2-comprehensive",
+    "href": "services.html#tier-2-comprehensive",
     "title": "Applied AI Consulting",
-    "section": "Services",
-    "text": "Services\nWe offer two tiers of services to support your goals.\n\nTier 1: Strategy\nWe will advise you on the following topics:\n\nLLM performance issues: (cost, quality, speed)\nRAG, Fine-Tuning, and Prompt Engineering\nUpskilling your team: We will rapidly upskill and unblock your team with focused debugging sessions.\nStrategy & Hiring: We will introduce you to talent, vendors, and partners in our network.\nEvaluation Systems\nAccess to our our team to pair you with the right expert at all times.\n\nWe will give you ongoing feedback and guidance via regular meetings with your team. This will help you avoid common pitfalls and select the right tools and techniques, saving you time and money.\n\n\nTier 2: Comprehensive\nEverything in Tier 1, plus:\n\nImplementation: We will write production-ready code and/or prototypes to accelerate your AI product development.\nDomain-Specific Evaluation Systems: We will design and implement custom evaluation systems to measure the performance and reliability of your LLMs.\nHands-On Model Optimization: We will fine-tune, prompt engineer and debug models to improve performance and efficiency.\nDevelopment Tools and Infrastructure: Build custom tools and infrastructure to streamline your AI development process.\nContent and Writing: Produce written documents and blogs to communicate best practices, methodologies, and practical case studies to your stakeholders\nTeam Growth & Hiring: Work with 2-4 people individually on your team to rapidly upskill them on AI. We will also help you source and evaluate key hires.\nA full-time presence of 2+ FTEs from our team to work on your project.\n\n\n\nPricing\nThe cost depends on the tier of service you choose:\n\nStrategy: $36,500 for a 2-month engagement.\nComprehensive (2+ FTEs): $725,900 total for a 3-month engagement.\n\nWe can also provide custom pricing for longer engagements or specific projects.\nContact us at consultingl@parlance-labs.com to discuss starting an engagement."
-  },
-  {
-    "objectID": "services.html#current-past-clients",
-    "href": "services.html#current-past-clients",
-    "title": "Applied AI Consulting",
-    "section": "Current & Past Clients",
-    "text": "Current & Past Clients\nMembers of our team have worked with the following companies:\n\nLimitless AI: Limitless AI is a personal memory assistant that helps you remember, organize, and navigate your life.\nRaycast: Raycast is a blazingly fast, totally extendable launcher. It lets you complete tasks, calculate, share common links, and much more.\nTensorlake: Build Knowledge for LLMs from un-structured data\nReplicate: development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.\nWeights & Biases: Provide product guidance for evaluation, annotation, and observability.\nHoneycomb: Currently improving the natural language query assistant through evaluation systems and fine-tuning.\nLangChain/LangSmith: provided product guidance for enterprise LLM tools.\nModal: Serverless tools for fine-tuning.\nRechat: We are working on Lucy, a conversational AI for real estate agents. You can read about my recent work on Rechat here.\nAnswer.ai: Conduct research on new LLM applications and help with product strategy.\nAxolotl: Hamel is a core contributor to axolotl, a library for efficient fine-tuning of LLMs.\nKay.ai: Retrieve relevant context from the semantic web for your LLM apps with fully hosted embeddings.\nModal Labs: Modal specializes in cloud functions, offering a platform for running generative AI models, large-scale batch jobs, and more.\nPydantic: Pydantic provides data validation and settings management using Python type annotations, enforcing type hints at runtime with user-friendly error handling.\nPosit: Helped Posit expand into the Python AI and ML ecosystem.\nCatena: LLM infrastructure such as routing, evaluation, and orchestration.\nArize AI: We are helping Arize with LLM observability and evaluation tools.\ndbt Labs: Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.\nRadiant AI: We helped the Radiant team accelerate the development of their LLM observability platform."
+    "section": "Tier 2: Comprehensive",
+    "text": "Tier 2: Comprehensive\nEverything in Tier 1, plus:\n\nImplementation: We will write production-ready code to accelerate your AI product development.\nModel Optimization: We will implement domain-specific eval systems, fine-tune, prompt engineer and debug models to improve performance.\nTools and Infrastructure: We will implement tools that will enable you to execute consistently and quickly on your AI products.\nA full-time presence of 2+ FTEs from our team to work on your project."
   },
   {
     "objectID": "team.html",
@@ -1000,21 +993,21 @@
     "href": "index.html#why",
     "title": " ",
     "section": "Why",
-    "text": "Why\nYou should consider hiring us if:\n\nYou don’t know how to consistently and quickly improve your LLM products.\nYour LLMs are too expensive or slow.\nYou feel blind re: how good/reliable your LLMs are.\nYou are overwhelmed by tools/frameworks."
+    "text": "Why\nYou should consider hiring us if:\n\nYou don’t know how to consistently and quickly improve your LLM products.\nYour LLMs are too expensive or slow.\nYou are overwhelmed by tools/frameworks."
   },
   {
     "objectID": "index.html#expertise",
     "href": "index.html#expertise",
     "title": " ",
     "section": "Expertise",
-    "text": "Expertise\nOur expertise includes:\n\nDomain-specific evaluation systems\nOptimizing RAG\nFine-tuning\nDev tools and infrastructure to help you iterate quickly.\nLLM vendor evaluation and selection"
+    "text": "Expertise\nOur expertise includes:\n\nImproving AI products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.\nBuilding tools and infrastructure to speed up your AI development process.\nUpskilling your team with workshops and focused debugging sessions."
   },
   {
     "objectID": "index.html#solutions",
     "href": "index.html#solutions",
     "title": " ",
     "section": "Solutions",
-    "text": "Solutions\nWe offer two tiers of services. Contact us at consulting@parlance-labs.com to get started."
+    "text": "Solutions\nSee this page for info on our consulting services."
   },
   {
     "objectID": "index.html#heres-what-our-clients-are-saying",
