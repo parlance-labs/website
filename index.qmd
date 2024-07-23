@@ -52,7 +52,7 @@ Our expertise includes:
 
 ## Services
 
-See [this page](./services.qmd) for info on our consulting services.
+See [this page](./services.qmd) for more info.
 
 ---
 
