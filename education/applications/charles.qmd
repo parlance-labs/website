@@ -16,6 +16,13 @@ categories: ["Applications", "llm-conf-2024"]
 
 {{< video https://www.youtube.com/watch?v=pK7Odr0WDpQ  >}}
 
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
 
 ## Chapters
 
@@ -144,3 +151,5 @@ Links to resources mentioned in the talk:
 <br>[40:32] Charles Frye: Thanks for great questions. Hope to be able to answer them. If I didn't answer it and you can't make it to the voice chat, please post it in the channel on modal. Wasn't able to watch the Discord, so I'll also answer any questions that came in live there. Hope you enjoy the platform and you know where to find me on Discord and on Twitter, Charles underscore IRL. Look forward to seeing what you build. These are $1,000. Yeah, use your $1,000.
 <br>[40:56] Charles Frye: The other $500, if you didn't get it last week, will be coming out today, midnight UTC, Masamanos. So make sure to use modal by then. All right. Take care, y'all. All right. Thanks.
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
