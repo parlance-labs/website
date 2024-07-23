@@ -38,7 +38,7 @@ toc: false
 
 You should hire us if:
 
-- You don’t know how to consistently and quickly improve your LLM products.
+- You don’t know how to consistently improve your LLM products.
 - Your LLMs are too expensive or slow.
 - You are overwhelmed by tools/frameworks.
 
@@ -46,9 +46,9 @@ You should hire us if:
 
 Our expertise includes:
 
-1. Improving AI products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.
-2. Building tools and infrastructure to speed up your development process.
-3. Upskilling your team on AI.
+1. Improving LLM products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.
+2. Building tools to speed up your development process.
+3. Upskilling your team on LLMs.
 
 ## Services
 
