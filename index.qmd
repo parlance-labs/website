@@ -47,7 +47,7 @@ You should hire us if:
 Our expertise includes:
 
 1. Improving LLM products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.
-2. Building tools to speed up your development process.
+2. Building tools that speed up your development process.
 3. Upskilling your team on LLMs.
 
 ## Services
