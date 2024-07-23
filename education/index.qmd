@@ -64,11 +64,6 @@ aliases:
   - /talks/index.html
 ---
 
-:::{.callout-caution}
-## Under Construction
-This page is under construction.  We are currently processing content from our course [Mastering LLMs: A Conference For Developers & Data Scientists](https://maven.com/parlance-labs/fine-tuning).
-:::
-
 ---
 
 <!-- # Course: Fine-Tuning LLMs with Practical Applications
@@ -81,12 +76,19 @@ _Note that there is additional content on fine-tuning in the [Fine-Tuning](#fine
 
 -->
 
-<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
-
 
 # LLM Survey Course
 
 Hear from practitioners on a wide range of topics on LLMs, including [RAG](#rag), [evaluation](#evals), [applications](#building-applications), [fine-tuning](#fine-tuning) and [prompt engineering](#prompt-engineering).
+
+## Evals
+
+Measuring the performance of LLM products
+
+:::{#talks-evals}
+:::
+
+---
 
 ## RAG
 
@@ -95,14 +97,7 @@ Retrieval Augmented Generation
 :::{#talks-rag}
 :::
 
----
 
-## Evals
-
-Measuring the performance of LLM products
-
-:::{#talks-evals}
-:::
 
 ---
 
@@ -131,3 +126,5 @@ Effective prompt engineering techniques for LLMs
 
 :::{#talks-pe}
 :::
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
