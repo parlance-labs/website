@@ -17,7 +17,7 @@ We will advise you on:
 -   LLM performance issues: (cost, quality, speed)
 -   Evals, RAG, fine-tuning, and prompt engineering
 
-We will provide your team with ongoing guidance through regular meetings, saving them time and money.
+We will provide your team with ongoing guidance through regular meetings.
 
 ## Tier 2: Comprehensive
 
