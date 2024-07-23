@@ -29,10 +29,10 @@ website:
     left:
     - text: Services
       file: services.qmd
-    - text: Team
-      file: team.qmd
     - text: Education
       file: education/
+    - text: Team
+      file: team.qmd
   sidebar:
     - title: Resources
       pinned: true

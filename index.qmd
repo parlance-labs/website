@@ -36,7 +36,7 @@ toc: false
 
 ## Why
 
-You should consider hiring us if:
+You should hire us if:
 
 - You don’t know how to consistently and quickly improve your LLM products.
 - Your LLMs are too expensive or slow.
@@ -47,10 +47,10 @@ You should consider hiring us if:
 Our expertise includes:
 
 1. Improving AI products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.
-2. Building tools and infrastructure to speed up your AI development process.
-3. Upskilling your team with workshops and focused debugging sessions.
+2. Building tools and infrastructure to speed up your development process.
+3. Upskilling your team on AI.
 
-## Solutions
+## Services
 
 See [this page](./services.qmd) for info on our consulting services.
 
