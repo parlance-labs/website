@@ -15,10 +15,9 @@ We are [experienced AI Engineers](team.qmd) who have built AI products at leadin
 We will advise you on:
 
 -   LLM performance issues: (cost, quality, speed)
--   Evals, RAG, Fine-Tuning, and Prompt Engineering
--   Unblock your team with focused debugging sessions and education.
+-   Evals, RAG, fine-tuning, and prompt engineering
 
-We will give your team ongoing feedback and guidance via regular meetings, saving them time and money. 
+We will provide your team with ongoing guidance through regular meetings, saving them time and money.
 
 ## Tier 2: Comprehensive
 
