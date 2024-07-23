@@ -48,10 +48,14 @@ website:
           contents:
             - section: Evals
               href: education/evals/index.qmd
-              contents: education/evals/**/*.qmd
+              contents: 
+                - education/evals/allaire.qmd
+                - education/evals/ankur.qmd
+                - education/evals/schoelkopf.qmd
             - section: RAG
               href: education/rag/index.qmd
-              contents: education/rag/**/*.qmd
+              contents: 
+                - education/rag/**/*.qmd
             - section: Fine-Tuning
               href: education/fine_tuning/index.qmd
               contents: education/fine_tuning/**/*.qmd
