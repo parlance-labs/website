@@ -2,7 +2,7 @@
 title: Why Fine Tuning is Dead
 date: 2024-07-02
 Speaker: Emmanuel Ameisen
-order: 2
+order: 3
 Venue: Mastering LLMs Conf
 image: emmanuel.png
 metadata-files: 

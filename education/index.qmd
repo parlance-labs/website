@@ -5,7 +5,7 @@ image: parlance_edu2.png
 description: Educational resources on LLMs for applied topics.
 metadata-files: ["_listing_root.yml"]
 order: 2
-toc-expand: true
+toc: false
 listing:
   - id: talks-evals
     contents: 
@@ -27,10 +27,43 @@ listing:
     sort-ui: false
     filter-ui: false
     max-description-length: 75
-  - id: talks-ft
+  - id: talks-should-ft
     contents: 
-      - "fine_tuning/*.qmd"
-      - "!fine_tuning/index.qmd"
+      - "fine_tuning_course/workshop_1.qmd"
+      - "fine_tuning/kyle.qmd"
+      - "fine_tuning/emmanuel.qmd"
+    type: grid
+    sort: order
+    sort-ui: false
+    filter-ui: false
+    fields: ["image","title", "description"]
+    max-description-length: 75
+  - id: talks-how-ft
+    contents: 
+      - "fine_tuning/daniel.qmd"
+      - "fine_tuning/mistral_ft_sophia.qmd"
+      - "fine_tuning/abhishek.qmd"
+      - "fine_tuning/steven.qmd"
+    type: grid
+    sort: order
+    sort-ui: false
+    filter-ui: false
+    fields: ["image","title", "description"]
+    max-description-length: 75
+  - id: talks-advanced-ft
+    contents: 
+      - "fine_tuning/napkin_math.qmd"
+      - "fine_tuning/slaying_ooms.qmd"
+      - "fine_tuning/pawel.qmd"
+    type: grid
+    sort: order
+    sort-ui: false
+    filter-ui: false
+    fields: ["image","title", "description"]
+    max-description-length: 75
+  - id: talks-deploying-ft
+    contents: 
+      - "fine_tuning_course/workshop_4.qmd"
     type: grid
     sort: order
     sort-ui: false
@@ -112,9 +145,30 @@ Examples and best practices of building applications with LLMs
 
 ## Fine-Tuning
 
-Fine-tuning LLMs for specific tasks
+### 1. Should you fine-tune?
 
-:::{#talks-ft}
+You shouldn't always fine-tune. Learn when to fine-tune and when not to.
+
+:::{#talks-should-ft}
+:::
+
+### 2. How to fine-tune
+
+Learn various tools and techniques for fine-tuning LLMs.
+
+:::{#talks-how-ft}
+:::
+
+### 3. Deploying fine-tuned models
+
+:::{#talks-deploying-ft}
+:::
+
+### 4. Advanced topics in fine-tuning
+
+Advanced topics in fine-tuning LLMs.
+
+:::{#talks-advanced-ft}
 :::
 
 ---

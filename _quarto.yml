@@ -56,10 +56,26 @@ website:
             - section: RAG
               href: education/rag/index.qmd
               contents: 
-                - education/rag/**/*.qmd
+                - education/rag/jo.qmd
+                - education/rag/ben.qmd
+                - education/rag/jason.qmd
             - section: Fine-Tuning
-              href: education/fine_tuning/index.qmd
-              contents: education/fine_tuning/**/*.qmd
+              href: education/index.qmd#fine-tuning
+              contents:
+                - section: Should you fine-tune?
+                  href: education/index.qmd#should-you-fine-tune
+                  contents:
+                    - "education/fine_tuning_course/workshop_1.qmd"
+                    - "education/fine_tuning/kyle.qmd"
+                    - "education/fine_tuning/emmanuel.qmd"
+                - section: How to fine-tune
+                  href: education/index.qmd#how-to-fine-tune
+                  contents:
+                    - "education/fine_tuning/daniel.qmd"
+                    - "education/fine_tuning/mistral_ft_sophia.qmd"
+                    - "education/fine_tuning/abhishek.qmd"
+                    - "education/fine_tuning/steven.qmd"
+                - education/fine_tuning_course/workshop_4.qmd
             - section: Applications
               href: education/applications/index.qmd
               contents: education/applications/**/*.qmd
