@@ -9,6 +9,7 @@ website:
   repo-url: https://github.com/parlance-labs/website
   repo-actions: [edit]
   favicon: b.png
+  page-navigation: true
   bread-crumbs: true
   site-url: "https://parlance-labs.com/"
   open-graph: true
@@ -36,7 +37,7 @@ website:
   sidebar:
     - title: Resources
       pinned: true
-      collapse-level: 2
+      collapse-level: 1
       style: docked
       contents: 
         - education/index.qmd
@@ -44,45 +45,45 @@ website:
         #   contents: 
         #     - education/fine_tuning_course/workshop_1.qmd
         #     - education/fine_tuning_course/workshop_4.qmd
-        - section: Survey Course
-          href: education/index.qmd#conference-talks
+        - section: Evals
+          href: education/evals/index.qmd
+          contents: 
+            - education/evals/allaire.qmd
+            - education/evals/ankur.qmd
+            - education/evals/schoelkopf.qmd
+        - section: RAG
+          href: education/rag/index.qmd
+          contents: 
+            - education/rag/jo.qmd
+            - education/rag/ben.qmd
+            - education/rag/jason.qmd
+        - section: Fine-Tuning
+          href: education/index.qmd#fine-tuning
           contents:
-            - section: Evals
-              href: education/evals/index.qmd
-              contents: 
-                - education/evals/allaire.qmd
-                - education/evals/ankur.qmd
-                - education/evals/schoelkopf.qmd
-            - section: RAG
-              href: education/rag/index.qmd
-              contents: 
-                - education/rag/jo.qmd
-                - education/rag/ben.qmd
-                - education/rag/jason.qmd
-            - section: Fine-Tuning
-              href: education/index.qmd#fine-tuning
+            - section: Should you fine-tune?
+              href: education/index.qmd#should-you-fine-tune
               contents:
-                - section: Should you fine-tune?
-                  href: education/index.qmd#should-you-fine-tune
-                  contents:
-                    - "education/fine_tuning_course/workshop_1.qmd"
-                    - "education/fine_tuning/kyle.qmd"
-                    - "education/fine_tuning/emmanuel.qmd"
-                - section: How to fine-tune
-                  href: education/index.qmd#how-to-fine-tune
-                  contents:
-                    - "education/fine_tuning/daniel.qmd"
-                    - "education/fine_tuning/mistral_ft_sophia.qmd"
-                    - "education/fine_tuning/abhishek.qmd"
-                    - "education/fine_tuning/steven.qmd"
-                - education/fine_tuning_course/workshop_4.qmd
-            - section: Applications
-              href: education/applications/index.qmd
-              contents: education/applications/**/*.qmd
-            - section: Prompt Eng
-              href: education/prompt_eng/index.qmd
-              contents: education/prompt_eng/**/*.qmd
-
+                - "education/fine_tuning_course/workshop_1.qmd"
+                - "education/fine_tuning/kyle.qmd"
+                - "education/fine_tuning/emmanuel.qmd"
+            - section: How to fine-tune
+              href: education/index.qmd#how-to-fine-tune
+              contents:
+                - "education/fine_tuning/daniel.qmd"
+                - "education/fine_tuning/mistral_ft_sophia.qmd"
+                - "education/fine_tuning/abhishek.qmd"
+                - "education/fine_tuning/steven.qmd"
+            - education/fine_tuning_course/workshop_4.qmd
+            - section: Advanced topics in fine-tuning
+              href: education/index.qmd#advanced-topics-in-fine-tuning
+              contents:
+                - "education/fine_tuning/napkin_math.qmd"
+                - "education/fine_tuning/slaying_ooms.qmd"
+                - "education/fine_tuning/pawel.qmd"
+        - section: Applications
+          href: education/applications/index.qmd
+          contents: education/applications/**/*.qmd
+        - education/prompt_eng/berryman.qmd
 
 format:
   html:

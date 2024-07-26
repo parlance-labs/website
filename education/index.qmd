@@ -2,7 +2,7 @@
 id: conf
 title: Educational Resources
 image: parlance_edu2.png
-description: Educational resources on LLMs for applied topics.
+description: Educational resources on LLMs
 metadata-files: ["_listing_root.yml"]
 order: 2
 toc: false
@@ -19,10 +19,11 @@ listing:
     max-description-length: 75
   - id: talks-rag
     contents: 
-      - "rag/*.qmd"
-      - "!rag/index.qmd"
+      - rag/jo.qmd
+      - rag/ben.qmd
+      - rag/jason.qmd
     type: grid
-    sort: order
+    sort: false
     fields: ["image","title", "description"]
     sort-ui: false
     filter-ui: false
@@ -33,7 +34,7 @@ listing:
       - "fine_tuning/kyle.qmd"
       - "fine_tuning/emmanuel.qmd"
     type: grid
-    sort: order
+    sort: false
     sort-ui: false
     filter-ui: false
     fields: ["image","title", "description"]
@@ -45,9 +46,9 @@ listing:
       - "fine_tuning/abhishek.qmd"
       - "fine_tuning/steven.qmd"
     type: grid
-    sort: order
     sort-ui: false
     filter-ui: false
+    sort: false
     fields: ["image","title", "description"]
     max-description-length: 75
   - id: talks-advanced-ft
@@ -97,20 +98,6 @@ aliases:
   - /talks/index.html
 ---
 
----
-
-<!-- # Course: Fine-Tuning LLMs with Practical Applications
-This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.  A real-world case study will be used to demonstrate the concepts.
-
-:::{#course}
-::: 
-
-_Note that there is additional content on fine-tuning in the [Fine-Tuning](#fine-tuning) section of the survey course below._
-
--->
-
-
-# LLM Survey Course
 
 Hear from practitioners on a wide range of topics on LLMs, including [RAG](#rag), [evaluation](#evals), [applications](#building-applications), [fine-tuning](#fine-tuning) and [prompt engineering](#prompt-engineering).
 
@@ -143,6 +130,16 @@ Examples and best practices of building applications with LLMs
 
 ---
 
+## Prompt Engineering
+
+
+Effective prompt engineering techniques for LLMs
+
+:::{#talks-pe}
+:::
+
+---
+
 ## Fine-Tuning
 
 ### 1. Should you fine-tune?
@@ -171,14 +168,5 @@ Advanced topics in fine-tuning LLMs.
 :::{#talks-advanced-ft}
 :::
 
----
-
-## Prompt Engineering
-
-
-Effective prompt engineering techniques for LLMs
-
-:::{#talks-pe}
-:::
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>

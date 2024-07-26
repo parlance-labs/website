@@ -1,5 +1,5 @@
 ---
-title: Prompt Engineering Workshop
+title: Prompt Engineering
 date: 2024-07-12
 Speaker: John Berryman
 image: john.png
