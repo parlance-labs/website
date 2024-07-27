@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Educational resources on LLMs for applied topics.">
+<meta name="description" content="Educational resources on LLMs">
 
 <title>Educational Resources – Parlance</title>
 <style>
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../education/evals/index.html" rel="next">
 <link href="../b.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-listing/list.min.js"></script>
 <script src="../site_libs/quarto-listing/quarto-listing.js"></script>
@@ -130,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
   
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-talks-ft .list');
+    const listingTargetEl = window.document.querySelector('#listing-talks-should-ft .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -143,7 +144,91 @@ ul.task-list li input[type="checkbox"] {
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-talks-ft'] = new List('listing-talks-ft', options);
+    window['quarto-listings']['listing-talks-should-ft'] = new List('listing-talks-should-ft', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-talks-how-ft .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-talks-how-ft'] = new List('listing-talks-how-ft', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-talks-advanced-ft .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-talks-advanced-ft'] = new List('listing-talks-advanced-ft', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-talks-deploying-ft .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-talks-deploying-ft'] = new List('listing-talks-deploying-ft', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -254,13 +339,13 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../styles.css">
 <meta property="og:title" content="Parlance - Educational Resources">
-<meta property="og:description" content="Educational resources on LLMs for applied topics.">
+<meta property="og:description" content="Educational resources on LLMs">
 <meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
 <meta property="og:site_name" content="Parlance">
 <meta property="og:image:height" content="540">
 <meta property="og:image:width" content="960">
 <meta name="twitter:title" content="Parlance - Educational Resources">
-<meta name="twitter:description" content="Educational resources on LLMs for applied topics.">
+<meta name="twitter:description" content="Educational resources on LLMs">
 <meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
 <meta name="twitter:creator" content="@HamelHusain">
 <meta name="twitter:site" content="@HamelHusain">
@@ -269,7 +354,7 @@ window.Quarto = {
 <meta name="twitter:image-width" content="960">
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -325,22 +410,13 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../education/index.html#conference-talks" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Survey Course</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a href="../education/evals/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Evals</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
@@ -361,29 +437,59 @@ window.Quarto = {
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../education/rag/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../education/index.html#fine-tuning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
- <span class="menu-text">education/rag/**/*.qmd</span>
-  </li>
-      </ul>
-  </li>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../education/fine_tuning/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine-Tuning</span></a>
+            <a href="../education/index.html#should-you-fine-tune" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Should you fine-tune?</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
@@ -396,22 +502,21 @@ window.Quarto = {
  <span class="menu-text">Why Fine Tuning is Dead</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Napkin Math For Fine Tuning</span></a>
-  </div>
-</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../education/index.html#how-to-fine-tune" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to fine-tune</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -422,14 +527,43 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../education/fine_tuning/steven.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine Tuning OpenAI Models - Best Practices</span></a>
+  <a href="../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  <a href="../education/fine_tuning/steven.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning OpenAI Models - Best Practices</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/fine_tuning_course/workshop_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploying Fine-Tuned Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../education/index.html#advanced-topics-in-fine-tuning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced topics in fine-tuning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -440,15 +574,17 @@ window.Quarto = {
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../education/applications/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Applications</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
@@ -463,52 +599,30 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../education/applications/python.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Building Full Stack Applications with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../education/applications/charles.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
   </div>
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../education/prompt_eng/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Prompt Eng</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Prompt Engineering Workshop</span></a>
+ <span class="menu-text">Prompt Engineering</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#llm-survey-course" id="toc-llm-survey-course" class="nav-link active" data-scroll-target="#llm-survey-course">LLM Survey Course</a>
-  <ul class="collapse">
-  <li><a href="#evals" id="toc-evals" class="nav-link" data-scroll-target="#evals">Evals</a></li>
-  <li><a href="#rag" id="toc-rag" class="nav-link" data-scroll-target="#rag">RAG</a></li>
-  <li><a href="#building-applications" id="toc-building-applications" class="nav-link" data-scroll-target="#building-applications">Building Applications</a></li>
-  <li><a href="#fine-tuning" id="toc-fine-tuning" class="nav-link" data-scroll-target="#fine-tuning">Fine-Tuning</a></li>
-  <li><a href="#prompt-engineering" id="toc-prompt-engineering" class="nav-link" data-scroll-target="#prompt-engineering">Prompt Engineering</a></li>
-  </ul></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -519,7 +633,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Educational resources on LLMs for applied topics.
+    Educational resources on LLMs
   </div>
 </div>
 
@@ -536,18 +650,6 @@ window.Quarto = {
 </header>
 
 
-<hr>
-<!-- # Course: Fine-Tuning LLMs with Practical Applications
-This is a 4-part course on end-to-end fine-tuning with Axolotl, including a deep dive into evaluation and serving models.  A real-world case study will be used to demonstrate the concepts.
-
-:::{#course}
-::: 
-
-_Note that there is additional content on fine-tuning in the [Fine-Tuning](#fine-tuning) section of the survey course below._
-
--->
-<section id="llm-survey-course" class="level1">
-<h1>LLM Survey Course</h1>
 <p>Hear from practitioners on a wide range of topics on LLMs, including <a href="#rag">RAG</a>, <a href="#evals">evaluation</a>, <a href="#building-applications">applications</a>, <a href="#fine-tuning">fine-tuning</a> and <a href="#prompt-engineering">prompt engineering</a>.</p>
 <section id="evals" class="level2">
 <h2 class="anchored" data-anchor-id="evals">Evals</h2>
@@ -617,24 +719,7 @@ No matching items
 <p>Retrieval Augmented Generation</p>
 <div id="listing-talks-rag" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1718175600000" data-listing-file-modified-sort="1721689120919" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="49" data-listing-word-count-sort="9767">
-<a href="../education/rag/ben.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/rag/ben.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Beyond the Basics of RAG
-</h5>
-<div class="card-text listing-description">
-LLMs are powerful, but have limitations: their knowledge is fixed in…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721689151307" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7552">
+<div class="g-col-1" data-index="0" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721689151307" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="38" data-listing-word-count-sort="7552">
 <a href="../education/rag/jo.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -646,6 +731,23 @@ Back to Basics for RAG
 </h5>
 <div class="card-text listing-description">
 Adding context-sensitive information to LLM prompts through retrieval is…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="RAG,llm-conf-2024" data-listing-date-sort="1718175600000" data-listing-file-modified-sort="1721689120919" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="49" data-listing-word-count-sort="9767">
+<a href="../education/rag/ben.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/rag/ben.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Beyond the Basics of RAG
+</h5>
+<div class="card-text listing-description">
+LLMs are powerful, but have limitations: their knowledge is fixed in…
 </div>
 </div>
 </div>
@@ -680,7 +782,24 @@ No matching items
 <p>Examples and best practices of building applications with LLMs</p>
 <div id="listing-talks-app" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="Applications,llm-conf-2024" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1721689588030" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="61" data-listing-word-count-sort="12032">
+<div class="g-col-1" data-index="0" data-categories="applications,llm-conf-2024" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1722052897614" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="63" data-listing-word-count-sort="12499">
+<a href="../education/applications/simon_llm_cli/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/applications/simon_llm_cli/19.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+LLMs on the command line
+</h5>
+<div class="card-text listing-description">
+The Unix command-line philosophy has always been about joining different…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="Applications,llm-conf-2024" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1722054247038" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="61" data-listing-word-count-sort="12032">
 <a href="../education/applications/freddy.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -697,22 +816,24 @@ Freddy, a software engineer at Hugging Face, demonstrates ways to build…
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1721705303501" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<a href="../education/applications/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="2" data-categories="Applications,llm-conf-2024" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1722054247044" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="19">
+<a href="../education/applications/python.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="applications/simon_llm_cli/19.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
+<p class="card-img-top">
+<img loading="lazy" src="../education/applications/python.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Building Applications
+Building Full Stack Applications with Python
 </h5>
 <div class="card-text listing-description">
-Examples and best practices of building applications with LLMs
+<p>This lesson is private and will be released shortly.</p>
 </div>
 </div>
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="Applications,llm-conf-2024" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1721718673337" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="46" data-listing-word-count-sort="9130">
+<div class="g-col-1" data-index="3" data-categories="Applications,llm-conf-2024" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1721718673337" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="46" data-listing-word-count-sort="9130">
 <a href="../education/applications/charles.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -724,171 +845,6 @@ Modal: Simple Scalable Serverless Services
 </h5>
 <div class="card-text listing-description">
 Modal makes it easy to run code in the cloud. In this talk, we will…
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
-<hr>
-</section>
-<section id="fine-tuning" class="level2">
-<h2 class="anchored" data-anchor-id="fine-tuning">Fine-Tuning</h2>
-<p>Fine-tuning LLMs for specific tasks</p>
-<div id="listing-talks-ft" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1720162800000" data-listing-file-modified-sort="1721688568638" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6922">
-<a href="../education/fine_tuning/kyle.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/kyle.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Fine-tuning when you’ve already deployed LLMs in prod
-</h5>
-<div class="card-text listing-description">
-Already have a working prompt deployed in production? Fine-tuning may be…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721688581282" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="51" data-listing-word-count-sort="10034">
-<a href="../education/fine_tuning/emmanuel.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/emmanuel.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Why Fine Tuning is Dead
-</h5>
-<div class="card-text listing-description">
-Arguments for why fine-tuning has become less useful over time, as well…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719817200000" data-listing-file-modified-sort="1721688608154" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="53" data-listing-word-count-sort="10582">
-<a href="../education/fine_tuning/napkin_math.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/johno.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Napkin Math For Fine Tuning
-</h5>
-<div class="card-text listing-description">
-We will show you how to build intuition around training performance with…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1720422000000" data-listing-file-modified-sort="1721688632032" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="50" data-listing-word-count-sort="9850">
-<a href="../education/fine_tuning/daniel.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/daniel.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Creating, curating, and cleaning data for LLMs
-</h5>
-<div class="card-text listing-description">
-Good data is a key component for creating a strong LLM. This talk will…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1721688665537" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="47" data-listing-word-count-sort="9392">
-<a href="../education/fine_tuning/slaying_ooms.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/mark.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Slaying OOMs with PyTorch FSDP and torchao
-</h5>
-<div class="card-text listing-description">
-Have you ever hit an OOM (and wished you had more VRAM)? If you’ve done…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="5" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1721688712856" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3559">
-<a href="../education/fine_tuning/mistral_ft_sophia.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/sophia.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Best Practices For Fine Tuning Mistral
-</h5>
-<div class="card-text listing-description">
-We will discuss best practices for fine-tuning Mistral models. We will…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="6" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1721458800000" data-listing-file-modified-sort="1721771855470" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="44" data-listing-word-count-sort="8760">
-<a href="../education/fine_tuning/steven.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/steven.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Fine Tuning OpenAI Models - Best Practices
-</h5>
-<div class="card-text listing-description">
-<p>How to fine-tune OpenAI models like a pro.</p>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="7" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1721026800000" data-listing-file-modified-sort="1721688311296" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6054">
-<a href="../education/fine_tuning/abhishek.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/abhishek.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Train (almost) any LLM using 🤗 autotrain
-</h5>
-<div class="card-text listing-description">
-In this talk, we will show you how to use HuggingFace AutoTrain to…
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="8" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721688480070" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="69" data-listing-word-count-sort="13733">
-<a href="../education/fine_tuning/pawel.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../education/fine_tuning/pawel.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Fine Tuning LLMs for Function Calling
-</h5>
-<div class="card-text listing-description">
-In this talk, we will go through the process and best practices of…
 </div>
 </div>
 </div>
@@ -926,13 +882,250 @@ Effective prompt engineering techniques for LLMs
 No matching items
 </div>
 </div>
+<hr>
+</section>
+<section id="fine-tuning" class="level2">
+<h2 class="anchored" data-anchor-id="fine-tuning">Fine-Tuning</h2>
+<section id="should-you-fine-tune" class="level3">
+<h3 class="anchored" data-anchor-id="should-you-fine-tune">1. Should you fine-tune?</h3>
+<p>You shouldn’t always fine-tune. Learn when to fine-tune and when not to.</p>
+<div id="listing-talks-should-ft" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="ft-course,llm-conf-2024" data-listing-date-sort="1719990000000" data-listing-file-modified-sort="1721979801771" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="100" data-listing-word-count-sort="19893">
+<a href="../education/fine_tuning_course/workshop_1.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning_course/w1.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+When and Why to Fine Tune an LLM
+</h5>
+<div class="card-text listing-description">
+This session introduces the course “Fine Tuning for Data Scientists and…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1720162800000" data-listing-file-modified-sort="1721979831051" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="35" data-listing-word-count-sort="6922">
+<a href="../education/fine_tuning/kyle.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/kyle.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Fine-tuning when you’ve already deployed LLMs in prod
+</h5>
+<div class="card-text listing-description">
+Already have a working prompt deployed in production? Fine-tuning may be…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721979848967" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="51" data-listing-word-count-sort="10034">
+<a href="../education/fine_tuning/emmanuel.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/emmanuel.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Why Fine Tuning is Dead
+</h5>
+<div class="card-text listing-description">
+Arguments for why fine-tuning has become less useful over time, as well…
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+<section id="how-to-fine-tune" class="level3">
+<h3 class="anchored" data-anchor-id="how-to-fine-tune">2. How to fine-tune</h3>
+<p>Learn various tools and techniques for fine-tuning LLMs.</p>
+<div id="listing-talks-how-ft" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1720422000000" data-listing-file-modified-sort="1721688632032" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="50" data-listing-word-count-sort="9850">
+<a href="../education/fine_tuning/daniel.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/daniel.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Creating, curating, and cleaning data for LLMs
+</h5>
+<div class="card-text listing-description">
+Good data is a key component for creating a strong LLM. This talk will…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1721688712856" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3559">
+<a href="../education/fine_tuning/mistral_ft_sophia.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/sophia.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Best Practices For Fine Tuning Mistral
+</h5>
+<div class="card-text listing-description">
+We will discuss best practices for fine-tuning Mistral models. We will…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1721026800000" data-listing-file-modified-sort="1721688311296" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6054">
+<a href="../education/fine_tuning/abhishek.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/abhishek.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Train (almost) any LLM using 🤗 autotrain
+</h5>
+<div class="card-text listing-description">
+In this talk, we will show you how to use HuggingFace AutoTrain to…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="3" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1721458800000" data-listing-file-modified-sort="1721771855470" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="44" data-listing-word-count-sort="8760">
+<a href="../education/fine_tuning/steven.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/steven.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Fine Tuning OpenAI Models - Best Practices
+</h5>
+<div class="card-text listing-description">
+<p>How to fine-tune OpenAI models like a pro.</p>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+<section id="deploying-fine-tuned-models" class="level3">
+<h3 class="anchored" data-anchor-id="deploying-fine-tuned-models">3. Deploying fine-tuned models</h3>
+<div id="listing-talks-deploying-ft" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="llm-inference,llm-conf-2024" data-listing-date-sort="1721545200000" data-listing-file-modified-sort="1721979624815" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="139" data-listing-word-count-sort="27632">
+<a href="../education/fine_tuning_course/workshop_4.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning_course/w4.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Deploying Fine-Tuned Models
+</h5>
+<div class="card-text listing-description">
+This discussion explores inference servers, backends, and platforms such…
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+<section id="advanced-topics-in-fine-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-topics-in-fine-tuning">4. Advanced topics in fine-tuning</h3>
+<p>Advanced topics in fine-tuning LLMs.</p>
+<div id="listing-talks-advanced-ft" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719817200000" data-listing-file-modified-sort="1721688608154" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="53" data-listing-word-count-sort="10582">
+<a href="../education/fine_tuning/napkin_math.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/johno.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Napkin Math For Fine Tuning
+</h5>
+<div class="card-text listing-description">
+We will show you how to build intuition around training performance with…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1721688665537" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="47" data-listing-word-count-sort="9392">
+<a href="../education/fine_tuning/slaying_ooms.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/mark.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Slaying OOMs with PyTorch FSDP and torchao
+</h5>
+<div class="card-text listing-description">
+Have you ever hit an OOM (and wished you had more VRAM)? If you’ve done…
+</div>
+</div>
+</div>
+</a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="fine-tuning,llm-conf-2024" data-listing-date-sort="1719903600000" data-listing-file-modified-sort="1721688480070" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="69" data-listing-word-count-sort="13733">
+<a href="../education/fine_tuning/pawel.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="../education/fine_tuning/pawel.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Fine Tuning LLMs for Function Calling
+</h5>
+<div class="card-text listing-description">
+In this talk, we will go through the process and best practices of…
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+</section>
+<section id="subscribe" class="level2">
+<h2 class="anchored" data-anchor-id="subscribe">Subscribe</h2>
+<p>Subscribe to our newsletter to get updates on new educational resources.</p>
 <center>
 <script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
 </center>
 
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1500,6 +1693,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../education/evals/index.html" class="pagination-link" aria-label="Evals">
+        <span class="nav-page-text">Evals</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1521,7 +1723,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

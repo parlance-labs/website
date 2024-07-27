@@ -1,40 +1,10 @@
 [
   {
-    "listing": "/education/prompt_eng/index.html",
-    "items": [
-      "/education/prompt_eng/berryman.html"
-    ]
-  },
-  {
-    "listing": "/education/rag/index.html",
-    "items": [
-      "/education/rag/ben.html",
-      "/education/rag/jo.html",
-      "/education/rag/jason.html"
-    ]
-  },
-  {
-    "listing": "/education/index.html",
+    "listing": "/education/evals/index.html",
     "items": [
       "/education/evals/allaire.html",
       "/education/evals/ankur.html",
-      "/education/evals/schoelkopf.html",
-      "/education/rag/ben.html",
-      "/education/rag/jo.html",
-      "/education/rag/jason.html",
-      "/education/fine_tuning/kyle.html",
-      "/education/fine_tuning/emmanuel.html",
-      "/education/fine_tuning/napkin_math.html",
-      "/education/fine_tuning/daniel.html",
-      "/education/fine_tuning/slaying_ooms.html",
-      "/education/fine_tuning/mistral_ft_sophia.html",
-      "/education/fine_tuning/steven.html",
-      "/education/fine_tuning/abhishek.html",
-      "/education/fine_tuning/pawel.html",
-      "/education/applications/freddy.html",
-      "/education/applications/index.html",
-      "/education/applications/charles.html",
-      "/education/prompt_eng/index.html"
+      "/education/evals/schoelkopf.html"
     ]
   },
   {
@@ -52,11 +22,44 @@
     ]
   },
   {
-    "listing": "/education/evals/index.html",
+    "listing": "/education/index.html",
     "items": [
       "/education/evals/allaire.html",
       "/education/evals/ankur.html",
-      "/education/evals/schoelkopf.html"
+      "/education/evals/schoelkopf.html",
+      "/education/rag/jo.html",
+      "/education/rag/ben.html",
+      "/education/rag/jason.html",
+      "/education/fine_tuning_course/workshop_1.html",
+      "/education/fine_tuning/kyle.html",
+      "/education/fine_tuning/emmanuel.html",
+      "/education/fine_tuning/daniel.html",
+      "/education/fine_tuning/mistral_ft_sophia.html",
+      "/education/fine_tuning/abhishek.html",
+      "/education/fine_tuning/steven.html",
+      "/education/fine_tuning/napkin_math.html",
+      "/education/fine_tuning/slaying_ooms.html",
+      "/education/fine_tuning/pawel.html",
+      "/education/fine_tuning_course/workshop_4.html",
+      "/education/applications/simon_llm_cli/index.html",
+      "/education/applications/freddy.html",
+      "/education/applications/python.html",
+      "/education/applications/charles.html",
+      "/education/prompt_eng/index.html"
+    ]
+  },
+  {
+    "listing": "/education/rag/index.html",
+    "items": [
+      "/education/rag/ben.html",
+      "/education/rag/jo.html",
+      "/education/rag/jason.html"
+    ]
+  },
+  {
+    "listing": "/education/prompt_eng/index.html",
+    "items": [
+      "/education/prompt_eng/berryman.html"
     ]
   },
   {
@@ -64,6 +67,7 @@
     "items": [
       "/education/applications/simon_llm_cli/index.html",
       "/education/applications/freddy.html",
+      "/education/applications/python.html",
       "/education/applications/charles.html"
     ]
   }
