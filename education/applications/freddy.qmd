@@ -11,7 +11,6 @@ metadata-files:
 abstract: |
     Freddy, a software engineer at Hugging Face, demonstrates ways to build AI applications with Gradio, an open-source Python package. Freddy demonstrates building applications like a chatbot interface with just 50 lines of Python, discusses Gradio’s versatility in handling various media types, and its seamless integration with Hugging Face’s ecosystem. He also covers comparisons with tools like Streamlit and Shiny, emphasizing Gradio’s AI-first design, built-in API capabilities, and advanced features such as streaming outputs and multimodal support. Freddy concludes with insights into upcoming developments, including improvements in declarative UI rendering and agent workflows, showcasing Gradio’s continuous evolution to meet the AI community's needs.
 categories: ["Applications", "llm-conf-2024"]
-
 ---
 
 {{< video https://www.youtube.com/watch?v=mkY_ENplT9Y  >}}

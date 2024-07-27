@@ -1,0 +1,21 @@
+---
+title: "Building Full Stack Applications with Python"
+date: 2024-07-12
+Speaker: Jeremy Howard, Johno Whitaker
+image: python.png
+order: 3
+Venue: Mastering LLMs Conf
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    This lesson is private and will be released shortly.
+categories: ["Applications", "llm-conf-2024"]
+---
+
+
+:::{.callout-important}
+## This lesson is private and will be released shortly.
+
+This lesson private until the speakers have had a chance to prepare a public release. Please check back soon.
+:::

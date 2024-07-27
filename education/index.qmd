@@ -72,7 +72,11 @@ listing:
     fields: ["image","title", "description"]
     max-description-length: 75
   - id: talks-app
-    contents: "applications/*.qmd"
+    contents: 
+      - "applications/simon_llm_cli/index.qmd"
+      - "applications/freddy.qmd"
+      - "applications/python.qmd"
+      - "applications/charles.qmd"
     type: grid
     sort: order
     sort-ui: false
@@ -87,13 +91,6 @@ listing:
     filter-ui: false
     fields: ["image","title", "description"]
     max-description-length: 75
-  # - id: course
-  #   contents: "fine_tuning_course/*.qmd"
-  #   type: grid
-  #   sort-ui: false
-  #   fields: ["image","title", "description"]
-  #   filter-ui: false
-  #   max-description-length: 75
 aliases:
   - /talks/index.html
 ---
@@ -168,5 +165,8 @@ Advanced topics in fine-tuning LLMs.
 :::{#talks-advanced-ft}
 :::
 
+## Subscribe
+
+Subscribe to our newsletter to get updates on new educational resources.
 
 <center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
