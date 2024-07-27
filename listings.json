@@ -1,13 +1,5 @@
 [
   {
-    "listing": "/education/evals/index.html",
-    "items": [
-      "/education/evals/allaire.html",
-      "/education/evals/ankur.html",
-      "/education/evals/schoelkopf.html"
-    ]
-  },
-  {
     "listing": "/education/fine_tuning/index.html",
     "items": [
       "/education/fine_tuning/kyle.html",
@@ -19,6 +11,14 @@
       "/education/fine_tuning/steven.html",
       "/education/fine_tuning/abhishek.html",
       "/education/fine_tuning/pawel.html"
+    ]
+  },
+  {
+    "listing": "/education/evals/index.html",
+    "items": [
+      "/education/evals/allaire.html",
+      "/education/evals/ankur.html",
+      "/education/evals/schoelkopf.html"
     ]
   },
   {

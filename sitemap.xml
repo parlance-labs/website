@@ -29,76 +29,80 @@
     <lastmod>2024-07-22T22:58:59.904Z</lastmod>
   </url>
   <url>
-    <loc>https://parlance-labs.com/education/fine_tuning_course/workshop_1.html</loc>
-    <lastmod>2024-07-26T07:43:21.771Z</lastmod>
+    <loc>https://parlance-labs.com/education/fine_tuning_course/workshop_3.html</loc>
+    <lastmod>2024-07-27T20:54:57.648Z</lastmod>
   </url>
   <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/pawel.html</loc>
-    <lastmod>2024-07-22T22:48:00.070Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/daniel.html</loc>
-    <lastmod>2024-07-22T22:50:32.032Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/mistral_ft_sophia.html</loc>
-    <lastmod>2024-07-22T22:51:52.856Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/napkin_math.html</loc>
-    <lastmod>2024-07-22T22:50:08.154Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/emmanuel.html</loc>
-    <lastmod>2024-07-26T07:44:08.967Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/evals/schoelkopf.html</loc>
-    <lastmod>2024-07-22T22:55:17.904Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/evals/allaire.html</loc>
-    <lastmod>2024-07-22T22:53:30.404Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/team.html</loc>
-    <lastmod>2024-07-16T13:51:24.867Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/services.html</loc>
-    <lastmod>2024-07-23T22:27:59.712Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/evals/index.html</loc>
-    <lastmod>2024-07-22T23:08:05.069Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/evals/ankur.html</loc>
-    <lastmod>2024-07-22T22:54:41.789Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/kyle.html</loc>
-    <lastmod>2024-07-26T07:43:51.051Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/abhishek.html</loc>
-    <lastmod>2024-07-22T22:45:11.296Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/index.html</loc>
-    <lastmod>2024-07-23T02:45:19.738Z</lastmod>
-  </url>
-  <url>
-    <loc>https://parlance-labs.com/education/fine_tuning/slaying_ooms.html</loc>
-    <lastmod>2024-07-22T22:51:05.537Z</lastmod>
+    <loc>https://parlance-labs.com/education/fine_tuning_course/workshop_4.html</loc>
+    <lastmod>2024-07-26T07:40:24.815Z</lastmod>
   </url>
   <url>
     <loc>https://parlance-labs.com/education/fine_tuning/steven.html</loc>
     <lastmod>2024-07-23T21:57:35.470Z</lastmod>
   </url>
   <url>
-    <loc>https://parlance-labs.com/education/fine_tuning_course/workshop_4.html</loc>
-    <lastmod>2024-07-26T07:40:24.815Z</lastmod>
+    <loc>https://parlance-labs.com/education/fine_tuning/slaying_ooms.html</loc>
+    <lastmod>2024-07-22T22:51:05.537Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/index.html</loc>
+    <lastmod>2024-07-23T02:45:19.738Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/abhishek.html</loc>
+    <lastmod>2024-07-22T22:45:11.296Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/kyle.html</loc>
+    <lastmod>2024-07-26T07:43:51.051Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/evals/ankur.html</loc>
+    <lastmod>2024-07-22T22:54:41.789Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/evals/index.html</loc>
+    <lastmod>2024-07-22T23:08:05.069Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/services.html</loc>
+    <lastmod>2024-07-23T22:27:59.712Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/team.html</loc>
+    <lastmod>2024-07-16T13:51:24.867Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/evals/allaire.html</loc>
+    <lastmod>2024-07-22T22:53:30.404Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/evals/schoelkopf.html</loc>
+    <lastmod>2024-07-22T22:55:17.904Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/emmanuel.html</loc>
+    <lastmod>2024-07-26T07:44:08.967Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/napkin_math.html</loc>
+    <lastmod>2024-07-22T22:50:08.154Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/mistral_ft_sophia.html</loc>
+    <lastmod>2024-07-22T22:51:52.856Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/daniel.html</loc>
+    <lastmod>2024-07-22T22:50:32.032Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning/pawel.html</loc>
+    <lastmod>2024-07-22T22:48:00.070Z</lastmod>
+  </url>
+  <url>
+    <loc>https://parlance-labs.com/education/fine_tuning_course/workshop_1.html</loc>
+    <lastmod>2024-07-27T20:57:31.380Z</lastmod>
   </url>
   <url>
     <loc>https://parlance-labs.com/education/index.html</loc>
