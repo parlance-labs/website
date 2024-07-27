@@ -16,8 +16,6 @@ categories: ["evals", "llm-conf-2024"]
 {{< video https://www.youtube.com/watch?v=SnbGD677_u0  >}}
 
 
-
-
 :::{.callout-tip .mobile-only}
 ## Subscribe For More Educational Content
 
