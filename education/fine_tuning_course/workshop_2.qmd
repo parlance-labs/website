@@ -1,0 +1,72 @@
+---
+title: "Fine-Tuning with Axolotl"
+date: 2024-07-28
+Speaker: Wing Lian, Zach Mueller
+Venue: Mastering LLMs Conf
+image: w2.png
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    A lesson illustrating an end-to-end example of fine-tuning a model using Axolotl to enhance the understanding of a domain-specific query language.
+categories: ["fine-tuning", "llm-conf-2024"]
+
+---
+
+{{< video https://www.youtube.com/watch?v=mmsa4wDsiy0  >}}
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
+## Chapters
+
+**[00:00](https://www.youtube.com/watch?v=SnbGD677_u0&t=0s) Overview**  
+Hamel outlines the plan for the talk.
+
+
+## Slides
+
+{{< pdf workshop_2.pdf height=600 width=100% >}}
+
+## Resources
+
+Links to resources mentioned in the talk:
+
+- [Phi-3 has a context of 128K and is powerful for document information extraction](https://x.com/abacaj/status/1782835550396850449): Tweet by Abacaj discussing the capabilities of Phi-3 in document information extraction.
+- [Practical Tips for Fine-tuning LLMs](https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms): Tips on finetuning models.
+- [Analysis/thoughts on the "LoRA Learns Less and Forgets Less" paper](https://x.com/danielhanchen/status/1791900967472140583): Tweet by Daniel Hanchen providing insights on the paper.
+- [LoRA Learns Less and Forgets Less](https://arxiv.org/abs/2405.09673): The research paper discussing the findings on LoRA.
+- [LIMA: Less Is More for Alignment](https://arxiv.org/pdf/2305.11206): The research paper explaining that most knowledge in large language models is learned during pretraining, with limited instruction tuning data needed for high-quality output.
+- [LLM Fine-Tuning Benchmarks](https://x.com/bhutanisanyam1/status/1758159687051350189): Tweet by Bhutanisanyam1 about benchmarks for fine-tuning LLMs.
+- [Fine-Tuning LLMs: LoRA or Full-Parameter? An In-Depth Analysis with LLaMA 2](https://www.anyscale.com/blog/fine-tuning-llms-lora-or-full-parameter-an-in-depth-analysis-with-llama-2): A blog post analyzing the trade-offs between using LoRA and full parameter tuning for large language models.
+- [Scaling Up "Vibe Checks" for LLMs - Shreya Shankar | Stanford MLSys #97](https://www.youtube.com/watch?v=eGVDKegRdgM): A presentation discussing the scaling of evaluation methods for large language models, available on YouTube.
+- [Finetuning LLMs with LoRA and QLoRA: Insights from Hundreds of Experiments](https://lightning.ai/pages/community/lora-insights/): Insights from the Lightning AI community regarding LoRA and QLoRA techniques.
+- [GitHub Issue on Axolotl](https://github.com/OpenAccess-AI-Collective/axolotl/issues/1589): A GitHub issue discussing developments and updates related to the Axolotl project.
+- [8-Bit DoRA training with FSDP doesn't work, but 4-bit QDoRA does / peft_use_dora is ignored?](https://github.com/huggingface/peft/pull/1724): A pull request on GitHub related to parameter-efficient fine-tuning techniques.
+- [LoRA: Low-Rank Adaptation of Large Language Models - Explained visually + PyTorch code from scratch](https://www.youtube.com/watch?v=PXWYUTMt-AU): A YouTube video that visually explains the concept of LoRA and provides PyTorch code examples.
+- [AI Newsletter](https://buttondown.email/ainews): A newsletter providing updates and insights on AI developments.
+- [Huggingface Templates for Chat Models](https://huggingface.co/docs/transformers/main/en/chat_templating): Documentation on using templates for chat models in Huggingface.
+- [Guardrails AI](https://www.guardrailsai.com/): A platform dedicated to providing tools and services for managing and validating generative AI applications, offering a centralized platform known as the Guardrails Server.
+- [Outlines Development](https://github.com/outlines-dev/outlines): Outlines is a Python library designed to simplify the usage of Large Language Models (LLMs) with structured generation.
+- [Outlines Documentation](https://outlines-dev.github.io/outlines/): Generate text with LLMs, robust prompting, and structured text generation.
+- [Llama-3 Function Calling Demo](https://nbsanity.com/static/d06085f1dacae8c9de9402f2d7428de2/demo.html): A demo showcasing the capabilities of Nbsanity, a tool for managing Jupyter notebooks, featuring Llama-3 function calling.
+- [Llama 3 Function Calling with Prompting](https://x.com/HamelHusain/status/1784769559364608222): Tweet by Hamel Husain discussing Llama 3 function calling with prompting.
+- [FSDP QDoRA: A Scalable and Memory-Efficient Method](https://www.answer.ai/posts/2024-04-26-fsdp-qdora-llama3.html): Article discussing FSDP QDoRA, a scalable and memory-efficient method to bridge the gap between parameter-efficient finetuning and full finetuning.
+
+## Notes
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
+<br>[0:03] Dan Becker: Our plan is Hamill and I are going to talk about evaluation types and the trade-offs between different types of evaluation. Then, as I mentioned in the warm-up, we've got Harrison joining to do a deep dive on Langsmith. Brian giving a case study from his work at HEX. Eugene's going to talk about some specific metrics that are used in LLM evaluation. And then Shrey is going to talk more broadly about evals.
+
+:::
