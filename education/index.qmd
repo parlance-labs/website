@@ -58,6 +58,10 @@ listing:
       - "fine_tuning/napkin_math.qmd"
       - "fine_tuning/slaying_ooms.qmd"
       - "fine_tuning/pawel.qmd"
+      - title: "Axolotl Office Hours"
+        description: "Wing answers questions about axolotl, including advanced features and common pitfalls."
+        image: wing.png
+        path: https://youtu.be/6Pg6SVEooys?si=YOjCIZIO_NAegqkj
     type: grid
     sort: order
     sort-ui: false
@@ -67,6 +71,14 @@ listing:
   - id: talks-deploying-ft
     contents: 
       - "fine_tuning_course/workshop_4.qmd"
+      # - title: "Predibase Office Hours"
+      #   description: "Travis Addair, CEO at Predibase, answers questions about deploying fine-tuned models."
+      #   image: pb_oh.png
+      #   path: https://youtu.be/Gv7Qfqz71TI    
+      # - title: "Replicate Office Hours"
+      #   description: "Joe Hoover, lead ML engineer at Replicate, talks about inference engines, tools and features relevant to people deploying LLMs."
+      #   image: joe_oh.png
+      #   path: https://youtu.be/DQV2go7Y0mI
     type: grid
     sort: order
     sort-ui: false
