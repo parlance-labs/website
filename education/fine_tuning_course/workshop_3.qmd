@@ -122,7 +122,7 @@ Discussion on using unit tests for LLM CI/CD pipelines.
 
 ## Slides
 
-{{< pdf workshop_4.pdf height=600 width=100% >}}
+{{< pdf workshop_3.pdf height=600 width=100% >}}
 
 ## Resources
 
