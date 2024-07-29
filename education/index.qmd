@@ -89,7 +89,11 @@ listing:
     contents: 
       - "applications/simon_llm_cli/index.qmd"
       - "applications/freddy.qmd"
-      - "applications/python.qmd"
+      - title: "Python is all you need"
+        description: "Learn how to build full-stack applications in Python with a new, modern framework."
+        image: applications/python.png
+        path: https://youtu.be/ptRaku0zyeA?si=5aaofFSf5q062G7L
+      # - "applications/python.qmd"
       - "applications/charles.qmd"
     type: grid
     sort: order
