@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.45">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-28">
+
+<title>Fine-Tuning with Axolotl – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script async="" data-uid="fbcda700a8" src="https://hamel.ck.page/fbcda700a8/index.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Parlance - Fine-Tuning with Axolotl">
+<meta property="og:description" content="A lesson illustrating an end-to-end example of fine-tuning a model using Axolotl to enhance the understanding of a domain-specific query language.">
+<meta property="og:image" content="https://parlance-labs.com/education/fine_tuning_course/w2.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="720">
+<meta property="og:image:width" content="1280">
+<meta name="twitter:title" content="Parlance - Fine-Tuning with Axolotl">
+<meta name="twitter:description" content="A lesson illustrating an end-to-end example of fine-tuning a model using Axolotl to enhance the understanding of a domain-specific query language.">
+<meta name="twitter:image" content="https://parlance-labs.com/education/fine_tuning_course/w2.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="720">
+<meta name="twitter:image-width" content="1280">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Education</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a>
+  <ul class="collapse">
+  <li><a href="#choosing-a-base-model" id="toc-choosing-a-base-model" class="nav-link" data-scroll-target="#choosing-a-base-model">Choosing a Base Model</a></li>
+  <li><a href="#low-rank-adaptation-lora" id="toc-low-rank-adaptation-lora" class="nav-link" data-scroll-target="#low-rank-adaptation-lora">Low-Rank Adaptation (LoRA)</a></li>
+  <li><a href="#quantized-low-rank-adaptation-qlora" id="toc-quantized-low-rank-adaptation-qlora" class="nav-link" data-scroll-target="#quantized-low-rank-adaptation-qlora">Quantized Low-Rank Adaptation (QLoRA)</a></li>
+  <li><a href="#getting-started-with-axolotl" id="toc-getting-started-with-axolotl" class="nav-link" data-scroll-target="#getting-started-with-axolotl">Getting Started with Axolotl</a></li>
+  <li><a href="#accelerate" id="toc-accelerate" class="nav-link" data-scroll-target="#accelerate">Accelerate</a></li>
+  </ul></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning_course/workshop_2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Fine-Tuning with Axolotl</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">fine-tuning</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 28, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>A lesson illustrating an end-to-end example of fine-tuning a model using Axolotl to enhance the understanding of a domain-specific query language.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mmsa4wDsiy0" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=0s">00:00</a> Overview</strong><br>
+Dan introduces the talk and provides an overview of the topics covered.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=51s">00:51</a> Small vs.&nbsp;Larger LLMs</strong><br>
+Dan compares the benefits of using a 70 billion parameter model versus a 7 billion parameter model.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=227s">03:47</a> Model Family</strong><br>
+Dan discusses the value of experimenting with multiple models and keeping up with the latest trends.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=345s">05:45</a> LoRA vs.&nbsp;Fine-tuning</strong><br>
+Dan explains how LoRA operates and why it’s often preferred over full fine-tuning.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=594s">09:54</a> QLoRA</strong><br>
+Dan introduces QLoRA, a lower precision variant of LoRA.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=875s">14:35</a> Improving Data vs.&nbsp;Hyperparameters</strong><br>
+Dan emphasizes that improving data quality yields better results than tweaking hyperparameters.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=947s">15:47</a> What is Axolotl</strong><br>
+Dan explains Axolotl, a wrapper for Hugging Face tools that simplifies LLM fine-tuning.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=1305s">21:45</a> Axolotl Config Files Walkthrough</strong><br>
+Dan demonstrates how to configure Axolotl for fine-tuning the Mistral 7B model with QLoRA and explains the Alpaca dataset format.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=1643s">27:23</a> Finetuning with Axolotl via CLI</strong><br>
+Dan walks through the CLI commands required to start LLM fine-tuning.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=1837s">30:37</a> Alpaca Dataset Template and Debugging Tools</strong><br>
+Dan breaks down the Alpaca dataset template and discusses Axolotl’s debugging tools for token-by-token analysis.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=2166s">36:06</a> Gradio App Demo</strong><br>
+Dan demonstrates how to launch a Gradio app to test the fine-tuned model.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=2234s">37:14</a> Honeycomb Case Study</strong><br>
+Hamel presents a case study where the model generates Honeycomb queries from natural language input and schema.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=2391s">39:51</a> Honeycomb Prompt Notebook</strong><br>
+Hamel reviews the Honeycomb prompt template components.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=2590s">43:10</a> Writing Level 1 Evaluations</strong><br>
+Hamel shows unit tests and assertions used in the Honeycomb project that do not involve LLMs.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=2774s">46:14</a> Generating Synthetic Data</strong><br>
+Hamel demonstrates how to generate synthetic data using the discussed prompt template.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=2985s">49:45</a> Data and Config Files for Fine-tuning</strong><br>
+Hamel explains the data format and config files needed for LLM fine-tuning.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=3220s">53:40</a> Viewing Data After Preprocessing</strong><br>
+Hamel shows how to inspect data prepared by Axolotl and the importance of post-preprocessing exploration.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=3451s">57:31</a> Training with Axolotl</strong><br>
+Hamel demonstrates how to start training with Axolotl and view training runs using weights and biases.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=3624s">1:00:24</a> Model Sanity Checks</strong><br>
+Hamel performs local inference on the fine-tuned model hosted on Hugging Face to verify functionality and prompt accuracy.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=3764s">1:02:44</a> Level 2 Evaluations</strong><br>
+Hamel explains how to build an LLM evaluator and iteratively align it with human preferences.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4037s">1:07:17</a> Curating Data</strong><br>
+Hamel discusses methods for curating, filtering, and removing duplicate data, including using evaluations.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4269s">1:11:09</a> Debugging Axolotl</strong><br>
+Hamel provides guidelines for debugging Axolotl.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4417s">1:13:37</a> Predicting Fine-tuning Time</strong><br>
+Wing explains the challenges in estimating fine-tuning time due to variables like GPUs and data.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4594s">1:16:34</a> GPU Memory Usage for Fine-tuning</strong><br>
+Zack discusses how to estimate GPU memory usage for fine-tuning a BERT model and why it matters.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4729s">1:18:49</a> Distributed Training</strong><br>
+Zack covers methods for distributing model training, including DDP and FSDP.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4813s">1:20:13</a> Fully Sharded Data Parallelism (FSDP)</strong><br>
+Zack explains FSDP, which distributes a model across GPUs by splitting it into shards to optimize training efficiency.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=4910s">1:21:50</a> Sharding Strategies</strong><br>
+Zack reviews various sharding strategies and their advantages and disadvantages.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5017s">1:23:37</a> How to Split the Model</strong><br>
+Zack explains how to split a model by layers or parameters.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5084s">1:24:44</a> Offloading Parameters</strong><br>
+Zack demonstrates how offloading parameters to the CPU allows training of models larger than available VRAM.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5263s">1:27:43</a> What is Accelerate</strong><br>
+Zack introduces the Accelerate framework and essential CLI commands.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5365s">1:29:25</a> Distributing Training with Accelerate</strong><br>
+Zack shows how Accelerate simplifies distributed training and how to modify the config file for FSDP.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5478s">1:31:18</a> Using Accelerate in Code</strong><br>
+Zack demonstrates how to integrate Accelerate into code to make training device-agnostic.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5585s">1:33:05</a> Mixed Precision</strong><br>
+Zack explains how Accelerate manages mixed precision and its impact on training.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5740s">1:35:40</a> FSDP vs.&nbsp;Deepspeed</strong><br>
+Zack compares FSDP and Deepspeed, noting their similarities and implementation differences.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=5890s">1:38:10</a> FSDP and Deepspeed on Axolotl</strong><br>
+Hamel discusses using FSDP and Deepspeed with Axolotl.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=6127s">1:42:07</a> Training on Modal</strong><br>
+Hamel introduces Modal, a Python-native cloud platform that simplifies direct saves, minimizing the need for constant deployments.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=6381s">1:46:21</a> Using Modal to Fine-tune LLM with Axolotl</strong><br>
+Hamel explores Modal’s Axolotl wrapper for LLM fine-tuning and its differences from other wrappers.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=6715s">1:51:55</a> Inspecting Data with Notebook</strong><br>
+Hamel shows how to use Modal’s Axolotl wrapper to view preprocessed data.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=6780s">1:53:00</a> Q&amp;A Session</strong></p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=6813s">1:53:33</a> Determining Adapter Rank and Alpha</strong><br>
+Wing recommends using an adapter rank of 16 or 32 with an alpha value twice the rank.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=6985s">1:56:25</a> Custom Evaluation Metrics</strong><br>
+Wing discusses the limitations of Axolotl regarding custom metrics and suggests workflow adjustments to include them.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=7169s">1:59:29</a> Features of Lower-Level Libraries</strong><br>
+Wing compares the advanced features of lower-level libraries with the user-friendly nature of Axolotl.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=7334s">2:02:14</a> 4-Bit vs.&nbsp;Higher Precision</strong><br>
+Wing explains that 4-bit precision requires less RAM and is faster but may lead to performance degradation.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=mmsa4wDsiy0&amp;t=7674s">2:07:54</a> Making Models Deterministic</strong><br>
+Dan and Hamel discuss strategies for making models more deterministic and the role of fine-tuning in achieving this.</p>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<p><object data="workshop_2.pdf" type="application/pdf" width="100%" height="600"><a href="workshop_2.pdf" download="">Download PDF file.</a></object></p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p>Links to resources mentioned in the talk:</p>
+<ul>
+<li><a href="https://x.com/abacaj/status/1782835550396850449">Phi-3 has a context of 128K and is powerful for document information extraction</a>: Tweet by Abacaj discussing the capabilities of Phi-3 in document information extraction.</li>
+<li><a href="https://magazine.sebastianraschka.com/p/practical-tips-for-finetuning-llms">Practical Tips for Fine-tuning LLMs</a>: Tips on finetuning models.</li>
+<li><a href="https://x.com/danielhanchen/status/1791900967472140583">Analysis/thoughts on the “LoRA Learns Less and Forgets Less” paper</a>: Tweet by Daniel Hanchen providing insights on the paper.</li>
+<li><a href="https://arxiv.org/abs/2405.09673">LoRA Learns Less and Forgets Less</a>: The research paper discussing the findings on LoRA.</li>
+<li><a href="https://arxiv.org/pdf/2305.11206">LIMA: Less Is More for Alignment</a>: The research paper explaining that most knowledge in large language models is learned during pretraining, with limited instruction tuning data needed for high-quality output.</li>
+<li><a href="https://x.com/bhutanisanyam1/status/1758159687051350189">LLM Fine-Tuning Benchmarks</a>: Tweet by Bhutanisanyam1 about benchmarks for fine-tuning LLMs.</li>
+<li><a href="https://www.anyscale.com/blog/fine-tuning-llms-lora-or-full-parameter-an-in-depth-analysis-with-llama-2">Fine-Tuning LLMs: LoRA or Full-Parameter? An In-Depth Analysis with LLaMA 2</a>: A blog post analyzing the trade-offs between using LoRA and full parameter tuning for large language models.</li>
+<li><a href="https://www.youtube.com/watch?v=eGVDKegRdgM">Scaling Up “Vibe Checks” for LLMs - Shreya Shankar | Stanford MLSys #97</a>: A presentation discussing the scaling of evaluation methods for large language models, available on YouTube.</li>
+<li><a href="https://lightning.ai/pages/community/lora-insights/">Finetuning LLMs with LoRA and QLoRA: Insights from Hundreds of Experiments</a>: Insights from the Lightning AI community regarding LoRA and QLoRA techniques.</li>
+<li><a href="https://github.com/OpenAccess-AI-Collective/axolotl/issues/1589">GitHub Issue on Axolotl</a>: A GitHub issue discussing developments and updates related to the Axolotl project.</li>
+<li><a href="https://github.com/huggingface/peft/pull/1724">8-Bit DoRA training with FSDP doesn’t work, but 4-bit QDoRA does / peft_use_dora is ignored?</a>: A pull request on GitHub related to parameter-efficient fine-tuning techniques.</li>
+<li><a href="https://www.youtube.com/watch?v=PXWYUTMt-AU">LoRA: Low-Rank Adaptation of Large Language Models - Explained visually + PyTorch code from scratch</a>: A YouTube video that visually explains the concept of LoRA and provides PyTorch code examples.</li>
+<li><a href="https://buttondown.email/ainews">AI Newsletter</a>: A newsletter providing updates and insights on AI developments.</li>
+<li><a href="https://huggingface.co/docs/transformers/main/en/chat_templating">Huggingface Templates for Chat Models</a>: Documentation on using templates for chat models in Huggingface.</li>
+<li><a href="https://www.guardrailsai.com/">Guardrails AI</a>: A platform dedicated to providing tools and services for managing and validating generative AI applications, offering a centralized platform known as the Guardrails Server.</li>
+<li><a href="https://github.com/outlines-dev/outlines">Outlines Development</a>: Outlines is a Python library designed to simplify the usage of Large Language Models (LLMs) with structured generation.</li>
+<li><a href="https://outlines-dev.github.io/outlines/">Outlines Documentation</a>: Generate text with LLMs, robust prompting, and structured text generation.</li>
+<li><a href="https://nbsanity.com/static/d06085f1dacae8c9de9402f2d7428de2/demo.html">Llama-3 Function Calling Demo</a>: A demo showcasing the capabilities of Nbsanity, a tool for managing Jupyter notebooks, featuring Llama-3 function calling.</li>
+<li><a href="https://x.com/HamelHusain/status/1784769559364608222">Llama 3 Function Calling with Prompting</a>: Tweet by Hamel Husain discussing Llama 3 function calling with prompting.</li>
+<li><a href="https://www.answer.ai/posts/2024-04-26-fsdp-qdora-llama3.html">FSDP QDoRA: A Scalable and Memory-Efficient Method</a>: Article discussing FSDP QDoRA, a scalable and memory-efficient method to bridge the gap between parameter-efficient finetuning and full finetuning.</li>
+</ul>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<section id="choosing-a-base-model" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-a-base-model">Choosing a Base Model</h3>
+<ul>
+<li>For most tasks, a 7-billion parameter model is sufficient and more efficient than a 70-billion parameter model.</li>
+<li>It is recommended to experiment with multiple base models, including the latest and trending ones.</li>
+</ul>
+</section>
+<section id="low-rank-adaptation-lora" class="level3">
+<h3 class="anchored" data-anchor-id="low-rank-adaptation-lora">Low-Rank Adaptation (LoRA)</h3>
+<p>LoRA is a parameter-efficient fine-tuning technique that focuses on fine-tuning two matrices instead of the entire model. When multiplied, these matrices have the same dimensions as the full weight matrix. This approach significantly reduces the number of weight parameters that need updating, leading to shorter training times and a smaller GPU memory footprint.</p>
+</section>
+<section id="quantized-low-rank-adaptation-qlora" class="level3">
+<h3 class="anchored" data-anchor-id="quantized-low-rank-adaptation-qlora">Quantized Low-Rank Adaptation (QLoRA)</h3>
+<p>QLoRA operates on the same principle as LoRA but uses reduced precision, further decreasing GPU VRAM usage. The drawback is that quantization errors can occur when QLoRA matrices, trained on quantized model weights, are merged with the original model, which may be in full or different precision.</p>
+</section>
+<section id="getting-started-with-axolotl" class="level3">
+<h3 class="anchored" data-anchor-id="getting-started-with-axolotl">Getting Started with Axolotl</h3>
+<p>Axolotl is a framework that makes it easier to fine-tune the latest LLMs using different techniques.</p>
+<p>To fine-tune a model using Axolotl, you can modify one of the premade <a href="https://github.com/axolotl-ai-cloud/axolotl/blob/main/examples/mistral/qlora.yml">config files</a> with your dataset and instructions.</p>
+<p>Launch fine-tuning using Axolotl with the following CLI commands:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># preprocess datasets - optional but recommended</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">CUDA_VISIBLE_DEVICES</span><span class="op">=</span><span class="st">""</span> <span class="ex">python</span> <span class="at">-m</span> axolotl.cli.preprocess examples/openllama-3b/lora.yml</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># finetune lora</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">accelerate</span> launch <span class="at">-m</span> axolotl.cli.train examples/openllama-3b/lora.yml</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># inference</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">accelerate</span> launch <span class="at">-m</span> axolotl.cli.inference examples/openllama-3b/lora.yml <span class="dt">\</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--lora_model_dir</span><span class="op">=</span><span class="st">"./outputs/lora-out"</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># gradio</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">accelerate</span> launch <span class="at">-m</span> axolotl.cli.inference examples/openllama-3b/lora.yml <span class="dt">\</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--lora_model_dir</span><span class="op">=</span><span class="st">"./outputs/lora-out"</span> <span class="at">--gradio</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># remote yaml files - the yaml config can be hosted on a public URL</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: the yaml config must directly link to the **raw** yaml</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">accelerate</span> launch <span class="at">-m</span> axolotl.cli.train https://raw.githubusercontent.com/axolotl-ai-cloud/axolotl/main/examples/openllama-3b/lora.yml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Axolotl preprocesses the data in Hugging Face datasets format. To view the data after preprocessing it, use the following code snippet:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json, yaml</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_from_disk</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'hc.yml'</span>, <span class="st">'r'</span>) <span class="im">as</span> f:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    cfg <span class="op">=</span> yaml.safe_load(f)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>model_id <span class="op">=</span> cfg[<span class="st">'base_model'</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>tok <span class="op">=</span> AutoTokenizer.from_pretrained(model_id)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> load_from_disk(<span class="st">'last_run_prepared/22cf9f5f00f9d3b9504fbaf9b68a2f75/'</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tok.decode(ds[<span class="st">'input_ids'</span>][<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Once the fine-tuned model is uploaded on Hugging Face, local inference can be made to test the model:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> peft <span class="im">import</span> AutoPeftModelForCausalLM</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> AutoTokenizer</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>model_id <span class="op">=</span> <span class="st">'parlance-labs/hc-mistral-alpaca'</span>  <span class="co"># this will be different for you based on hub_model_id</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AutoPeftModelForCausalLM.from_pretrained(model_id).cuda()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> AutoTokenizer.from_pretrained(model_id)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>tokenizer.pad_token <span class="op">=</span> tokenizer.eos_token</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="accelerate" class="level3">
+<h3 class="anchored" data-anchor-id="accelerate">Accelerate</h3>
+<section id="calculating-gpu-memory-utilization-for-fine-tuning" class="level4">
+<h4 class="anchored" data-anchor-id="calculating-gpu-memory-utilization-for-fine-tuning">Calculating GPU Memory Utilization for Fine-Tuning</h4>
+<p>The following method shows how to approximate the GPU VRAM needed to fine-tune a model using the Adam optimizer and batch size of 1:</p>
+<ul>
+<li><strong>Model</strong>: bert-base-cased</li>
+<li><strong>Parameters</strong>: 108M</li>
+<li><strong>Parameter Size</strong>: 4 bytes</li>
+<li><strong>Backward Parameters</strong> ~= 2x model size</li>
+<li><strong>Optimizer Step</strong> ~= 4x model size (1x model, 1x gradients, 2x optimizer)</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 19%">
+<col style="width: 21%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>dtype</th>
+<th>Model</th>
+<th>Gradients</th>
+<th>Backward pass</th>
+<th>Optimizer step</th>
+<th>Highest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>float32</td>
+<td>413.18 MB</td>
+<td>413.18 MB</td>
+<td>826.36 MB</td>
+<td>1.61 GB</td>
+<td>1.61 GB</td>
+</tr>
+<tr class="even">
+<td>float16</td>
+<td>413.18 MB</td>
+<td>206.59 MB</td>
+<td>413.18 MB</td>
+<td>826.36 MB</td>
+<td>826.36 MB</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="types-of-training" class="level4">
+<h4 class="anchored" data-anchor-id="types-of-training">Types of Training</h4>
+<ul>
+<li>Single GPU
+<ul>
+<li>No distributed training</li>
+</ul></li>
+<li>Distributed Data Parallelism (DDP)
+<ul>
+<li>A full copy of the model exists on each device, but the data is chunked</li>
+</ul></li>
+<li>Fully Sharded Data Parallelism (FSDP) and DeepSpeed (DS)
+<ul>
+<li>Split chunks of the model and optimizer states across GPUs, allowing for training of bigger models on multiple smaller GPUs.</li>
+</ul></li>
+</ul>
+<p><strong>FSDP</strong> is a distributed training technique that splits a model into smaller shards across multiple GPUs, managing optimizer states, gradients, and parameters to optimize memory usage and training efficiency. It enables training of a model larger than the VRAM of a single GPU. It involves communication between GPUs to synchronize updates, which can impact performance if not well-configured.</p>
+</section>
+<section id="sharding-strategies" class="level4">
+<h4 class="anchored" data-anchor-id="sharding-strategies">Sharding Strategies</h4>
+<ul>
+<li><strong>FULL SHARD:</strong> Divides all resources, including optimizer states, gradients, and parameters.</li>
+<li><strong>SHARD GRAD OP:</strong> Divides optimizer states and gradients only.</li>
+<li><strong>NO SHARD:</strong> Uses standard Distributed Data Parallel (DDP) without sharding.</li>
+<li><strong>HYBRID SHARD:</strong> Divides optimizer states, gradients, and parameters, but each node retains the full model.</li>
+</ul>
+</section>
+<section id="model-splitting-strategies" class="level4">
+<h4 class="anchored" data-anchor-id="model-splitting-strategies">Model Splitting Strategies</h4>
+<ul>
+<li><strong>Transformers_Based_Wrap:</strong> Splits the model by the specific layer.</li>
+<li><strong>Size_Based_Wrap:</strong> Splits the model after a certain amount of parameters. This is simple but can be slower.</li>
+</ul>
+</section>
+<section id="integrating-accelerate-in-training" class="level4">
+<h4 class="anchored" data-anchor-id="integrating-accelerate-in-training">Integrating Accelerate in Training</h4>
+<p>Accelerate can be used in the training loop to make the training hardware agnostic. It can be done using the following code:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> accelerate <span class="im">import</span> Accelerator</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>accelerator <span class="op">=</span> Accelerator()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dataloader, model, optimizer, scheduler <span class="op">=</span> (</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    accelerator.prepare(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        dataloader, model, optimizer, scheduler</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> batch <span class="kw">in</span> dataloader:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    optimizer.zero_grad()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    inputs, targets <span class="op">=</span> batch</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    outputs <span class="op">=</span> model(inputs)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> loss_function(outputs, targets)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    accelerator.backward(loss)  <span class="co"># loss.backward()</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    optimizer.step()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    scheduler.step()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:03] Dan Becker: So plan for today, we’re going to talk about axolotl, how to use it broadly, and then we’re going to go into the honeycomb example that we introduced last time. And we’ll do just a quick catch up there for those who didn’t see last time. But the honeycomb example, and Hamel will walk through that. We will have some time to get a conversation, both our questions and your questions with Wing. And then we will. have some time for Zach to share about parallelism and Hugging Face Accelerate. <br>[0:39] Dan Becker: Very quick run-through of fine-tuning on modal, and we’ll have a little bit of time at the end of this for Q&amp;A. So with all that said, I’m going to get started. The most frequent question that I get from people when they’re first starting to fine-tune is, they’re really related to, I’m going to call it model capacity. which is how much are we going to be able to learn? The two parts of that are what model should I fine tune off of? <br>[1:08] Dan Becker: And then the question, which is simultaneously more technical, but I think has an easier answer because the answer is almost always the same, which is should I use LoRa or should I do a full fine tune? I’m going to give a shorter answer to the base model, and then I’ll walk you through what it means to fine tune with LoRa. But then I think the answer there. Despite it being useful to understand LoRa because you’re going to use it a lot, you should almost always, in my opinion, be using LoRa rather than full fine-tunes. <br>[1:37] Dan Becker: But the first part of this is what base model do you use? So there are two dimensions to this. So one is what model size? Do I use a 7 billion or 13 or 70 billion or some other size parameter model? And then the second is what model family do I use? So do I use… Lama 2, Lama 3, Mistral, Zephyr, Gemma, whatever else. On the model size, I think different people will have different experiences. I have almost, I’ve never fine-tuned a 70 billion parameter model. <br>[2:18] Dan Becker: And it’s not that we can’t, it’s actually with, thanks to Axolotl and Accelerate, it’s not so, so difficult. But I’ve fine-tuned 7 billion and 13 billion parameter models. I think most of the use cases I have, the breadth of what we are asking the model to do is not so, so wide. <br>[2:35] Dan Becker: And so my experience has been that fine-tuning a 7 billion parameter model versus 13, actually the 7 billion parameter model, the output quality of these for the projects I’ve worked on has been close enough that I never felt the need to deal with the parallelism required for much larger models. So I typically… ended up using just 7 billion parameter models. Those are a little bit faster. It’s a little bit easier to get a GPU that those run on. <br>[3:05] Dan Becker: And if you look at the download counts, this is not a perfect proxy for what others are doing, but it’s some proxy for what others are doing. And you do see that 7 billion parameter models are the most popular. And these are not instruction-tuned models. So these are models that people are typically fine-tuning off of. And you see that the 7 billion… seven billion parameter model is the most popular. And then for people who want to know just like, what is fine tuning? We cover that. I covered that in some depth in the first lesson. <br>[3:42] Dan Becker: So you can go back to that. Then the second question is, which model family do I use? This is one where, again, thanks to the way that it’s been. abstracted from axolotl, it is extremely easy to try different models, especially if they all fit on the same GPU. Or even if you have to boot up a new instance, that’s also not so, so hard, but it’s extremely easy to try different models and just do a vibes check. I tend to just do whatever is fashionable. So a recently released model is Lama3. <br>[4:24] Dan Becker: And if I were Starting with something today, I would just use Llama 3, not because I’ve thought about it in incredible, incredible depth, but rather because it’s just a newly released model that’s widely known to be reasonably good. If you want to find out what’s fashionable, there are many places to find that out. You could go to Hugging Face and then for models, there’s a way to sort by hotness and just see what’s hot. The local Llama subreddit is a community of people who think about… <br>[4:55] Dan Becker: these things a lot and that’s a good place to look at and just for running models though it has local in the name they spend a lot of time just thinking about different models and how they behave differently so local llama is another community to look up if you want to um to choose a model but um i think people over index on this and that if you run a couple of models that are just the most popular models at the time that is uh that should be um good enough and you won’t probably improve <br>[5:33] Dan Becker: on that immensely by trying many more models. And I’ll talk in a couple slides about why that is. The second problem, lower-reversible fine-tuning, is a question of when you fine-tune the model, are you going to, so you’ve, let me start with an image. So if we imagine that we’ve got one layer, It goes from an input to the output. I’m going to, for a second, actually simplify the transformer architecture so that we don’t think about a query matrix and keys and values. And imagine this almost is just like a, for the moment, a feedforward network. <br>[6:14] Dan Becker: So you’ve just got one layer that we’re going to look at. And it’s going to take an input that is really an embedding of the meaning of the text up to that point in the string. And it’s going to output. another vector representation. In most of these models, the inputs and outputs are somewhere on the order of 4,000 dimensions. And so just for that one layer, you’d have 4,000 dimensional input, 4,000 dimensional output. So that matrix would be 4,000 by 4,000. That would be 16 million weights. <br>[6:53] Dan Becker: And the idea behind LoRa is that we can learn… something that you can add to that original matrix that is much lower dimensional and that will still change the behavior in a similar way but will have many fewer weights and as a result it can be fine-tuned on less GPU with less RAM and the I think it’s safe to say that the vast vast majority of fine tuning that happens is either LoRa or I’ll talk about QLoRa, which is going to work functionally in a similar way. But the vast majority that happens is LoRa. <br>[7:34] Dan Becker: And I think for everyone in this course, you should use LoRa for a while and maybe someday you’ll do a full fine tune, but you as a practitioner may never need full fine tunes. There are some theoretical reasons that full fine tunes, if you have a lot of data, could be higher performance. Zach or Wing or Hamill can contradict me here, but I think for most people, LoRa is all you need. Unless you guys want to jump in and correct me, I’m going to say a bit about just how LoRa works. <br>[8:10] Dan Becker: So we want to make some changes to a 4,000 by 4,000 matrix, which is the original weights. And we do that by having a two matrices that we’re going to multiply together. Those of you who remember your linear algebra will know that if you have a 4,000 by 16 matrix times a 16 by 4,000 matrix, that is 4,000 by 4,000. So if we multiply these two pieces together, that is going to create a new matrix that we can add to the original weights. <br>[8:46] Dan Becker: So it can change the original weights quite a bit, but the number of parameters that are required here. So each of these is, this one is 4,000 by 16, and this one is 16 by 4,000. So if we said, how many parameters is that? That’s each of these two matrices on the right is 16 by 4,000 as the number of parameters. You have two of those. So now we have 128,000 weights that we are going to need to fit when we’re fine tuning. <br>[9:20] Dan Becker: that’s a lot less than 16 million and as a result it just requires a lot less ram and gpu vram is uh frequently a binding constraint as we train our models and as a result it’s nice to be able to reduce that ram usage by using laura and you’ll see that um yeah you’ll see that’s just a configuration flag so it’s quite easy to do this in It’s very easy to do this in axolotl. <br>[9:56] Dan Becker: The other piece, which is, I think, conceptually also actually somewhat complex to understand well, but extremely easy to use is going from LoRa to QLoRa. So here we had each of these matrices and those are just numbers, or each element in those is numbers. Numbers are stored in computers with a number of bits and if you store it with many, many bits, then you get very fine gradations of what that number can be. So you can go 2 to 2.00001 and 2.00002 and so on. So we tend to think of those almost as being continuous. <br>[10:42] Dan Becker: QLORA is dividing the possible values for numbers into a smaller set of values. So for instance, If you start with something that is stored in 16 bits, you can think of that as almost continuous. If the lowest value that you want to be able to store is minus 2 and the highest is just to pick a number 2.4, you’ve got lots of numbers in between there. QLora will divide that space so that it can be stored in 4 bits. The number of possible values there is 2 to the 4, so it’s 16 values. <br>[11:18] Dan Becker: The exact way that we choose the 16 values is a technical topic that I think isn’t worth our time. going into in this moment. There’s some details about how you do back propagation there that we don’t really need to know in practice. But by storing every number in four bits, you cut down on the memory usage by quite a bit. And so a lot of people do this. You’ll see again that this is not so complex to do. And in practice, it saves some RAM and… It has some small impact on results. <br>[11:59] Dan Becker: But I think my intuition would have been that it has a bigger impact on results than I’ve actually observed it having. And I think most people would agree with that. And so a lot of people run Qlora models or train with Qlora either as their default first step or at the very least it’s something that they do frequently. And again, we’ll show you how to do that. And it’s shockingly easy. So. <br>[12:25] Hamel Husain: Maybe it’s a good time to just pause for a second. Wing, do you, Wing, Zach even, like, do you have any opinions on QLaura, Laura, when you use them, any observations, feelings? Do you agree? Any, yeah, any further thoughts? <br>[12:44] Wing Lian: I know that sometimes people see a difference between, like, the actual losses that or some of the evaluations that you get during fine tuning with QOR because what’s happening is you’ve quantized the weights and then you’re training on those but then when you merge those lures back into sort of the original model because the quantization there’s like quantization errors or due to quantization that you’re not actually getting the exact same model that you trained so there has been some like debate over that I don’t like I personally don’t like feel like that’s a huge issue <br>[13:23] Wing Lian: um otherwise people would not be using it anymore so well that’s really the only thing that i have about that i think there was also something that i personally didn’t understand with q laura um with the quantization was i think there were like double quantization and there’s some like nuances with like that as well when you’re quantizing the weights maybe if dan <br>[13:43] Dan Becker: understands that better than me i i think i don’t um One of the speakers, so at workshop four, we’re going to have Travis Adair, who is the CTO of Predabase, but he built Lorax, which is a serving framework. And he talked about some of the quantization errors as you merge the weights back. I think he has thought about this like way more deeply than I have. And so. I know that I’m looking forward to workshop four so I can hear his description of what he’s done about this issue. <br>[14:22] Dan Becker: But yeah, I don’t know much more about it than that. All of this is, like I said, there are so many places in AI and before that ML where it’s like tempting to like. get really detailed about all sorts of things that seem very mathematical. The payoff to doing that, even though most of us were good at math from an early age and were told, like, I used to do a lot of math, anything with hyperparameters while sounding cool. <br>[15:01] Dan Becker: has a much, much lower payoff than spending that time looking at your data and improving your data. And you might think, my data is what it is, how can I improve it? And so when we get to Hamill’s, what Hamill shows about his work with Honeycomb, you’ll see you actually can improve your data. And the payoff to improving your data is so, so large. I think Hamill made a comment about, many of you might know who Technium is, but I don’t know if you wanted to jump in here. <br>[15:40] Dan Becker: Yeah, anyway, improving your data, the payoffs are massive, and you should do more of that. One of the things that we’re going to switch into from the abstract, like, hey, here’s some ideas to how do we implement this. One of the things that I loved about Axolotl when I switch from use it. So Axolotl is a wrapper for lower level Hugging Face libraries. <br>[16:05] Dan Becker: One of the things that I most loved about this switch from Hugging Face lower level libraries that give you a lot of granular control to using Axolotl is that Axolotl was so easy to use that I never thought about, like, oh, what’s the error in my code? And I just spent actually less time looking at code. And I spent more time just psychologically looking at my data. <br>[16:28] Dan Becker: And so the ease of changing some things around and being able to run things, read up some mental space for me to focus on my data, which we said is a great thing to do. It also, if you just use the examples, and I’ll show you some of the examples, there are a lot of just best practices and default values that are built in. It does a lot of smart things as defaults. I’m going to… There are a couple of things that I quite like that it does that we don’t have time to cover. <br>[17:05] Dan Becker: And so I’m going to make a couple of videos and then just post them either in the Discord or in Maven or on the Maven portal or both, quite possibly both, showing things like sample packing, which is a quite clever thing that it does that speeds up your training process. But it has a lot of things that you could spend a lot of time figuring out for yourself. Or you could just… use some of these examples in axolotl and change relatively few things and have a lot of best practices built in by default. <br>[17:40] Dan Becker: So I have loved, so Wing, thank you. I’ve loved using axolotl. <br>[17:49] Hamel Husain: One thing I want to, maybe it’s worth lingering on for a second, is Wing, like, I’ll let Wing tell the story. Has there any, have you been surprised by… like the level of like, you know, what kind of people are able to fine tune models, like really competitive ones without like knowing any like deep mathematics or things like that. Yeah, I mean, <br>[18:20] Wing Lian: I just do I just sort of. <br>[18:26] Wing Lian: like if you think about actually the most popular model like i think generally like you know with technium’s hermes models and those sorts of ones like they’re generally very popular and if you actually talk to ryan like he doesn’t he’s also the you know he’s very much like me where he doesn’t quite get deep into like transformers and the math and all that and just wants to trade models and build you know focus on good data so like really all of his models are really good um there are people like um i think like uh <br>[18:58] Wing Lian: let’s say i think miguel tessera uh sarah is it with the um i forget which models he has that he releases i mean i think his background is more deep learning but um he also uses axolotl and there’s a lot of like um they don’t really need to like go deep into the transformers right and so yeah like um dan was saying they just are able to spend more time focusing on just procuring good data and doing data synthesis rather than thinking about like all of the everything else that goes on underneath the hood. <br>[19:35] Hamel Husain: Great. <br>[19:38] Dan Becker: Okay, let’s get one level more tactical or concrete. So using axolotl, some people here have used it a bunch. We’re going to make the assumption that most of you have either used it very, very little, or I think even more when we did a survey at some point of some students, most of you have not used it at all. So this is going to be really a How do you just actively get started? I think you’ll be surprised that it is not so, so difficult to run your first job. And I highly recommend doing that. <br>[20:12] Dan Becker: You’ll just feel different about yourself as someone in this space once you’ve run a couple of jobs and you feel like a practitioner now. So I highly recommend using it. The way to get started is if you go to the Axolotl. Actually, I would just start with just Googling GitHub Axolotl. If you go to the Axolotl repo, there is a separate documentation page, but just the readme is fantastic and has most of what you’ll need. I’m going to point out a couple of things that you should look for while you are in that readme. <br>[20:51] Dan Becker: So the very first is examples. I mentioned earlier that there are a lot of examples. Axolotl takes… YAML config files. And the config files are reasonably long. Maybe wing could do it. But I don’t think there is anyone else who could open up them or have like a blinking cursor and then just type one out beginning to end and get it right. So you and almost everyone else will go to one of these examples, copy it. The first time you should just run it and I’ll show you how to do that. <br>[21:26] Dan Becker: But then you’re likely to change one or two parameters by the first one. that you might change is the data set that you use, but you might change one or two other parameters, rerun it, and it will always be an experience of taking something that works and then changing it around a little bit rather than starting from scratch. So you’re going to use these examples to show you one of them. So here’s one. This is to fine-tune a Mistral 7B model with QLORA. So the first, the very top. <br>[21:59] Dan Becker: is showing you what is the model that I’m fine tuning off of. So this is QLORA. So here we are loading in 4-bit. We have a data set. I’ll show you that data set in a moment. We’re going to store the data set after the prep phase in some location. We’re going to have some validation data. Most of these, you won’t change that frequently. Sample packing, I’ll make a separate video about. This LoRaR is related to the size of those LoRa matrices, that’s that matrix that I was showing earlier. LoRa Alpha is a scaling parameter. <br>[22:36] Dan Becker: I wouldn’t worry about some of these bottom ones. I think the ones that you probably want to focus on up front would be actually, it’s not the easiest one to change, so you could change something else just to get an experience of changing it. But when you really start working on your own use cases, the first one you’ll change is the data set. And The format of the data set is, so there are a lot of different formats. <br>[23:03] Dan Becker: I think one of the things that’s really nice about axolotl is that out there in the wild, data is stored in a variety of formats and if you tell axolotl what formats it’s stored in, you can use most of, if not all, of the common formats. So this is a format called alpaca, but each row or each sample has an instruction to the model. Optionally, some input you’ll see in these. Most of those are empty. It has the output, which is what we want the model to learn to reproduce. <br>[23:37] Dan Becker: And then it has some text, which will go above these. So the text would be below as an instruction that describes a task, blah, blah, blah. And then you’ll have a question like, what is the world’s most famous, who is the world’s most famous painter? And then here’s the training output, which is… <br>[23:54] Dan Becker: what we’re going to train on and try and have the model learn to replicate the behavior of um so just to kind of stop there for a second and talk about uh the config files so like when i start a project i <br>[24:10] Hamel Husain: you know i look at the examples too i message wing sometimes now not everybody can message wing please don’t message wing with like not please don’t don’t ddosm with questions like that um There is a Slack channel, an Axolotl, sorry, a Discord channel. I think Wing looks like he’s getting the link and putting it in the Discord right now. And that’s a good place to like kind of trade configs. But yeah, starting with a known good config is a good idea. It’s like, hey, like I’m training this model that just came out. <br>[24:44] Hamel Husain: Does anyone have a config? And usually either by searching that Discord or looking at the examples or something else, you can find a config. And there’s a lot of times in Hugging Face repos you can find, nowadays you can find axolotl configs as well. Wing, do you have any other tips on where to find configs or where people should go about it? <br>[25:09] Wing Lian: Yeah, depending on some model creators. I know personally I try and include the model configs when I’m releasing models, either somewhere in the repo or in the README. I think Axolotl by default also stores in your README, it’ll store it. <br>[25:27] Wing Lian: um the axolotl config so sometimes like if you go through hunting facing there is a link where you can find like models that are tagged that were trained by axolotl um depending on whether or not they’ve modified their readme you can sort of like get configs from there as well um but other than that i think a lot of times it’s yeah you’ll see some examples in the discord people have and i’m happy to also help just like um you know with various things depending on like what But it’s generally pretty self-explanatory most of the <br>[25:59] Wing Lian: time, I think. Usually you’re taking little bits from one config and maybe combining with another piece, whether it’s like FSDP or DeepSpeed or the lore versus Qlore. Most of the various configurations are pretty composable with each other. And if they’re not, I believe we do enough validation that it will tell you that it’s not composable. <br>[26:28] Hamel Husain: Sounds good. <br>[26:30] Dan Becker: Yep. Okay. And then a lot of those, there are a lot of other parameters. I won’t go through these in, I won’t go through most of these. Most of them you won’t change. But I will say a couple things. One is many of us like using weights and biases. It’s a very nice weights and biases integration in Axolotl. You’ll even see a config from Haml later on. that shows you how to fill this in. Micro batch size is just the basically batch size per GPU. <br>[27:05] Dan Becker: Yeah, and a lot of this stuff you won’t change in the near future. And so like I said, I highly recommend starting with any of the example configs and then changing it just small pieces. Don’t get overwhelmed by all the things that you aren’t changing. Then once you have your config, The next step is to run it. Like I said, I think this GitHub readme is so, so useful. So after you’ve got your example, click on the quick start section. <br>[27:41] Dan Becker: And that will bring you to a set of, depending on how we count, either three or four commands. So the reason this, while it looks like four could be three, is that there are three steps. So one is pre-processing your data. The second is this training step. And then after that, you’re going to want to just test out the model that you’ve trained. So there is a CLI tool to do that. That’s this third step. And Hamel will actually show another way to do this. <br>[28:15] Dan Becker: The thing that I like to do is there’s also, if you run this bottom version instead of the third, that launches a very lightweight. <br>[28:23] Dan Becker: uh gradio app so that you can just on in the web type something into a form and that gets sent to the model and inference happens uh and then the output is shown so i i quite like um using this bottom step uh you will i think it’s worth mentioning you don’t you you only want to do this to kind of like spot check your model this is not for like production you don’t want to inference necessarily in production with with this yep and we’ll cover inference and production in the deployment workshop. <br>[28:56] Dan Becker: Sorry, I lost my train of thought. So you will not remember these commands. The thing that I hope you remember is that everything you want is in the GitHub repo, and this one is in the quick start, but it’s just the series of commands. So what does it look like if you run that? I’m going to show you. Some of the text here is going to be… relatively small. So we’ll come back and I’ll show you a screenshot that you can see some stuff in more detail. <br>[29:30] Dan Becker: But this is just a very quick view of what happens when you train the model. So I’m going to make sure that you can see it in reasonably high depth. So here I am typing out that first preprocess command. I use the debug flag. And we’ll talk about the debug flag, whether you use it or not. when he gets to his section but i kind of like using it and um when you do that There’s some output here in a moment. I’m going to go into that in more depth. <br>[30:02] Dan Becker: And then after that, I run the next command that was shown on that last screen. This is just doing training and that kicks off training. And then training, depending on the amount of data you have, can take minutes, hours, I suppose, sometimes days, though. The projects I do, actually, I do have one project where it can take days, but it’s typically. You know, an hour or so, and sometimes much less. So let me go to the next slide. <br>[30:38] Dan Becker: In there, there was a section that it printed out from the preprocessing step with the debug flag that it would be easy to overlook, but I think is really critical for your understanding of what is happening here. So though we started with data. that had multiple fields, your model is going to train on a string. Or I’ll show you in a moment, it’s actually a string in one other piece, but it’s going to train on a string. <br>[31:08] Dan Becker: And so this is showing you the template for what does that string look like that we create in the preprocessing step and then that we later use for modeling. So we have, say, there’s an instruction and input and output. And actually those are for each sample just filling in. Here’s the instruction. Here’s the output. Here’s the text. When you use this for inference, you’re going to want to provide everything up through this response part, but then not the output because you wouldn’t know the output when you use this for inference. <br>[31:49] Dan Becker: But this template is showing you what the string looks like. And then we’re going to use that autocomplete type logic so that we provide everything before the output. and our model will provide the output. It’s actually, this looks like it’s just a string. There is one other piece that I think is important for your understanding of fine tuning that is shown here. So it’s actually a string and a mask. So I’m going to go back here for a moment. <br>[32:19] Dan Becker: When you calculate your loss function to, which is part of, for those of you who are familiar with deep learning, which is… part of figuring out how do we change our parameters to change the model’s behavior. We don’t want to train the model to write the words below as an instruction that describes a task. And we actually don’t even, the input here is a proxy for what the users of your app’s input will be. So we don’t want to train the model to be the user. <br>[32:46] Dan Becker: We want it to instead be good at responding to user inputs. And so these pieces up front, are not going to inform the loss. So when we look at the output, we can look at it on a token by token basis. So somewhere in there, there was some input. And there were the words that appropriately completes the request with a period. Each of these are tokens. And before that we have pairs of the word that is token ID 2899. But because we don’t want it to feed into the loss. <br>[33:26] Dan Becker: We have the first piece of this tuple here is minus 100, which is just a way of preventing it from influencing the loss and thus influencing the behavior of our model. If you look at the output that’s in green here, and for those we have the token ID, then we also have the purpose of calculating a loss with token is this, and it’s the same. So there is a flag, which I think is called train on inputs. that will let you change this behavior. <br>[33:55] Dan Becker: But broadly speaking, this is just showing that this is a way of being able to see very clearly what are the tokens that are influencing, that are the inputs to the model, and what are the tokens that are influencing loss and that are eventually going to be the outputs of the model or that were training the model to output. <br>[34:14] Hamel Husain: WING, do you use that debug thing in just the case? <br>[34:18] Wing Lian: Because mostly because I want to be sure that the tokenization is correct because a lot of times i’m using chat ml and so like because it’s not a default token i just want to make sure i didn’t mess anything up and sort of setting those special tokens for chat ml um and just to double check that you know the outputs look right just so people know chat ml is a specific type of prompt template so <br>[34:42] Hamel Husain: if you go back to the previous slide that uh dan had you know that this i believe is a alpaca template this is alpaca yeah so um that’s this is a specific type of template and yeah chat ml is different <br>[34:58] Dan Becker: In general, chat templates tend to be a little more, there’s a slight complexity or nuance to them than instruction tuning templates. I think arguably are a little simpler, but. <br>[35:10] Hamel Husain: Okay. Sorry, didn’t mean to cut you off, Wayne. You can keep going. Yeah, <br>[35:13] Wing Lian: no. I mean, that was really weird. And then sort of like checking sort of like the end tokens, making sure that sort of the stop tokens are in there correctly. And just because if sometimes if it’s not in there, you can get a model that just starts to like. <br>[35:27] Wing Lian: ramble on and on and never stop so it’s just it’s just a good like spot check for myself and sort of especially in multi-turn conversations just to make sure that it’s like masking out the the responses correctly and um you can sort of see that because it’ll go like red green red green red green so yeah it’s just an easy spot check and the color the color um the having the colors just makes it easy to like just glance at it just to like without having to light. Because that is hard. <br>[35:55] Wing Lian: That is actually really hard on the eyes to try and debug. So yeah. <br>[36:04] Dan Becker: Well, let me show this last step. So we’ve done training. There is one more command. I’m going to show the Gradio version of it. So let me pause this for a moment, then switch over to make sure that we’re looking at this in the highest possible resolution. So. The last step was to kick off the app. I’m going to run this accelerate launch, have the inference command pass in the right YAML file, the director with the LoRa, and then this Gradio flag. This kicks off an app. <br>[36:40] Dan Becker: You can click on that link, open something in the browser, and you can type and test things in the browser. So that was that last step. Again. You won’t remember all of these pieces, but you should remember that they’re in the Quickstart, and you can refer back to this. And again, super highly recommend before other things get on your to-do list that you run through this so that you have hands-on experience using Axolotl. And with that, let me hand it off to Hamil to go through a case study, which is the Honeycomb case study. <br>[37:22] Dan Becker: uh so you want to handle um you want to take over sharing yeah let me do that right now okay let’s see here let me <br>[37:38] Hamel Husain: start the slideshow is that sharing good okay thank you okay so um we covered the There’s a through example in the workshops, in the fine-tuning workshops, and that’s this use case of Honeycomb. And we discussed it in the first workshop because we have so many students, I’m gonna just go over it really quickly again. So the case study is you have, there is a company called Honeycomb that I’ve worked with. And Honeycomb is an observability platform. It’s a telemetry system that allows you to log all kinds of data. <br>[38:17] Hamel Husain: And it tells you things like, it helps you. diagnose like if parts of your application are slow or there’s bugs somewhere like that or something like that it’s kind of like similar to datadog in some ways honeycomb has a domain specific query language called hql and one of the things they want to do is like reduce the burden of people learning hql and so what they did is they released a alpha product you that allows users to type in natural language queries. <br>[38:49] Hamel Husain: So instead of learning the Honeycomb query language, you can just type in your question. And so the way it works is you have two inputs to the LLM. You have the user’s query, and then you have the user schema. The user schema is retrieved with like a RAG type approach. We don’t have to get into that. So with these two inputs, there’s a prompt and then out comes a Honeycomb query. So that’s the sort of high level overview, just to remind you. So let’s jump right into the case study. <br>[39:20] Hamel Husain: For the case study, I’m just going to be walking through some slides. And let me open this GitHub repo. So it’s github.com parlance slash labs fd course. You don’t have to open it right now. I actually just would follow along with what I’m doing. Is this repo right? So I’m going to open… Actually, let me open the repo. So just to show you. So it’s a repo that looks like this. I’m just going to go through the notebooks, they’re numbered one through eight. <br>[39:51] Hamel Husain: And Dan, tell me if you can see the text on my screen or it’s too small. <br>[39:57] Dan Becker: I’ve got a big monitor, but it looks really clear to me. <br>[40:01] Hamel Husain: Good, Zach. Okay. Okay, so let me just… I’m just going to go through some steps. These steps are not necessarily linear, but it’ll give you a good idea. I’m going to be focusing a lot on what we did with Honeycomb to fine-tune a model. And a lot of the steps are going to be around dataset curation and data filtering and debugging and evaluation. Because we’re not… I’m going to go ahead and… as Dan mentioned, we’re not really focused on the model so much. And so basically, I just want to go through the prompt real quick. <br>[40:35] Hamel Husain: So this is the Honeycomb prompt. It’s basically the system prompt, Honeycomb AI, suggest users queries. This is one of the inputs. This is the schema. There is this long fixed part of the prompt, which is a query specification, which is just like a bit of a programming, like a very terse programming guide. to the Honeycomb query language. There’s some tips and there is some few shot examples of queries, of questions, or user queries, and then Honeycomb queries. So there’s a few shot examples. And then finally, this is a completion model. <br>[41:16] Hamel Husain: So when Honeycomb launches, they use the completion API, so the chat API. And so they’re just completing this based on the user’s question, which is templated. So the interesting thing is, so, you know, they, you can see that there’s a lot of stuff in this prompt. Like, like all of this stuff is fixed every single time in this particular situation. So you like, you know, the few shot examples, plus the tips, plus the, sorry, I didn’t go over the tips. The tips are just like additional instructions. <br>[41:50] Hamel Husain: So all of this stuff is fixed except for the columns in the question. So that’s a lot of boilerplate. to be sending to a large language model. But then also it’s like, it’s hard to specify everything you want in this prompt. Like no matter how hard you try, you hit a wall. And like, that’s where fine tuning kind of moved the needle. So Honeycomb launched this product. Here’s, there’s a link to the blog post. It’s kind of neat to read it. And yeah, it just talks about the same thing. <br>[42:22] Hamel Husain: You type in a natural language query and… outcomes, how comes a honeycomb query. And you can read about it. I don’t want to go too deeply into that. So the goal in this case was to encourage more users to write query. So so like the bar isn’t like super high, in terms of like, it has to be perfect. But one thing we had to do is write evals. So like one of the things you should think about is writing evals. After you, after you do kind of like some prompt engineering. <br>[42:55] Hamel Husain: You may like prototype with a large language model just off the shelf if you can, just to see if like, just to get an idea of how well it works off the shelf. So with Honeycomb, so what do I mean by evals? So I have this blog post about evals. I won’t go through it in too much detail, but there’s different levels of evals. Level one is unit tests where you write assertions. And then there’s level two and level three. And I’ll be going through like level one and two. Level three is A-B testing. <br>[43:34] Hamel Husain: So basically the idea is you want this virtuous cycle where you have evaluation at the center. And the honeycomb example is actually like a really good use case because it’s like very narrow and like simplified. And it kind of like allows you to like get what I’m talking about. So basically, like, you don’t have to understand this code, but just know that for the level one evals, when I’m talking about level one evals, I’m talking about assertions and unit tests that don’t involve calls to a large language model. <br>[44:07] Hamel Husain: These are like rules that you can think of that you can run almost instantaneously and get feedback about whether your model is doing the right thing. Okay, and so there’s some code here, and I’m just showing you this code. So you know, that is real. in case you want to see an example, but essentially what I’m doing is I’m just testing different things about the honeycomb query for correctness. Okay. I’m like testing if it’s valid JSON. I’m testing if it’s, there’s invalid columns in the query based on the schema. <br>[44:35] Hamel Husain: If there’s invalid filters, you don’t have to like know the specifics of this. Just know that there’s lots of different level one evals. Okay. And you don’t necessarily need to write it like this, but just giving you an idea that you need. <br>[44:49] Hamel Husain: to write these assertions um and also like so um just let know also that I had to iterate on this quite a bit like don’t expect that you’re going to get all the assertions right the first time there’s an iterative loop where you kind of you know throughout this whole process you have to update these level one evals you’ll notice more and more failure modes and I had to work really hard on on this um to get to get something that I was happy with um and then like you also want to use these evals <br>[45:23] Hamel Husain: you want to write them in such a way these assertions that you can use them in different places. So you not only want to use it for tests, you also want to use these evals to filter out bad data for fine tuning. You want to use it for curation, and you also want to use it in inference so you can do self-healing. And so, like, you know, I have, like, encapsulated this query checker. Again, you don’t have to know what this is. It just gives you an idea. <br>[45:47] Hamel Husain: Like, hey, I’m using these, like, assertions in different places. And this is, like, an… Because this use case is oversimplified, this kind of way of organizing your code may not work for you. You have to do what works for you in that situation. But just know that it’s here. Okay? And I already went over this. Assertions are not just for tests. They’re also for filtering and curating and inference. And, yeah, definitely look at the blog post. Okay. So one thing that you will often have to do when you’re fine-tuning is, like, acquire data. <br>[46:22] Hamel Husain: and a lot of times like you don’t have the data in an applied use case um so what do you do like in the honeycomb in real life um my counterpart philip who i was working with didn’t have lots of data he launched this to you know uh production but then like you know not only did i have lots of data a lot of that data was private and i can’t see that data um and so what we you know he gave me about a thousand examples And I wanted to set aside a fair amount <br>[46:55] Hamel Husain: of those examples like in the eval set. So I could test the model. So I wasn’t really left with much. And so the question is, okay, what do I do from here? So a lot of you, if you’re in the wild and you’re trying to build something in large language models and you’re trying to fine tune it, it’s good to know about how to generate synthetic data. There’s no hard and fast rule, again, about how many examples you need. <br>[47:25] Hamel Husain: I just generate as many examples as I feasibly can, just based on intuition, based on how much it costs, how much time it takes. I ended up generating 30,000 examples synthetically, but I kind of went overboard. So you don’t have to do that. Just use your intuition based on your budget and what you have. So like… You can do this with prompting. So let me give you like a concrete example. Because if I just say, hey, you can use a large language model to synthetically generate data, you’re like, well, how? Like, what does that mean? <br>[48:01] Hamel Husain: And I think for every use case is different, but let me show you what we did for Honeycomb. So the prompt is basically the same exact prompt that you’ve seen before, except there’s a second part that says, okay, you’re given the following three inputs, a natural language query, a list of candidate columns. and the query. Your goal is to generate correct variations of the combination of NLQ, candidate columns, and query to build a synthetic dataset. You can build a synthetic dataset by rewording the query and substituting the column name. <br>[48:34] Hamel Husain: Response should be JSON with the following keys, so on and so forth. And then basically, yeah, I’m giving it the inputs now and then saying, please basically perform data augmentation. <br>[48:48] Hamel Husain: So substitute like rewrite the natural language query substitute the columns and substitute the query and basically i’m able to generate lots and lots of synthetic data this way now you might be wondering is that good data like is it duplicated like all this stuff yes and you have to clean it up and which i’ll talk about in a second but just know that like for example you want to use those level one assertions as your first line of defense a lot of the stuff doesn’t come out of this is going to be junk maybe, or <br>[49:20] Hamel Husain: some amount of it, you want to get rid of it. So the level one assertion is already going to help you. And it’s going to help you throughout this whole thing. Okay, so you have a way of getting lots of data. This is how you do it. I’m not going to show you the code of doing that. It’s fairly straightforward. It’s like, use your favorite large model to do this. Use the most powerful model you feel comfortable with to help you generate the synthetic data. <br>[49:44] Hamel Husain: And then, okay, so the next step in this is like preparing the data for axolotl. Um, we’re gonna, so like, usually what I do is like, I go through. I run all the way through and I see what’s going wrong, and then I come back and improve it. You don’t want to just try to make your data perfect the first time and then go through it. You want to go all the way through, see some predictions, make sure the plumbing works, et cetera, and then you can come back and curate and filter the data. <br>[50:16] Hamel Husain: That’s what I recommend because you can get stuck. It’s good to know where the problems are and have an idea. Okay, so you want to prepare your data to look like this, in this case, because I’m using the share GPT alpaca format. And I’ll tell you what that means. Basically, if you’re in axolotl, there’s this config, share GPT, and alpaca. And let me just open the docs so you can see that. So there’s the dataset formats. This is the axolotl docs. There’s different formats. We’re going to… <br>[50:54] Hamel Husain: i’m using a conversation format and there’s a share gpt and you can see share gpt you have to structure your data like this you have conversations and then you have from and value and you have different roles like the from can either be human or gpt and then the value you can also have a system prompt which i do have in this case which i’ll show you anyways like you can see that follows that here i have this like conversation we have a system prompt then a human then gpt now why is that uh well <br>[51:29] Hamel Husain: that’s the way that axolotl expects your data in for this format but also it’s important because if you remember dan talking about the train on inputs uh you know not training on inputs so this is considered an input the system the system role in the human question is considered inputs and the output is considered is this, the query. And so what we’re doing is we are only penalizing the model. <br>[51:59] Hamel Husain: We’re like forcing the model to basically learn to get the right query and not trying to have it predict what the question is, if that makes sense. So you organize your data like this to this JSONL. And let’s take a look at the config. The thing you want to pay attention to here, Dan already went over the config, but in this case, change the data set. This is a local data set. I have this, basically, the sample data, and I have this synthetic queries. And you can look at what that looks like if you want. <br>[52:36] Hamel Husain: It’s in that GitHub repo at this path. And then also the train on inputs is also false. There’s a key in here, train on inputs, which I’ll let you find. I don’t want to… try to hunt for this right now, it’s right here, channel inputs. And then also you want to change, if you’re going to run this example, which you can, and I’ll show you how, you need to change the following things in your config. <br>[53:03] Hamel Husain: Like you won’t be able to access my weights and biases account, and you won’t be able to access my hugging face account. You probably want to create your own. <br>[53:13] Hamel Husain: And so like what axolotl does is like you can log as Dan mentioned you can log all the training metrics to weights and biases and then also you can also put it in a hugging face model repo and it will upload your model to that repo which is super handy at you know it’ll do that at the very end and I’ll show you what it’s all this I’ll show you some examples what this looks like okay so prepare the data you got your config file now what do you do so what i like to do <br>[53:45] Hamel Husain: is i don’t ever jump straight into training ever because i’m dumb and i make a lot of mistakes in data set preparation always make like do something wrong and honestly i think a lot of people do something wrong here and so what i like to do is look at the data and i look i like to double check how axolotl is preparing the data and the way i do that is i do this axolotl pre-process command um and That will basically flatten the data and assemble it in the right format. <br>[54:17] Hamel Husain: You can see all the different commands by using help. So I just show that here just for reference. And so I like to look at the data manually. There’s that debug thing that Dan showed, but I like to look at it manually. Just so I can kind of play with it a bit more, manipulate it, kind of inspect things. So basically what happens is when you pre-process the data, Axolotl dumps that data by default into this last run prepared directory. And that is a Hugging Face datasets format. <br>[54:55] Hamel Husain: And so you can load that Hugging Face dataset format and inspect it. And that’s what I’m doing here with this code. Basically, you can see it has sort of flattened that JSONL into a format that looks like this. And that is the alpaca format. Just like how Dan showed earlier, you have this like instruction and then response. And so, yeah, like what I recommend is… <br>[55:25] Hamel Husain: check multiple examples make sure it looks right make sure you didn’t put the wrong thing in the wrong place or have like things in there that you didn’t intend in your data happens all the time um one thing that i’ll mention is yeah there’s these spaces right here you might be wondering what the hell is that um it’s a little bit of a tricky issue it’s kind of some artifact about the way axolotl assembles um you know tokens I don’t know if Wing wants to say something about this yet, but I found it not to <br>[56:00] Hamel Husain: be an issue as long as you’re consistent with inference time. And I’ll talk more about that, and I have a blog post about that as well. Okay, there’s also verbose debugging, which Dan already covered. <br>[56:22] Hamel Husain: um the special tokens are here and that’s like worth paying attention to but there’s like the red green i’m not going to go through that again um and then yeah it’s always good to know what like the spot check like what these tokens are and if it’s correct so like for example like what is this token like you might be wondering see this you haven’t done this before you’re like what the hell is that token is that wrong like okay that’s a new line um but yeah if you want to go into like why what’s <br>[56:49] Hamel Husain: going on with the tokens there is this blog post here I’m not going to go through it now, but just tokenization gotchas. As an exercise for y’all, you might want to go through this blog post as a homework and take a look and see if it’s something that you find that matters. I was really super paranoid about these small things like spaces, but I found that it didn’t matter. And I actually discussed this a lot with Wing. But Wing, do you have any opinions on this? Is he here? <br>[57:24] Hamel Husain: man up here um no worries okay i’m just gonna go straight on to the next um so uh okay that was data set preparation now we’re gonna talk about training we already seen the config file the config file is also located at this location which i will go through you can see it’s been uploaded There is a link in the notebook, so you don’t have to memorize what you’re seeing on my screen. To run training, you run this accelerate launch axolotl command. And Zach is going to be talking about accelerate. <br>[58:06] Hamel Husain: I don’t want to go into that deep rabbit hole right now. I’ll just let Zach talk about accelerate in a bit. If you notice, I have a weights and biases config here. And this weights and biases entity is just basically like a GitHub org. And the project is basically like the repo. And so when you do that, Axolotl will upload. You can log your training runs to weights and biases. Let me show you weights and biases real quick. So weights and biases looks like this. It’s a bunch of runs. <br>[58:38] Hamel Husain: And you can, you know, yeah, you can just log your runs and the results. Look at your training loss curves. I’m not going to spend too much time on this. <br>[58:49] Hamel Husain: but just know that it’s there if you want to look at it um so basically like with training what did i do i tried different parameters so i varied the learning rate so first of all i took a uh so it was mistral 7b so i went into the examples i asked in the discord so on and so forth like what is the best uh what’s the best config for mistral and um you know i started with that and so i varied the learning rate i tried different learning rate schedulers i actually tried like different <br>[59:23] Hamel Husain: distributed scheme schemes like using deep speed like deep speed zero one two three just to just to test stuff i mean not that it matters but um uh actually this is a small model so it fit on my gpu just fine um but yeah i mainly just vary the learning rate and the bat size um another thing is like you know there’s sample packing that you might want to try to save gpu space um or to like save the amount of vram you need or like you know increase throughput But Dan will upload a video <br>[59:59] Hamel Husain: for that or talk about that in a little bit more detail later on. So when the training is done, it’s uploaded. If you put your Hugging Face ID, it’s uploaded into Hugging Face, which is here. So this example of this model is here. You don’t need to know what is here. I don’t want you to kind of… You can look at this later and I’ll go through some of this code in a bit. So the next thing you want to do after you train your model is to sanity check it. Okay. <br>[1:00:28] Hamel Husain: And like, there’s a lot of different ways you can sanity check your model. I like to, you can use the way that Dan mentioned earlier by using axolotl directly. However, I like to actually use code to up to like, and using Hugging Face Transformers to actually make this work. Hey, Dan, I think like… Wing may be trying to open his camera, potentially. I don’t know. OK, so sanity check the model. This is the Hugging Face repo where the model is uploaded into. <br>[1:01:08] Hamel Husain: Don’t be confused that this says, like, parlance labs, and the other config says Haml. That’s because I changed the name of the repo, and I didn’t want to break the links. But yeah, so this is just code about basically pulling that model. <br>[1:01:22] Hamel Husain: from hugging face and then this is the this is the template so another reason why uh sanity check things this way is i want to make sure that i understand the template and that it works um because i had my own like basically yeah and like the way i want to do is i just want two inputs the natural language query in the columns um there’s different ways to do this you can use hugging face has like a a templating system that you can use i’m not going to go into it but i’d like to <br>[1:01:49] Hamel Husain: like make sure i understand the template And so that’s what I have here is I have this template. It’s basically the same thing. And this is just code to like run it. But basically it’s just like sanity checking examples. Okay, so nothing too crazy going on here. I just have some natural language queries and some schemas and I’m checking to make sure that it works. That’s what you should do. That’s the first thing you should do. Okay, great. So we’ve done all this stuff. We trained the model. <br>[1:02:19] Hamel Husain: We sanity check that at least like the plumbing works and some results maybe look plausible. So the next thing you want to do is like, so the question is like, is this any good? Yeah, it passes. Like you can see like these level one evals. You can track the different metrics of the level one evals. You can know like which assertions are failing, how, you know, like what kind of errors are you getting the most? That’s all good. <br>[1:02:42] Hamel Husain: But then like beyond the level one assertions, after you conquer those, like are these like good or bad so when i when i shared so i launched uh this model onto replicate for inference and we’ll go through inference later so don’t like get stuck on that is like uh you know and allowed it did some sanity more sanity checking and um basically like philip did some sanity checking and said okay this model is okay but it’s not great um it’s still making some mistakes in some places and actually it turns out that the data that <br>[1:03:20] Hamel Husain: we used to expand, that data wasn’t great either. And this will happen all the time. And you might find this when you’re doing… And basically, you have to do some error analysis and figure out, okay, if a result isn’t great, why is that? And one way to do that is to look at the data, look at the training data, try to debug. <br>[1:03:45] Hamel Husain: like this in this case i looked at similar queries and the training data and try to see what was happening and we found that okay like actually the training data could be better um you know like things are passing the level one test just fine but they’re not like the greatest queries um they’re syntactically correct and so what do we do now so like one one thing you might be wondering is okay like are we stuck do we have to stop here like the data is meh like And Philip doesn’t have time to sit there <br>[1:04:16] Hamel Husain: and label a bunch of data or write better queries because he doesn’t have time. So what do you do now? Okay, like what you can do is basically you want to try to encode the knowledge of Philip and his opinions into a model. Like you want to like see like, can you have like Philip as an AI in this situation? So what I did is. <br>[1:04:45] Hamel Husain: I started building an LLM as a judge and Basically, it’s the same exact original prompt But basically, like that you’ve seen before, but with an instruction that you are going to be a query validator. Okay, you are an expert query evaluator that has advanced capabilities, judges the query good or not, blah, blah, blah. And then there’s a bunch of few shot examples here of, you know, like inputs, NLQ, columns, query, and critiques. And basically what I did is… I did a bunch of so how did I get this? <br>[1:05:30] Hamel Husain: In this case, I used a very uncool low technology technique by using a spreadsheet and I sent Philip a spreadsheet every day for a few weeks and had him write critiques and over time what I did is I aligned the model as much as possible with Philip so that it was Agreeing with him in the critiques. <br>[1:05:53] Hamel Husain: It was writing and i kind of kept tweaking the few shot examples and instructions until i was until we were both satisfied that this llm as a judge was doing a good job um and the thing that was really good about this is like and so i talk about this a little bit more detail in the blog post when we talk about level two human and model eval um i don’t wanna go there’s a lot you can say about this like there’s different ways you could do this I just want to give you an idea <br>[1:06:24] Hamel Husain: so that you have it like the general process in your mind and you know that this is a tool in your toolbox. It’s impossible to teach everything I know about it in one, you know, in such a small session. But what I will say is, yeah, like when you have the result of this, you get a bunch of critiques and you can use those critiques to actually make the data better. <br>[1:06:52] Hamel Husain: and you can use the you can use the same lm as a judge to filter and curate the data like filter out bad queries hey like try to make the data better given a critique can you make the query better if it still can’t make the query better then you filter it out um so that’s kind of like a sort of you know what we what we went through um and so basically from there you can curate your So like what I mentioned before, first thing is you can like fix the bad data. <br>[1:07:26] Hamel Husain: Again, using a large language model, it’s like you’re giving the following inputs in a critique. And then it’s output the improved query and just output the improved query. That’s one way you could try to like increase the quality of the data. But then also you, like I mentioned, you want to filter the data. There’s many different ways to filter the data. And when you talk about data set curation, there’s a lot of things that you can do. <br>[1:07:51] Hamel Husain: Um, uh, and like filtering, again, you want to use both your level one evals that I mentioned, like those assertions, you want to use these level two evals to do even more filtering, but then also you commonly have other filters that you will find, uh, that you, you’ll see like different things in the data set. You’re like, Oh, like things in this part of the data set are garbage or like, Hey, the model is making a certain kind of mistake. Let me, let me filter that mistake out. <br>[1:08:20] Hamel Husain: And then you have to decide whether or not you have to go acquire data for that mistake. So one example of that, that’s not necessarily a test, but it’s a filtering technique, is in this case, I noticed there was a lot of either low complexity queries, like super, super simple queries, or really, really high complexity queries with like lots of operations, lots and lots of filters that didn’t make any sense. So basically, I had some code that filtered those out. Okay, there is a… <br>[1:08:49] Hamel Husain: In the more general case, there’s a tool called Lilac, which kind of like helps you find more general things that you might be interested in filtering out of your data and searching your data and also finding duplicates. So another part of curation is to get rid of duplicates. You don’t want, you know, like, okay, we did a lot of data augmentation and things like that. You might have lots of data that looks very similar or too similar. And that’s not going to be good. <br>[1:09:19] Hamel Husain: Because what ends up happening is, like, you’re going to, like, overweight on those examples. So, like, there’s a lot of sophisticated things you can do. You should start with dumb things if you can, obviously. So, like, in this case, there’s three parts. There’s three main parts of this data set. There’s the natural language query. There’s the schema. And there’s the output. And so one dumb thing you can do is, like, to drop any data where there’s a a pair that is duplicated. Within those three, there’s a pair of two that are duplicated. <br>[1:09:55] Hamel Husain: That’s like one thing. And then I did, there’s another, another thing you can do, you can do like semantic, semantic searching and see semantic deduplication. You know, that’s why in Lilac, for example, you have like fuzzy concepts search and things like that. So that you can, and then you have like clustering and things like that. So you can kind of like look at data, try to maximize its diversity, clean out things that are like too duplicate, like too much duplication. <br>[1:10:23] Hamel Husain: so that’s kind of like an end-to-end overview like the idea is like this is not a linear process i went through this in like one through eight but just know that like i have to go back and forth between all these different steps and do these things differently as i hit various things like you know like i mentioned um i have to constantly rewrite the level one evals um you know or i might decide to redo the level two evals um But this is, again, this is a very simple example, just to give you a <br>[1:10:57] Hamel Husain: concrete use case, to give you the idea of the workflow. So that is the Honeycomb use case. Let me just quickly talk about debugging Axolotl. I’m going to switch gears. So like when you’re using Axolotl, it’s really important if you’re going to use some software that you know how to debug it. And I just want to call your attention to these docs that will show you how to debug Axolotl. But there’s these guidelines here that I think are really important. <br>[1:11:33] Hamel Husain: So if you’re going to debug Axolotl, like something is going wrong, you want to make sure that, number one, using the latest version of Axolotl. You also want to eliminate concurrency as much as possible. So basically, make sure you’re only using one GPU and one dataset process. Use a small data set. Use a small model. You want to minimize iteration time. And also you want to clear caches. Clearing caches is huge. Like especially if you’re trying to debug something about data set formation. <br>[1:12:04] Hamel Husain: Like hey, it’s like you don’t think like your prompt is getting assembled correctly or something like that. You want to clear your cache. Because that can trip you up. I also have, there was a bunch of questions in the Zoom about how do you connect the Docker container. <br>[1:12:20] Hamel Husain: that if you want to run axolotl in and like that’s really connected to debugging actually in a way like because you can use vs code to do that um and i have some videos and tutorials in the axolotl docs that show you how to do that either with docker or not using docker and how to attach you know to remote host and things like that um let me go back to the slides and already covered Wing, okay, so I went through, we went through a lot. <br>[1:12:56] Hamel Husain: I’m just going to stop and ask you, is there anything else on your mind in terms of things, like tips you might have for people using Axolotl that you’d like to highlight? <br>[1:13:14] Wing Lian: I don’t have any off the top of my head. They usually come when people ask questions. I remember, oh, you should do this, this, or this, but I don’t have any off the top of my head right now. <br>[1:13:24] Hamel Husain: No worries. <br>[1:13:26] Dan Becker: There are a couple of, maybe now’s a good time. There are a couple of questions in the Q&amp;A. Actually, some are listed as answered, but for everyone to be able to hear them. How about this one? How do you predict how long a fine-tuning job will take before you start it? Do you have any? <br>[1:13:44] Wing Lian: recommendations there that one is relatively hard to answer um you know it depends on you know model size lower full fine-tune the gpus you’re using the number of gpus if you’re using like deep speed 0200 through and you’re having offload it’s just there’s so many factors that can affect you know the amount of time that it takes to fine-tune a model that it’s used like I think once you have like a gauge on a specific data set um and on like certain parameters that you’re going or hyper parameters that you’re going to use for a <br>[1:14:21] Wing Lian: specific like you know set of experiments you can usually like get a good gauge up from that but i don’t have like a good like all all around like formula that works for everybody yep <br>[1:14:33] Dan Becker: um we’re just looking through any of the other uh questions that uh Yeah, we can come back. We’ve got a lot of questions. <br>[1:14:47] Wing Lian: Just a second ago, talking about someone had asked about. you know, doing a fine tune and then improving, like doing what Hamels was saying, like improving the data and then like whether or not you should start from scratch again or like fine tune over that fine tune model. And I think one of the things when you think about that is like, if you, if your model is already, you know, getting pretty close to being like overfit, just fine tuning that again for multiple more epochs, right. It’s just going to definitely overfit at that point. <br>[1:15:18] Wing Lian: And you should really consider just like cleaning up the original data. and adding in the new improved data and then just starting from scratch again at that point on the base model. <br>[1:15:31] Hamel Husain: Yeah, I always start again from scratch when I improve my data. I haven’t thought about trying to keep going. Okay, I think we probably should move forward because I’m looking at time as well. I think the next thing that I want to do is jump right into Zach’s. <br>[1:15:52] Zack Mueller: Sure, <br>[1:15:53] Hamel Husain: let’s do it. <br>[1:16:00] Zack Mueller: Looks like I can take over for you. So, less for you to worry about. We’re all seeing me all right? <br>[1:16:06] Hamel Husain: Yep. <br>[1:16:07] Zack Mueller: Perfect. All right. Hey, everyone. My name is Zach Mueller. And we’re going to be talking about scaling model training as you get more compute. How do these people wind up doing that? So, a little about me. I’m the technical lead for the Hugging Face Accelerate project, and I handle a lot of the internals when it comes to the Transformers trainer. I’m also a humongous API design geek. <br>[1:16:34] Zack Mueller: And before we start talking about, like, how do they go about doing this sort of what we call distributed training, let’s get a general understanding of model GPU usage, right? So we were talking about how you can use things like LORAs to reduce some of the memory overhead. But how much memory overhead? do certain models actually use? We can sort of guess what that number winds up being if we’re using like vanilla full fine tuning, so without using LORAs, and then you can sort of convert some of it later. <br>[1:17:04] Zack Mueller: The assumptions that you basically have to have are we’re going to use the atom optimizer and we’re going to start with a batch size of one. And for example, let’s take BERT base case, right? So that’s going to be 108 million parameters. How much GPU space am I going to need to train that? Well, each parameter in a model is four bytes, and the backward pass usually takes about two times the model size, and the optimizer step takes about four times that. <br>[1:17:30] Zack Mueller: One for the model, one for the gradients, and two for the optimizer when it comes to Atom. So after doing all this computation, you wind up getting to 1.6 gigs is needed to train on a batch size of one for BERT. With mixed precision, that’s knocked down by half because While the model is still in full precision, which I’ll go over why that’s important in a moment, the gradients wind up taking less because the gradients themselves are in half bit. <br>[1:18:00] Zack Mueller: And so we’re able to fit and roughly guess that it’s probably going to take about a gig to two gigs overall when we’re training on BERT. Now let’s talk about why that matters. All right, so that’s great if you have 12 to 24 gigs of GPU space, right? Typical consumer card. But what happens when we scale that up? Right? So if we look at Lama through 8 billion, 8 billion parameters, loading the model in is going to take you in full precision, 28 gigs. Gradients are another 28 gigs. Backward pass gets you to 56. <br>[1:18:34] Zack Mueller: And suddenly, you’re somewhere between 56 and 112 gigs of VRAM. I know I certainly don’t have 56 gigs on a single card, let alone 112. If we want to avoid things like theft, what do we do? This is where the concept of distributed training comes in, or how do we make sure that we can use multiple GPUs to achieve what we want? So there’s three different kinds of training when we think about it at the hardware level. So we have single GPU, right? So that’s no distributed techniques. <br>[1:19:05] Zack Mueller: You are running it straight off of whatever GPU you have. We have the concept of distributed data parallelism, and this works by having a full model on every device, but the data is chunked and split up between every GPU. Another way to think about that is essentially we can process the data faster because we’re sending chunks of our full batch across multiple GPUs to speed up the training time. And the last part that I’ll mostly be covering in today’s talk is fully shredded data parallelism, FSTP, and deep speed. <br>[1:19:39] Zack Mueller: And these are the key areas that was sort of hinted at in the earlier discussions where essentially we can split chunks of the model in optimizer states. across multiple GPUs. And what that allows is rather than having… the limit of DDP where we’re stuck with say two 4090s at 24 gigs, that’s all I can use. In memory, it acts as a single 48 gigabyte GPU when we think about the total RAM that we can play with to train models. And that’s the secret to how you can train these larger and larger models. <br>[1:20:12] Zack Mueller: Now, what is fully sharded data parallelism? The general idea here is you take your model and we’re going to create what’s called shards of the model. So let’s say taking the model, we could imagine a shard being split perfectly in half, the first half of the model and the second half of the model. And depending on how we configure FSTP, certain chunks of the training loop will happen in that VRAM space. And then depending on what points occur during that, occasionally Torch needs to know what’s happening with that other model chunk. <br>[1:20:49] Zack Mueller: Because it’s all the same model and we need to get the gradients all aligned. So these call what are called communications. And generally you want less of these because it’s essentially time spent on your GPUs just talking to each other and trading information. You’re not training anything, you’re not processing data. It is quite literally just your two GPUs trading notes on how they think the model should be and then correcting themselves. Now, I’m not going to really go too much in depth into every single thing FSTP can do. <br>[1:21:21] Zack Mueller: What I am going to talk about is, in my opinion, the most important ones when it comes to training in low resource areas and when you’re using FSTP and sort of how you dictate how those weights and gradients and parameters get sharded. And on top of that, I’m going to cover some of the important ones I needed when I was doing a full fine tune of Lama 3 8 billion without PEFT on 24090s. Spoiler alert. it was very slow. So the first part of this is what we call a sharding strategy. <br>[1:21:54] Zack Mueller: And the general idea here is this is us telling FSTP how we want to split all of these different things that take up VRAM. So with full shard, as it sounds like, everything is going to be split. Our optimizer state, our gradient, and our parameters. With shard grad op, which is optimizer, instead we’re just sharding the optimizer state and the gradients. And then essentially the model will be split when we’re not using it and then join back together when we are, such as during the backward pass. <br>[1:22:26] Zack Mueller: This reduces some of the memory overhead because we still need more than the original model, right? Because we’re still fitting the entire model in VRAM, but it reduces that training VRAM a little bit for us. We have a technique called no shard, which as that sounds like, that’s just going to be distributed data parallelism. We’re not sharding anything. And then the last part is a new thing that PyTorch has come out with called hybrid sharding. And it’s kind of like full shard where we’re fully sharding absolutely everything, including the optimizer states, gradients, and parameters. <br>[1:23:00] Zack Mueller: However, if you’re training on multi-node, right, so multiple computers are training a big model at once, it keeps a copy of the entire model on each of those nodes. That’s important because remember how I said communication slows down things a lot? Hybrid shard lets us reduce the communications from, I think, three down to two, if not one. And so your training speed is increased, honestly, to some extent exponentially, depending on how long it takes for your computers to talk to each other. <br>[1:23:35] Zack Mueller: So the next part is, we know how we’re going to split the memory, right? But how do we split the model? because we need some way to tell FSTP, all right, I have this model. How do I want to split it in between my GPUs? With Accelerate, with Axolotl, with Transformers, we use two different nomenclatures, Transformer-based wrap and size-based wrap. Transformer, as it sounds like, is very specific to Transformers. With this, you need to declare the layer you want to split on. This could be a BERT layer or a LAMA layer. Usually, Transformers has… <br>[1:24:10] Zack Mueller: good defaults and good helpers to help you figure out what that is. The other version is more manual and basically you’re just telling FSTP after X amount of parameters, go ahead and split the model. That’s great because it works out of the box. That’s bad because there could be speed increases that you might be missing by having, say, like each head of a like Mistral model on a separate GPU. So that way it can handle its own computations much faster. than needing to wait to communicate with other GPUs. <br>[1:24:44] Zack Mueller: Now the next part, which was particularly important for me, is the idea of offloading parameters. And what this says is, okay, I have 48 gigs of VRAM right now, if I’m assuming 24090s. And I can’t fit that. I can’t train on it. Well, I’m going to accept that I still want to do it. I don’t want to go buy through a cloud provider. And so, FSTP will let us offload gradients and model parameters into RAM. Now, as that sounds like, that’s going to be extremely slow, right? <br>[1:25:12] Zack Mueller: Because we’re taking things from the GPU to the CPU and now shoving it at RAM. But it lets us train as big a model as essentially you have available in RAM. So case in point, when I was doing a full fine tune of Lama 3 8 billion to match a paper that came out, I wound up needing to use offload parameters because as we saw earlier, 8 billion requires about 50 gigs or so. I only have 48. <br>[1:25:40] Zack Mueller: And it was going to take like 72 hours to do four iterations through my data versus an hour or two on an H100. So Yes, it’s cool that you know how to use these tools and it can help you train things locally. Make sure to double check, though, A, what your time constraint is and B, what your budget is. Because I can run it for free and it can take longer or I can pay $5 and go finish it in an hour. Depending on how much time you have available, each solution has different opportunities. <br>[1:26:13] Zack Mueller: Now, another kind of critical part, in my opinion, when it comes to doing FSTP that. Accelerate and Transformers has is this idea of CPU RAM efficient and also this idea of sync module states. So if you’re familiar with Accelerate’s big model inference, that’s fine. I’ll give you a brief summary. Basically PyTorch lets us use this thing called device equals meta and that essentially is the skeleton of your model. The weights aren’t loaded, it can’t really do computations too well, but it’s just the skeleton for us to eventually load weights. <br>[1:26:48] Zack Mueller: So rather than loading Lama 8 billion on 8 GPUs, so now we need 8 times the amount of RAM of our model to load it in at once, right? So that’s going to be easily 100, 200 gigs if I’m not mistaken. Instead, we send all the other versions onto that meta device, so they take up no RAM, and then we load all of the weights only on one of them. And so then when we’re ready to do FSTP, Well, we already know we’re sharding the model. <br>[1:27:19] Zack Mueller: So we just tell the first node to send those weights to whatever node or GPU needs that particular chunk of weights. And this really helps keep your RAM size low. And you don’t suddenly sit there with crashes because, oh, no, you ran out of CPU memory. Because fun fact, you will redline this quite often, I found, at least in this particular scenario. Now, I’ve talked about. FFCP a lot, and I’ve assumed that you knew context about Axolotl, Transformers, and all this stuff. <br>[1:27:52] Zack Mueller: Let’s take it back and just focus on Accelerate, which you might not know is the foundation of a lot of your favorite libraries. So, practically all of Transformers, and Hugging Face as a whole, relies on Accelerate. Same with Axolotl, Fast.ai, anything Lucid Rain’s done at this point, as well as Cornea. And the general idea with Accelerate is it’s essentially three frameworks. You have a command line interface that Hamel and Wing already showed us whenever they were doing accelerate launch. <br>[1:28:27] Zack Mueller: You have a training library, which is under the hood, what is doing all of this distributed training fairly easily. And then the big model inference that I mentioned a moment ago. For the sake of this talk, we’re not talking about big model inference. We don’t particularly care about that here. We’re just caring about fine tuning LLMs. So we’re going to focus on the first two. So you need about three commands to really get everything going. The first is accelerate config. This is used to configure the environment. <br>[1:28:55] Zack Mueller: This is also what Wing has managed to wrap around beautifully when he shows his accelerate launch commands because his config files can directly be used for doing accelerate launch, which is phenomenal. The second part is estimate memory, which goes through those calculations I showed a moment ago whenever I was playing around with the idea of well, how much VRAM can I use? And the last part is accelerate launch, which is how you run your script. Let’s look at sort of why these matter. Launching and distributed training sucks. <br>[1:29:29] Zack Mueller: There’s a lot of different ways you can do it. There’s a lot of different commands you can run. Some of it’s PyTorch, some of it’s DeepSpeed, and all of them have slightly different commands, right? So here, if you just do Python script.py, it’s not going to train in any distributed scenario. and most still get model parallelism, but you won’t get distributed data parallelism. FSTP don’t work, won’t work. Torch run and deep speed are the main two commands you can use to run. <br>[1:29:54] Zack Mueller: This will basically say torch run, run on a single computer with two GPUs, my script. And then it does some things in the background to help make sure that works. And that’s a lot of different commands that you have to know and remember. And so accelerate launch is here to just say, okay, tell me what you’re doing and I’ll make sure that we’re running it. So it operates by these config files, similar to what, again, Wing was showing us at Axolotl. And these essentially define how we want certain things to run. <br>[1:30:27] Zack Mueller: So here we’re saying I have a local machine that’s multi-GPU running with BF16 mixed precision on eight GPUs. With FSTP, on the other hand, we can go through and specify everything we want to use with FSTP using a config. And this way, Accelerate Launch just knows, hey, we’re going to make sure that we train in FSTP if we’re using Accelerate. And that’s all you need to do from a launching perspective. And if you’re using Axolotl or Transformers, this is all you need to do. <br>[1:31:01] Zack Mueller: The next part I’m going to show is sort of the internals of it on the low level of how Accelerate works and how you can use Accelerate specifically. But do remember, this isn’t necessarily needed if you’re using things like Axolotl or Transformers. So the general idea with Accelerate is we want a low-level way to make sure that this can essentially be device agnostic and compute agnostic, right? So make sure you have your code running on a Mac, running on a Windows machine, running on a GPU, running on CPU, running on TPUs. <br>[1:31:33] Zack Mueller: And it does so in a minimally intrusive and ideally not very complex manner. You create an accelerator, and you just have it prepare all your things. And that’s it. You’re off to the races. switch your accelerator or switch your backwards function to use accelerator.backwards. And on a whole, that’s most of what you need to do. How it winds up working is similar to FSTP. Accelerate will do the data sharding for you in taking your data and splitting it across DBUs. It also operates by essentially having one global step. <br>[1:32:16] Zack Mueller: So an easy way to think about it. is if we’re training on eight GPUs versus a single GPU. So if a single GPU had a batch size of 16, and now we’re training on eight GPUs, the equivalent in Accelerate to get the same exact training would have each GPU have a batch size of two, because two times eight is 16. And so what winds up happening is this lets us successfully scale our training that should have roughly the same results when training on a single GPU versus training on. <br>[1:32:47] Zack Mueller: multiple GPUs without needing to worry about, oh, do I need to step my scheduler more? Oh, do I need to adjust my learning rate more? Oh, do I need to do this? Do I need to do that? It’s the same amount of data being processed at one time and everything else is just done for you. Now, the next part of this, I want to talk about some very specific tweaks that we do to protect you from dumb decisions. The first part is mixed precision. <br>[1:33:18] Zack Mueller: This is a bit different than maybe your normal idea of mixed precision. We don’t convert the model weights to BF16 and FB16 when we’re training with Accelerate, and we try our hardest to make sure that doesn’t happen. Instead, we wrap the forward pass with autocast instead to just convert the gradients. This preserves the original precision of our weights and leads to stable training and better fine-tuning later on because, and this is very important, If you go to BF16, you are stuck in BF16. <br>[1:33:51] Zack Mueller: There was a whole issue a few months ago with transformers where some quality of some fine-tuned models weren’t doing well. This was the cause. Now, going a bit more than that, if you’re familiar with or keeping up to date with efficient memory training, you might have heard of something called Transformers Engine or MSAMP. The idea behind this is we make use of like 4090s, H100s, and do training in 8-bit. Now this is different than quantization. You are actually training on raw native 8-bit. So 8-bits and that’s all you have. <br>[1:34:25] Zack Mueller: A lot of mistakes I see people do with this, especially with the NVIDIA examples, is they do the prior thing of converting the entire model into BF16 and then train. That leads to huge instabilities during training and generally people’s performance hasn’t been the best. I’ve also heard rumors though that even this can go bad. So it’s always worth playing around with if you have the ability. FP16 versus non-FP16, and that includes the F16, and testing out sort of what levels can be at 8-bit. <br>[1:34:56] Zack Mueller: Because like with Transformers Engine, it’s still using the AutoCast, and so the computations, rather than being done in 16-bit, are done in 8-bit. And then if you’re playing around with MSAMP, that lets you experimentally go even further with this. And so it can, you know, we can get to a point where if we do Almost everything is in 8-bit. Your master weights are in 16-bit and your optimizer states are even in 8-bit. I’m scared to play around with that. I don’t know necessarily how good that is. <br>[1:35:29] Zack Mueller: I need to play around with it and that’s sort of what I’m using the LLAMA 3 training for, to just toy around with these things. But it opens up opportunities if you have the compute to do this. Now the last part I’m going to very briefly talk about, and we can talk about this more in my office hours, is Deep Speed by Microsoft. and fully sharded data parallelism. These two are almost the exact same. DeepSpeed has a few tweaks and calls things a bit differently. <br>[1:35:56] Zack Mueller: But if you’ve done it in FSTP, it can be done in DeepSpeed and vice versa. A wonderful community member recently posted some documentation where he directly talked about this parameter in DeepSpeed is this parameter in FSTP. And generally what I’ve seen, it’s a mix of if people prefer DeepSpeed or FSTP. It’s usually a matter of, do you want to go with Microsoft and do their thing, or stick with PyTorch and just stay native? But either can be used interchangeably as long as you’re careful about setting up the config. <br>[1:36:29] Hamel Husain: So as a whole, <br>[1:36:31] Zack Mueller: Accelerate helps you scale out training, especially with using FSDB and Deep Speed, to train these big models across a number of GPUs. You can use techniques like FB8 to potentially speed up training and reduce some of the computational overhead, but when using mixed precision in general, especially with FBA, be very careful about how you’re doing it because you could potentially lock yourself into that weight for you and everyone else. <br>[1:36:56] Zack Mueller: So I’ll post this presentation, of course, in the Discord, but there’s some handy links there that will help get you started with Accelerate, go through some concept guides to understand some of the internals and really get you going. So yeah, there we go. Let’s look at some questions. Let’s see, I have one here. I thought that Deep Speed 03 is the same as FSTP, but the other options in Deep Speed weren’t necessarily equivalent. It’s gotten to a point where there’s some equivalencies now. The chart talks about it. 03 is definitely the equivalent of FSTP. <br>[1:37:36] Zack Mueller: But there’s some tweaks that you can do because FSTP gives you options to only offload certain things. <br>[1:37:45] Hamel Husain: I just want to mention that, okay… I didn’t show you, there’s a deep speed and FSDDP configs. Like when you want to do multi-GPU training in Axolotl, you have to supply a config file. I’ll show you some examples of those. They’re in the, I can, whenever Zach’s done, I’ll share my screen. <br>[1:38:06] Zack Mueller: Yep, sorry. There you go. <br>[1:38:09] Hamel Husain: Okay, I’ll just do it right now. Let me find. <br>[1:38:13] Wing Lian: I have to clarify while we’re pulling that up. <br>[1:38:16] Hamel Husain: Yeah. <br>[1:38:18] Wing Lian: So one of the things, especially for the FSDP part in the axolotl configs, is we try and move those FSDP specific configs into the axolotl, and then it maps them into Accelerate. What we found was that a lot of people were running Accelerate config and then setting things, and then they would go and use axolotl, and they would have a mismatch in certain parameters. And what would happen was it just would break in a lot of situations. <br>[1:38:47] Wing Lian: So what we actually recommended people do, we added warning site, just remove your Accelerate config, and then we will sort of map all of those configurations that normally get set by Accelerate through like, I think Accelerate uses like environment variables to sort of communicate that under the hood anyways when you use Accelerate launch. So we just sort of like mimic a lot of that just to like avoid some of the headache of doing it one launch. Running Accelerate Config and getting a mismatch later on, that just caused a lot of support issues. <br>[1:39:20] Wing Lian: That makes perfect sense. <br>[1:39:23] Zack Mueller: That’s exactly the solution I recommend. Even I’m debating on rewriting half of our internals for the FSTP and DeepSpeed plugin, because I don’t necessarily want to rely on environment variables. And even setting it up, I’m sure as you’ve experienced, normally is problematic at best. So yeah, that’s a very smart way to go about it. Even we’ve had users that… report issues and like well it’s because you set up your config wrong and you’re using something else <br>[1:39:49] Hamel Husain: yeah i mean and so that’s like what you heard from zach today about like stage one to three bf16 all that that’s all like background that you might want to know so like demystify a little bit about what is happening when you supply these configs what i do honestly is i just use a config again i just use one of these like zero one two three um you know or the bf16 one and use kind of use it off the shelf and then maybe consult like zach has like written a lot about this i actually <br>[1:40:19] Hamel Husain: look at his presentation he’s given like similar versions of this before and posted online he will today post his slides and i kind of fiddle with it a bit sometimes but honestly i just use ones that work if i want to parallelize my model especially using a bigger model and parallelize it across gpus uh then then i’ll pick the right config and you specify like you have these configs in the axel auto repo and then you supply it to the <br>[1:40:45] Wing Lian: config the main config i’ll show you an example let me talk about modal in a second can i can i add a clarification on this one specifically yeah with zero one and zero uh zero one and zero two specifically for deep speed um you um i think the bs16 and fp16 can be set to auto because it doesn’t deep speed or doesn’t care about it until after the trainer is loaded but for zero three specifically um and i see that nodding his head is it needs to know ahead of time specifically that you’re using bf16 <br>[1:41:16] Wing Lian: so you actually have to you can’t set up you can’t set auto in the zero three config if you want to use bf16 so that’s why it’s set as like there’s a specific zero three bf16 because it needs to know that you want to load it in bf16 before it ever before before the trainer sees it or something along those lines maybe that can explain it better than i can but <br>[1:41:39] Zack Mueller: No, that’s a pretty good explanation of it. It’s something with DeepSpeed when it comes to setting up the actual call to DeepSpeed and initializing everything. It has to know well beforehand what we’re actually doing, which makes it a little annoying whenever we’re dealing with these things. <br>[1:42:03] Hamel Husain: Okay, I think we should probably move on to the next. <br>[1:42:08] Hamel Husain: thing which is training on modal or is that just want to make sure you’re done with yep you’re good all right um so there’s a lot of different ways you can train models there’s you can use runpod which dan showed earlier that was like done on runpod that was the like recording if you look at the axolotl docs actually it’ll show you it’ll tell you a bit about runpod if you just search from runpod here you’ll find a little bit there but also uh there’s a docker container for axolotl which is like what you want <br>[1:42:41] Hamel Husain: to use most of the time um wing do you want to say anything about that like what’s your preferred way of running how do you run it stuff like compute <br>[1:42:53] Wing Lian: so on my local 3090s i it’s i don’t use docker containers just mostly because it’s like development and it’s just not amenable to using docker containers for that but But for general debugging issues that people are seeing, I will just generally just spin up a Docker container on my run pod and debug the issue there. So because it’s not, it doesn’t have all of the mess and mismatch of various packages that might not have updated. <br>[1:43:27] Hamel Husain: Makes sense. And then yeah, if you look at the readme, there’s a whole bunch of stuff there about it. Okay, so modal. What the hell is modal? So actually, so okay, like just some general rule about this conference. We were pretty selective about the tools that we brought in to this conference or that I’m going to talk about. I’m only going to talk about tools that I use or that I like. There’s like hundreds of tools. One and you know, one that I really like is modal. So like, what is modal? <br>[1:44:01] Hamel Husain: Modal is actually like this really cool cloud. native way to run Python code. And the thing that’s really interesting about it is it has this… One innovation is it feels like local development, but it’s actually remote development. There’s nothing to do with fine-tuning right now. I’m just telling you a little bit about Modal CS in the background. And basically, it’s also massively parallel. You can get… So things like Axolotl, it can easily do fine-tuning. <br>[1:44:34] Hamel Husain: actually like wing how do you do how do you do like uh hyper parameter search with your axolotl training like what do you like to do it’s manual right now it’s like change out learning rate yeah Makes sense. So like a lot of times I do use something like modal or I’ll use modal to do things like hyperparameter tuning. There’s different ways to do hyperparameter tuning. It’s not something you should focus on like in the beginning. And it’s totally fine to do it manual. I do a lot of things manually. <br>[1:45:06] Hamel Husain: I use bash scripts sometimes to do like many different X-level runs. So it’s very like Python native. There’s these modal docs, which are here. If you’re just getting started in modal, actually like to really experience this like magic of modal, where you’re like, what am I talking about? This like local, but it’s remote. Like, what does that even mean? I don’t even know how to explain it to you without you like trying it yourself. So like, this is like, I, so there’s a lot of docs here in like modal. <br>[1:45:39] Hamel Husain: You can go through like the hello getting started one, but I actually think like what I like to show people first is this like web endpoint one. I’m not going to demo it right now because I don’t have time, but basically just try it out. And basically what you want to do is you can change the code, and you can see it change in production in real time, and you don’t have to do these deploys, like constant deploys to change code. It’s this really iterative, interesting thing. And I’ve built lots of tools in Modal. <br>[1:46:08] Hamel Husain: I have built this meeting transcript summarizer with Modal. It also weights and biases webhooks. The links are that are going to be in the slides. So I won’t labor that too much. The one thing about, so for modal, for axolotl, they have this repo called LLM fine tuning. And it’s a little bit different than, it’s like wraps axolotl. So that’s interesting. Like axolotl is already wrapping so much. Why we need to wrap axolotl. Well, actually, like, it’s kind of interesting. Like if you have a workflow that you really like. <br>[1:46:45] Hamel Husain: You might want to abstract it a little bit more, and plus you can get all the benefits of modal by doing that. Certain things you might want to know about this repo is when you run the train, it automatically merges the LoRa back into the base model for you. By default, you can turn it off. Then also one key thing is there’s a data flag you have to pass. You can’t rely on the data set in the config file. You have to pass a data flag. <br>[1:47:15] Hamel Husain: And then the deep speed config comes from the Axolotl repo itself. So you have to reference sort of like the Axolotl repo, what I was showing earlier. It’s kind of like these are mounted into the environment, this deep speed configs. So it’s kind of like the beginner’s way of using sort of Axolotl with modal, but it is something to try first. And like, it’s kind of like you can tweak it. <br>[1:47:44] Hamel Husain: you could tweak it you could change the code um but basically like you know there’s the readme here there’s a way to get started obviously you have to you know start modal install it and essentially like what you do is you clone this repo and then you launch this fine tuning job and basically like this command um the detached thing just makes it run in the back like makes it on the background so where you can do other things But there’s this, here’s the entry point. <br>[1:48:18] Hamel Husain: This is basically where we’re wrapping the axolotl CLI command in this train function. And then you pass in the config file and then the data. Okay, so it’s like very similar to running axolotl, just wrapping axolotl. I’m going to do a really quick video of what that looks like here. <br>[1:48:42] Hamel Husain: you know just do modal run and then basically you know it will go ahead and and do your axolotl run if you want and this is like running the exact example in the repo um and you can do the same things you can put your weights and biases and your hugging face token and so on and so forth um so let me go back to uh the example oh sorry Let me go back to the repo, sorry. <br>[1:49:15] Hamel Husain: And just to point out here, just to navigate yourself in the repo, there’s this, actually, I’m going to hit the period on my keyboard to show you VS Code real quick so I can just show you some code. And so the source code, like the code for modal is in this source folder. And the training part is maybe what you want to take a look at if you’re curious on like what is happening. And the entry point that we demoed right now is this train function. So there’ll be a train function here. <br>[1:49:49] Hamel Husain: uh in uh they’ll be you know in this file right here um let’s see and then the common.py that’s actually the setup okay that sets up the environment that sets up the docker container and installs some dependencies and makes your secrets come in you don’t have to worry about this i wouldn’t actually look at this like in the beginning i’m just showing you around so that if you wanted to dig in you could check it out i think it’s pretty cool um and then one thing i want to point out is like there’s these config <br>[1:50:26] Hamel Husain: files if you want to run the demo and the readme out of the box there’s this like very small training run that basically overfits on purpose um you just have to know that okay the data set here this is just this will get replaced by whatever the data flag that you pass in. And then you just know that like, okay, for this deep speed is actually being used here. So that’s what we just talked about. That was the background that Zach gave. And this is actually being mounted from the axolotl repo. <br>[1:51:03] Hamel Husain: Because remember, the axolotl repo has this deep speed, speed configs, and this is being used. <br>[1:51:10] Hamel Husain: So just this is just orienting you to that and let’s go back to the slides whoops how do i go to the next slide um another thing you might want to do is debug the data so like you can run it end to end but remember i told you you don’t want to do that you don’t want to just train stuff so if you want to do your have your own data inside modal um there i have this notebook here so let’s go to this notebook let me just go to the repo and go back <br>[1:51:51] Hamel Husain: and go to the notebook so i have this notebook here about inspecting data um okay and i’m just gonna change this github to nb sanity because it’s easier to read um and basically uh this you kind of do the same thing is like you know, just make sure this is a way that you can inspect the data. So you can do modal run, but then pass a pre-proc only flag. And what happens is the logs will print out a run tag. And with that run tag, you can see the last run prepared folder, essentially. <br>[1:52:35] Hamel Husain: And like the last run prepared folder, you can just get that data and analyze it the exact same way that I showed you in the honeycomb example. essentially, which is like, you know, and then print out just to make sure the data is in the right format. So I think that’s important. You might want to do that if you’re using this. And just this is a notebook that might help you. Okay. I think that’s it. And yeah, we can do Q&amp;A. Okay. <br>[1:53:10] Dan Becker: I will. MC Q&amp;A. We have some questions that were answered, but just so that people hear the answer, I’m going to do a mix of open questions and answered questions. A couple, in case they’re common questions, will office hours be recorded? The answer there is yes. Are tiny models like 5.3 more or less suited for… <br>[1:53:42] Hamel Husain: fine tuning you answered that uh in text but for others to hear it since it was highly voted you want to uh tackle that hamill or anyone else i usually don’t go smaller than a seven billion parameter model because i haven’t had to go smaller than that like that’s like a really sweet spot for me uh because the models are like kind of good enough and they’re small enough but i don’t know wing or anyone else do you have any opinions on this or seen anything <br>[1:54:11] Wing Lian: I haven’t spent a lot of time with the Phi 3 models, mostly because I wasn’t impressed by, I guess, the Phi 1 models. And I feel like they were just way too small. And I think with the smaller models, just the reasoning is worse. So I just, Lama 3 is good enough and it works. So, <br>[1:54:29] Dan Becker: yeah, <br>[1:54:30] Hamel Husain: it’s $7 billion. <br>[1:54:33] Dan Becker: But how to determine the adapter rank? There are actually two parameters. This wasn’t part of the question, but there are two parameters that go together. There’s the adapter rank and then the adapter alpha. Someone said, how to determine the adapter rank? what do you guys have to have for that one <br>[1:54:53] Wing Lian: I just copy the config so I don’t determine anything we can determine that’s one of those that’s one of those hyper parameters you should play with if you assuming you have like good evaluations and um to just understand like is your model is is is that lower at that rank sufficient to like get good accuracy on what your downstream use cases so um 32, 16 and 32 is like a typically a good starting point that you see most people use. <br>[1:55:20] Wing Lian: And then so for rank it’s, and then for alpha is usually, I believe the papers say it’s, it should be two X the rank, two X the rank. And then if you’re using something like, I think it was like RS Laura, it’s has something to do with the square root, but I try not to get into that. <br>[1:55:37] Dan Becker: There’s a blog post I’m forgetting. I think by Sebastian Rushka where he actually has a, does a grid search and talks about what works for those. I’ll try and share that with the community. Yeah. <br>[1:55:52] Hamel Husain: Yeah, there’s another thing that I do, and this is kind of a weird answer. I actually asked my friends, who are a lot smarter than me. So there’s this guy, Jono Whitaker. He really understands a lot of stuff. I’m like, hey, what rank do you think I should use for this? And he gives me some tips. Jono is actually speaking in this conference. He might not… talk exactly about this, but he has a really cool talk called Napkin Math for Fine Tuning, which you should check out. <br>[1:56:21] Dan Becker: Okay, I’m going to switch over to some open questions. I’ll take the one that’s listed up top. I have a custom evaluation or benchmark for my model. Is there a way I can get it to run periodically during fine tuning to see how the training is going so far against that evaluation metric? It’s actually something that I’ve wanted. I don’t know the answer to it, but it’s something that I’ve wanted. <br>[1:56:42] Hamel Husain: in the past wing i think that’s uh since i just read it and uh does that question make sense to you do you understand the question basically can you have like an evaluation function in axolotl or something some callback or something like if you want to compute some like custom evaluation metrics like how do you deal do you do that do you how you deal with it like there there’s there’s like <br>[1:57:12] Wing Lian: the tiny benchmarks that you can run sort of against sort of the more standard benchmarks. As far as trying to get more like custom evaluations, it’s not really supported right now. I think you could do things by adding like callbacks on the evaluation loop maybe and like doing some janky, you know, pulling from like disk, like things you wanted to. I guess so. So here’s here’s something you could probably try. <br>[1:57:45] Wing Lian: So there is a way I think on the on the evaluation, if you were to specify a custom test data set for your evaluations, you can have it generate predictions for those at certain steps and then log those out to weights and biases. And then you could like pull those from weights and biases and then do your own like evaluations using like Ellen as a judge or something along those lines. <br>[1:58:11] Wing Lian: that would be one way you could do it but there’s nothing like directly integrated right now that’s sort of streamlined for that how would you do that dumping of predictions in axolotl like how would you do that yeah so yeah so it’s already built in i think it’s like there’s something called the eval table something um setting in axolotl uh what it does is it will pull some number of prompts from your test data set and then run predictions during the evaluation step and then log those to Weights and Biases. <br>[1:58:50] Wing Lian: I think it’s like eval table something. It’s a little bit flaky, so it’s not like a top-level thing that I’ve used. I think there was a contributor who submitted that. Yeah, eval table size and eval… <br>[1:59:08] Wing Lian: i believe the table size is the number of um yeah the number of predictions that you want to do and then the number of max tokens is how long you want to like how many tokens you would like it to generate during that eval step that <br>[1:59:24] Dan Becker: makes sense good question i like this one given axolotl is a wrapper for some pugging face libraries are there any important edge cases of functionality that you can do in the lower level libraries that aren’t <br>[1:59:38] Hamel Husain: yet possible in axolotl i’m sure there are a lot of things that you could do um tons yeah it’s because then you’re operating at the code level yeah <br>[1:59:48] Wing Lian: It’s hard to be the guy with everything else that goes on underneath. So like, <br>[1:59:53] Hamel Husain: yeah. You can have custom callbacks and stuff. You can do this eval thing that we were just talking about. You know, you can do all kinds of stuff. <br>[2:00:01] Zack Mueller: Yeah. I think it would especially be like at the speed that wing can implement whatever we chuck in to accelerate. And more specifically, we can then chuck into the trainer. And it’s whatever that gap is, is the bleeding edge that you don’t have access to. <br>[2:00:14] Zack Mueller: you know and so like that could be like new fsdp techniques new deep speed techniques that get added that we need to update and accelerate and then push to the trainer that i think for the most part should be the most major gap because we try and shove everything we can in accelerate into the trainer that then wing gets for free but <br>[2:00:33] Dan Becker: i think this um flexibility for callbacks during training with whatever you want to do like at each batch or whatever frequency to calculate custom evaluation metrics or stuff your data who knows where that would be like the sort of thing there aren’t a ton of use cases for that but doing stuff in between batches seems like these sort of callbacks seems like uh an example yeah <br>[2:00:59] Hamel Husain: but you might be wondering like okay if you why use axolotl it’s worth bringing that up again and i just want to like like one example is like because there’s a lot of stuff that you need to glue together especially if you don’t have a lot of gpus So like one example that came out recently is like, you know, Qlora working with FSDP for the longest time didn’t work. And the Answer AI team kind of enabled that. And then within hours, Wing like glued it into Axolotl, like really before anyone else. <br>[2:01:33] Hamel Husain: And so I was able to use it like almost right away. And Wing keeps doing that. <br>[2:01:40] Hamel Husain: like over and over again for like anything that happens like the like you know the lm space is like changing extremely fast like from day to day there’s like a new technique for like efficient fine tuning like lower gpu memory faster or whatever something like the ones that are really important like like this one i get into axolotl like really fast and trying to do all that yourself would take a long time <br>[2:02:11] Dan Becker: There’s a question. What are the practical implications of 4-bit versus higher precision? I think we said that some of those we will talk about more at deployment. Is there anything that you guys think we missed in talking about the implications of, so 4-bit’s obviously going to lead to a smaller LoRa and requires… less RAM. Anything else? <br>[2:02:44] Hamel Husain: You know, 4-bit is quite, I mean, it’s pretty, you know, it can be aggressive. Like, I have noticed the performance degradation when going all the way to 4-bit before. Like, I’ve been using this library MLC, for example, and they have, like, 4-bit quantization. And, you know, in that, I did see a difference. I don’t see much of a difference 10.2 and 8-bit. <br>[2:03:09] Hamel Husain: but silly i’m just talking about vibe checks there’s probably like papers out there that do some analysis you always have to check yourself it is worth like just doing it and checking to see like and running your evals to see what happens um but generally like the trade-off is okay you you know like for the smaller models uh you know you’ll have a more portable model that’s probably faster probably uh you know Maybe now it fits on one GPU. You don’t have to do distributed inference, things like that, potentially. <br>[2:03:46] Hamel Husain: But then it might come at a performance hit. So you have to do your evals to see what that performance hit is. <br>[2:03:53] Wing Lian: Yeah. And one thing to keep in mind is QLOR is definitely like a trade-off when you don’t have enough GPU RAM. So if you’re training, if you have an H100. and you’re training like a 13 billion parameter model and it fits, like don’t decide to go down to Keylor because you lose a lot of performance in the quantization, de-quantization step. And like I experimented when like Keylor came out, I was like, why is this really terrible on A100s? And like, it should be faster, right? <br>[2:04:26] Wing Lian: No, it’s like, it’s because of the like quantization, de-quantization steps that it’s just actually worse when you’re, if you’re. <br>[2:04:33] Wing Lian: going for like speed and performance when you don’t actually need it so it might be an over optimization in some cases it’s definitely a gpu poor optimization for sure which is like lots of people yeah does axolotl also support um mac m series gpus so yes um because um so pytorch is supported on mac and series like there is like an example somewhere where someone um did uh did it but you’re probably better off using like mlx i believe is the repository that does like has better fine tuning for like if you want to fine <br>[2:05:21] Wing Lian: tune on your like your MacBook or what have you um I think yeah I think it’s called mlx right yeah yeah it’s mlx because yeah fine tuning on Max’s three <br>[2:05:36] Zack Mueller: different frameworks three different back ends and all of them kind of work so um it might work your mileage may vary <br>[2:05:50] Dan Becker: We got a request for your slides, Zach. I assume you’ll be able to share them with everyone. <br>[2:05:56] Zack Mueller: Yeah, they’re actually already in the Discord. <br>[2:05:59] Hamel Husain: Great. We can probably upload those as well along with our slides, right? Yeah. <br>[2:06:03] Zack Mueller: Yeah, it’s just a web URL, honestly, because mine’s actually hosted on the Hugging Face Hub. <br>[2:06:09] Hamel Husain: Oh, fancy. <br>[2:06:13] Dan Becker: In an overarching sense, are there mental models or intuitions that we bring to a gentic? <br>[2:06:20] Hamel Husain: llm applications versus ones that are not agentic yeah i saw this question uh mental models we get the agentic whereas non-agentic i guess like in a sense okay like okay what is what does agent agentic means agentic is like some workflow where there’s a function call um really it’s like models that make function calls are quote agentic i just want to demystify the terminology people is like have terms and then feel like it’s rocket science i actually have not worked on a reuse case where there isn’t some function call involved like even the honeycomb example <br>[2:07:02] Hamel Husain: like uh it’s you know it’s uh executing a query at the end for you um you know that’s after like the query generation but it is executing it and it’s going in some loop like after that to try to correct if something goes wrong um and so like and really everything you know it’s really hard to think of i mean there might be some use cases that you know but there is no function calls but i feel like they they all that i’ve had had function calls i think like you need to write evals that <br>[2:07:38] Hamel Husain: you kind of think of it as like you uh unit test and integration tests like it’s important to you know have tests that test the function calls and have a unit test for those as well as integration tests. That’s what I would say about it. <br>[2:07:53] Dan Becker: All right. Actually, I got one. Is fine-tuning an LLM to output deterministic results exactly the same? So this is, I think, important because to output deterministic results is not something about how you do training. It is instead something about how you do inference. So you’re going to train the model. It’s going to have some weights. And then… When you are predicting the next word, the last layer is this softmax so that the output of the model is actually a probability distribution over the next token. <br>[2:08:29] Dan Becker: And then to make that deterministic, you would just choose whatever token is most likely. But that’s all something that, and then if you don’t do that, you’re just sort of sampling from this probability distribution. That’s all something that happens at inference time rather than something that happens at… <br>[2:08:46] Hamel Husain: training time i’ll give you a little bit more nuance there is like um if you okay if you want structured output from your lms uh this guy the guided generation that dan is talking about is like you can clamp down the model so that’s only this providing you only tokens that make sense for like in your constraint so like if you want a json output with a certain schema that only has like allowed values you can have a grammar or you can write it’s like basically rules that clamp down on the model and like on <br>[2:09:21] Hamel Husain: what tokens it’s allowed to predict um fine tuning can you know if you have like a very specific type of structured output that you want the model to always provide um you know so like basically like you know fine tuning can make it happen more reliably um you know the it’s like a trade-off i guess like you know if you’re doing fine tuning correctly you should you know Hopefully, you don’t trigger the guided generation framework that often. <br>[2:09:54] Hamel Husain: If your guided generation framework is getting triggered very often, then perhaps that means that if you’re already doing fine-tuning anyways, perhaps that means that your fine-tune is not that good. But the cost of the guided generation isn’t very meaningful. The guided generation frameworks are actually really good and really fast. Things like outlines and things like that tend to be really good. <br>[2:10:19] Hamel Husain: it turns out that fine tuning can help quite a bit in like learning syntax learning structure and things like that with more deterministic outputs</p>
+</div>
+</div>
+</div>
+<center>
+<script async="" data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script>
+</center>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning_course/workshop_2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
