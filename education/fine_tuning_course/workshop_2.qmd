@@ -322,11 +322,6 @@ for batch in dataloader:
     scheduler.step()
 ```
 
-### Modal
-
-Modal is a Python-native cloud platform that allows for direct saves, avoiding the need for constant deployments with each change, making it feel like working on a local machine.
-
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 
 
 ## Full Transcript
@@ -626,3 +621,5 @@ Modal is a Python-native cloud platform that allows for direct saves, avoiding t
 <br>[2:10:19] Hamel Husain: it turns out that fine tuning can help quite a bit in like learning syntax learning structure and things like that with more deterministic outputs
 
 :::
+
+<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
