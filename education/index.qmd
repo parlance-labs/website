@@ -41,6 +41,8 @@ listing:
     max-description-length: 75
   - id: talks-how-ft
     contents: 
+      - "fine_tuning_course/workshop_2.qmd"
+      - "fine_tuning_course/workshop_3.qmd"
       - "fine_tuning/daniel.qmd"
       - "fine_tuning/mistral_ft_sophia.qmd"
       - "fine_tuning/abhishek.qmd"
