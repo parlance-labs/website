@@ -1,0 +1,126 @@
+---
+title: Napkin Math For Fine Tuning Part 2
+date: 2024-07-29
+Speaker: Johno Whitaker
+Venue: Mastering LLMs Conf
+image: johno.png
+order: 3
+metadata-files: 
+  - "../../_subscribe.yml"
+  - "../_page_meta.yml"
+abstract: |
+    Johno Whitaker answers follow up questions about the first Napkin Math for Fine Tuning video and about his research.
+categories: ["fine-tuning", "llm-conf-2024"]
+aliases:
+  - /talks/fine_tuning/napkin_math_2.html
+---
+
+{{< video https://www.youtube.com/watch?v=u2fJ6K8FjS8 >}}
+
+
+
+:::{.callout-tip .mobile-only}
+## Subscribe For More Educational Content
+
+If you enjoyed this content, subscribe to receive updates on new educational content for LLMs. 
+
+<center><script async data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script></center>
+:::
+
+## Chapters
+
+**[00:20](https://youtu.be/u2fJ6K8FjS8?t=20) Introduction**
+
+Johno Whitaker introduces this talk, aiming to clarify points and answer follow-up questions from Part 1.
+
+**[01:01](https://youtu.be/u2fJ6K8FjS8?t=61) Saturating GPUs**
+
+Discussion on whether to always saturate GPUs completely, explaining that while it's best when memory bandwidth-bound, compute-bound is more nuanced.
+
+**[04:17](https://youtu.be/u2fJ6K8FjS8?t=257) Cost/Complexity Trade-off**
+
+Exploring the balance between cost savings and added complexity for different GPU configurations. 
+
+**[09:44](https://youtu.be/u2fJ6K8FjS8?t=584) Hyperparameter Tuning**
+
+Johno explains his approach to hyperparameter tuning, suggesting that default parameters work fine unless the final few percent improvement is crucial.
+
+**[11:31](https://youtu.be/u2fJ6K8FjS8?t=691) Fine-Tuning**
+
+Johno discusses the role that fine-tuning plays in his R&D, describing it an alternative he would explore if prompt engineering is insufficient.
+
+**[15:37](https://youtu.be/u2fJ6K8FjS8?t=937) TPUs**
+
+A brief look at how TPUs or other non-GPU accelerators fit into the napkin math.
+
+**[18:52](https://youtu.be/u2fJ6K8FjS8?t=1132) Optimizing Llama-3 with LoRA**
+
+Practical tips for reducing memory usage with Llama 3.
+
+**[22:55](https://youtu.be/u2fJ6K8FjS8?t=1375) Sequence Length**
+
+Developing an intuition for the sequence length parameter and tips for optimizing it.
+
+**[27:45](https://youtu.be/u2fJ6K8FjS8?t=1665) Quick Development Loop**
+
+Walkthrough of how to start small and build when working with LLMs.
+
+**[29:35](https://youtu.be/u2fJ6K8FjS8?t=1775) Tools**
+
+What to look for when choosing tools to build and run models.
+
+**[31:29](https://youtu.be/u2fJ6K8FjS8?t=1889) CPU Offloading**
+
+Discussion on offloading to CPU when GPU VRAM maxes out, why it is not common, and when it might be useful.
+
+**[34:43](https://youtu.be/u2fJ6K8FjS8?t=2083) Learning Styles**
+
+Johno shares how he discovers new information and continues learning, emphasizing learning through application.
+
+**[39:00](https://youtu.be/u2fJ6K8FjS8?t=2340) Hardware Lottery Theory**
+
+Discussion about how the symbiotic development of algorithms and hardware might limit future breakthroughs.
+
+**[42:27](https://youtu.be/u2fJ6K8FjS8?t=2547) Direction of Research**
+
+Dan, Johno, and Hamel discuss different approaches to exploring new avenues of research and development, and how to move with the industry.
+
+**[48:10](https://youtu.be/u2fJ6K8FjS8?t=2890) LLM Impact on Research**
+
+Discussion of how LLM-based tools have enabled Johno's research and possible future development of tools.
+
+**[49:57](https://youtu.be/u2fJ6K8FjS8?t=2997) Quick Questions**
+
+Johno gives quick responses to final questions touching on diffusion models, evolutionary AI, coding styles, and QLoRA overhead.
+
+**[58:16](https://youtu.be/u2fJ6K8FjS8?t=3496) 1.58-bit Quantization**
+
+Detailed discussion of what quantization under 4-bit means, its benefits, and how it might be used.
+
+**[1:02:20](https://youtu.be/u2fJ6K8FjS8?t=3740) Alternative Architectures**
+
+Brief dive into alternatives to transformers, such as state space models (SSMs) and recurrent models.
+
+**[1:03:44](https://youtu.be/u2fJ6K8FjS8?t=3824) Conclusion**
+
+Johno wraps up the talk.
+
+## Resources
+
+Links to resources mentioned in the talk:
+
+- [Johnowhitaker.dev](https://johnowhitaker.dev/) << Personal website for Johno Whitaker.
+- [FSDP+QLoRA Benchmarks](https://github.com/AnswerDotAI/fsdp_qlora/blob/main/benchmarks_03_2024.md) << Ballpark costs for different hardware configurations
+- [Napkin Math for Fine Tuning Part 1](https://parlance-labs.com/education/fine_tuning/napkin_math.html) << Napkin math explanation for fine-tuning processes.
+- [Google Context Caching](https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview) << Overview of Google's context caching on Vertex AI.
+- [Sakana AI Evolutionary Model Merge](https://sakana.ai/evolutionary-model-merge/) << Sakana AI's approach to merging models using evolutionary algorithms.
+- [Undermind - AI Powered Document Search](https://www.undermind.ai/home/) << AI-powered document search tool by Undermind.
+- [ChatPDF - Chatbot Tuned on Research Papers](https://www.chatpdf.com/) << ChatPDF's chatbot designed for interacting with research papers.
+- [nbdev - Documentation and Source Control from Notebooks](https://nbdev.fast.ai/) << nbdev's tools for managing documentation and source control directly from notebooks.
+- [Mobius Labs on 1 Bit and 1.58 Bit LLMs](https://mobiusml.github.io/1bit_blog/) << Blog post by Mobius Labs discussing 1-bit and 1.58-bit quantization for LLMs.
+- [Mamba (State Space Model)](https://github.com/state-spaces/mamba) << Mamba's implementation of state space models on GitHub.
+
+
+## Full Transcript
+:::{.callout-tip collapse="true"}
+## Expand to see transcript
