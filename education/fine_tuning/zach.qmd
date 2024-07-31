@@ -8,7 +8,7 @@ metadata-files:
   - "../../_subscribe.yml"
   - "../_page_meta.yml"
 abstract: |
-    The conversation delves into advanced techniques and practical considerations for fine-tuning large language models, comparing tools, discussing model precision and optimization, and exploring best practices for effective training and deployment.
+    Advanced techniques and practical considerations for fine-tuning large language models, comparing tools, discussing model precision and optimization, and exploring best practices for effective training and deployment.
 categories: ["fine-tuning", "llm-conf-2024"]
 
 ---
@@ -102,60 +102,10 @@ Links to resources mentioned in the talk:
 - [Can I run it LLM edition, also talks about LoRa (inference focused)](https://huggingface.co/spaces/Vokturz/can-it-run-llm): Discussion on running LLMs and LoRa.
 - [TransformerAnalyzer](https://huggingface.co/spaces/cllatMTK/TransformerAnalyzer): Detailed estimator showing FLOPS and other parameters.
 
-## Notes
+## Slides
 
-### Learning LLM Engineering
+{{< pdf zach.pdf height=600 width=100% >}}
 
-The following practices can significantly enhance the learning journey in LLM engineering:
-
-- Engaging in self-initiated projects and experiments
-- Developing and testing small-scale projects
-- Seeking guidance from experts and the community
-- Ensuring substantial experimentation before seeking feedback
-- Recreating existing solutions for various problems, as originality is not mandatory
-
-### Dataset Sources for Training
-
-Several sources provide datasets suitable for training:
-
-- Kaggle challenge datasets
-- Hugging Face datasets
-- Synthetic data generation
-
-It is recommended to use datasets that evolve over time for effective training.
-
-### Distributed Training
-
-Techniques such as Fully Sharded Data Parallelism (FSDP) and DeepSpeed facilitate distributed training, with DeepSpeed offering greater flexibility. These techniques are advantageous when the model exceeds the GPU's VRAM capacity or barely fits, as they enable the use of additional GPUs for loading gradients.
-
-### Serving Multiple LoRAs
-
-Techniques like LoRAX and vLLM can be employed to serve multiple LoRAs. The following code snippet illustrates how to serve a specific LoRA for a particular request:
-
-```python
-sampling_params = SamplingParams(
-    temperature=0,
-    max_tokens=256,
-    stop=["[/assistant]"]
-)
-
-prompts = [
-    "[user] Write a SQL query to answer the question based on the table schema.\nin cont",
-    "[user] Write a SQL query to answer the question based on the table schema.\nin cont"
-]
-
-outputs = 11m.generate(
-    prompts,
-    sampling_params,
-    lora_request=LoRARequest("sql_adapter", 1, sql_lora_path)
-)
-```
-
-### Choosing the Right Model for Fine-Tuning
-
-- Define the available budget to determine the type and size of the model
-- Establish a quality threshold and train the smallest model that meets the desired quality
-- Consider inference costs, which are more significant than training costs
 
 <center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
 

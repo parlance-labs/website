@@ -58,6 +58,7 @@ listing:
       - "fine_tuning/napkin_math.qmd"
       - "fine_tuning/slaying_ooms.qmd"
       - "fine_tuning/pawel.qmd"
+      - "fine_tuning/zach.qmd"
       - title: "Axolotl Office Hours"
         description: "Wing answers questions about axolotl, including advanced features and common pitfalls."
         image: wing.png
