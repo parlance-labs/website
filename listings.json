@@ -1,10 +1,19 @@
 [
   {
+    "listing": "/education/evals/index.html",
+    "items": [
+      "/education/evals/allaire.html",
+      "/education/evals/ankur.html",
+      "/education/evals/schoelkopf.html"
+    ]
+  },
+  {
     "listing": "/education/fine_tuning/index.html",
     "items": [
       "/education/fine_tuning/kyle.html",
       "/education/fine_tuning/emmanuel.html",
       "/education/fine_tuning/napkin_math.html",
+      "/education/fine_tuning/napkin_math_2.html",
       "/education/fine_tuning/daniel.html",
       "/education/fine_tuning/slaying_ooms.html",
       "/education/fine_tuning/mistral_ft_sophia.html",
@@ -12,14 +21,6 @@
       "/education/fine_tuning/abhishek.html",
       "/education/fine_tuning/pawel.html",
       "/education/fine_tuning/zach.html"
-    ]
-  },
-  {
-    "listing": "/education/evals/index.html",
-    "items": [
-      "/education/evals/allaire.html",
-      "/education/evals/ankur.html",
-      "/education/evals/schoelkopf.html"
     ]
   },
   {
@@ -41,6 +42,7 @@
       "/education/fine_tuning/abhishek.html",
       "/education/fine_tuning/steven.html",
       "/education/fine_tuning/napkin_math.html",
+      "/education/fine_tuning/napkin_math_2.html",
       "/education/fine_tuning/slaying_ooms.html",
       "/education/fine_tuning/pawel.html",
       "/education/fine_tuning/zach.html",
