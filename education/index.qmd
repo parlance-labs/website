@@ -56,6 +56,7 @@ listing:
   - id: talks-advanced-ft
     contents: 
       - "fine_tuning/napkin_math.qmd"
+      - "fine_tuning/napkin_math_2.qmd"
       - "fine_tuning/slaying_ooms.qmd"
       - "fine_tuning/pawel.qmd"
       - "fine_tuning/zach.qmd"
