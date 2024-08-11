@@ -10,7 +10,7 @@ We are [experienced AI Engineers](team.qmd) who have built AI products at leadin
 
 # Services
 
-## Tier 1: Strategy
+## Strategy
 
 We will advise you on:
 
@@ -19,21 +19,17 @@ We will advise you on:
 
 We will provide your team with ongoing guidance through regular meetings.
 
-## Tier 2: Comprehensive
+## Implementation
 
-Everything in Tier 1, plus:
+We also offer hands-on services:
 
 -  **Implementation:** We will write production-ready code to accelerate your AI product development.
 -  **Model Optimization:** We will implement domain-specific eval systems, fine-tune, prompt engineer and debug models to improve performance.
 -  **Tools and Infrastructure:** We will build tools that enable you to execute consistently and quickly.
-- **A full-time presence of 2+ FTEs** from [our team](https://parlance-labs.com/team.html) to work on your project.
 
 # Pricing
 
-Below is an estimate of our pricing.  We customize pricing for longer engagements or specific projects.
-
-- **Strategy:** $36,500 for a 2-month minimum engagement.
-- **Comprehensive (2+ FTEs):** $725,900 for a 3-month minimum engagement.
+Our minimum level of engagement typically starts at $38,000.  We customize our pricing based on expected outcomes.
 
 **Contact us at `consultingl@parlance-labs.com` or fill out [this form](https://llms.typeform.com/to/M8f89mlM) to discuss starting an engagement.**
 
