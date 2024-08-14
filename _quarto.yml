@@ -28,10 +28,10 @@ website:
     pinned: true
     collapse: false
     left:
-    - text: Education
-      file: education/
     - text: Services
       file: services.qmd
+    - text: Education
+      file: education/
     - text: Team
       file: team.qmd
   sidebar:
