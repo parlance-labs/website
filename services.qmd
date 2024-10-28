@@ -44,7 +44,7 @@ We helped Rechat build [Lucy](https://help.rechat.com/guides/lucy), a conversati
 # Current & Past Clients
 
 ::: {.callout-tip}
-## Expand To See Our Clients
+## Our Clients
 
 Members of [our team](team.qmd) have worked with the following companies:
 
