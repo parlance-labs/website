@@ -48,7 +48,7 @@ We helped Rechat build [Lucy](https://help.rechat.com/guides/lucy), a conversati
 
 Members of [our team](team.qmd) have worked with the following companies:
 
-- [Phenom](https://www.phenom.com/): Talent management and HR platform.
+- [Phenom](https://www.phenom.com/): Talent management and HR platform with AI-powered tools for candidates and recruiters.
 - [SonderMind](https://www.sondermind.com/): AI-powered mental health platform.
 - [Limitless AI](http://limitless.ai/): Limitless AI is a personal memory assistant that helps you remember, organize, and navigate your life.
 - [Raycast](https://raycast.com/): Raycast is a blazingly fast, totally extendable launcher. It lets you complete tasks, calculate, share common links, and much more.
