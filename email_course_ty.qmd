@@ -2,5 +2,5 @@
 title: "Thank You"
 ---
 
-Thank you for filling out the survey!  We will be sending you the next email shortly.
+Thank you for filling out the survey!
 
