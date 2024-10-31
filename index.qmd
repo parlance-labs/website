@@ -50,9 +50,9 @@ Our expertise includes:
 2. Building tools that speed up your development process.
 3. Upskilling your team on LLMs.
 
-## Services
-
-See [this page](./services.qmd) for more info.
+:::{.testimonial-section}
+[Work With Us](./services.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
+:::
 
 ---
 
