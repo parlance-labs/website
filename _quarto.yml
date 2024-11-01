@@ -91,9 +91,7 @@ website:
 format:
   html:
     reference-location: document
-    theme: 
-      dark: [solar, custom.scss]
-      light: [flatly, custom-light.scss]
+    theme: [solar, custom.scss]
     css:
       - styles.css
     toc: true

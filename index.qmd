@@ -3,6 +3,7 @@ repo-actions: false
 css: index.css
 sidebar: false
 toc: false
+search: false
 ---
 
 ```{=html}

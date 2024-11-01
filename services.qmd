@@ -4,6 +4,7 @@ sidebar: false
 image: cover_2.png
 aliases: ["hire/", "hire"]
 repo-actions: false
+search: false
 ---
 
 We are [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.
