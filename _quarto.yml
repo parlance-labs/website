@@ -28,7 +28,7 @@ website:
     pinned: true
     collapse: false
     left:
-    - text: Work With Us
+    - text: Services
       file: services.qmd
     - text: Blog
       href: https://hamel.dev
