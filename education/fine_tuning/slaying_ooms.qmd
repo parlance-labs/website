@@ -109,7 +109,7 @@ Links to resources mentioned in the talk:
 - [NeurIPS Large Language Model Efficiency Challenge: 1 LLM + 1GPU + 1Day](https://llm-efficiency-challenge.github.io/)
 - [QLoRA implementation code](https://github.com/TimDettmers/bitsandbytes/blob/main/csrc/kernels.cu)
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}

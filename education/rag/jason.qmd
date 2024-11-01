@@ -94,7 +94,7 @@ Final thoughts on the continuous improvement of RAG systems, encouragement for o
   - [RAG is more than just embedding search](https://python.useinstructor.com/blog/2023/09/17/rag-is-more-than-just-embedding-search/)
 - Instructor: [Link](https://python.useinstructor.com/)
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>
 
 ## Full Transcript
 :::{.callout-tip collapse="true"}

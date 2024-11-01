@@ -9,8 +9,9 @@ toc: false
 listing:
   - id: talks-evals
     contents: 
-      - "evals/*.qmd"
-      - "!evals/index.qmd"
+      - evals/allaire.qmd
+      - evals/ankur.qmd
+      - evals/schoelkopf.qmd
     type: grid
     sort: order
     fields: ["image","title", "description"]
@@ -23,7 +24,6 @@ listing:
       - rag/ben.qmd
       - rag/jason.qmd
     type: grid
-    sort: false
     fields: ["image","title", "description"]
     sort-ui: false
     filter-ui: false
@@ -34,7 +34,6 @@ listing:
       - "fine_tuning/kyle.qmd"
       - "fine_tuning/emmanuel.qmd"
     type: grid
-    sort: false
     sort-ui: false
     filter-ui: false
     fields: ["image","title", "description"]
@@ -50,7 +49,6 @@ listing:
     type: grid
     sort-ui: false
     filter-ui: false
-    sort: false
     fields: ["image","title", "description"]
     max-description-length: 75
   - id: talks-advanced-ft
@@ -118,6 +116,9 @@ aliases:
 
 Hear from practitioners on a wide range of topics on LLMs, including [RAG](#rag), [evaluation](#evals), [applications](#building-applications), [fine-tuning](#fine-tuning) and [prompt engineering](#prompt-engineering).
 
+<center>
+<button onclick="window.location.href='https://hamel.ck.page/7d15a4b6e7'" style="background-color: #C75C56; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 20px; cursor: pointer; transition: background-color 0.3s ease;"><strong>Subscribe To Our Newsletter</strong></button>
+</center>
 ## Evals
 
 Measuring the performance of LLM products

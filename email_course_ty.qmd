@@ -1,5 +1,6 @@
 ---
 title: "Thank You"
+sidebar: false
 ---
 
 Thank you for filling out the survey!

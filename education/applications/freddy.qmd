@@ -337,4 +337,4 @@ You can mount an existing gradio app into a FastAPI to make it part of a larger 
 <br>[57:27] Freddy Boulton: That's insane. Yeah, that's super exciting. Yeah, I mean, like testament to you guys as well for building such an engaging course that everyone is loving. I'm loving it.
 :::
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>

@@ -115,7 +115,7 @@ If you have an audience of beta testers, you can share the model with them and g
 
 Open-source models tend not to provide the cleanest datasets; that said, quality is still achievable, especially with post-filtering of samples. Define clear objectives and boundary cases; having many varied synthetic data samples is likely better than repeated examples of one use case or objective.
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>
 
 
 ## Full Transcript

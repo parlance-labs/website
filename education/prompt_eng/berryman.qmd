@@ -228,4 +228,4 @@ Discussion on few-shot prompting best practices. Hyperparameter adjustments. Fun
 <br>[1:02:40] John: thank you guys so much. I hope it was enjoyable.
 :::
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>

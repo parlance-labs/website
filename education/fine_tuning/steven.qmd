@@ -150,7 +150,7 @@ The dataset to be used for finetuning should have the following format:
   - When using GPT-4, once you have a baseline evaluation and training examples, consider fine-tuning 3.5 to get similar performance for less cost and latency.
   - Experiment with reducing or removing system instructions with subsequent fine-tuned model versions.
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>
 
 
 ## Full Transcript

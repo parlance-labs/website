@@ -28,12 +28,14 @@ website:
     pinned: true
     collapse: false
     left:
-    - text: Services
+    - text: Work With Us
       file: services.qmd
-    - text: Education
-      file: education/
+    - text: Blog
+      href: https://hamel.dev
     - text: Team
       file: team.qmd
+    - text: Education
+      file: education/
   sidebar:
     - title: Resources
       pinned: true
@@ -82,7 +84,8 @@ website:
                 - "education/fine_tuning/pawel.qmd"
         - section: Applications
           href: education/applications/index.qmd
-          contents: education/applications/**/*.qmd
+          contents: 
+            - education/applications/**/*.qmd
         - education/prompt_eng/berryman.qmd
 
 format:

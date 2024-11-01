@@ -316,4 +316,4 @@ def load_new_data():
 <br>[51:14] Dan Becker: See ya.
 :::
 
-<center><script async data-uid="8a7362bdfa" src="https://hamel.ck.page/8a7362bdfa/index.js"></script></center>
+<br>

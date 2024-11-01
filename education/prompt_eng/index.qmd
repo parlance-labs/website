@@ -1,6 +1,7 @@
 ---
 title: Prompt Engineering
 search: false
+image: john.png
 description: Effective prompt engineering techniques for LLMs
 metadata-files: ["../_listing_meta.yml"]
 listing:
