@@ -18,7 +18,7 @@ We will advise you on:
 -   LLM performance issues: (cost, quality, speed)
 -   Evals, RAG, fine-tuning, and prompt engineering
 
-We will provide your team with ongoing guidance through regular meetings.
+We will provide your team with ongoing guidance through regular meetings and contiouous async access.
 
 ## Implementation
 
