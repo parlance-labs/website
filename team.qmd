@@ -13,26 +13,6 @@ search: false
 
 [Hamel Husain](https://hamel.dev) is a machine learning engineer with over 25 years of experience. He has worked with innovative companies such as Airbnb and GitHub, which included <a href="https://openai.com/index/introducing-text-and-code-embeddings#:~:text=models%20on%20the-,CodeSearchNet,),-evaluation%20suite%20where">early LLM research used by OpenAI</a> for code understanding. He has also led and contributed to numerous popular [open-source machine-learning tools](https://hamel.dev/oss/opensource.html).
 
-## Jason Liu
-
-![](images/jason.jpg){width=70 style="float:left"} 
-
-Jason Liu is a distinguished machine learning [consultant](https://jxnl.co/services/) known for leading teams to successfully ship AI products. Jason's technical expertise covers personalization algorithms, search optimization, synthetic data generation, and MLOps systems. His experience includes companies like Stitch Fix, where he created a recommendation framework and observability tools that handled 350 million daily requests. Additional roles have included Meta, NYU, and startups such as Limitless AI and Trunk Tools. 
-
-## Jeremy Lewi
-
-![](images/jeremy.jpeg){width=70 style="float:left"} 
-
-[Jeremy Lewi](https://lewi.us/) is a Machine Learning platform engineer with over 15 years of experience and expertise in using AI to solve practical business applications. He has built platforms for YouTube, Google Cloud Platform, and Primer, enabling ML Engineers and data scientists to rapidly develop and deploy models into production. He played a pivotal role in developing systems like YouTube’s Video Recommendations and made major contributions to open-source software, including creating Kubeflow, one of the most popular OSS frameworks for ML.
-
-Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and GitOps.
-
-## Dan Becker
-
-![](images/dan.png){width=70 style="float:left"} 
-
-[Dan](https://www.linkedin.com/in/dansbecker/) has been working in AI since 2012, when he finished 2nd (out of 1350 teams) in a machine learning competition with a $500,000 prize. He has contributed to open source AI tools like TensorFlow and Keras, worked as a data scientist at Google and lead the product team building AI Development Tools for DataRobot. Over 100,000 people have taken his deep learning courses on Kaggle and DataCamp.
-
 ## Shreya Shankar
 
 ![](images/shreya.jpeg){width=70 style="float:left"}
@@ -51,17 +31,17 @@ Jeremy is an expert in Cloud services, Kubernetes, MLOps, LLMOps, CICD, IAC, and
 
 [Josh Patterson](https://www.pattersonconsultingtn.com), with over 20 years in AI, has a rich history of contributions to the field. He played a key role in developing autonomous driving systems for DARPA Grand Challenge and optimizing mesh network routing with Ant Colony Optimization during his graduate studies. As a principal solutions architect and early employee at Cloudera, he significantly contributed to the company's growth. Co-author of "Deep Learning: A Practitioner's Approach" and "Kubeflow Operations Guide," Josh is also a co-founder of the Eclipse Deeplearning4j project, demonstrating his expertise in generative neural networks. Currently, he focuses on Conversational AI, Automation AI, and the intersection of data and prompt engineering, driving advancements in generative AI technologies.
 
+## Jason Liu
+
+![](images/jason.jpg){width=70 style="float:left"} 
+
+Jason Liu is a distinguished machine learning [consultant](https://jxnl.co/services/) known for leading teams to successfully ship AI products. Jason's technical expertise covers personalization algorithms, search optimization, synthetic data generation, and MLOps systems. His experience includes companies like Stitch Fix, where he created a recommendation framework and observability tools that handled 350 million daily requests. Additional roles have included Meta, NYU, and startups such as Limitless AI and Trunk Tools. 
+
 ## Luke Marsden
 
 ![](images/luke.png){width=70 style="float:left"}
 
 [Luke Marsden](https://mlops.consulting) is a consultant with deep experience with LLMs, infrastructure and GenAI application patterns. He has a particular focus on open source models and fine-tuning, having advised clients globally on the impact and opportunity for GenAI on their business. In the [Helix](https://helix.ml) stack, he led the creation of a fine-tuning product based on Axolotl, documented in the popular blog post [How we got fine-tuning Mistral-7B to not suck](https://blog.helix.ml/p/how-we-got-fine-tuning-mistral-7b) and then extended the stack to include multi-node Ollama on Kubernetes, API calling from open LLMs, RAG with pgvector and running gptscript securely on the server.
-
-## Zach Deane-Mayer
-
-![](images/zach.jpg){width=70 style="float:left"} 
-
-[Zach Deane-Mayer](https://www.ai-insight-solutions.com/) is an AI executive and Kaggle Grandmaster with over 15 years of experience building AI products and infrastructure. He founded and scaled global AI teams that built Generative AI, Visual AI, and AutoML products at DataRobot. Zach has deep expertise in growing and scaling AI teams, building AI products, and developing AI strategies.
 
 ## Greg Ceccarelli
 
