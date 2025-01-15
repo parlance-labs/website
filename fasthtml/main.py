@@ -14,10 +14,15 @@ def NavBar():
                 Li(A("Education", href="/education")),
                 Li(A("Theme", href=theme)))))
 
+# def TOC():
+#     mbrs1 = map(lambda x: Li(A(x, href='#'+x.lower(), cls='text-sm capitalize')), team_members.keys())
+#     return NavContainer(*mbrs1, cls=(NavT.primary,'w-48 p-2 rounded float-right sticky top-4 hidden md:block'))
+
 def TOC():
     mbrs1 = map(lambda x: Li(A(x, href='#'+x.lower(), cls='text-sm capitalize')), team_members.keys())
-    return NavContainer(*mbrs1, cls=(NavT.primary,'w-48 p-2 rounded float-right sticky top-4 hidden md:block'))
-
+    return NavContainer(*mbrs1, 
+                       cls=(NavT.primary,'w-48 p-2 rounded float-right sticky top-4 md:block'),
+                       uk_scrollspy_nav="closest: li; scroll: true")
 def TeamCard(name, description, img):
     return Card(
         DivLAligned(
@@ -33,8 +38,8 @@ def team():
     return NavBar(), Titled("Team", 
         P("The Parlance Team"),
         TOC(),
-        Grid(*[TeamCard(name, desc, f'../images/{img}') for name, (img, desc) in team_members.items()],
-            cols_sm=1,cols_md=1,cols_lg=2,cols_xl=2,))
+        Grid(*[TeamCard(name, desc, f'../images/{img}') for name, (img, desc) in team_members.items()], cols=1),
+        cls=ContainerT.large)
 
 @rt
 def theme():
