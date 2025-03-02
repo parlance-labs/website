@@ -11,26 +11,31 @@ We are [experienced AI Engineers](team.qmd) who have built AI products at leadin
 
 # Services
 
+## Education
+
+We offer workshops on LLM performance issues, evals, and fine-tuning. Currently, we are teaching a course on how to [Conistently Improve Any AI Application With Evals](https://maven.com/parlance-labs/evals).
+
 ## Strategy
 
 We will advise you on:
 
 -   LLM performance issues: (cost, quality, speed)
 -   Evals, RAG, fine-tuning, and prompt engineering
+-   Vendor selection and integration
+-   AI product development and engineering
 
 We will provide your team with ongoing guidance through regular meetings and contiouous async access.
 
-## Implementation
+## Customized Services
 
-We also offer hands-on services:
+Can't find what you need? We can customize our services to your needs.  Some examples include:
 
--  **Implementation:** We will write production-ready code to accelerate your AI product development.
--  **Model Optimization:** We will implement domain-specific eval systems, fine-tune, prompt engineer and debug models to improve performance.
--  **Tools and Infrastructure:** We will build tools that enable you to execute consistently and quickly.
+- Evaluating AI tools and platforms.  We will carefully review your docs, upload real data (with permission) to your product, and provide detailed feedback.
+- Debugging specific issues with your AI application.
 
 # Pricing
 
-Our minimum level of engagement typically start at $21,500.  We customize our pricing based on expected outcomes.
+Our minimum level of engagement starts at **$18,500**.  We customize our pricing based on expected outcomes.  If this is out of your budget, see our [education](#education) options.
 
 **[Fill out this form](https://form.typeform.com/to/M8f89mlM) to book a meeting with us to get started.**  You can also contact us at `consulting@parlance-labs.com` with any questions.
 
