@@ -80,11 +80,11 @@ testimonials = [
         "quote": "Working with Hamel and his team has been really great. Anyone who joined the Mastering LLMs conf knows this group is super sharp and focused on results. Working with Hamel is no different. He helps us with everything from setting product vision to prioritizing tools and methods."
     },
     {
-        "image": "taylor.jpeg",
-        "company": "Zapier",
-        "name": "Taylor Holiday",
-        "title": "Director of Engineering, AI",
-        "quote": "Jason helped deliver enterprise grade RAG to Zapier and our customers. You're not going to want to miss this if you're serious about building with AI."
+        "image": "george.png",
+        "company": "Matter & Space",
+        "name": "George Siemens",
+        "title": "Founder & CEO",
+        "quote": "Partnering with Hamel transformed our approach. His insights and practical guidance simplified our LLM deployment and created a clear pathway for continuous testing, evaluation, and improvement. Hamel’s work fundamentally shaped our thinking and delivered real, impactful results."
     },
     {
         "image": "emil.jpeg",
@@ -94,11 +94,18 @@ testimonials = [
         "quote": "We have had the chance to work with Hamel and it's been a very successful partnership for us.  He has a massive technical knowledge and is also high-level executive that can help you on all different levels. Couldn't have asked for a better partner."
     },
     {
-        "image": "carl.jpeg",
-        "company": "Bytebot",
-        "name": "Carl Atupem",
-        "title": "CEO",
-        "quote": "Working with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!"
+        "image": "jacob.jpeg",
+        "company": "NurtureBoss",
+        "name": "Jacob Carter",
+        "title": "Founder & CEO",
+        "quote": "Hamel showed us how to evaluate our AI systems tailored to our use case. We gained insights that dramatically improved performance, reducing error rates by over 60% in critical areas like date handling. These methods have become fundamental to how we build and improve our AI products, creating a continuous cycle of improvement."
+    },
+        {
+    "image": "anuj.jpeg",
+    "company": "ServiceMob",
+    "name": "Anuj Bhalla",
+    "title": "CEO",
+        "quote": "Hamel & team allowed serviceMob to save hundreds of hours of engineering time by showing us the best tools, techniques, and processes. We shipped industry-leading AI in few weeks instead of months, and kept shipping thereafter thanks to how his team up-skilled our company."
     },
     {
         "image": "christian.jpg",
@@ -107,19 +114,13 @@ testimonials = [
         "title": "CEO",
         "quote": "Can attest that you've been tremendously helpful for the team at Dunbar, the value has gone beyond acceleration of our product too - best way I describe it is full-stack AI-business guidance in a box."
     },
-    {
-    "image": "anuj.jpeg",
-    "company": "ServiceMob",
-    "name": "Anuj Bhalla",
-    "title": "CEO",
-        "quote": "Hamel & team allowed serviceMob to save hundreds of hours of engineering time by showing us the best tools, techniques, and processes. We shipped industry-leading AI in few weeks instead of months, and kept shipping thereafter thanks to how his team up-skilled our company."
-    },
-    {
-        "image": "avthar.jpeg",
-        "company": "TimescaleDB",
-        "name": "Avthar Sewrathan",
-        "title": "Lead Technical PM",
-        "quote": "I highly recommend working with Jason. He's brought a wealth of experience and developer understanding to our team, helping us develop better ideas and move faster. 100% worth it."
+
+        {
+        "image": "carl.jpeg",
+        "company": "Bytebot",
+        "name": "Carl Atupem",
+        "title": "CEO",
+        "quote": "Working with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!"
     }
 ]
 
