@@ -107,20 +107,19 @@ testimonials = [
     "title": "CEO",
         "quote": "Hamel & team allowed serviceMob to save hundreds of hours of engineering time by showing us the best tools, techniques, and processes. We shipped industry-leading AI in few weeks instead of months, and kept shipping thereafter thanks to how his team up-skilled our company."
     },
+            {
+        "image": "harrison.jpeg",
+        "company": "LangChain",
+        "name": "Harrison Chase",
+        "title": "CEO & Co-Founder",
+        "quote": "Hamel and is one of most knowledgeable people about LLM evals. I've witnessed him improve AI products first-hand by guiding his clients carefully through the process. We've even made many improvements to LangSmith because of his work"
+    },
     {
         "image": "christian.jpg",
         "company": "Dunbar",
         "name": "Christian Bryant",
         "title": "CEO",
         "quote": "Can attest that you've been tremendously helpful for the team at Dunbar, the value has gone beyond acceleration of our product too - best way I describe it is full-stack AI-business guidance in a box."
-    },
-
-        {
-        "image": "carl.jpeg",
-        "company": "Bytebot",
-        "name": "Carl Atupem",
-        "title": "CEO",
-        "quote": "Working with Jason has helped improve the Bytebot product tremendously. Met Hamel Husain at a Replicate meetup earlier this year, and within a few minutes we were walking through evaluation set examples. These two teaming up is like Lebron and Dwade!"
     }
 ]
 
