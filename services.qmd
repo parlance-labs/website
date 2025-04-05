@@ -54,22 +54,22 @@ We helped Rechat build [Lucy](https://help.rechat.com/guides/lucy), a conversati
 
 We are currently working with or have worked with the following companies:
 
--   [Answer.ai](https://www.answer.ai/): R&D centered on rapid development of LLM applications, centered on building better developer tools, frameworks, and more.
+- [Answer.ai](https://www.answer.ai/): R&D centered on rapid development of LLM applications, centered on building better developer tools, frameworks, and more.
 - [Moovila](https://www.moovila.com/): AI-driven project automation.
 - [Phenom](https://www.phenom.com/): Talent management and HR platform with AI-powered tools for candidates and recruiters.
 - [SonderMind](https://www.sondermind.com/): AI-powered mental health platform.
 - [NurtureBoss](https://nurtureboss.io/): AI-Assisted property management platform.
 - [Matter And Space](https://matterandspace.com/): Ed-tech platform and university re-imagining the future of education.
--   [Replicate](https://replicate.com/): development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.
--   [Weights & Biases](https://wandb.ai/site): Provide product guidance for evaluation, annotation, and observability.
--   [Honeycomb](https://www.honeycomb.io/): Currently improving the [natural language query assistant](https://www.honeycomb.io/blog/introducing-query-assistant) through evaluation systems and fine-tuning.
--   [LangChain/LangSmith](https://www.langchain.com): provided product guidance for enterprise LLM tools.
--   [Modal](https://modal.com/): Serverless tools for fine-tuning.
--   [Rechat](https://rechat.com/): We are working on Lucy, a conversational AI for real estate agents. You can read about my recent work on Rechat [here](https://hamel.dev/blog/posts/evals/).
--   [Axolotl](https://github.com/OpenAccess-AI-Collective/axolotl): Hamel is a core contributor to axolotl, a library for efficient fine-tuning of LLMs.
+- [Replicate](https://replicate.com/): development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.
+- [Weights & Biases](https://wandb.ai/site): Provide product guidance for evaluation, annotation, and observability.
+- [Honeycomb](https://www.honeycomb.io/): Currently improving the [natural language query assistant](https://www.honeycomb.io/blog/introducing-query-assistant) through evaluation systems and fine-tuning.
+- [LangChain/LangSmith](https://www.langchain.com): provided product guidance for enterprise LLM tools.
+- [Modal](https://modal.com/): Serverless tools for fine-tuning.
+- [Rechat](https://rechat.com/): We are working on Lucy, a conversational AI for real estate agents. You can read about my recent work on Rechat [here](https://hamel.dev/blog/posts/evals/).
+- [Axolotl](https://github.com/OpenAccess-AI-Collective/axolotl): Hamel is a core contributor to axolotl, a library for efficient fine-tuning of LLMs.
 - [Modal Labs](https://modal.com/): Modal specializes in cloud functions, offering a platform for running generative AI models, large-scale batch jobs, and more.
--   [Posit](https://posit.co/): Helped Posit expand into the Python AI and ML ecosystem.
--   [Catena](https://www.catena.xyz/): LLM infrastructure such as routing, evaluation, and orchestration.
+- [Posit](https://posit.co/): Helped Posit expand into the Python AI and ML ecosystem.
+- [Catena](https://www.catena.xyz/): LLM infrastructure such as routing, evaluation, and orchestration.
 - [Arize AI](https://arize.com/llm/): We are helping Arize with LLM observability and evaluation tools.
 - [dbt Labs](getdbt.com): Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.
 - [Radiant AI](https://radiantai.com/): We helped the Radiant team accelerate the development of their LLM observability platform.

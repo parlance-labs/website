@@ -42,9 +42,3 @@ Jason Liu is a distinguished machine learning [consultant](https://jxnl.co/servi
 ![](images/luke.png){width=70 style="float:left"}
 
 [Luke Marsden](https://mlops.consulting) is a consultant with deep experience with LLMs, infrastructure and GenAI application patterns. He has a particular focus on open source models and fine-tuning, having advised clients globally on the impact and opportunity for GenAI on their business. In the [Helix](https://helix.ml) stack, he led the creation of a fine-tuning product based on Axolotl, documented in the popular blog post [How we got fine-tuning Mistral-7B to not suck](https://blog.helix.ml/p/how-we-got-fine-tuning-mistral-7b) and then extended the stack to include multi-node Ollama on Kubernetes, API calling from open LLMs, RAG with pgvector and running gptscript securely on the server.
-
-## Greg Ceccarelli
-
-![](images/greg.jpeg){width=70 style="float:left"} 
-
-[Greg Ceccarelli](https://www.gregceccarelli.com/) is a former Chief Product Officer and operator who advises executives on how to win with AI. He's shipped multiple AI products at Pluralsight and GitHub and has spent the last two decades helping companies create competitive advantage with data. He's an AI and Developer Tools product strategy advisor at [Tola Capital](https://tolacapital.com/) and writes weekly on [Substack](https://meditationsontech.com) and maintains [gregslist.ai](https://gregslist.ai) for super fast AI product discovery.
