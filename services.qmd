@@ -7,45 +7,55 @@ repo-actions: false
 search: false
 ---
 
-We are [experienced AI Engineers](team.qmd) who have built AI products at leading tech companies.
+# 👋 Hey there! We're Parlance Labs
+
+We're a group of AI engineers led by [Hamel Husain](https://hamel.dev) who help companies improve AI products with data-driven approaches.
+
+## What we're about
+
+Here's what drives our approach:
+
+- We establish [systematic AI evaluation](https://hamel.dev/blog/posts/evals/) that's specific to your product & domain (because how else will you know if your AI is doing anything useful?)
+- We're data-obsessed and pragmatic. We teach you [processes that have worked](https://hamel.dev/blog/posts/field-guide/) across more than 30 AI implementations.
+- We've developed methods to make sure your AI can [provide business value and produce results](https://hamel.dev/blog/posts/llm-judge/) you trust.
+  
+## We're the consultancy who wants you to "fire us"
+
+Here's something different about us: **we don't want you to have a long-term dependency on us**. We're not here to pitch you on new models, frameworks, or expensive infrastructure. We *are* here to teach you methods to experiment faster and systematically improve your systems, regardless of your domain or use-case.
+
+We don't chase recurring revenue or sell maintenance contracts - we think that creates perverse incentives.  Instead, we work alongside your team, transfer knowledge, and build capabilities so that when we leave, you have:
+
+- The skills to evaluate your AI systems.
+- Processes for continuous improvement.
+- Systems that save you time and resources by objectively surfacing the highest impact issues.
+- The ability to select the best tools, vendors and frameworks while minimizing complexity.
+- Independence from consultants (including us!).
+
+You can read testimonials from our clients [here](https://parlance-labs.com/#heres-what-our-clients-are-saying).
 
 # Services
 
 ## Education
 
-We offer workshops on LLM performance issues, evals, and fine-tuning. Currently, we are teaching a course on how to [Conistently Improve Any AI Application With Evals](https://maven.com/parlance-labs/evals).
+We offer workshops on LLM performance issues, evals, and fine-tuning. Currently, we are teaching a course on how to [Rapidly Improve Any AI Application With Evals](https://maven.com/parlance-labs/evals).
 
-## Strategy
+## Advisory
 
-We will advise you on:
-
--   LLM performance issues: (cost, quality, speed)
--   Evals, RAG, fine-tuning, and prompt engineering
--   Vendor selection and integration
--   AI product development and engineering
-
-We will provide your team with ongoing guidance through regular meetings and contiouous async access.
-
-## Customized Services
-
-Can't find what you need? We can customize our services to your needs.  Some examples include:
-
-- Evaluating AI tools and platforms.  We will carefully review your docs, upload real data (with permission) to your product, and provide detailed feedback.
-- Debugging specific issues with your AI application.
+We provide holistic guidance on improving your AI product, customized to your specific use case.  We cover everything from evals, RAG, frameworks, vendor selection, and more.
 
 # Pricing
 
 Our minimum level of engagement starts at **$34,500**.  We customize our pricing based on expected outcomes.  If this is out of your budget, see our [education](#education) options.
 
-**[Fill out this form](https://form.typeform.com/to/M8f89mlM) to book a meeting with us to get started.**  You can also contact us at `consulting@parlance-labs.com` with any questions.
+**👉 [Fill out this form](https://form.typeform.com/to/M8f89mlM) to book a meeting with us to get started. 👈**  You can also contact us at `consulting@parlance-labs.com` with any questions.
 
 # Testimonials
 
-We helped Rechat build [Lucy](https://help.rechat.com/guides/lucy), a conversational AI for real estate agents:
+<!-- We helped Rechat build [Lucy](https://help.rechat.com/guides/lucy), a conversational AI for real estate agents:
 
-<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/989102642?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Parlance Labs Testimonial Rechat"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/989102642?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Parlance Labs Testimonial Rechat"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script> -->
 
-**You can see more testimonials [here](index.qmd#heres-what-our-clients-are-saying).**
+**See our testimonials [here](index.qmd#heres-what-our-clients-are-saying).**  References are available upon request.
 
 # Current & Past Clients
 
@@ -74,3 +84,4 @@ We are currently working with or have worked with the following companies:
 - [dbt Labs](getdbt.com): Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.
 - [Radiant AI](https://radiantai.com/): We helped the Radiant team accelerate the development of their LLM observability platform.
 :::
+
