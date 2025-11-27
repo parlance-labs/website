@@ -1,0 +1,91 @@
+/* Services page styles - minimal additions */
+
+/* Prominent CTA section */
+.cta-prominent {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(56, 189, 248, 0.02) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: 10px;
+  padding: 1.5rem 1.5rem;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+/* Primary CTA button */
+.cta-button-primary {
+  display: inline-block;
+  background: var(--pl-accent, #38bdf8);
+  border: 1px solid var(--pl-accent, #38bdf8);
+  color: #0f1114 !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.875rem 2.5rem;
+  border-radius: 6px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+}
+
+.cta-button-primary::after {
+  display: none !important;
+}
+
+.cta-button-primary:hover {
+  background: #0ea5e9;
+  border-color: #0ea5e9;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Two buttons side by side */
+.cta-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cta-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-subtext {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--pl-text-secondary, #d4d4d8);
+}
+
+/* Secondary button - ghost style for advisory */
+.cta-button-secondary {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--pl-accent, #38bdf8);
+  color: var(--pl-accent, #38bdf8) !important;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 0.875rem 2rem;
+  border-radius: 6px;
+  text-decoration: none !important;
+  transition: all 0.25s ease;
+}
+
+.cta-button-secondary::after {
+  display: none !important;
+}
+
+.cta-button-secondary:hover {
+  background: var(--pl-accent, #38bdf8);
+  color: #0f1114 !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
+/* Responsive - stack on mobile */
+@media (max-width: 600px) {
+  .cta-buttons {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
