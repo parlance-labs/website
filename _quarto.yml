@@ -27,13 +27,11 @@ website:
     background: dark
     pinned: true
     collapse: false
+    collapse-below: sm
     logo: b.png
     left:
     - text: Services
       file: services.qmd
-    - text: Blog
-      href: https://hamel.dev
-      target: _blank
     - text: Team
       file: team.qmd
     - text: Education

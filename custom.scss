@@ -641,6 +641,60 @@ html {
   }
 }
 
+// Force logo to always be visible including on mobile
+.navbar .navbar-brand-container {
+  display: flex !important;
+  margin-right: auto !important;
+  margin-left: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.navbar .navbar-brand-container .navbar-brand.navbar-brand-logo {
+  display: flex !important;
+  align-items: center !important;
+}
+
+// Target the actual logo images
+.navbar .navbar-logo {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: 32px !important;
+  width: auto !important;
+}
+
+// Dark theme - show dark-content logo, hide light-content
+.navbar .navbar-logo.light-content {
+  display: none !important;
+}
+
+.navbar .navbar-logo.dark-content {
+  display: block !important;
+}
+
+@media (max-width: 991.98px) {
+  .navbar .navbar-logo {
+    height: 28px !important;
+  }
+
+  // Remove all centering/auto margins - pack everything left
+  .navbar .navbar-brand-container,
+  .navbar .navbar-brand-container.mx-auto {
+    margin: 0 !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0 !important;
+  }
+
+  .navbar .navbar-brand {
+    margin-right: 0.5rem !important;
+  }
+
+  .navbar .navbar-nav,
+  .navbar .navbar-nav.me-auto {
+    margin-left: 0 !important;
+  }
+}
+
 // Wall of Love - testimonial embed section
 .wall-of-love {
   padding: 1rem 0 2rem;
