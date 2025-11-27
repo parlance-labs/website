@@ -5,83 +5,60 @@ image: cover_2.png
 aliases: ["hire/", "hire"]
 repo-actions: false
 search: false
+css: services.css
 ---
 
-# 👋 Hey there! We're Parlance Labs
+We're a group of AI engineers led by [Hamel Husain](https://hamel.dev){target="_blank"} who help companies improve AI products with data-driven approaches. We're an engineer-only firm—no handwaving or slide decks.
 
-We're a group of AI engineers led by [Hamel Husain](https://hamel.dev) who help companies improve AI products with data-driven approaches. We're an engineer-only firm - no handwaiving or slide decks.
+## What We're About
 
-## What we're about
+- We establish [systematic AI evaluation](https://hamel.dev/blog/posts/evals/){target="_blank"} that's specific to your product & domain (because how else will you know if your AI is doing anything useful?)
+- We're data-obsessed and pragmatic. We teach you [processes that have worked](https://hamel.dev/blog/posts/field-guide/){target="_blank"} across more than 30 AI implementations.
+- We've developed methods to make sure your AI can [provide business value and produce results](https://hamel.dev/blog/posts/llm-judge/){target="_blank"} you trust.
 
-Here's what drives our approach:
+## We Want You to "Fire Us"
 
-- We establish [systematic AI evaluation](https://hamel.dev/blog/posts/evals/) that's specific to your product & domain (because how else will you know if your AI is doing anything useful?)
-- We're data-obsessed and pragmatic. We teach you [processes that have worked](https://hamel.dev/blog/posts/field-guide/) across more than 30 AI implementations.
-- We've developed methods to make sure your AI can [provide business value and produce results](https://hamel.dev/blog/posts/llm-judge/) you trust.
-  
-## We're the consultancy who wants you to "fire us"
+**We don't want you to have a long-term dependency on us.** We're not here to pitch you on new models, frameworks, or expensive infrastructure. We're here to teach you methods to experiment faster and systematically improve your systems, regardless of your domain or use-case.
 
-Here's something different about us: **we don't want you to have a long-term dependency on us**. We're not here to pitch you on new models, frameworks, or expensive infrastructure. We *are* here to teach you methods to experiment faster and systematically improve your systems, regardless of your domain or use-case.
+We don't chase recurring revenue or sell maintenance contracts—we think that creates perverse incentives. Instead, we work alongside your team, transfer knowledge, and build capabilities so that when we leave, you have:
 
-We don't chase recurring revenue or sell maintenance contracts - we think that creates perverse incentives.  Instead, we work alongside your team, transfer knowledge, and build capabilities so that when we leave, you have:
+- The skills to evaluate your AI systems
+- Processes for continuous improvement
+- Systems that surface the highest impact issues
+- The ability to select the best tools and vendors while minimizing complexity
+- Independence from consultants (including us!)
 
-- The skills to evaluate your AI systems.
-- Processes for continuous improvement.
-- Systems that save you time and resources by objectively surfacing the highest impact issues.
-- The ability to select the best tools, vendors and frameworks while minimizing complexity.
-- Independence from consultants (including us!).
+---
 
-You can read testimonials from our clients [here](https://parlance-labs.com/#heres-what-our-clients-are-saying).
+## Services
 
-# Services
+### Education
 
-## Education
+We offer workshops on LLM performance issues, evals, and fine-tuning. Our course [AI Evals For Engineers & PMs](https://maven.com/parlance-labs/evals){target="_blank"} has trained over 3,000 students from 500+ companies.
 
-We offer workshops on LLM performance issues, evals, and fine-tuning. Currently, we are teaching a course on how to [Rapidly Improve Any AI Application With Evals](https://maven.com/parlance-labs/evals).
+### Advisory
 
-## Advisory
+We provide holistic guidance on improving your AI product, customized to your specific use case—evals, RAG, frameworks, vendor selection, and more.
 
-We provide holistic guidance on improving your AI product, customized to your specific use case.  We cover everything from evals, RAG, frameworks, vendor selection, and more.
+**Our Minimum engagement starts at $89,500**, priced based on expected outcomes. If this is out of your budget, check out our [AI Evals course](https://maven.com/parlance-labs/evals){target="_blank"}.
 
-# Pricing
+---
 
-Our minimum level of engagement starts at **$89,500**.  We customize our pricing based on expected outcomes.  If this is out of your budget, see our [education](#education) options.
-
-**👉 [Fill out this form](https://form.typeform.com/to/M8f89mlM) to book a meeting with us to get started. 👈** 
-
-# Testimonials
-
-<!-- We helped Rechat build [Lucy](https://help.rechat.com/guides/lucy), a conversational AI for real estate agents:
-
-<div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/989102642?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Parlance Labs Testimonial Rechat"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script> -->
-
-**See our testimonials [here](index.qmd#heres-what-our-clients-are-saying).**  References are available upon request.
-
-# Current & Past Clients
-
-::: {.callout-tip}
-## Our Clients
-
-We are currently working with or have worked with the following companies:
-
-- [Answer.ai](https://www.answer.ai/): R&D centered on rapid development of LLM applications, centered on building better developer tools, frameworks, and more.
-- [Moovila](https://www.moovila.com/): AI-driven project automation.
-- [Phenom](https://www.phenom.com/): Talent management and HR platform with AI-powered tools for candidates and recruiters.
-- [SonderMind](https://www.sondermind.com/): AI-powered mental health platform.
-- [NurtureBoss](https://nurtureboss.io/): AI-Assisted property management platform.
-- [Matter And Space](https://matterandspace.com/): Ed-tech platform and university re-imagining the future of education.
-- [Replicate](https://replicate.com/): development of fine-tuning serverless infrastructure using axolotl and optimized LLM inference.
-- [Weights & Biases](https://wandb.ai/site): Provide product guidance for evaluation, annotation, and observability.
-- [Honeycomb](https://www.honeycomb.io/): Currently improving the [natural language query assistant](https://www.honeycomb.io/blog/introducing-query-assistant) through evaluation systems and fine-tuning.
-- [LangChain/LangSmith](https://www.langchain.com): provided product guidance for enterprise LLM tools.
-- [Modal](https://modal.com/): Serverless tools for fine-tuning.
-- [Rechat](https://rechat.com/): We are working on Lucy, a conversational AI for real estate agents. You can read about my recent work on Rechat [here](https://hamel.dev/blog/posts/evals/).
-- [Axolotl](https://github.com/OpenAccess-AI-Collective/axolotl): Hamel is a core contributor to axolotl, a library for efficient fine-tuning of LLMs.
-- [Modal Labs](https://modal.com/): Modal specializes in cloud functions, offering a platform for running generative AI models, large-scale batch jobs, and more.
-- [Posit](https://posit.co/): Helped Posit expand into the Python AI and ML ecosystem.
-- [Catena](https://www.catena.xyz/): LLM infrastructure such as routing, evaluation, and orchestration.
-- [Arize AI](https://arize.com/llm/): We are helping Arize with LLM observability and evaluation tools.
-- [dbt Labs](getdbt.com): Helping dbt build natural language to SQL interfaces, data analysis/engineering co-pilots, and more.
-- [Radiant AI](https://radiantai.com/): We helped the Radiant team accelerate the development of their LLM observability platform.
+:::{.cta-section .cta-prominent}
+<div class="cta-buttons">
+<div class="cta-option">
+[Enroll in Course](https://maven.com/parlance-labs/evals){.cta-button-primary role="button" target="_blank"}
+<span class="cta-subtext">Starting at $3,750</span>
+</div>
+<div class="cta-option">
+[Schedule Advisory Call](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
+<span class="cta-subtext">Starting at $89,500</span>
+</div>
+</div>
 :::
 
+---
+
+## Testimonials
+
+See what our clients and students say on our [homepage](index.qmd#what-our-clients-students-say). References available upon request.

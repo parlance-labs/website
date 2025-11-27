@@ -27,6 +27,7 @@ website:
     background: dark
     pinned: true
     collapse: false
+    logo: b.png
     left:
     - text: Services
       file: services.qmd

@@ -6,58 +6,138 @@ toc: false
 search: false
 ---
 
-```{=html}
-<style>
-    .cube {
-      margin-right: 1.5vw;  /* Use viewport units for responsive margin */
-    }
-    /* Media query for small screens */
-    @media only screen and (max-width: 600px) {
-      .cube {
-        width: auto;  /* Auto width to maintain aspect ratio */
-        max-width: 50%;  /* Max width 100% of parent container */
-        height: auto;  /* Auto height to maintain aspect ratio */
-        margin-right: 0;
-      }
-      h1 img {
-        margin-top: 10px; /* Add a top margin on small screens */
-      }
-    }
-</style>
-<center>
-<h1><img src="b.png" alt="Parlance Labs" width="70" class="cube"> <img src="c.png" width="280"></img></h1>
-<!-- <h4> A consultancy focused on LLMs</h4> -->
-</center>
-```
+:::{.hero-section}
+![](b.png){.hero-logo}
 
-:::{.testimonial-section}
-::: {.hero-banner}
-### Practical consulting that improves your AI.
-:::
+# Parlance Labs
+
+Practical consulting that improves your AI.
 :::
 
-## Why
+## What We Do
 
-You should hire us if:
+:::{.value-cards}
 
-- You don’t know how to consistently improve your LLM products.
-- Your LLMs are too expensive or slow.
-- You are overwhelmed by tools/frameworks.
+<div class="value-card">
+<span class="value-number">01</span>
+<p>Build <strong>evaluation systems</strong> that identify exactly what's broken and what to fix next.</p>
+</div>
 
-## Expertise
+<div class="value-card">
+<span class="value-number">02</span>
+<p>Replace guesswork with <strong>repeatable processes</strong> that compound over time.</p>
+</div>
 
-Our expertise includes:
+<div class="value-card">
+<span class="value-number">03</span>
+<p><strong>Ship better AI faster</strong>—then keep improving without us.</p>
+</div>
 
-1. Improving LLM products by implementing domain-specific eval systems, optimizing RAG, and fine-tuning.
-2. Building tools that speed up your development process.
-3. Upskilling your team on LLMs.
-
-:::{.testimonial-section}
-[Work With Us](./services.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 :::
 
----
+:::{.logo-carousel-section}
 
+<div class="carousel-heading">We've worked with over 500 of the world's top companies</div>
+
+<div class="logo-track logo-track-row-1">
+<div class="logo-item"><img src="logos/google.png" alt="Google"></div>
+<div class="logo-item"><img src="logos/meta.png" alt="Meta"></div>
+<div class="logo-item"><img src="logos/microsoft.png" alt="Microsoft"></div>
+<div class="logo-item"><img src="logos/amazon.png" alt="Amazon"></div>
+<div class="logo-item"><img src="logos/apple.png" alt="Apple"></div>
+<div class="logo-item"><img src="logos/netflix.png" alt="Netflix"></div>
+<div class="logo-item"><img src="logos/nvidia.png" alt="NVIDIA"></div>
+<div class="logo-item"><img src="logos/salesforce.png" alt="Salesforce"></div>
+<div class="logo-item"><img src="logos/adobe.png" alt="Adobe"></div>
+<div class="logo-item"><img src="logos/paypal.png" alt="PayPal"></div>
+<div class="logo-item"><img src="logos/stripe.png" alt="Stripe"></div>
+<div class="logo-item"><img src="logos/shopify.png" alt="Shopify"></div>
+<div class="logo-item"><img src="logos/databricks.png" alt="Databricks"></div>
+<div class="logo-item"><img src="logos/openai.png" alt="OpenAI"></div>
+<div class="logo-item"><img src="logos/cohere.png" alt="Cohere"></div>
+<div class="logo-item"><img src="logos/huggingface.png" alt="Hugging Face"></div>
+<div class="logo-item"><img src="logos/scale.png" alt="Scale AI"></div>
+<div class="logo-item"><img src="logos/snorkel.png" alt="Snorkel AI"></div>
+<!-- Duplicate for seamless loop -->
+<div class="logo-item"><img src="logos/google.png" alt="Google"></div>
+<div class="logo-item"><img src="logos/meta.png" alt="Meta"></div>
+<div class="logo-item"><img src="logos/microsoft.png" alt="Microsoft"></div>
+<div class="logo-item"><img src="logos/amazon.png" alt="Amazon"></div>
+<div class="logo-item"><img src="logos/apple.png" alt="Apple"></div>
+<div class="logo-item"><img src="logos/netflix.png" alt="Netflix"></div>
+<div class="logo-item"><img src="logos/nvidia.png" alt="NVIDIA"></div>
+<div class="logo-item"><img src="logos/salesforce.png" alt="Salesforce"></div>
+<div class="logo-item"><img src="logos/adobe.png" alt="Adobe"></div>
+<div class="logo-item"><img src="logos/paypal.png" alt="PayPal"></div>
+<div class="logo-item"><img src="logos/stripe.png" alt="Stripe"></div>
+<div class="logo-item"><img src="logos/shopify.png" alt="Shopify"></div>
+<div class="logo-item"><img src="logos/databricks.png" alt="Databricks"></div>
+<div class="logo-item"><img src="logos/openai.png" alt="OpenAI"></div>
+<div class="logo-item"><img src="logos/cohere.png" alt="Cohere"></div>
+<div class="logo-item"><img src="logos/huggingface.png" alt="Hugging Face"></div>
+<div class="logo-item"><img src="logos/scale.png" alt="Scale AI"></div>
+<div class="logo-item"><img src="logos/snorkel.png" alt="Snorkel AI"></div>
+</div>
+
+<div class="logo-track logo-track-row-2">
+<div class="logo-item"><img src="logos/visa.png" alt="Visa"></div>
+<div class="logo-item"><img src="logos/walmart.png" alt="Walmart"></div>
+<div class="logo-item"><img src="logos/ford.png" alt="Ford"></div>
+<div class="logo-item"><img src="logos/cisco.png" alt="Cisco"></div>
+<div class="logo-item"><img src="logos/intuit.png" alt="Intuit"></div>
+<div class="logo-item"><img src="logos/aetna.png" alt="Aetna"></div>
+<div class="logo-item"><img src="logos/booking.png" alt="Booking.com"></div>
+<div class="logo-item"><img src="logos/airbnb.png" alt="Airbnb"></div>
+<div class="logo-item"><img src="logos/stubhub.png" alt="StubHub"></div>
+<div class="logo-item"><img src="logos/ramp.png" alt="Ramp"></div>
+<div class="logo-item"><img src="logos/rippling.png" alt="Rippling"></div>
+<div class="logo-item"><img src="logos/gusto.png" alt="Gusto"></div>
+<div class="logo-item"><img src="logos/clickup.png" alt="ClickUp"></div>
+<div class="logo-item"><img src="logos/rivian.png" alt="Rivian"></div>
+<div class="logo-item"><img src="logos/dataiku.png" alt="Dataiku"></div>
+<div class="logo-item"><img src="logos/capgemini.png" alt="Capgemini"></div>
+<div class="logo-item"><img src="logos/khanacademy.png" alt="Khan Academy"></div>
+<div class="logo-item"><img src="logos/spotify.png" alt="Spotify"></div>
+<!-- Duplicate for seamless loop -->
+<div class="logo-item"><img src="logos/visa.png" alt="Visa"></div>
+<div class="logo-item"><img src="logos/walmart.png" alt="Walmart"></div>
+<div class="logo-item"><img src="logos/ford.png" alt="Ford"></div>
+<div class="logo-item"><img src="logos/cisco.png" alt="Cisco"></div>
+<div class="logo-item"><img src="logos/intuit.png" alt="Intuit"></div>
+<div class="logo-item"><img src="logos/aetna.png" alt="Aetna"></div>
+<div class="logo-item"><img src="logos/booking.png" alt="Booking.com"></div>
+<div class="logo-item"><img src="logos/airbnb.png" alt="Airbnb"></div>
+<div class="logo-item"><img src="logos/stubhub.png" alt="StubHub"></div>
+<div class="logo-item"><img src="logos/ramp.png" alt="Ramp"></div>
+<div class="logo-item"><img src="logos/rippling.png" alt="Rippling"></div>
+<div class="logo-item"><img src="logos/gusto.png" alt="Gusto"></div>
+<div class="logo-item"><img src="logos/clickup.png" alt="ClickUp"></div>
+<div class="logo-item"><img src="logos/rivian.png" alt="Rivian"></div>
+<div class="logo-item"><img src="logos/dataiku.png" alt="Dataiku"></div>
+<div class="logo-item"><img src="logos/capgemini.png" alt="Capgemini"></div>
+<div class="logo-item"><img src="logos/khanacademy.png" alt="Khan Academy"></div>
+<div class="logo-item"><img src="logos/spotify.png" alt="Spotify"></div>
+</div>
+
+:::
+
+:::{.cta-section}
+[Work With Us](./services.qmd){.cta-button role="button"}
+:::
+
+:::{.wall-of-love}
+
+## What Our Clients & Students Say
+
+<iframe id='testimonialto-c32618a4-482d-4fbe-9b83-bd5037e5b3e9' src="https://embed-v2.testimonial.to/w/ai-mastery-for-busy-executives?id=c32618a4-482d-4fbe-9b83-bd5037e5b3e9" frameborder="0" scrolling="no" width="100%" height="800px"></iframe>
+
+:::
+
+:::{.cta-section}
+[Work With Us](./services.qmd){.cta-button role="button"}
+:::
+
+<!-- Old testimonials - commented out for reference
 :::{.testimonial-section}
 ```{python}
 #| output: asis
@@ -84,7 +164,7 @@ testimonials = [
         "company": "Matter & Space",
         "name": "George Siemens",
         "title": "Founder & CEO",
-        "quote": "Partnering with Hamel transformed our approach. His insights and practical guidance simplified our LLM deployment and created a clear pathway for continuous testing, evaluation, and improvement. Hamel’s work fundamentally shaped our thinking and delivered real, impactful results."
+        "quote": "Partnering with Hamel transformed our approach. His insights and practical guidance simplified our LLM deployment and created a clear pathway for continuous testing, evaluation, and improvement. Hamel's work fundamentally shaped our thinking and delivered real, impactful results."
     },
     {
         "image": "emil.jpeg",
@@ -100,14 +180,14 @@ testimonials = [
         "title": "Founder & CEO",
         "quote": "Hamel showed us how to evaluate our AI systems tailored to our use case. We gained insights that dramatically improved performance, reducing error rates by over 60% in critical areas like date handling. These methods have become fundamental to how we build and improve our AI products, creating a continuous cycle of improvement."
     },
-        {
-    "image": "anuj.jpeg",
-    "company": "ServiceMob",
-    "name": "Anuj Bhalla",
-    "title": "CEO",
+    {
+        "image": "anuj.jpeg",
+        "company": "ServiceMob",
+        "name": "Anuj Bhalla",
+        "title": "CEO",
         "quote": "Hamel & team allowed serviceMob to save hundreds of hours of engineering time by showing us the best tools, techniques, and processes. We shipped industry-leading AI in few weeks instead of months, and kept shipping thereafter thanks to how his team up-skilled our company."
     },
-            {
+    {
         "image": "harrison.jpeg",
         "company": "LangChain",
         "name": "Harrison Chase",
@@ -132,3 +212,4 @@ print(generate_testimonials(testimonials))
 [Work With Us](./services.qmd){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"}
 
 :::
+-->

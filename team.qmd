@@ -11,16 +11,16 @@ search: false
 
 ![](images/hamel.png){width=70 style="float:left"} 
 
-[Hamel Husain](https://hamel.dev) is a machine learning engineer with over 25 years of experience. He has worked with innovative companies such as Airbnb and GitHub, which included <a href="https://openai.com/index/introducing-text-and-code-embeddings#:~:text=models%20on%20the-,CodeSearchNet,),-evaluation%20suite%20where">early LLM research used by OpenAI</a> for code understanding. He has also led and contributed to numerous popular [open-source machine-learning tools](https://hamel.dev/oss/opensource.html).
+[Hamel Husain](https://hamel.dev){target="_blank"} is a machine learning engineer with over 25 years of experience. He has worked with innovative companies such as Airbnb and GitHub, which included <a href="https://openai.com/index/introducing-text-and-code-embeddings#:~:text=models%20on%20the-,CodeSearchNet,),-evaluation%20suite%20where" target="_blank">early LLM research used by OpenAI</a> for code understanding. He has also led and contributed to numerous popular [open-source machine-learning tools](https://hamel.dev/oss/opensource.html){target="_blank"}.
 
 ## Shreya Shankar
 
 ![](images/shreya.jpeg){width=70 style="float:left"}
 
-[Shreya](https://www.sh-reya.com/) is a leading researcher on applied ML and AI systems.  She has led extensive research on human-computer interaction for low-code tools to program complex LLM workflows including evals, monitoring and fine-tuning.  Her research has been adopted widely and is incorporated into many commercial LLM tools such as Langsmith, Autoblocks, Parea, and more. 
+[Shreya](https://www.sh-reya.com/){target="_blank"} is a leading researcher on applied ML and AI systems.  She has led extensive research on human-computer interaction for low-code tools to program complex LLM workflows including evals, monitoring and fine-tuning.  Her research has been adopted widely and is incorporated into many commercial LLM tools such as Langsmith, Autoblocks, Parea, and more. 
 
 ## John Berryman
 
 ![](images/jnbrymn.png){width=70 style="float:left"} 
 
-[John](https://arcturus-labs.com/) has worked in technology since 2012. The first half of his career was spent building search applications. John helped build next-generation search for the U.S. Patent Office, built Eventbrite's search and recommendation platforms, built GitHub's code search, and co-authored a book – Relevant Search (Manning). While at GitHub, John moved into Data Science and then into Machine Learning with GitHub's Copilot code completions and chat products. John is currently co-authoring an O'Reilly book for LLM application development.
+[John](https://arcturus-labs.com/){target="_blank"} has worked in technology since 2012. The first half of his career was spent building search applications. John helped build next-generation search for the U.S. Patent Office, built Eventbrite's search and recommendation platforms, built GitHub's code search, and co-authored a book – Relevant Search (Manning). While at GitHub, John moved into Data Science and then into Machine Learning with GitHub's Copilot code completions and chat products. John is currently co-authoring an O'Reilly book for LLM application development.

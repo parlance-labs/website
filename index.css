@@ -1,217 +1,177 @@
+/* Homepage and Testimonial Styles */
+
+/* Testimonial section container */
 .testimonial-section {
-    font-family: Inter, SF Pro Display, -apple-system, sans-serif;
-    background: var(--background);
-    color: var(--foreground);
-    text-align: center;
-  }
-  
-  .testimonial-section h1, .testimonial-section h2, .testimonial-section h3 {
-    font-weight: normal;
-  }
-  
-  .testimonial-section #title-block-header {
-    display: none;
-  }
-  
-  .testimonial-section .navbar {
-    background: var(--background);
-    text-align: left;
-    font-size: 16px;
-  }
-  
-  .testimonial-section .title, .testimonial-section .navbar-title {
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 8px;
-    margin-right: 4px;
-  }
-  
-  .testimonial-section .navbar-title {
-    background: linear-gradient(240.01deg, #4B555B 15.29%, rgba(67, 78, 84, 0) 138.75%);
-  }
-  
-  .testimonial-section .title {
-    background: linear-gradient(240.01deg, #78858C 15.29%, rgba(105, 117, 123, 0) 138.75%);
-  }
-  
-  .testimonial-section .content-block {
-    margin-left: 30px;
-    margin-right: 30px;
-    overflow-x: hidden;
-  }
-  
-  @media(min-width: 900px) {
-    .testimonial-section .content-block {
-      margin-left: 50px;
-      margin-right: 50px;
-    }
-  }
-  
-  @media(min-width: 1200px) {
-    .testimonial-section .content-block {
-      max-width: var(--content-width);
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-  
-  .testimonial-section .hero-banner {
-    padding-top: 20px;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .testimonial-section .hero-banner h1 {
-    font-size: 56px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 40px;
-  }
-  
-  .testimonial-section .hero-banner h2 {
-    border: none;
-    font-size: 40px;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 40px;
-  }
-  
-  .testimonial-section .hero-banner h3 {
-    color: var(--foreground);
-    font-size: 20px;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
-    margin-bottom: 40px;
-  }
-  
-  @media(min-width: 900px) {
-    .testimonial-section .hero-banner h3 {
-      max-width: 60%;
-    }
-  }
-  
-  @media(min-width: 1200px) {
-    .testimonial-section .hero-banner h3 {
-      max-width: 75%;
-    }
-  }
-  
-  .testimonial-section .mid-content {
-    width: 100%;
-    padding: 0;
-    padding-top: 80px !important;
-    padding-bottom: 80px;
-    background: linear-gradient(235.87deg, #656A75 12.29%, #33373F 107.53%);
-    overflow-x: hidden;
-  }
-  
-  .testimonial-section .testimonial {
-    background: rgba(51, 55, 63, 0.4);
-    border-radius: 12px;
-    padding: 30px;
-    text-align: left;
-  }
-  
-  .testimonial-section .testimonial p {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .testimonial-section .testimonial img {
-    margin: 0;
-    padding: 0;
-    display: inline;
-    float: left;
-    width: 50px;
-    margin-right: 20px;
-    border-radius: 8px;
-  }
-  
-  .testimonial-section .testimonial h1 {
-    font-size: 16px;
-    font-weight: bold;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 4px;
-  }
-  
-  .testimonial-section .testimonial h2 {
-    border: none;
-    font-size: 16px;
-    padding: 0;
-    margin: 0;
-    color: #A2A8B4;
-  }
-  
-  .testimonial-section .testimonial h3 {
-    margin: 0;
-    margin-top: 30px;
-    font-size: 16px;
-  }
-  
-  .testimonial-section .feature {
-    font-size: 16px;
-    height: 210px;
-    background: var(--background-2);
-    border-radius: 12px;
-    padding: 30px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .testimonial-section .feature img {
-    margin-bottom: 20px;
-    width: 48px;
-  }
-  
-  .testimonial-section .footer {
-    color: #A2A8B4;
-    font-size: 16px;
-    margin-top: 40px;
-    padding-top: 30px !important;
-    border-top: 1px solid var(--foreground-2);
-  }
-  
-  .testimonial-section .btn-action-primary {
-    color: #F9FAFB;
-    background: #009AF1;
-    font-weight: 700;
-    line-height: 20px;
-  }
-  
-  .testimonial-section .btn-action-primary:hover, .testimonial-section .btn-action-primary:active, .testimonial-section .btn-action-primary:focus {
-    background: #35acf0;
-  }
-  
-  .testimonial-section .btn-action {
-    min-width: 165px;
-    border-radius: 8px;
-    padding: 20px 48px;
-    border: none;
-  }
-  
-  .testimonial-section .figure {
-    display: inline;
-  }
-  
-  .testimonial-section .quarto-figure {
-    margin: 0;
-  }
-  
-  .testimonial-section .btn-action-primary {
-    background-color: #2AA198;
-    border-color: #2AA198;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.testimonial-section h1,
+.testimonial-section h2,
+.testimonial-section h3 {
+  font-weight: normal;
+}
+
+/* Hero banner within testimonial section */
+.testimonial-section .hero-banner {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.testimonial-section .hero-banner h2 {
+  border: none;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--pl-text-primary, #e4e4e7);
+}
+
+/* Content grid for testimonials */
+.testimonial-section .content-block {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  padding: 0 1rem;
+}
+
+/* Grid layout for testimonials - TWO COLUMNS */
+/* Quarto uses a 12-column grid system */
+.testimonial-section .content-block.grid {
+  display: grid !important;
+  grid-template-columns: repeat(12, 1fr) !important;
+  gap: 1.25rem !important;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Each testimonial takes 6 of 12 columns (half width) on desktop */
+.testimonial-section .content-block.grid > .testimonial,
+.testimonial-section .content-block.grid > .g-col-md-6 {
+  grid-column: span 6 !important;
+}
+
+/* Individual testimonial cards */
+.testimonial-section .testimonial {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.testimonial-section .testimonial:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.testimonial-section .testimonial p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Testimonial headshot */
+.testimonial-section .testimonial img {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  float: left;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  margin-right: 0.875rem;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Company name - electric blue */
+.testimonial-section .testimonial h1 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Space Grotesk', sans-serif;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  color: var(--pl-accent, #38bdf8);
+}
+
+/* Name and title */
+.testimonial-section .testimonial h2 {
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  color: var(--pl-text-muted, #a1a1aa);
+}
+
+/* Quote text */
+.testimonial-section .testimonial h3 {
+  margin: 0;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--pl-text-secondary, #d4d4d8);
+  clear: both;
+  padding-top: 0.25rem;
+}
+
+/* CTA Button styling - electric blue */
+.testimonial-section .btn-action-primary {
+  background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+  border: none;
+  color: #0f1114;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+  transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .testimonial-section .btn-action-primary:hover,
-.btn-action-primary:focus,
-.btn-action-primary:active {
-    background-color: #2AA198;
-    border-color: #2AA198;
+.testimonial-section .btn-action-primary:focus,
+.testimonial-section .btn-action-primary:active {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.3);
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+/* Responsive - single column on mobile */
+@media (max-width: 768px) {
+  .testimonial-section .content-block.grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .testimonial-section .content-block.grid > .testimonial,
+  .testimonial-section .content-block.grid > .g-col-md-6 {
+    grid-column: span 1 !important;
+  }
+
+  .testimonial-section .hero-banner h2 {
+    font-size: 1.375rem;
+  }
+
+  .testimonial-section .testimonial {
+    padding: 1.25rem;
+  }
+}
+
+/* Ensure proper figure display */
+.testimonial-section .figure {
+  display: inline;
+}
+
+.testimonial-section .quarto-figure {
+  margin: 0;
 }
