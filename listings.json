@@ -1,26 +1,16 @@
 [
   {
-    "listing": "/education/evals/index.html",
+    "listing": "/education/rag/index.html",
     "items": [
-      "/education/evals/allaire.html",
-      "/education/evals/ankur.html",
-      "/education/evals/schoelkopf.html"
+      "/education/rag/ben.html",
+      "/education/rag/jo.html",
+      "/education/rag/jason.html"
     ]
   },
   {
-    "listing": "/education/fine_tuning/index.html",
+    "listing": "/education/prompt_eng/index.html",
     "items": [
-      "/education/fine_tuning/kyle.html",
-      "/education/fine_tuning/emmanuel.html",
-      "/education/fine_tuning/napkin_math.html",
-      "/education/fine_tuning/napkin_math_2.html",
-      "/education/fine_tuning/daniel.html",
-      "/education/fine_tuning/slaying_ooms.html",
-      "/education/fine_tuning/mistral_ft_sophia.html",
-      "/education/fine_tuning/steven.html",
-      "/education/fine_tuning/abhishek.html",
-      "/education/fine_tuning/pawel.html",
-      "/education/fine_tuning/zach.html"
+      "/education/prompt_eng/berryman.html"
     ]
   },
   {
@@ -54,17 +44,11 @@
     ]
   },
   {
-    "listing": "/education/rag/index.html",
+    "listing": "/education/evals/index.html",
     "items": [
-      "/education/rag/ben.html",
-      "/education/rag/jo.html",
-      "/education/rag/jason.html"
-    ]
-  },
-  {
-    "listing": "/education/prompt_eng/index.html",
-    "items": [
-      "/education/prompt_eng/berryman.html"
+      "/education/evals/allaire.html",
+      "/education/evals/ankur.html",
+      "/education/evals/schoelkopf.html"
     ]
   },
   {
@@ -74,6 +58,22 @@
       "/education/applications/freddy.html",
       "/education/applications/python.html",
       "/education/applications/charles.html"
+    ]
+  },
+  {
+    "listing": "/education/fine_tuning/index.html",
+    "items": [
+      "/education/fine_tuning/kyle.html",
+      "/education/fine_tuning/emmanuel.html",
+      "/education/fine_tuning/napkin_math.html",
+      "/education/fine_tuning/napkin_math_2.html",
+      "/education/fine_tuning/daniel.html",
+      "/education/fine_tuning/slaying_ooms.html",
+      "/education/fine_tuning/mistral_ft_sophia.html",
+      "/education/fine_tuning/steven.html",
+      "/education/fine_tuning/abhishek.html",
+      "/education/fine_tuning/pawel.html",
+      "/education/fine_tuning/zach.html"
     ]
   }
 ]
