@@ -3,7 +3,7 @@ project:
 
 website:
   title: "Parlance"
-  image: parlance_cover.png
+  image: cover.png
   google-analytics: G-QXGQ6F7NKT
   repo-branch: main
   repo-url: https://github.com/parlance-labs/website
