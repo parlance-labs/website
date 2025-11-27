@@ -4,6 +4,7 @@ css: index.css
 sidebar: false
 toc: false
 search: false
+image: cover.png
 ---
 
 :::{.hero-section}
