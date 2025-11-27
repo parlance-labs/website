@@ -1,5 +1,9 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "**/*.qmd"
+    - "!CLAUDE.md"
 
 website:
   title: "Parlance"
