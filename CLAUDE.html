@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-07-29">
 
-<title>Napkin Math For Fine Tuning Part 2 – Parlance</title>
+<title>claude – Parlance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../b.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-99210e54ebe81ef39bb1b5e24939fa92.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-da3b298dd95f65c5d1b3f6ab76403c8f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./b.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-99210e54ebe81ef39bb1b5e24939fa92.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-da3b298dd95f65c5d1b3f6ab76403c8f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,7 +112,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
 </script>
-<style>html{ scroll-behavior: smooth; }</style>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -88,22 +121,21 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
 <!-- End Google Tag Manager -->
 
 
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../education.css">
-<meta property="og:title" content="Napkin Math For Fine Tuning Part 2 – Parlance">
-<meta property="og:description" content="Johno Whitaker answers follow-up questions about the first Napkin Math for Fine Tuning video and about his research.">
-<meta property="og:image" content="https://parlance-labs.com/education/fine_tuning/johno2.png">
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Parlance">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://parlance-labs.com/cover.png">
 <meta property="og:site_name" content="Parlance">
-<meta property="og:image:height" content="720">
-<meta property="og:image:width" content="1280">
-<meta name="twitter:title" content="Napkin Math For Fine Tuning Part 2 – Parlance">
-<meta name="twitter:description" content="Johno Whitaker answers follow-up questions about the first Napkin Math for Fine Tuning video and about his research.">
-<meta name="twitter:image" content="https://parlance-labs.com/education/fine_tuning/johno2.png">
+<meta property="og:image:height" content="900">
+<meta property="og:image:width" content="1600">
+<meta name="twitter:title" content="Parlance">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://parlance-labs.com/cover.png">
 <meta name="twitter:creator" content="@HamelHusain">
 <meta name="twitter:site" content="@HamelHusain">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image-height" content="720">
-<meta name="twitter:image-width" content="1280">
+<meta name="twitter:image-height" content="900">
+<meta name="twitter:image-width" content="1600">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -113,25 +145,25 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../b.png" alt="" class="navbar-logo light-content">
-    <img src="../../b.png" alt="" class="navbar-logo dark-content">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./b.png" alt="" class="navbar-logo light-content">
+    <img src="./b.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Parlance</span>
     </a>
   </div>
           <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../services.html"> 
+    <a class="nav-link" href="./services.html"> 
 <span class="menu-text">Services</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../team.html"> 
+    <a class="nav-link" href="./team.html"> 
 <span class="menu-text">Team</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../education/"> 
+    <a class="nav-link" href="./education/"> 
 <span class="menu-text">Education</span></a>
   </li>  
 </ul>
@@ -150,131 +182,81 @@ gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
-  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#parlance-labs-website" id="toc-parlance-labs-website" class="nav-link active" data-scroll-target="#parlance-labs-website">Parlance Labs Website</a>
+  <ul class="collapse">
+  <li><a href="#key-files" id="toc-key-files" class="nav-link" data-scroll-target="#key-files">Key Files</a></li>
+  <li><a href="#navbar-bootstrap-quarto" id="toc-navbar-bootstrap-quarto" class="nav-link" data-scroll-target="#navbar-bootstrap-quarto">Navbar (Bootstrap + Quarto)</a></li>
+  <li><a href="#search-visibility" id="toc-search-visibility" class="nav-link" data-scroll-target="#search-visibility">Search Visibility</a></li>
+  <li><a href="#design-system" id="toc-design-system" class="nav-link" data-scroll-target="#design-system">Design System</a></li>
+  <li><a href="#build-preview" id="toc-build-preview" class="nav-link" data-scroll-target="#build-preview">Build &amp; Preview</a></li>
+  </ul></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/napkin_math_2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
-    <div class="quarto-margin-footer"><div class="margin-footer-item">
-<button onclick="window.location.href='https://hamel.ck.page/7d15a4b6e7'" style="background-color: #C75C56; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; transition: background-color 0.3s ease;">
-Subscribe To Our Newsletter
-</button>
-</div></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/CLAUDE.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N36MQM5R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Napkin Math For Fine Tuning Part 2</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">fine-tuning</div>
-    <div class="quarto-category">llm-conf-2024</div>
-  </div>
-  </div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 29, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-<div>
-  <div class="abstract">
-    <div class="block-title">Abstract</div>
-    <p>Johno Whitaker answers follow-up questions about the first Napkin Math for Fine Tuning video and about his research.</p>
-  </div>
-</div>
-
-
-</header>
-
-
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/u2fJ6K8FjS8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<div class="mobile-only callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Subscribe For More Educational Content
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
-<center>
-<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
-</center>
-</div>
-</div>
-<section id="chapters" class="level2">
-<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=20">00:20</a> Introduction</strong></p>
-<p>Johno Whitaker introduces this talk, aiming to clarify points and answer follow-up questions from Part 1.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=61">01:01</a> Saturating GPUs</strong></p>
-<p>Discussion on whether to always saturate GPUs completely, explaining that while it’s best when memory bandwidth-bound, compute-bound is more nuanced.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=257">04:17</a> Cost/Complexity Trade-off</strong></p>
-<p>Exploring the balance between cost savings and added complexity for different GPU configurations.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=584">09:44</a> Hyperparameter Tuning</strong></p>
-<p>Johno explains his approach to hyperparameter tuning, suggesting that default parameters work fine unless the final few percent improvement is crucial.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=691">11:31</a> Fine-Tuning</strong></p>
-<p>Johno discusses the role that fine-tuning plays in his R&amp;D, describing it an alternative he would explore if prompt engineering is insufficient.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=937">15:37</a> TPUs</strong></p>
-<p>A brief look at how TPUs or other non-GPU accelerators fit into the napkin math.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=1132">18:52</a> Optimizing Llama-3 with LoRA</strong></p>
-<p>Practical tips for reducing memory usage with Llama 3.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=1375">22:55</a> Sequence Length</strong></p>
-<p>Developing an intuition for the sequence length parameter and tips for optimizing it.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=1665">27:45</a> Quick Development Loop</strong></p>
-<p>Walkthrough of how to start small and build when working with LLMs.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=1775">29:35</a> Tools</strong></p>
-<p>What to look for when choosing tools to build and run models.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=1889">31:29</a> CPU Offloading</strong></p>
-<p>Discussion on offloading to CPU when GPU VRAM maxes out, why it is not common, and when it might be useful.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=2083">34:43</a> Learning Styles</strong></p>
-<p>Johno shares how he discovers new information and continues learning, emphasizing learning through application.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=2340">39:00</a> Hardware Lottery Theory</strong></p>
-<p>Discussion about how the symbiotic development of algorithms and hardware might limit future breakthroughs.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=2547">42:27</a> Direction of Research</strong></p>
-<p>Dan, Johno, and Hamel discuss different approaches to exploring new avenues of research and development, and how to move with the industry.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=2890">48:10</a> LLM Impact on Research</strong></p>
-<p>Discussion of how LLM-based tools have enabled Johno’s research and possible future development of tools.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=2997">49:57</a> Quick Questions</strong></p>
-<p>Johno gives quick responses to final questions touching on diffusion models, evolutionary AI, coding styles, and QLoRA overhead.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=3496">58:16</a> 1.58-bit Quantization</strong></p>
-<p>Detailed discussion of what quantization under 4-bit means, its benefits, and how it might be used.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=3740">1:02:20</a> Alternative Architectures</strong></p>
-<p>Brief dive into alternatives to transformers, such as state space models (SSMs) and recurrent models.</p>
-<p><strong><a href="https://youtu.be/u2fJ6K8FjS8?t=3824">1:03:44</a> Conclusion</strong></p>
-<p>Johno wraps up the talk.</p>
-</section>
-<section id="resources" class="level2">
-<h2 class="anchored" data-anchor-id="resources">Resources</h2>
-<p>Links to resources mentioned in the talk:</p>
+<section id="parlance-labs-website" class="level1">
+<h1>Parlance Labs Website</h1>
+<p>Quarto static site with custom dark theme styling.</p>
+<section id="key-files" class="level2">
+<h2 class="anchored" data-anchor-id="key-files">Key Files</h2>
 <ul>
-<li><a href="https://johnowhitaker.dev/">Johnowhitaker.dev</a> &lt;&lt; Personal website for Johno Whitaker.</li>
-<li><a href="https://github.com/AnswerDotAI/fsdp_qlora/blob/main/benchmarks_03_2024.md">FSDP+QLoRA Benchmarks</a> &lt;&lt; Ballpark costs for different hardware configurations</li>
-<li><a href="https://parlance-labs.com/education/fine_tuning/napkin_math.html">Napkin Math for Fine Tuning Part 1</a> &lt;&lt; Napkin math explanation for fine-tuning processes.</li>
-<li><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/context-cache/context-cache-overview">Google Context Caching</a> &lt;&lt; Overview of Google’s context caching on Vertex AI.</li>
-<li><a href="https://sakana.ai/evolutionary-model-merge/">Sakana AI Evolutionary Model Merge</a> &lt;&lt; Sakana AI’s approach to merging models using evolutionary algorithms.</li>
-<li><a href="https://www.undermind.ai/home/">Undermind - AI Powered Document Search</a> &lt;&lt; AI-powered document search tool by Undermind.</li>
-<li><a href="https://www.chatpdf.com/">ChatPDF - Chatbot Tuned on Research Papers</a> &lt;&lt; ChatPDF’s chatbot designed for interacting with research papers.</li>
-<li><a href="https://nbdev.fast.ai/">nbdev - Documentation and Source Control from Notebooks</a> &lt;&lt; nbdev’s tools for managing documentation and source control directly from notebooks.</li>
-<li><a href="https://mobiusml.github.io/1bit_blog/">Mobius Labs on 1 Bit and 1.58 Bit LLMs</a> &lt;&lt; Blog post by Mobius Labs discussing 1-bit and 1.58-bit quantization for LLMs.</li>
-<li><a href="https://github.com/state-spaces/mamba">Mamba (State Space Model)</a> &lt;&lt; Mamba’s implementation of state space models on GitHub.</li>
+<li><code>custom.scss</code> - Main styling (SCSS variables, CSS rules, responsive design)</li>
+<li><code>_quarto.yml</code> - Site config, navbar, sidebar structure</li>
+<li><code>index.css</code> / <code>services.css</code> - Page-specific styles</li>
+<li><code>education/_metadata.yml</code> - Education section metadata</li>
+<li><code>education/education.css</code> - Education-specific styles (enables search)</li>
 </ul>
+</section>
+<section id="navbar-bootstrap-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="navbar-bootstrap-quarto">Navbar (Bootstrap + Quarto)</h2>
+<p>The navbar uses Bootstrap classes that require <code>!important</code> overrides:</p>
+<ul>
+<li><code>.navbar-brand-container.mx-auto</code> - Centers the logo; override with <code>margin: 0 !important</code> on mobile to pack items left</li>
+<li><code>.navbar-nav.me-auto</code> - Has auto right margin; may need explicit margin overrides</li>
+<li><code>.navbar-logo.dark-content</code> / <code>.navbar-logo.light-content</code> - Two logo images for themes; hide/show with CSS based on theme</li>
+</ul>
+<p>Mobile navbar fix pattern:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">@media</span> (<span class="kw">max-width</span>: <span class="dv">991.98</span><span class="dt">px</span>) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.navbar</span> <span class="fu">.navbar-brand-container</span><span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.navbar</span> <span class="fu">.navbar-brand-container.mx-auto</span> {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin</span>: <span class="dv">0</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">padding-left</span>: <span class="dv">0.75</span><span class="dt">rem</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">.navbar</span> <span class="fu">.navbar-brand</span> {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">margin-right</span>: <span class="dv">0.5</span><span class="dt">rem</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="search-visibility" class="level2">
+<h2 class="anchored" data-anchor-id="search-visibility">Search Visibility</h2>
+<p>Search is hidden globally in <code>custom.scss</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#quarto-search</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">none</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Re-enabled for education pages in <code>education/education.css</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode scss code-with-copy"><code class="sourceCode scss"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#quarto-search</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">display</span>: <span class="dv">flex</span> <span class="at">!important</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="design-system" class="level2">
+<h2 class="anchored" data-anchor-id="design-system">Design System</h2>
+<p>CSS custom properties defined in <code>:root</code> with <code>--pl-</code> prefix: - <code>--pl-bg-primary: #0f1114</code> (dark background) - <code>--pl-accent: #38bdf8</code> (electric blue) - <code>--pl-text-primary: #f4f4f5</code></p>
+</section>
+<section id="build-preview" class="level2">
+<h2 class="anchored" data-anchor-id="build-preview">Build &amp; Preview</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview  <span class="co"># Local dev server</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render   <span class="co"># Build site</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -699,7 +681,7 @@ Subscribe To Our Newsletter
     </a>
   </li>  
 </ul>
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/fine_tuning/napkin_math_2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/CLAUDE.md" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
@@ -709,5 +691,4 @@ Subscribe To Our Newsletter
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
