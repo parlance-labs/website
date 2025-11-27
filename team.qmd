@@ -1,7 +1,7 @@
 ---
 title: "Team"
 description: "The Parlance team"
-image: cover_2.png
+image: cover.png
 repo-actions: false
 sidebar: false
 search: false

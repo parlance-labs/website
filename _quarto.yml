@@ -16,8 +16,10 @@ website:
   page-navigation: true
   bread-crumbs: true
   site-url: "https://parlance-labs.com/"
-  open-graph: true
+  open-graph:
+     image: cover.png
   twitter-card:
+     image: cover.png
      creator: "@HamelHusain"
      site: "@HamelHusain"
      card-style: summary_large_image
