@@ -1,6 +1,7 @@
 ---
 title: "Applied AI Consulting"
 sidebar: false
+toc: false
 image: cover_2.png
 aliases: ["hire/", "hire"]
 repo-actions: false
@@ -12,15 +13,15 @@ We're a group of AI engineers led by [Hamel Husain](https://hamel.dev){target="_
 
 ## What We're About
 
-- We establish [systematic AI evaluation](https://hamel.dev/blog/posts/evals/){target="_blank"} that's specific to your product & domain (because how else will you know if your AI is doing anything useful?)
+- We establish [systematic AI evaluation](https://hamel.dev/blog/posts/evals-faq/){target="_blank"} that's specific to your product & domain (because how else will you know if your AI is doing anything useful?)
 - We're data-obsessed and pragmatic. We teach you [processes that have worked](https://hamel.dev/blog/posts/field-guide/){target="_blank"} across more than 30 AI implementations.
-- We've developed methods to make sure your AI can [provide business value and produce results](https://hamel.dev/blog/posts/llm-judge/){target="_blank"} you trust.
+- We've developed methods to make sure your AI can [produce results](https://testimonial.to/ai-evals-course/all){target="_blank"} you trust.
 
 ## We Want You to "Fire Us"
 
-**We don't want you to have a long-term dependency on us.** We're not here to pitch you on new models, frameworks, or expensive infrastructure. We're here to teach you methods to experiment faster and systematically improve your systems, regardless of your domain or use-case.
+**We don't want you to have a long-term dependency on us.** We're not here to pitch you on new frameworks or expensive infrastructure. We're here to teach you methods to experiment faster and systematically improve your systems, regardless of your domain or use-case.
 
-We don't chase recurring revenue or sell maintenance contracts—we think that creates perverse incentives. Instead, we work alongside your team, transfer knowledge, and build capabilities so that when we leave, you have:
+We don't chase recurring revenue or sell maintenance contracts—we think that creates perverse incentives. Instead, we work alongside your team, transfer knowledge so that when we leave, you have:
 
 - The skills to evaluate your AI systems
 - Processes for continuous improvement
@@ -38,9 +39,9 @@ We offer workshops on LLM performance issues, evals, and fine-tuning. Our course
 
 ### Advisory
 
-We provide holistic guidance on improving your AI product, customized to your specific use case—evals, RAG, frameworks, vendor selection, and more.
+We provide holistic guidance on improving your AI product, customized to your specific use case—evals, RAG, frameworks, vendor selection, and more. We take on a limited number of clients each quarter to ensure deep engagement.
 
-**Our Minimum engagement starts at $89,500**, priced based on expected outcomes. If this is out of your budget, check out our [AI Evals course](https://maven.com/parlance-labs/evals){target="_blank"}.
+**Minimum engagement starts at $93,500** for a two-month engagement, priced based on expected outcomes. If this is out of your budget, check out our [AI Evals course](https://maven.com/parlance-labs/evals){target="_blank"}.
 
 ---
 
@@ -48,11 +49,11 @@ We provide holistic guidance on improving your AI product, customized to your sp
 <div class="cta-buttons">
 <div class="cta-option">
 [Enroll in Course](https://maven.com/parlance-labs/evals){.cta-button-primary role="button" target="_blank"}
-<span class="cta-subtext">Starting at $3,750</span>
+<span class="cta-subtext">$4,250 per seat</span>
 </div>
 <div class="cta-option">
-[Schedule Advisory Call](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
-<span class="cta-subtext">Starting at $89,500</span>
+[Apply for Advisory](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
+<span class="cta-subtext">Starting at $93,500</span>
 </div>
 </div>
 :::
@@ -62,3 +63,7 @@ We provide holistic guidance on improving your AI product, customized to your sp
 ## Testimonials
 
 See what our clients and students say on our [homepage](index.qmd#what-our-clients-students-say). References available upon request.
+
+---
+
+<p class="cta-adhoc">Need a quick consultation? [Book a 1-hour session with Hamel](https://calendly.com/hamel-husain/consultation){target="_blank"}</p>

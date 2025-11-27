@@ -82,10 +82,32 @@
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
 }
 
+/* Ad-hoc consultation link - subtle, at bottom of page */
+.cta-adhoc {
+  text-align: center;
+  margin: 1rem 0 2rem;
+  font-size: 0.9rem;
+  color: var(--pl-text-muted, #a1a1aa);
+}
+
+.cta-adhoc a {
+  color: var(--pl-text-secondary, #d4d4d8);
+}
+
+.cta-adhoc a:hover {
+  color: var(--pl-accent, #38bdf8);
+}
+
 /* Responsive - stack on mobile */
 @media (max-width: 600px) {
   .cta-buttons {
     flex-direction: column;
     gap: 1.5rem;
+    align-items: center;
+  }
+
+  .cta-option {
+    width: 100%;
+    max-width: 280px;
   }
 }
