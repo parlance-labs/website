@@ -1,0 +1,4 @@
+/* Show search on education pages */
+#quarto-search {
+  display: flex !important;
+}

@@ -269,6 +269,11 @@ h2 + .value-cards {
   }
 }
 
+// Hide search globally by default
+#quarto-search {
+  display: none !important;
+}
+
 // Navbar refinements
 .navbar {
   background: rgba(15, 17, 20, 0.9) !important;
