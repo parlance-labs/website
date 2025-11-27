@@ -131,6 +131,8 @@ Practical consulting that improves your AI.
 
 <iframe id='testimonialto-c32618a4-482d-4fbe-9b83-bd5037e5b3e9' src="https://embed-v2.testimonial.to/w/ai-mastery-for-busy-executives?id=c32618a4-482d-4fbe-9b83-bd5037e5b3e9" frameborder="0" scrolling="no" width="100%" height="800px"></iframe>
 
+<p class="view-all-link">[View all testimonials →](https://testimonial.to/ai-evals-course/all){target="_blank"}</p>
+
 :::
 
 :::{.cta-section}

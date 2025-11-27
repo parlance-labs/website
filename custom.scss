@@ -651,6 +651,25 @@ html {
     border-radius: 8px;
     max-width: 100%;
   }
+
+  .view-all-link {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.05rem;
+
+    a {
+      color: var(--pl-text-muted);
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--pl-accent);
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+  }
 }
 
 // CTA section

@@ -33,6 +33,7 @@ website:
       file: services.qmd
     - text: Blog
       href: https://hamel.dev
+      target: _blank
     - text: Team
       file: team.qmd
     - text: Education
