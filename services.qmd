@@ -67,3 +67,4 @@ See what our clients and students say on our [homepage](index.qmd#what-our-clien
 ---
 
 <p class="cta-adhoc">Need a quick consultation? [Book a 1-hour session with Hamel](https://calendly.com/hamel-husain/consultation){target="_blank"}</p>
+

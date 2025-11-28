@@ -878,11 +878,6 @@ html {
   }
 }
 
-// Pause animation on hover
-.logo-carousel-section:hover .logo-track {
-  animation-play-state: paused;
-}
-
 // Responsive adjustments
 @media (max-width: 768px) {
   .logo-carousel-section {

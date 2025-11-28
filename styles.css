@@ -189,3 +189,113 @@ text-align: center;
 font-size: 75%;
 font-style: italic;
 }
+
+/* ========================================
+   Magnetic Cursor Effect (shared across pages)
+   ======================================== */
+
+.magnetic-cursor-dot,
+.magnetic-cursor-reticle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.magnetic-cursor-dot.loaded,
+.magnetic-cursor-reticle.loaded {
+  opacity: 1;
+}
+
+.magnetic-cursor-dot.hidden,
+.magnetic-cursor-reticle.hidden {
+  opacity: 0 !important;
+}
+
+.magnetic-cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.magnetic-cursor-dot.has-target {
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+.magnetic-cursor-dot.pressed {
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+.magnetic-cursor-reticle {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+}
+
+.magnetic-cursor-reticle.pressed {
+  transform: translate(-50%, -50%) scale(0.9) !important;
+}
+
+.magnetic-cursor-reticle.has-target .reticle-corner {
+  background: #38bdf8;
+  box-shadow: 0 0 4px rgba(56, 189, 248, 0.6);
+}
+
+/* Corner brackets */
+.reticle-corner {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Vertical bars (10px tall, 2px wide) */
+.reticle-corner.top-left-v { top: 0; left: 0; width: 2px; height: 10px; }
+.reticle-corner.top-right-v { top: 0; right: 0; width: 2px; height: 10px; }
+.reticle-corner.bottom-left-v { bottom: 0; left: 0; width: 2px; height: 10px; }
+.reticle-corner.bottom-right-v { bottom: 0; right: 0; width: 2px; height: 10px; }
+
+/* Horizontal bars (10px wide, 2px tall) */
+.reticle-corner.top-left-h { top: 0; left: 0; width: 10px; height: 2px; }
+.reticle-corner.top-right-h { top: 0; right: 0; width: 10px; height: 2px; }
+.reticle-corner.bottom-left-h { bottom: 0; left: 0; width: 10px; height: 2px; }
+.reticle-corner.bottom-right-h { bottom: 0; right: 0; width: 10px; height: 2px; }
+
+/* Hide custom cursor on touch devices */
+@media (hover: none), (pointer: coarse) {
+  .magnetic-cursor-dot,
+  .magnetic-cursor-reticle {
+    display: none !important;
+  }
+}
+
+/* Hide default cursor on magnetic targets */
+.cta-button,
+.cta-button-primary,
+.cta-button-secondary,
+.value-card,
+.nav-link,
+.navbar-brand {
+  cursor: none;
+}
+
+/* Re-enable default cursor on touch devices */
+@media (hover: none), (pointer: coarse) {
+  .cta-button,
+  .cta-button-primary,
+  .cta-button-secondary,
+  .value-card,
+  .nav-link,
+  .navbar-brand {
+    cursor: pointer;
+  }
+}
+
+/* Re-enable default cursor in disabled sections */
+.wall-of-love,
+.wall-of-love * {
+  cursor: auto !important;
+}
