@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-08">
+
+<title>A Deep Dive on LLM Evaluation – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../education/rag/index.html" rel="next">
+<link href="../../education/evals/ankur.html" rel="prev">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-99210e54ebe81ef39bb1b5e24939fa92.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e456fc6c6f2c01e7aa9b383afaf84ebb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N36MQM5R');</script>
+<!-- End Google Tag Manager -->
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../education.css">
+<meta property="og:title" content="A Deep Dive on LLM Evaluation – Parlance">
+<meta property="og:description" content="Doing LLM evaluation right is crucial, but very challenging! We’ll cover the basics of how LLM evaluation can be performed, many (but not all) of the ways it can go wrong. We’ll also discuss tools available to make life easier, including the LM Evaluation Harness, along with domain-specific use cases.">
+<meta property="og:image" content="https://parlance-labs.com/education/evals/schoelkopf.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="720">
+<meta property="og:image:width" content="1280">
+<meta name="twitter:title" content="A Deep Dive on LLM Evaluation – Parlance">
+<meta name="twitter:description" content="Doing LLM evaluation right is crucial, but very challenging! We’ll cover the basics of how LLM evaluation can be performed, many (but not all) of the ways it can go wrong. We’ll also discuss tools available to make life easier, including the LM Evaluation Harness, along with domain-specific use cases.">
+<meta name="twitter:image" content="https://parlance-labs.com/education/evals/schoelkopf.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="720">
+<meta name="twitter:image-width" content="1280">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../b.png" alt="" class="navbar-logo light-content">
+    <img src="../../b.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Education</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/evals/index.html">Evals</a></li><li class="breadcrumb-item"><a href="../../education/evals/schoelkopf.html">A Deep Dive on LLM Evaluation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/ankur.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">LLM Eval For Text2SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#fine-tuning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#should-you-fine-tune" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Should you fine-tune?</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#how-to-fine-tune" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to fine-tune</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/steven.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning OpenAI Models - Best Practices</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploying Fine-Tuned Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#advanced-topics-in-fine-tuning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced topics in fine-tuning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">education/applications/**/*.qmd</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/evals/schoelkopf.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<button onclick="window.location.href='https://hamel.ck.page/7d15a4b6e7'" style="background-color: #C75C56; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; transition: background-color 0.3s ease;">
+Subscribe To Our Newsletter
+</button>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N36MQM5R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/evals/index.html">Evals</a></li><li class="breadcrumb-item"><a href="../../education/evals/schoelkopf.html">A Deep Dive on LLM Evaluation</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">A Deep Dive on LLM Evaluation</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">evals</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 8, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>Doing LLM evaluation right is crucial, but very challenging! We’ll cover the basics of how LLM evaluation can be performed, many (but not all) of the ways it can go wrong. We’ll also discuss tools available to make life easier, including the LM Evaluation Harness, along with domain-specific use cases.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/IsZVCnViwhk" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=4">00:04</a> Introduction to LLM Evaluation Deep Dive</strong><br>
+The complexities of LLM evaluation, including contributions from Eleuther AI to open-source AI and model evaluation, and the use and evolution of the LM Evaluation Harness.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=109">01:49</a> Scoring Challenges in LLM Evaluation</strong><br>
+The complexities of accurately scoring LLMs, particularly when evaluating natural language responses to factual queries, and the importance of robust evaluation techniques.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=335">05:35</a> Log-likelihood Evaluation</strong><br>
+Insights into log-likelihood evaluation techniques, generating next-word probabilities in sequence models, and how the autoregressive transformer architecture aids in training and evaluation, including practical aspects of using log-likelihoods.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=833">13:53</a> Multiple Choice Evaluation and Downstream Concern</strong><br>
+The benefits and limitations of multiple choice evaluations for LLMs, including their simplicity and cost-effectiveness compared to long-form generation, and the necessity of aligning evaluation strategies with practical use cases.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=1126">18:46</a> Perplexity Evaluation</strong><br>
+Perplexity as a measure of model performance, the process for calculating perplexity, its utility and limitations, and how different tokenizers can impact model comparability.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=1364">22:44</a> Text Generation Evaluation</strong><br>
+The challenges of evaluating text generation, include difficulties in scoring free-form natural language and the impact of tokenization on evaluation results, and the importance of careful evaluation setup to avoid biased outcomes.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=1660">27:40</a> Importance of Transparency and Reproducibility in Evaluations</strong><br>
+The importance of transparency and reproducibility in LLM evaluations, the challenges of achieving reproducible results, and the need for detailed reporting and sharing of evaluation methodologies and code.</p>
+<p><strong><a href="https://youtu.be/IsZVCnViwhk?t=2303">38:23</a> Audience Q&amp;A</strong><br>
+Practical advice and broader conceptual understanding through the Q&amp;A session, addressing various questions about using specific evaluation frameworks and the effectiveness and limitations of current LLM evaluation methods.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li>Hailey Schoelkopf: <a href="https://x.com/haileysch__">Twitter / X</a>, <a href="https://github.com/haileyschoelkopf">GitHub</a></li>
+<li>EleutherAI: <a href="https://www.eleuther.ai/">Homepage</a></li>
+<li>LM Evaluation Harness: <a href="https://github.com/EleutherAI/lm-evaluation-harness">GitHub</a></li>
+<li>OpenLLM Leaderboard: <a href="https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard">Link</a></li>
+<li>Lessons from the Trenches on Reproducible Evaluation of Language Models: <a href="https://arxiv.org/abs/2405.14782">arXiv</a></li>
+</ul>
+<p><br></p>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:03] Hailey: So I’ll be giving sort of a very brief, about 30 minutes. There’s much more than can be covered in that time, but as much as we can, or sort of an opinionated summary. I guess an alternate title for this talk could have been basically everything you didn’t realize that you needed to ask about LNE valves, which is sort of a taste of what you should be looking out for. <br>[0:22] Participant 2: Yeah, <br>[0:23] Hailey: here we go. So just, yeah, a little bit about me. I’m a research scientist at Eleuther A. We’re a nonprofit research lab. You might know us from sort of a number of language models that Eleuther released open source over the years, including GPT-J and GPT-NeoX20b, that were some of the best of the time a few years ago. Things have certainly changed and there are way more options now. But we also do other research on things like interpretability of models, data sets, distributed training, evaluation, which is this talk. <br>[0:53] Hailey: And we also build and maintain a couple different repositories for… sort of tooling for the open source A ecosystem, especially tailored toward researchers, but just useful for practitioners in general. Yeah, so I, in particular, I’m a maintainer on the LM evaluation harness. Here’s a link. It’s a library that was originally started by some of the founders of Eleuther A in 2021, sort of originally just with the well-scoped goal of sort of one-to-one reproducing the evaluations. <br>[1:23] Hailey: described in GPT-3’s few shot prompting in the paper on the GPT-Neo model, just to sort of track progress and reproduce these results. And since it’s grown a lot with the community and there’s a lot more people working on LLM than evaluation. And we’ve been lucky to have it widely used by a lot of people. You might know it from the OpenLLM leaderboard. It’s used as the back end there. <br>[1:50] Hailey: Yeah, so in this talk, like I said, there’s way more than can be covered in just like 30 minutes, but I’ll try and give like a couple deep dives into specific topics. I’ll briefly give some background on why LM evaluation is so hard and why we need to think so much about solving many problems here. I’ll give sort of like a very, very brief crash course in how evals are commonly done under the hood. Some of these like gritty implementation details that often aren’t talked about. <br>[2:20] Hailey: and also give some takeaways as a result of this and some sort of minimal best practices. And so as a disclaimer for context here, I am a researcher. I don’t put LLMs into production in my work. So my recommendations are going to be somewhat based on my experience in research. But at the end, I’ll sort of touch on which of these points are most applicable still, if you’re doing work in putting LLMs into production and which sort of don’t directly transfer. So yeah, so there are many reasons that evaluation is hard and also meaningful. <br>[2:52] Hailey: But two that I’ll sort of try to focus on here is first that scoring is very difficult and later reproducibility is tough. So what do I mean that scoring is difficult for LLM evaluation? So there’s a very difficult problem, which is basically how do we evaluate the responses of a language model in natural language? How the heck do we do this? <br>[3:14] Participant 2: So, <br>[3:14] Hailey: like, in this figure, sort of, there’s a couple different clouds, one both showing different like potential responses from a language model to sort of a very simple factual question, which is, who is the current US president? And so in on the left, the model answers the correct answer, just saying Joe Biden. On the right, the model says, oh, well, it’s definitely not Joe Biden, and doesn’t really go on to elaborate. And so one of these is correct, the one on the left and the other isn’t. <br>[3:43] Hailey: And so, like, you or I, if we just look at this question and we have the necessary context, we can sort of eyeball it and say, well, we know that one of these is correct, the other isn’t, it’s fairly obvious to me. <br>[3:53] Hailey: But how would we actually, when we want to do the evaluation, we want to sort of be able to reliably get a measure of our model’s performance and do this without much effort and in a way that we can sort of get the same result repeatedly if we want to rerun this evaluation many, many times. We still want something. more reliable than just sort of a human eyeballing every data point. <br>[4:13] Hailey: And so we’ve got a problem, which is, well, the one solution we might think of is, OK, well, if the model’s answer to the question includes the term Joe Biden, then we’ll mark it as correct and sort of treat that as an approximation and go on with our day. But the problem is, in this example on the right, the phrase Joe Biden appears in the model’s answer. And yet it’s actually saying, oh, it’s definitely not Joe Biden. So like the meaning of these two responses is entirely different. <br>[4:40] Hailey: But if we use this sort of naive approach of just checking for the right term in the output, then we would end up sort of scoring both of these as correct, even though one of them is not. And so this problem as sort of a motivating challenge of sort of how do we check a language model’s work is going to shape a lot of the approaches to evaluation. Because if we could sort of. <br>[5:03] Hailey: no matter what, give the correct answer on whether a model’s freeform response were correct, then we’d sort of have solved the hallucination problem entirely and have the perfect language model already able to evaluate these answers. And so yeah, so people sort of take many different approaches and different situations to resolve this issue of actually being able to score outputs for correctness. But there’s no sort of perfect solution. Everything is either too costly or maybe unreliable or has different sort of failure modes. <br>[5:36] Hailey: And yeah, so with this in mind, as sort of like the constraint that we have to work under, there are a couple different ways that we can try to evaluate a model, but in particular how we can sort of probe these models to inspect their capabilities or characteristics. And so there are three different ways that people can often interact with these models or sort of try to measure things from them that I’ll talk through. The first is log likelihoods. <br>[6:04] Hailey: So, yeah, so just as sort of a refresher on language models and the necessary background here, when we feed a piece of input into our language model, what we get out is a logits over a vocabulary. So for each of our language models, like, for example, for GPT-2, we’ve got sort of a space of 50,000 different possible tokens that it knows. And when we run some input, X0 through Xn of words or tokens through GPT-2. <br>[6:34] Hailey: What we get out is this sort of for each different possible next word, GPT-2 will give us like a numerical score representing like a logit on this token. And if we apply a softmax, then we can turn this into a probability distribution, which will basically tell us that GPT-2 thinks that there’s a 50% chance that the next word is the, or like a 25% chance that the next word is dog or 10% of cat, etc. And. <br>[7:04] Hailey: So this is going to be the basic output from our language model, the probability distribution over its guess for what the next word or next token will be. And when we want to most often use language models, we’ll sample text from them. And the way that we generate text with this is that we feed in the input, we get out its probability distribution over what its guess for the next word is, we sample from this distribution and pick a possible next word. <br>[7:32] Hailey: And then we feed in that next word to the model and we get out sort of what the guess for the next word is, and so on until we’re satisfied and done. And so in this way, sort of a language model maps an input to a probability distribution. <br>[7:49] Hailey: But a key detail in how we train most autoregressive large language models is that When we train GPT-2, we’ll feed in many, many paragraphs all at once as sort of the same sample, and at each next word, we can have the model guess sort of what it thinks the next word would be. So at the sort of first sentence of this paragraph, we can guess what it thinks is going to end that first sentence. <br>[8:14] Hailey: At sort of the very end of the paragraph, we can guess what the very end word is going to be and do this all at once. So the model is going to give us many, many probability distributions. both not just predicting this X sub n plus one, but also X sub n and X sub n minus one, and also X sub one, and so on. So we basically have information about what the model’s guesses would have been, even though we also know the correct next token throughout this input that we feed in. <br>[8:44] Hailey: So what we’ll get out of a language model is these logits, but it’s not just sort of. a vector of the shape vocab size, but it’s sort of for each sequence position along the sequence length that we feed in, we get a logit for each element in the vocab. And yeah, feel free to pop in with questions if there are questions, but otherwise, I’ll keep going. <br>[9:09] Hugo: So there is, firstly, just quickly, this is great. And there is, there’s not a question, it’s a comment, just a massive, and that a lot of people have upvoted, just a massive thank you to Hayley for maintaining LM eval and for all the amazing work coming out of Eleuther A. And we did just have a question. Is it better to measure or score evals per sample generated or over a corpus? Does this vary between modalities and use cases of capability? <br>[9:36] Hailey: Okay, I think I could try and answer that one later on. I guess I see this. <br>[9:43] Hugo: And there’s one around clock models as well. <br>[9:47] Hailey: Yeah, yeah, okay. Yeah, so there’s a couple of details I think I see in the questions here. So I guess one thing is that by simultaneously I do literally mean simultaneously, sort of, so when When GPT-2 processes an input, many of the operations, like these sort of MLP layers, operate on each token individually. So you can do this sort of all at once. And then in the attention layers, you have something called a causal mask, which is basically like a triangle of sort of visibility across the inputs. <br>[10:21] Hailey: So for each like for token 10 in the input. It can see all of the previous tokens for token 20, it can see token 19, token 18, all the way back to the beginning. But for token 2, it can only see the previous one token. And so using this, basically, we feed in the entire sequence all at once. And it sort of only can see at each point in the sequence, it can only see the previous parts, but it can sort of compute everything in parallel. This is at both inference and training time. <br>[10:57] Hailey: Yeah, and oh, and then yeah, one other question is, so closed source models do produce a logits matrix, but they’re often not fully available, which is a caveat I’ll mention later at the top, just due to how the APIs are implemented and what information is made public. So now we’ve talked about logits and specifically that you can turn these into probabilities. But why is this useful other than just sampling text? <br>[11:28] Hailey: One way that it’s useful and one sort of measurement that you can take from a model is if you have some input string x and some output string y, you might want to know sort of how probable it is for your model to output, say, y where y is the correct answer to some question. <br>[11:46] Hailey: And so like for a simple sentence, the cow jumped over the moon, if we say feed in the cow jumped over into our language model, maybe we wonder how likely is it that our model gives the correct next two words versus some other word. And so This can be used basically for, yeah, we’ll get into a number of things that can be used for, but you could use this to sort of measure how likely the ground truth target is. <br>[12:11] Hailey: And so the thing that I mentioned earlier is that you can get these logits for every sequence position in parallel. And so what this means is that for any length of output string y, we’re going to be able to not just sort of generate these words one by one and check if they match up. But we can do this in just sort of one pass through the language model, feed in just one input and figure out the whole probability of a string y. <br>[12:34] Hailey: So this is a bit of a dense slide, but basically if we want to compute the log probability of any string y, assuming that we’re sort of conditioning the model with an input x, we can do this just with one path through the model by first taking the concatenation of our tokenized x and our tokenized y, so just like x followed by y, and then pass it through the model and we get these logits. <br>[12:58] Hailey: And these logits are available to us not just at every position, within the sequence X, but also within sort of the sequence Y coming after X. And so if we just thumb over sort of the proper indices of the logics, what we can do is we can go check basically Okay, assuming our model has been all of the tokens in X, how likely is it that for the specific token ID that we know the first token of Y is going to be, how much probability does the model assign to that token? <br>[13:32] Hailey: And so we can check basically how much probability the model assigns to token zero of Y, token one of Y, and so on, and just sort of combine those probabilities. So if we’re using log probabilities, just sum the log probabilities. If you’re not using log probabilities, then you multiply, but this gets the sort of like very very small numbers for a long number of tokens and why. And so what this basically means is that it’s very easy to check sort of the probability of some output string condition on an input string from a model. <br>[14:01] Hailey: It’s just as simple as one path through the model. And you can do other things like you can also check if y is sort of the most probable next end tokens for your model to produce still in one call, just by checking if each of these like true tokens in y are the most probable for your model to output as opposed to just how probable they are. And it’s all. So this is sort of like a primitive algorithm we can use to get the probability of some output secrets. Then why is this useful? <br>[14:29] Hailey: It’s useful in a common use case for evaluation that people use very frequently. This is used in the majority of the OpenLLM leaderboard tasks, for example, and in MMLU, a popular data set, to evaluate your model on a multiple choice question. If you have some sort of set of closed set of answer strings, y sub i, which in this case, in the case of MMLU, where it’s sort of a four choice, multiple choice question, standardized test, and the answer choices are A, B, C, or D. <br>[15:01] Hailey: What we can do is for each of A, B, C, and D, we can use the previous algorithm we discussed to calculate the probability of producing A conditioned on the input question X, the probability of producing B, of producing C, and producing D, and so on. And we get basically comparative log probabilities of each of these potential choices. And then we can see, like in this example, A is the most likely. So what we’re going to say is we’re going to pretend that… A is the answer produced by our model. <br>[15:34] Hailey: And so in this case, for this specific sample question, the model’s answer is incorrect. But maybe if it had put more weight on the answer D and had a higher chance of outputting D when we prompt it with the question, then it would get the answer correct. But so basically multiple choice is a very common way to do LLM evaluations. The first reason just being because it’s way, way cheaper than doing generation with your language model. <br>[16:03] Hailey: If you’re trying to generate many, many tokens, say for like a long chain of thought to answer each question, this is like a lot of calls to your language model and many steps that you can’t really parallelize versus just sort of passing four different inputs through your model. And so in practice, multiple choice question answering is a cheap way to do evaluation. <br>[16:25] Hailey: Another huge benefit of doing multiple choice is that because we’ve not only said that there’s only these four possible answer choices for a model to choose from, but also we’re only comparing the probabilities of these four choices, there’s no way for a model to give an invalid response or say abstain from answering and take a fifth incorrect choice. It’ll always pick one and its guess might be wrong, but it is going to guess. <br>[16:51] Hailey: And in my opinion, I think that multiple choice question answering, implemented this way, is pretty nice for based language models, especially small ones that you’re training from scratch, because it’s sort of a nice way to not have to deal with these finicky parsing failures and still get sort of like a nice measure of your model’s capability, even when it might not be able to coherently generate long form text. <br>[17:18] Hailey: But by the same token, vice versa, <br>[17:22] Participant 2: if… <br>[17:25] Hailey: your small model can generate multiple choice question answering well for just sort of like a single token ranking, like we described in the previous slide, but can’t really produce long form chains of thought, then this means that your evaluation isn’t really matching up well with the real world use case of, say, like using the model as a chatbot. And so in this sense, like it’s definitely a step away from sort of downstream usage. <br>[17:50] Hailey: It’s also a disadvantage for some evaluation types that chain of thought can’t be used, especially since models are commonly trained with chain of thought. And it’s also somewhat misleading as to sort of real world scenarios in that you don’t necessarily want your model to be just solving standardized tests all day. You want to sort of have it handle open-ended questions where it’s not given four choices to choose from. It’s actually supposed to generate and come up with the choice itself. I guess, yeah, are there any questions? <br>[18:23] Hugo: There are a few questions, comments, but we can leave them to the end as well. I don’t think it’s mission critical currently. <br>[18:30] Hailey: Cool. Yeah, that sounds good. <br>[18:32] Participant 2: Great. <br>[18:33] Hailey: Yeah, so basically, like multiple choice using these log likelihoods is a pretty common way to evaluate language models, but it definitely has its downsides, especially when you’re sort of worried more about generation performance or sort of chat usage. Yeah, and so the second common way to evaluate language models and sort of take a measurement that you could sort of assess a model’s capability or behavior with is a perplexity. So perplexity, here’s the formula, but sort of to describe it in intuitive detail, we’re trying to measure how well a model fits a given data distribution. <br>[19:09] Hailey: And the way that we do this is we have some data set, which is a collection of documents that are just sequences of words. And the thing that we’re going to measure is pretty similar to the sort of loss we use to train models. But here we take the log probability that the model assigns to sort of the true next token for every possible next token that exists in the dataset. So for every token in this dataset, we check basically how likely the model is to output it correctly. <br>[19:42] Hailey: And we average this, this is just average over all of the documents in our dataset, and over all of the tokens in each document. So basically, per token, how well does the model fit that token? And how well does it predict this dataset? Or how likely is it to produce this data? And so this can be done basically very, very trivially because it’s the self-supervision where we know the correct label just because we’ve got this input document and we know what the next word is going to be for any sort of prefix in it. <br>[20:14] Hailey: So we can take any dataset, like say Wikipedia or sort of like some Wikipedia page of our choice and just convert it into something we can measure perplexity on just by checking sort of how well the model fits these sort of true next tokens in the dataset. And so perplexity is a useful tool, especially since it’s just basically like using different validation set during training. And you can use it for sort of any data distribution to see how close you’re getting. <br>[20:39] Hailey: But it’s also not super important, especially in sort of downstream use cases for language models, because for an instruction to a model or a chat bot like sort of just evaluating how well it fits, Wikipedia might be misleading because actually the model is sort of. editorializing, outputting a text, maybe perspectives, etc. that wouldn’t match with Wikipedia style or the prompts format might not match, for example. <br>[21:09] Hailey: However, it can still be a useful diagnostic tool, especially if you did have sort of a dataset or data distribution that you want your model to be fitting better for downstream use. Yeah, so basically perplexity is a useful tool to have in the toolbox. It won’t be used too, too frequently, except for sort of like training calls from scratch. And so perplexity, it seems like a pretty simple approach, and it is, but there’s definitely sort of pitfalls and spook guns that can occur for both perplexity and the log likelihood approach that we discussed before. <br>[21:44] Hailey: So one complication is that both these log likelihood and perplexity approaches, because they’re taking sort of either the sum over a number of tokens or averaging over the number of tokens in a data set. It matters what tokenizer you use for your model. So if two different models have a different tokenizer, the numbers that you’re producing might not be directly comparable. So a perplexity of a certain value might be easier for a model with a larger tokenizer to achieve because there are simply fewer tokens to predict over. <br>[22:17] Hailey: And so there are ways to sort of remedy this that can be implemented to sort of use the tokenizer as part of the system that you’re evaluating and then have a metric that’s normalized with respect to the tokenizer. But yeah, so this is like a lot of text, but the important part is basically that there are ways to control for this, but they’re all sort of like small implementation details that change what you’re measuring and how you’re calculating it. <br>[22:45] Hailey: And then of course the final way that one can evaluate a language model is by generating text from it. This is basically crucially important if we’re going to use the model to generate text, such as like a chat bot like ChatJPT. It’s what we care the most about. And chain of thought, of course, is something realistic and important for models to use, especially in sort of multi-step problems. But there are downsides to doing this sort of generation-based evaluation, which is that, again, we don’t know how to always correctly score free-form natural language responses. <br>[23:20] Hailey: So in the case of multiple choice evaluation, we sidestep this by basically saying, OK, there are only four strings our model is ever allowed to output for this document. It ends to that way, like if there’s a string that’s not in those four, we just disregard it and we only ask the model to predict one of those four strings, and we know one of them is correct and the other three aren’t by construction. <br>[23:44] Hailey: For text generation, the model could output any sort of string, and we want to be able to say whether it’s correct or not, or as a matter of degree, how correct it is. Is it half correct? Is it three quarters correct? Not at all correct? So one way that you can do this very simply is just sort of do a very, very rough heuristic and just say, OK, I’m going to look for the part in my model’s generation where it says the answer is X, or some phrase X. <br>[24:10] Hailey: And then we’ll just basically grab what that X is and then check if it matches sort of the gold standard phrase that we had. So like as an example, like going back to the previous sort of comparison of like answering who the president is and the answer being Joe Biden, we could basically say. <br>[24:28] Hailey: Like tell me what tell me who the president is answer with the answer is X And then hope that our model follows that format and that it tells us Either the answer is Joe Biden or it tells us something else in which case we know it’s incorrect However, this is not great because this just means that we’ll be penalizing models that don’t comply with our expected format So if we implement a format of the answer is X Models that are trained to produce this format always when it asks the question will do better on our <br>[24:56] Hailey: evaluation than models that don’t And so there’s sort of these confounding variables that we have to deal with. And another way people do this is by using an LLM to basically check if an answer is correct. But these are definitely fallible. And of course there are also other, in this case this is another sort of pain point caused by tokenization, there are other reasons that sort of generation, as with other evals, can be very finicky. So here’s sort of like a prompt to the audience. Here’s two different prompts. <br>[25:26] Hailey: These are sort of the first document in human eval fed into a model. Hypothetically, is there a difference between these two? And if so, which do you think is going to give better performance? Or which one do you prefer? So maybe just think about this for like 10 or 15 seconds and then I’ll give the answer. Yeah, so these two prompts look very, very similar, but there’s one key difference, which is these two lines at the bottom. This second prompt ends with one new line, a second new line, and then a tab. <br>[26:00] Hailey: And so what this means is that if our code generation model has tokens that look like, for example, a tab and then the return keyword and then go on to generate the rest of a solution, it means that if our model… sort of, if the best solution to this function is just a one-liner return some expression, our model that’s prompted with a tab, if it tries to generate a new tab, it’s going to create a syntax error. <br>[26:29] Hailey: So it’s forced to generate a token that’s like return, but without a tab in front of it, which might not be a token that it has available, or it might be a token that it hasn’t really seen during training. And so as a result, if you evaluate models with like one using this prompt with no trailing white space at the end, and another model with this trailing white space, human eval performance will be something like 5% worse for a number of models that are tested. <br>[26:56] Hailey: And so basically this means that like just going down to like the minutest of details in your code that you’re using to implement your evaluation, it could drastically affect performance. And so if you if you implement your prompts using this trailing whitespace and someone else implements it where they they trim off any trailing whitespace in the prompts, then you’ll get different results. But it’ll be very hard to tell sort of what went wrong, how things changed. <br>[27:23] Hailey: So basically, in short, there are a couple different sort of measurement options we have available to us, all which are trying to overcome this issue of not being able to easily score reliably freeform language model outputs, or just natural language in general. And these are sort of, and amongst these measurement options, there are a number of things that can go wrong or ways you can implement them subtly, not necessarily incorrectly, but just differently to how is standard. And so on. <br>[27:54] Hailey: And these implementation details are even not often discussed or mentioned in papers or tech reports as things you should care about. So it’s difficult to sort of be aware of them a priori. And so all of these challenges we’ve discussed are only scratching the surface. They’re sort of only accounting for, did I run my language model correctly? Like am I getting sort of the correct output from my model? <br>[28:21] Hailey: They aren’t even sort of accounting for external factors like data set quality of your evaluation, like if it’s measuring something you truly care about, if you’re overfitting to it, and so on. <br>[28:32] Hailey: And so basically scoring models is hard and sort of influencing evaluations is difficult and as a result It’s very difficult to achieve reproducibility in evaluations where reproducibility here means basically if Someone publishes their results They should ideally publish enough details that you could go ahead and sort of write your own code and reproduce the same results they’re getting Within sort of a very small area of margin And so this is key for research or just for sort of iteratively developing better models for production, because comparisons have to be fair in that advantages aren’t given to <br>[29:11] Hailey: a new model. For example, if you’ve sort of spent much more effort prompt engineering your new language model, you’ve just pre-trained or your new sort of prototype for production. If it does better, you don’t know if this is just because you spent more effort trying to make it good. Or if the other one, if you just prompt engineered for five minutes, it would also be as good or better. And so there’s definitely a question of sort of what is the correct way to set up a fair evaluation comparison. <br>[29:40] Hailey: And if it is actually holding everything constant or maybe using a prompt format that, you know, the model is trained with or so on. <br>[29:47] Participant 2: But at minimum, <br>[29:48] Hailey: these evaluation details should be known and should be accounted for. So, like, for example, in the table on the right. The LAMA3 number, this is from the LAMA3 release, and these LAMA3 70 billion numbers are the ones run by Meta because they train the model and this is evaluations they ran themselves while developing it. But the Flawed and Gemini results are just results that are self-reported by the model developers, in this case Google and Anthropic. <br>[30:17] Hailey: And they are not, as you can see these sort of subtext here, they’re not necessarily using the same settings across models. And in some cases, it might not even be super clear what the developers did if they didn’t release the code that they use for these evaluations. <br>[30:32] Hailey: And so, as a result, sort of like, we see how LLAMA3 measures up against these models, but we’re not really sure if sort of the developers were preferential towards their own model or if just there were like easier prompts that had more information provided to the model and so on. It’s difficult to draw like a clean conclusion with these numbers. So basically strong reporting standards for evaluation are important, but also actually reporting enough details in like the tech report that you report is very difficult. <br>[31:07] Hailey: There are many, many things you might forget to account for or just assume that they’re standard because it’s standard to how your organization does things internally. But it turns out that other people don’t have that insight or wouldn’t implement it in the same way or don’t think that’s as natural. So basically, in conclusion, like I’m going to claim that. If you don’t see the evaluation code, then things are not going to be fully reproducible, or at least you’re going to have a bad time trying to perfectly reproduce them. <br>[31:33] Hailey: So I’d argue that you should always share your evaluation code if you’re doing something like developing a new model or a new method in research, etc. And so, yeah, so basically reproducibility is important, but very hard and sharing evaluation code, especially that’s like clean enough for people to read and use, can be tricky. And that’s where libraries like EvaluationHardest and other options like Helm or OpenCompass come in. By having sort of a easy to reference like gold standard or just like frequently vetted code based for evaluation. <br>[32:12] Hailey: it’s at least possible to sort of not have to worry yourself about all of these tokenization intricacies, a normalization of log likelihoods, et cetera, and more worry about, am I doing the evaluation I want to do? And then it’s easier to sort of just say, instead of implementing all of these evaluations from scratch and saying and sharing your code base, you can instead sort of use these shared code bases. And so, yeah, we’ve been lucky to see that the eval harness at least has been used. <br>[32:41] Hailey: for a bunch of research on evaluations has also been used when new architectures like Mamba are proposed to sort of run on a couple tasks that the community has decided are canonical as like like as log likelihood based evaluations of like based language model performance. And so on. <br>[33:01] Hailey: And then I guess in contrast to other libraries like Helm, the Uval Harness, we sort of more intend to just put tools in the hands of practitioners and researchers in that sort of many tasks are supported in our library and it’s easy to define new ones or edit the prompts for your own purposes. But it should be up to you which of those tasks you’d like to evaluate on and which are best for you. <br>[33:28] Hailey: So yeah, so I guess, yeah, so that was sort of more research-inflected, but as a side note for production, there’s a distinction that’s been made by a number of people, I think, between model evals and downstream evals, where a model eval is more something like the MMLU benchmark, which is meant to sort of measure how generally capable or generally intelligent, with heavy scare quotes, your Your language model is to sort of measure it against actual like base models versus a downstream eval, which is more I have this concrete use case, like maybe as a chat <br>[34:03] Hailey: bot for this specific closed domain of answering questions about my company’s documentation. And I’m going to evaluate my model and see how well it does on this specific task that I want to use it for and nothing else. And so basically, whenever possible, downstream evaluations should be used if you have a concrete use case in mind. The best eval is one that you’ve run the code for yourself instead of sort of pulling it from a tech report and just assuming that’s how good a model is. Always try to test it yourself. <br>[34:35] Hailey: But then even better is an evaluation that you’ve designed yourself that matches up with your own use case. Sometimes if you’re trying to measure things that are more subjective, like say, like How high quality or how preferred your chatbot is, essentially hiring human evaluators, although expensive, is worthwhile. And the incentives and sort of trade-offs for downstream evals are very different because for model evaluations, the thing that we care about is model quality, and we think of a high MMLE score as implying that the model is a very good language model in general. <br>[35:11] Hailey: And so doing things like training on the train set or the test set, or sort of overfitting repeatedly by trying to maximize your MMLU score over the course of fine-tuning, we think that those isn’t a bad thing because they’re sort of ruining the ability of practitioners to draw conclusions based on the evaluation score about how good your model is. <br>[35:35] Hailey: For a downstream evaluation, if the evaluation is literally just how well does the model perform on sort of real world chat transcripts for your actual use case, it might be beneficial to overfit and try to get to 100% on that downstream evaluation, because doing better on that evaluation test just means you’re doing better on exactly the things you care about and nothing else. So, yeah, so. Basically, some high-level takeaways in this talk are basically that implementation details matter a lot for LLM evaluation. <br>[36:07] Hailey: Models are very, very finicky to specific prompts, details, and formatting, to specific sort of implementations of how you generate text or sort of normalize these measurements. And these can skew not just your numerical scores that you get out, but also the conclusions you draw about which models are better than others. And so this matters for research, if you’re trying to draw fair comparisons between a new method and old ones. <br>[36:32] Hailey: And it also matters for production because like the sort of tokenization bug that I showed in this coding example, if you were feeding your model a prompt in actual production, with this trailing white space, then all of a sudden your performance would be tanking. And even though the evals looked good on paper, if they didn’t suffer from the same bug, you might sort of have a worse model introduction and not know why. And yeah, so this is a very, very non-exhaustive list of evaluation woes and things that can go wrong. <br>[37:04] Hailey: There are many more, including data contamination, overfitting to your evaluation or having it saturate and no longer be sort of useful for telling models apart. The actual measurement validity of your evaluation, like is it measuring something that is a real thing that you should care about? And is it actually sort of a good match for that, if that thing is like capability or something? And so on. <br>[37:26] Hailey: Yeah, so in conclusion, some of the material in this talk and some of the, in particular, like implementation details are documented in a recent paper we put out from Eleuther called Lessons from the Trenches on reproducible evaluation of language models. And then also, if you’re interested in trying to abstract some of this evaluation gory detail away, then check out the evaluation harness and other tools. We recently launched the ability to wrap model prompts in chat templating, thanks to a contribution from HuggingFaced. <br>[37:56] Hailey: We’re definitely interested in extending to further evaluations beyond just the sort of text only ones we support. And yeah, we’d love to sort of hear from you if you’re interested in how we can make the library better or if you’re interested in helping out, even since we’re very constrained, that sort of ability to do all the things that need doing evaluation. <br>[38:16] Participant 2: Yeah. <br>[38:17] Hailey: In conclusion, thanks so much for attending and love to take questions or anything else. <br>[38:24] Hugo: Thanks so much, Hayley. That was awesome. We do have some questions that I’d love to get to. I am interested if people just wanted to start playing around now. I know historically I’ve gone straight to Hugging Face and explored the MMLU dataset. It’s really easy there with the dataset view and that type of stuff. And you can get started locally with notebooks and that type of stuff. But if people wanted to get started now, what’s the best way to do that? <br>[38:57] Hailey: Yeah, so we have like an examples folder in the evaluation harness repository that has like a collab notebook where you can just run the scripts in the harness. And then yeah, I’d highly recommend checking out things like the open LLM leaderboard and just sort of looking at those data sets and what’s in them and thinking about. Yeah. <br>[39:17] Hugo: Very cool. So we do have a bunch of questions. One is, some benchmark datasets have some existing errors in them, like grammar, etc. For example, Hello Swag has 26% of samples with error of some sort. Does this actually matter in practice? <br>[39:33] Hailey: Yeah, I would say definitely. I think, yeah, the Hello Swag example is particularly egregious, and I like to bring that one up. So the place that that’s going to come most into effect is, say, if 10% of your data set samples have errors in them or are mislabeled, and you’re trying to train models that are performing better than 88%, like better than 92%, even though there’s 10% errors or something, and you’re sort of fighting over 89, 90, 91% accuracy. <br>[40:04] Hailey: You’re very, very close to sort of the point at which the benchmark has outlived its usefulness, if it hasn’t already. Sort of any improvement getting toward 100 percent accuracy is only going to be a product of sort of overfitting to that evaluation and not a product of the model actually getting better. So there’s definitely a point at which evals stop becoming useful for telling models apart in capability, which is the thing we might care about from them. It’s not always what we care about, but if that’s what we care about, like ranking loss, then yeah. <br>[40:35] Hugo: That makes sense. We have a question from Kit. It blows my mind we can get all of these. So this is back to the getting all the logs and all of that. Get all of these simultaneously. But so Kit’s wondering in practice, how do we get all of these probabilities for one given inference task? <br>[40:59] Hailey: Yeah, so or Maybe if it’s possible to elaborate on the question. So there’s two components. I guess, when you evaluate on a given task, obviously you’re going to have to run inference on each document separately. You can definitely batch those documents together, but you’re going to have to sort of figure out what the model’s output on each different input would be separately. But in terms of getting the predictions at each time step, In parallel, this is sort of a characteristic of transformers as well as other sequence models like S-M-S. <br>[41:38] Hailey: But it’s the reason that when you train a GPT-2 model with 2040 tokens in context, you don’t have to run 2048 steps to get the model’s prediction at time step one, time step two, time step three. You can just sort of run your batch through the model a single time. And so by construction, our models are sort of able to do this parallel processing. And this is why you can only like you can process your entire prompts up to a certain point, you know, only one step or sort of pre filling before generation. <br>[42:11] Hailey: And it’s why you can train without doing sort of a number of steps equal to the number of tokens you’re feeding. <br>[42:18] Hugo: Awesome. Thanks for that. Extra colour. We’ll get to a few more questions and people who are here, if you could upvote the ones that you’d like to hear answered as well. Shamik has a question, and you have talked about this a bit, what are your thoughts on LLM as a judge, in that case, how to ensure that the judge model is correct? I want to add a bit more flavour to this question just from… <br>[42:42] Hugo: you know, the way I think about it, and you really spoke to this with your Joe Biden example, we’re actually in a weird situation, right, where all our old tools, now we have LLMs generating a lot of natural language, all our old tools of, you know, pattern matching and NER and all these NLU tools. <br>[43:04] Hugo: aren’t quite enough, given that essentially when LLMs respond to questions or try to answer things, we do actually want to know something about the semantic meaning of the text they produce, not necessarily the string matching or regular expressions or anything like that. So we are in a situation where even if we didn’t want to use LLMs as judges, there’s a forcing function of some sort. So given that context… <br>[43:34] Hugo: What are your general thoughts on LLM as judge, <br>[43:37] Hailey: Hayley? Yeah, so I think there’s an interesting tension between sort of the fact that we want to use LLMs as a judge or sort of human evaluations and annotations as like scores for tasks that are inherently more difficult or complex, because it’s harder to sort of come up with a heuristic that’s going to closely match the performance. Like if it’s sort of a more subjective or just like multi-step reasoning process to like decide whether a task. has been done correctly. <br>[44:12] Hailey: It’s more desirable for us to use an LLM as a judge because we want to just sort of be able to have something that spits out a number that says whether it’s correct or not. But at the same time, this is exactly where LLM as a judge is going to be less potent because just these models are going to be better at the simpler task of say, extracting like the multiple choice sort of answer that was produced from the model’s output. So like… <br>[44:37] Hailey: I think LLM as a judge is like a very valuable tool, but I’d like to see more work done on sort of where they fail and what their limits of capability are. Because like if you’re trying to use GPT-3 to evaluate GPT-4 on a task that GPT-3 can’t do, you’re likely going to have a bad time. Yeah, so in short, I think it’s a useful tool, but more attention has to be paid to sort of what is the performance of the judge model. before you use it willy-nilly. <br>[45:10] Hugo: Great. Someone has asked about the ARC benchmark and that it’s been offered on Kaggle a $1 million prize for the winner. Why is ARC a harder benchmark? <br>[45:25] Hailey: Yeah, yeah. So ARC is much more focused to like generalization. Many of the evals that we use for language models are ones that, while it does sort of measure like if a model can perform the task, that means it’s capable and useful. At its core, many of these, like MMLU, are sort of a combination of, okay, can the model do in-context learning, but then just like, does it know enough facts? <br>[45:54] Hailey: And so these are things that if a model has just seen it enough in its pre-training corpus, because it’s listed as a fact on the internet, then it’s going to be able to answer this question. And so like, I think for ARC and for things that require many, many hops of reasoning, it requires at minimum a lot more scaffolding around the language model to perform these multiple leaps. <br>[46:15] Hailey: And so like current benchmarks are often memorization tests, or at least sort of can be heavily improved on by just increasing memorization, whereas sort of performing tasks that require many, many leaps of reasoning, again, reasoning with scare quotes, is a much more difficult challenge. <br>[46:38] Hugo: We have a couple of really nice practical questions around, and one is, one’s from May, the other’s from Simon Willison. Simon’s speaking later today. Everyone, if you want to check out a talk that we’re all excited about, but they’re asking around just how to get a model to reliably give a multiple choice answer without like a whole bunch of fluff or not giving the answer as well. <br>[47:04] Hailey: Yeah, so I guess one component here which we have not integrated or explored in the LMEvaluation harness is structured generation tools that can actually sort of enforce, say, like we’ll do freeform generation from a model, but it won’t be freeform because we constrain it to only sort of output the appropriate tokens. So things can be done to sort of mask out other tokens’probabilities and sample from the model, but prevent it. <br>[47:31] Hailey: I guess another component here is like for the most capable models, I guess, just prompting it with the system prompt to directly and only return the answer. But I would say, like, if you don’t have the ability to do structured generation because you don’t have that sort of access with your API, asking nicely and I think, yeah, it’s tricky because I think a lot of models are trained nowadays to sort of always produce large chains of thought, either because it helps them or just because people like the conversations. <br>[48:06] Hailey: So I think while system prompts can help on this, if you don’t have access to some way of sort of more reliably ensuring with structure generation, it’s going to be tricky. <br>[48:17] Hugo: Cool. I think asking nicely is a nice note to end on as well. And particularly given, you know, the breadth of everything you covered here. Super grateful for you sharing all of your wisdom from the bleeding edge of all of this work, Hayley. And thank you all for joining as well. We didn’t get to all the questions, as is usually the case, but we can get to the rest in Discord as well. So feel free to continue. the conversation there. And definitely we’ll share more of the links that Hayley has shared. <br>[48:52] Hugo: Are we able to share your slides as well, Hayley? <br>[48:56] Hailey: Yeah, I can send a link. And I don’t believe I have access to the Discord channels, but I’m happy to answer questions after the pack. <br>[49:04] Hugo: Amazing. I’ll send the link to you on Twitter DM as soon as we jump off the call. But thank you once again. And thank you all for joining. <br>[49:15] Hailey: Yeah, thank you so much for having me and thanks everyone for the questions. <br>[49:18] Hugo: Awesome. All right. See you soon, everyone. <br>[49:20] Hailey: Ciao.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../education/evals/ankur.html" class="pagination-link" aria-label="LLM Eval For Text2SQL">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">LLM Eval For Text2SQL</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../education/rag/index.html" class="pagination-link" aria-label="RAG">
+        <span class="nav-page-text">RAG</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/evals/schoelkopf.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script src="../../magnetic-cursor.js"></script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

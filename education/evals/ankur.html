@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2024-07-17">
+
+<title>LLM Eval For Text2SQL – Parlance</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../education/evals/schoelkopf.html" rel="next">
+<link href="../../education/evals/allaire.html" rel="prev">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-99210e54ebe81ef39bb1b5e24939fa92.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e456fc6c6f2c01e7aa9b383afaf84ebb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N36MQM5R');</script>
+<!-- End Google Tag Manager -->
+
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../education.css">
+<meta property="og:title" content="LLM Eval For Text2SQL – Parlance">
+<meta property="og:description" content="Ankur from Braintrust discusses the systematic evaluation and enhancement of text-to-SQL models. Highlighting key components like data preparation and scoring mechanisms, Ankur demonstrates their application with the NBA dataset. The presentation emphasizes iterative refinement through advanced scoring and model-generated data, offering insights into practical AI evaluation pipelines.">
+<meta property="og:image" content="https://parlance-labs.com/education/evals/ankur.png">
+<meta property="og:site_name" content="Parlance">
+<meta property="og:image:height" content="720">
+<meta property="og:image:width" content="1280">
+<meta name="twitter:title" content="LLM Eval For Text2SQL – Parlance">
+<meta name="twitter:description" content="Ankur from Braintrust discusses the systematic evaluation and enhancement of text-to-SQL models. Highlighting key components like data preparation and scoring mechanisms, Ankur demonstrates their application with the NBA dataset. The presentation emphasizes iterative refinement through advanced scoring and model-generated data, offering insights into practical AI evaluation pipelines.">
+<meta name="twitter:image" content="https://parlance-labs.com/education/evals/ankur.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image-height" content="720">
+<meta name="twitter:image-width" content="1280">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../b.png" alt="" class="navbar-logo light-content">
+    <img src="../../b.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Parlance</span>
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Services</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../education/"> 
+<span class="menu-text">Education</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/evals/index.html">Evals</a></li><li class="breadcrumb-item"><a href="../../education/evals/ankur.html">LLM Eval For Text2SQL</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Educational Resources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Evals</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/ankur.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">LLM Eval For Text2SQL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RAG</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Back to Basics for RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond the Basics of RAG</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Systematically improving RAG applications</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#fine-tuning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-Tuning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#should-you-fine-tune" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Should you fine-tune?</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">When and Why to Fine Tune an LLM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Why Fine Tuning is Dead</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#how-to-fine-tune" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How to fine-tune</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/steven.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning OpenAI Models - Best Practices</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning_course/workshop_4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deploying Fine-Tuned Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/index.html#advanced-topics-in-fine-tuning" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Advanced topics in fine-tuning</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Napkin Math For Fine Tuning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+ <span class="menu-text">education/applications/**/*.qmd</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prompt Engineering</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#chapters" id="toc-chapters" class="nav-link active" data-scroll-target="#chapters">Chapters</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a>
+  <ul class="collapse">
+  <li><a href="#improving-evaluation" id="toc-improving-evaluation" class="nav-link" data-scroll-target="#improving-evaluation">Improving Evaluation</a></li>
+  <li><a href="#example-llm-evaluation" id="toc-example-llm-evaluation" class="nav-link" data-scroll-target="#example-llm-evaluation">Example: LLM Evaluation</a></li>
+  <li><a href="#generating-new-data" id="toc-generating-new-data" class="nav-link" data-scroll-target="#generating-new-data">Generating New Data</a></li>
+  </ul></li>
+  <li><a href="#full-transcript" id="toc-full-transcript" class="nav-link" data-scroll-target="#full-transcript">Full Transcript</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/evals/ankur.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></nav>
+    <div class="quarto-margin-footer"><div class="margin-footer-item">
+<button onclick="window.location.href='https://hamel.ck.page/7d15a4b6e7'" style="background-color: #C75C56; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-size: 12px; cursor: pointer; transition: background-color 0.3s ease;">
+Subscribe To Our Newsletter
+</button>
+</div></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N36MQM5R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/evals/index.html">Evals</a></li><li class="breadcrumb-item"><a href="../../education/evals/ankur.html">LLM Eval For Text2SQL</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">LLM Eval For Text2SQL</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Evals</div>
+    <div class="quarto-category">llm-conf-2024</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 17, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>Ankur from Braintrust discusses the systematic evaluation and enhancement of text-to-SQL models. Highlighting key components like data preparation and scoring mechanisms, Ankur demonstrates their application with the NBA dataset. The presentation emphasizes iterative refinement through advanced scoring and model-generated data, offering insights into practical AI evaluation pipelines.</p>
+  </div>
+</div>
+
+
+</header>
+
+
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/UGmenkjGXqM" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="mobile-only callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Subscribe For More Educational Content
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you enjoyed this content, subscribe to receive updates on new educational content for LLMs.</p>
+<center>
+<script async="" data-uid="6379a28bdb" src="https://hamel.ck.page/6379a28bdb/index.js"></script>
+</center>
+</div>
+</div>
+<section id="chapters" class="level2">
+<h2 class="anchored" data-anchor-id="chapters">Chapters</h2>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=0s">00:00</a> Introduction</strong> Ankur introduces Braintrust, highlighting their team, history, and industry connections.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=131s">02:11</a> Purpose of Evaluations</strong> Evaluations determine whether changes improve or worsen the system, facilitating systematic enhancements without regressions by continually assessing performance and analyzing outcomes.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=220s">03:40</a> Components of Evaluation</strong> Ankur outlines three crucial components: Data (initially hardcoded for simplicity), Task function (transforms input into output), and Scoring functions (from simple scripts to intricate heuristics). Issues in evaluations are often resolved by adjusting these components.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=460s">07:40</a> Demonstration</strong> Ankur presents the NBA dataset for the text-to-SQL task.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=513s">08:33</a> Simple text2sql Function</strong> Ankur walks through the text2sql task function using the Braintrust OpenAI wrapper.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=718s">11:58</a> Data and Scoring Functions</strong> The evaluation process for SQL query generation begins with five questions, bootstrapping a dataset through human review, error correction, and creating a “golden dataset.” Binary scoring simplifies query correctness evaluation.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=796s">13:16</a> Braintrust Project Dashboard Overview</strong> Ankur showcases the Braintrust project dashboard, enabling prompt tweaking, model experimentation, and query saving for task refinement.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=1023s">17:03</a> Revisiting the Evaluation Notebook with New Data</strong> Using a new dataset with answers and queries, Ankur introduces the autoevals library for advanced scoring functions, enhancing evaluation.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=1208s">20:08</a> Results with New Scoring Functions and Data</strong> Ankur demonstrates improvements with updated functions and data, detailing how the scoring functions were applied.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=1473s">24:33</a> Generating New Data Using Models</strong> Models generate synthetic data for new datasets, validating SQL commands and questions before dataset inclusion.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=1716s">28:36</a> Task Evaluation with Synthetic Data</strong> The dashboard compares results across datasets; no improvements were observed in this instance.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=1890s">31:30</a> Using GPT-4 with New Data</strong> Results declined across all datasets using GPT-4 compared to GPT-4o.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=2025s">33:45</a> Real-World Applications of the Evaluation Pipeline</strong> Hamel discusses practical applications of similar pipelines and the added value of tools like Braintrust.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=2118s">35:18</a> Other Scoring Functions</strong> Ankur discusses various scoring functions for SQL and RAG tasks, emphasizing Braintrust’s evaluation tools and workflows.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=2302s">38:22</a> Comparison with Langsmith</strong> Both platforms offer unique UIs and workflows; choosing between them requires trial and evaluation.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=2350s">39:10</a> Open-Source Models on Braintrust</strong> Braintrust supports open-source models, though some lack tracing features found in OpenAI and compatible APIs.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=2584s">43:04</a> Use Cases Where Braintrust Pipeline is Not Ideal</strong> Braintrust focuses on inspecting individual examples, less suited for use cases with extensive datasets.</p>
+<p><strong><a href="https://www.youtube.com/watch?v=UGmenkjGXqM&amp;t=2842s">47:22</a> Navigating Complex Databases</strong> Guidance on handling text-to-SQL for large databases includes question categorization and schema optimizations.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<p>Links to resources mentioned in the talk:</p>
+<ul>
+<li><a href="https://www.braintrustdata.com/">Braintrust</a> is the enterprise-grade stack for building AI products.</li>
+<li><a href="https://duckdb.org/">DuckDB</a> is a fast in-process analytical database.</li>
+<li><a href="https://huggingface.co/datasets/suzyanil/nba-data">NBA dataset</a> is a dataset available on Hugging Face.</li>
+<li><a href="https://www.braintrustdata.com/docs/reference/autoevals/python">Autoevals</a> is a tool from Braintrust for evaluating non-deterministic LLM applications.</li>
+<li><a href="https://pypi.org/project/autoevals/">More Autoevals</a> is another tool for evaluating LLM applications.</li>
+<li><a href="https://github.com/braintrustdata/braintrust-cookbook/blob/main/examples/Text2SQL/Text2SQL.ipynb">Notebook</a> is a notebook from the Braintrust presentation.</li>
+<li><a href="https://www.braintrustdata.com/docs/cookbook">Braintrust cookbook</a> is a collection of resources from Braintrust.</li>
+</ul>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<section id="improving-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="improving-evaluation">Improving Evaluation</h3>
+<p>Evaluation consists of three main components: data, task, and scoring function. Each can be optimized using the following strategies:</p>
+<ul>
+<li><strong>Data</strong>
+<ul>
+<li>Handwritten test cases</li>
+<li>Synthetic data generation</li>
+<li>Incorporation of real-world examples</li>
+</ul></li>
+<li><strong>Task</strong>
+<ul>
+<li>Engineering prompts effectively</li>
+<li>Selecting appropriate models</li>
+<li>Structuring the program for efficiency</li>
+</ul></li>
+<li><strong>Scoring</strong>
+<ul>
+<li>Implementing heuristic-based scoring</li>
+<li>Leveraging language model (LLM) grading</li>
+<li>Integrating human feedback mechanisms</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-llm-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="example-llm-evaluation">Example: LLM Evaluation</h3>
+<p>This example demonstrates how to implement text-to-SQL conversion using Braintrust’s tools. It involves setting up an OpenAI client wrapped with Braintrust, querying the structure of an NBA database table, and then generating SQL queries based on user input. The generated queries are tailored to the structure of the NBA table.</p>
+<p>Here’s a simple implementation:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> textwrap <span class="im">import</span> dedent</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> braintrust <span class="im">import</span> openai</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> conn</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> braintrust.wrap_openai(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    openai.AsyncClient(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        api_key<span class="op">=</span>os.environ[<span class="st">"OPENAI_API_KEY"</span>],</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        base_url<span class="op">=</span><span class="st">"https://braintrustproxy.com/v1"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>columns <span class="op">=</span> conn.query(<span class="st">"DESCRIBE nba"</span>).to_df().to_dict(orient<span class="op">=</span><span class="st">"records"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>TASK_MODEL <span class="op">=</span> <span class="st">"gpt-40"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">@braintrust.traced</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> generate_query(<span class="bu">input</span>):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> <span class="cf">await</span> client.chat.completions.create(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        model<span class="op">=</span>TASK_MODEL,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        temperature<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">=</span>[</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                <span class="st">"role"</span>: <span class="st">"system"</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>                <span class="st">"content"</span>: dedent(<span class="ss">f"""</span><span class="op">\</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">                    You are a SQL expert, and you are given a single table named nba with the following columns: </span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">                    </span><span class="sc">{</span><span class="st">", "</span><span class="sc">.</span>join(column[<span class="st">"column_name"</span>] <span class="op">+</span> <span class="st">": "</span> <span class="op">+</span> column[<span class="st">"column_type"</span>] <span class="cf">for</span> column <span class="kw">in</span> columns)<span class="sc">}</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">                    Write a SQL query corresponding to the user's request. Return just the query text, with no formatting (backticks, markdown, etc.). """</span>),</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">"role"</span>: <span class="st">"user"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">"content"</span>: <span class="bu">input</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            },</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        ],</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.choices[<span class="dv">0</span>].message.content</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>query <span class="op">=</span> <span class="cf">await</span> generate_query(<span class="st">"Who won the most games?"</span>)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(query)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>After generating the SQL query, it can be executed against the database:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> execute_query(query):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> conn.query(query).fetchdf().to_dict(orient<span class="op">=</span><span class="st">"records"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For evaluation, random queries can be generated for the data along with a basic scoring function, such as validating SQL syntax. More advanced scoring can involve using additional LLMs to assess the relevance and accuracy of the generated queries.</p>
+<p>Braintrust’s evaluation function integrates task functions, scoring methods, and datasets to measure performance and providing detailed analytics online:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> braintrust <span class="im">import</span> Eval</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>PROJECT_NAME <span class="op">=</span> <span class="st">"LLM Evaluation for Text2SQL"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> Eval(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    PROJECT_NAME, </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    experiment_name<span class="op">=</span><span class="st">"Initial dataset"</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[{<span class="st">"input"</span>: q} <span class="cf">for</span> q <span class="kw">in</span> questions], </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    task<span class="op">=</span>text2sql,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    scores<span class="op">=</span>[no_error],</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="generating-new-data" class="level3">
+<h3 class="anchored" data-anchor-id="generating-new-data">Generating New Data</h3>
+<p>New data can be synthesized using models like GPT-4o or open-source variants to mitigate model biases. Combining new and existing datasets involves merging unique questions from “Golden Data,” handwritten entries, and generated dataset entries not present in the golden set:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_new_data():</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    golden_data <span class="op">=</span> init_dataset(PROJECT_NAME, <span class="st">"Golden Data"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    golden_questions <span class="op">=</span> {d[<span class="st">"input"</span>] <span class="cf">for</span> d <span class="kw">in</span> golden_data}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        [{<span class="op">**</span>x, <span class="st">"metadata"</span>: {<span class="st">"category"</span>: <span class="st">"Golden Data"</span>}} <span class="cf">for</span> x <span class="kw">in</span> golden_data]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            {<span class="st">"input"</span>: q, <span class="st">"metadata"</span>: {<span class="st">"category"</span>: <span class="st">"Handwritten Question"</span>}}</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> q <span class="kw">in</span> questions <span class="cf">if</span> q <span class="kw">not</span> <span class="kw">in</span> golden_questions</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> [x <span class="cf">for</span> x <span class="kw">in</span> generated_dataset <span class="cf">if</span> x[<span class="st">"input"</span>] <span class="kw">not</span> <span class="kw">in</span> golden_questions]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="full-transcript" class="level2">
+<h2 class="anchored" data-anchor-id="full-transcript">Full Transcript</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Expand to see transcript
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><br>[0:03] Ankur Goyal: I’m going to do just like a few slides to sort of set the stage on, you know, some brain trust stuff and then just talk about how we think about like how to build really good evals. And then we’ll jump into a demo where we just kind of walk through step by step of how to do a bunch of the kind of classic flows in building good evals. And then I’ll share the notebook afterwards. So yeah, just a little bit about brain trust. We’re a startup company. We come from a variety of different backgrounds. <br>[0:35] Ankur Goyal: Actually, prior to Braintrust, I led the AI team at Figma. And before that, I started a company called Impura. And at both companies, we were shipping AI software. At Impura, we were in the Stone Ages, pre-ChatGPT and training our own language models. And then Figma, we were building on top of OpenAI and other models. <br>[0:58] Ankur Goyal: that were pre-trained but the problem was was the same it was just really hard to make changes to our code or our prompts um and uh know you know whether we had broken stuff and what we had broken and so we ended up building internal tooling at both companies that basically helped with evals and that is what turned into brain trust uh so you know you’ll see some of that today um the only other thing i’ll mention we’re you know really fortunate to work with some really great folks as team members, investors, and customers. <br>[1:36] Ankur Goyal: I think one of the really fortunate things for us is we’ve had the opportunity to build brain trust alongside the AI teams at some of the best product companies in the world that are building AI software. And so something I take a lot of personal pride in is that a lot of the workflows and UI and just little details in the product are informed by some of the engineers at these companies who are giving us feedback all the time. Okay, enough propaganda about brain trust. Let’s talk about evals. <br>[2:12] Ankur Goyal: So I think everyone in the course probably already knows this. You’ve already learned about evals, but just a very quick recap. Why do evals in the first place? I think some of the key takeaways that you want to have when you’re doing an eval and maybe the bar that you should hold yourself or the tools or whatever to is, you know, can you actually solve these goals when you do an eval? Do you can you figure out very quickly? Did the change that I make improve or regress things? And if so, what? <br>[2:48] Ankur Goyal: Let me like quickly and clearly look. at good and bad examples and just, you know, use my human intuition and stare at them so I can learn stuff. Let me understand what the differences are between what I just generated and what I generated before so I can, you know, build some intuition about maybe what changed to the prompt led to that. And then, you know, very importantly, we don’t want to play lacquer ball. Like, we don’t want to improve some things and break other things and then, you know, not really know. <br>[3:21] Ankur Goyal: what we broke or why we broke it and so it’s important to actually systematically improve the quality of a system um so uh you know the way that we suggest thinking about evals whether you use brain trust or or not um is to think about it as basically you know there’s three components that go into an eval uh the data um Which, honestly, when you’re starting out, and it’s what we’re going to do in a second in the notebook, is you should just, like, hard-code it. There’s all this fancy stuff you can do. <br>[3:58] Ankur Goyal: You know, you can generate data. You can source it from your logs. You know, all this other stuff. But when you start, you might as well just hard-code it and sort of get going. A task function, which is, you know, the thing that takes some input and generates some output. You know, this is obviously a silly example, but… It could be a single call to an LLM. It could be a RAG pipeline. It can be an army of agents that are talking to each other for a while and then coming up with an answer. <br>[4:27] Ankur Goyal: But at the end of the day, it’s taking some input, returning some output, and then one or more scoring functions. And there’s so many different ways you can score things. Actually, in this example that we walked through, we’re going to handwrite some scoring functions just to really understand how they work. <br>[4:45] Ankur Goyal: but there’s a whole world of using you know llm based scoring functions fancy heuristics and so on um and so again like honestly the if there’s one thing i could leave you with it’s you know evals are you know equal equal equal to just these three things and it’s important because sometimes i talk to people who are sort of lost in analysis paralysis about you know where to start um uh how do i you know i ran an eval doesn’t look great what do i do um you know it’s important to just remember it’s just <br>[5:22] Ankur Goyal: these three things so if you run an eval and it doesn’t look good um yes it’s can be challenging to sort of figure out what to do next, but it is literally just one of these three things. Either you improve the data, you change the task function, or you change the scoring functions. And there’s actually a few different things you can do in each of these. I’m happy to send these slides out as well afterwards, but we’re going to actually go through a good chunk of these things in the demo today. <br>[5:51] Ankur Goyal: But on the data side, you can handwrite cases, you can generate cases, and you can get them from your users. That’s pretty much it. There’s maybe some other things you can do, but generally those are the three methods to follow. We’re actually not going to spend too much time on the task function part of it. I think there’s probably other material in the course that covers how to do various fancy things with prompts. We’re going to do some basic things today. And then on the scoring side, again, there’s really only three things you can do. <br>[6:26] Ankur Goyal: You can… write heuristic functions, which we’ll do. You can use an LLM to sort of compare and do some reasoning about an output or an output versus an expected value. And then you can use your human eyeballs to sort of look at something and get an understanding of whether it’s good or bad and then take some action on it. So with that, I’m going to switch over to walk through a notebook. Let me just see if there’s any questions so far. There’s no sound. Yes, there is. OK. I hope the AV is OK. <br>[7:08] Dan Becker: Sorry, AV is OK. So you’ve got the three panelists. We can talk. And we’ve got 230 people who can’t talk. <br>[7:18] Ankur Goyal: OK. <br>[7:19] Dan Becker: But at some point, you’ll see there’s a bunch of, they’re dropping questions in a Q&amp;A. <br>[7:26] Ankur Goyal: thing so we’ll come to those questions in a bit okay perfect um so uh let’s run through um a real use case of of doing some text to sql stuff um i don’t know if other people are watching the nba playoffs but i’m a big fan so i found some you know basic nba data on hugging face and we’re going to use that to play with some text to sql stuff today um so Nowadays, it’s actually really easy to just grab some data. <br>[7:56] Ankur Goyal: I think I actually saw a blog post this morning, and now it’s even easier to load Hugging Face data into DuckDB. But I think it’s a great way to play with these kinds of use cases. DuckDB is a very expressive SQL tool, and it’s easy to run inside of a notebook. And then obviously, Hugging Face has so many good data sets that are available to play with for free. So, you know, this is the flavor of the data. It looks like… It’s probably one row per game. <br>[8:24] Ankur Goyal: And I looked at this before, and I think it’s 2014 to 2018. So, you know, here’s the data. We’re going to do something super simple to actually do the text-to-SQL stuff. So just a little bit about what’s going on here. This is the standard OpenAI client. I guess Hamel sort of alluded to this earlier. But… But in the spirit of staying simple, we really believe in writing framework-free, simple code that just uses the OpenAI client directly. <br>[9:00] Ankur Goyal: You can use all kinds of amazing tools as you get more and more into a use case, but almost always we see people start simple. And so this is just the standard OpenAI client. We did a little fun stuff here. This face URL thing, it’s totally optional, but we’re actually going to use… This proxy, that’s kind of like a free thing that Braintrust has. It lets you cache LLM calls. So when you’re doing repetitive stuff like this, it’s very helpful. And then this thing, we’ll see it in a second. <br>[9:34] Ankur Goyal: But basically, it adds a little bit of spectral fairy dust into the client so that it traces the LLM call in a way that makes it easy to debug. But it’s just the standard OpenAI client. We’re going to grab the schema from the table, and then we’re going to use GPT-4.0 for at least most of today. And that’s it. Here’s the simple prompt. Nothing too fancy. Asking it to write a SQL query. And let’s give it a go. Cool. So here’s the query that it generated. I don’t know. Dan, does that look right? <br>[10:20] Ankur Goyal: We’ll find out, I guess, in a few minutes. But maybe. you know, let’s run it. Okay. Well, as a big Warriors fan, I definitely believe that that’s right. So it looks like the Golden State Warriors won the most games in this period of time. And again, you know, that’s probably right. So as we talked about, an eval is, it’s literally just three things, data, task function, and scores. We’ve pretty much implemented our task function. This thing can take an input and then generate a query and a result. We’re pretty much there on the task function. <br>[11:07] Ankur Goyal: We just need to figure out the data and the scores. To create the initial dataset, I just wrote five questions. Honestly, I’m too lazy to write the SQL queries and the answers, and that’s okay. I would encourage you to be lazy as well in certain cases. And so let’s just use these questions. And what we’re going to do is actually, to start, we’re not going to evaluate whether the model generates the correct answer or not. We’re just going to evaluate whether it generates a valid SQL query. <br>[11:45] Ankur Goyal: And then we’re going to do some human review to actually bootstrap a data set from there. We’ll just use these questions. As I mentioned, we basically already wrote the task function. This thing just takes those two calls and puts them together into one function with a little bit of error handling so that we can distinguish between a valid and invalid query. Then the scoring function, let’s just keep it very simple. We don’t really know what the correct answer is to these SQL queries yet. <br>[12:20] Ankur Goyal: So let’s just see, you know, it’s, let’s say it’s a good output if there’s no error and it’s a bad output if there is an error. Again, to Hamel’s point earlier, like very little sort of framework stuff in here, just, this is literally just plain Python code. Let’s keep it very simple. And, and now we’re just going to glue this stuff together into an eval call. And, you know, we give it a project name. The experiment name is actually optional, but it helps, you know, keep it helps us keep track of some stuff easily. <br>[13:01] Ankur Goyal: And then we’ll give it the questions, the task function and the score. And we can run that. There we go. OK, so let’s take a look at this. Okay, so welcome to Braintrust. Let me go into, let me actually just make my thing light mode. There we go. Okay, welcome to Braintrust. So you can see, you know, really quickly, it looks like three out of the five passed this no error thing. We can just quickly look at these to get a sense. Looks like there was a binder error. <br>[13:49] Ankur Goyal: And it looks like a binder error over here. If you recall, I mentioned that OpenAI wrapping stuff, it sort of nicely captures the exact LLM call that ran. So you can see, you know, this is how we formatted the columns. That looks about right to me. If you want to mess around with it, you can actually, you know, do that. You can rerun the query. You can try out different models and stuff. We’re not going to do that right now, but just to give you a sense of some of the exploration you can do. <br>[14:19] Ankur Goyal: And then let’s actually look at these ones that were correct. So let’s see who led the league in three point shots. Pretty sure Houston is correct. That was James Harden’s sort of golden era. Okay, great. So what we’re going to do is actually, again, we were lazy earlier, but the model has very kindly for us generated a good piece of data. And so we can actually save this as something that we use as a reference example. And so I’m just going to add it to a data set. Let me make sure I cleared this out. <br>[15:02] Ankur Goyal: really from earlier yeah perfect um so i’m going to add it to that data set called uh golden data um and we’ll use that back in our code in a moment but let’s just look at these other ones so which team won the most games in 2015 that’s an empty result that’s clearly not the right answer and you know my spidey sense tells me that this is probably not the right format for the date and it’s filtering out rows that it shouldn’t. <br>[15:33] Ankur Goyal: So, you know, I don’t know, Dan, probably we should give the model a preview of what some of the data looks like so that it knows what the right date format is, for example. So let’s just keep that in our head for a second. And then this one, again, big Warriors fan, we know that this is correct. And so we’re going to add this to the data set as well. Awesome. Let’s just quickly look at the data set. So it’s kind of the same thing as an experiment. <br>[16:06] Ankur Goyal: It has some columns, we can play with the data. But now what we’ve done is we’ve actually bootstrapped some golden data. And this is data that not only do we have a question, but we have a reference answer, both the SQL query and the output that we believe to be correct. <br>[16:27] Ankur Goyal: And because we have that, we can actually make some stronger assertions when we’re running an eval to compare the query to the correct query and the generated answer to the correct answer so let’s go back and what we’re going to do is rework a few things to take advantage of the golden data that we have and also try to fix some of the issues that we saw when we were poking around. So I’m going to change how the data works a little bit. <br>[17:07] Ankur Goyal: Now I’m going to read the data set from Braintrust and I’m going to return those golden questions and then the remaining questions that are not in the golden data set, I’m just going to have the question itself. So now you can see for the things that are in the data set, we have this kind of fancier data structure, which has the question, it has the expected answer, it has some other stuff that is brain trust we’ll take advantage of. We don’t need to bother with it right now. But it’s really those things that… Okay, cool. <br>[17:47] Ankur Goyal: And now let’s change the prompt a little bit. So instead of just looking at the columns, we’re going to get a row of data. and then sort of inject it into this table. I really hope I formatted this correctly. We can double check that I did in a second, but it doesn’t matter too much. It’s okay to be wrong every once in a while. And so let’s do that. Okay, that looks like a much better thing. It’s probably taking advantage of the date format that it knows about now. And then let’s improve the scoring. <br>[18:26] Ankur Goyal: stuff a little bit. So we’re gonna actually pull a few fancy scoring functions from auto evals, which is an open source library that we and our sort of community of customers and users maintain. And we’re gonna add two more scoring functions. So this correct result function is going to get all the values from the query. We don’t care too much about the column names. So we’re just gonna look at the values. and then it’s going to use this JSON diff method to just recursively compare them. <br>[19:00] Ankur Goyal: There’s probably some better stuff we can do, but let’s just start here. Then we’re also going to use an LLM-based score called SQL. This actually asks a model to look at the reference query and the generated query, and try to determine if they’re semantically answering the same question or not. We’ll just save these. <br>[19:25] Ankur Goyal: is that score is that score binary or how what’s the score mean or what does the score look like let’s let’s look at it in a second it’s a good great question um so uh let’s you know plug it together so again we have this eval thingy we haven’t we redefined this function now we’re using this load data thing to get the data and now we have these three scoring functions so we’ll just Awesome. Okay, so let’s start by answering your question. <br>[20:10] Ankur Goyal: So anytime you run a scoring function in Braintrust, we actually capture a bunch of metadata about it. We really, really believe that debugging a scoring function is as important as debugging the task function itself. So let’s look at exactly what the model sees. So this is the prompt that the model saw. It said, you’re comparing this. Here’s the question. Here’s the expert SQL. Here’s the submitted SQL. This is the criteria. And then it’s actually doing a function call under the hood. And the function call is just picking one of these two values, correct or incorrect. <br>[20:55] Ankur Goyal: And so this is a binary score, basically, that’s asking it to do that and sort of explain its reasoning, which you can also debug right here. Great. Let’s analyze this as a whole. The first thing you’ll see is that luckily we did not break those two that we know to be correct. We didn’t break the SQL queries or the results. It looks like we improved on the no error front. There’s one example that did not return an error, that did return an error before. We can actually, if we want to zoom in on that. <br>[21:36] Ankur Goyal: we can just look at that example. It looks like before it returned an error, now it didn’t. If we turn off diff mode, we can kind of look at this, determine whether this is the correct answer or not. I actually don’t think it’s the correct answer because it’s looking at which team had the biggest difference in consecutive years, and it’s like hard-coded 20 and 19. I don’t think this is the right thing. So that’s one for us to improve. <br>[22:14] Ankur Goyal: One thing you could do actually at this point is you could add it to the data set. And if you want, you could try to handwrite the correct SQL query in the answer. I’m not going to do that, but you could. And let’s just poke around a little bit more. So that’s still an error. Which team won the most games? And this one was still correct. Again, I really, really like to manually look at data because it allows me to double check all of my assumptions. I don’t trust anything. <br>[22:47] Ankur Goyal: And so I spend a lot of time actually doing this when I’m evaling stuff. Which team won the most games in 2015? OK, this is the one that had an incorrect answer before. And now it looks like it’s actually correct. <br>[23:03] Ankur Goyal: you can turn on diff mode and you can call that it returned an empty results before and now it returned something um so again you know as a warriors fan i know 100 in my heart that this answer is correct um and so i’m going to add this to the golden data set awesome so now we’re you know we’re building up a data set i think we’re like 15 minutes in um in my experience honestly 50 good golden examples that have been lovingly curated by a passionate small team of people is really all you need <br>[23:42] Ankur Goyal: to have a really good AI application. We’re already like a good chunk of the way there just sort of playing around with this demo, but, you know, hopefully it’s kind of clear. It’s not crazy rocket science to do this stuff. I think it just requires some care and like, you know, looking at the data closely. Okay, cool. So, you know, there’s a bunch of stuff we could do from here. We could try to play around with the prompt a little bit more. <br>[24:10] Ankur Goyal: While I was building this, I was thinking about maybe like feeding the errors back to the prompt in a new message and asking it to generate another one. But just to take it in a different direction, like I said, there’s like three things you could do. You can change the data, you can change the task function, you could change the scoring function. Let’s keep… playing with the data. And what we’re going to do is actually try to generate more data than we currently have. And we’re going to use a slightly different method. <br>[24:40] Ankur Goyal: So the first method, we kind of hand wrote some really good questions that we thought pinpointed at the task that we’re working on. What we’re going to do now is more of like a coverage style thing where we actually use a model to generate questions for us. And this code, again, it’s not that much code. So I’ll just walk through it really quickly. We’re going to use function calling to sort of force the model to generate stuff that we can easily parse. <br>[25:12] Ankur Goyal: And so in this case, we’re going to have it generate a list of questions. And each question is going to contain SQL and a question. I’m specifically asking it to generate the SQL because my intuition is that If I have the model generate SQL and then generate an explanation about the SQL, it’s more likely that the explanation is correct. Then if I have a model generate a question and then a SQL query that answers the question, it feels less likely that it would generate the correct SQL query. <br>[25:47] Ankur Goyal: And so I’m kind of asking it to do both at once and really focus on the SQL. And I’m doing my same sort of prompt as up above. You know, honestly, a fun thing you could do, we’re not going to do this right now, but you could try using a non-open AI model here just to sort of avoid some built-in biases that one vendor’s models may have. I’m not going to do that here, but you could, or you could do both. <br>[26:19] Ankur Goyal: And yeah, I’m just going to ask it to generate some queries, give it the schema, and that’s it. So. We’ll run this. Here’s an example of a query and the question. What do you think, Dan? This looks about right to me. <br>[26:42] Dan Becker: Having trouble, are they asking for 82? Are they asking for the 82 times the number of teams there are? Oh, they’re doing a group by team. Okay. <br>[26:52] Ankur Goyal: Yeah, Cool. Okay. And the last thing we’re going to do is my guess is that some of the queries that are generated are bogus. Like they’re just not valid SQL queries. So we’re just going to try them. And then the ones that succeed, we’re going to add them to a list. Let’s do that. Okay, cool. Looks like a few of them didn’t work. And then here’s an example of one that did. And because we generated it, we have this really rich data structure that that we can use. <br>[27:23] Ankur Goyal: So we have the query or the question, we have the expected results because we run the query, and we have the SQL. So that’s awesome. Now we’re going to add this to our load data thing as well. We’re going to kind of do the same thing where we load the golden data set, and then we get all of the questions and generated data that are not in the golden data set. <br>[27:54] Ankur Goyal: The reason I wrote the code this way is that now as we keep iterating on this, each time we add something to the golden dataset, if it overlaps with the generated data or the original questions, we don’t need to worry about that. We don’t really need to change our scoring functions because we already have scoring functions that test the correctness of the SQL, whether it’s a valid query or not, and whether the results are correct. Let’s just reuse the scoring functions that we had before. and run another experiment. Awesome. Great. <br>[28:38] Ankur Goyal: So you can see this experiment is automatically compared with the sample one that we did. We could compare it to the initial one if we want. And it’s very easy to play around with this. Looks like we didn’t regress anything. There’s not a lot of overlap between the two. This makes sense. We didn’t change the task function at all and we just added data. Makes sense that we didn’t improve or regress anything compared to the previous experiment. It looks like we have a fairly rich set of values here. There’s some examples like this one. <br>[29:21] Ankur Goyal: Looks like it was one of the generated queries. And looks like, although we have an expected answer here, maybe the generated SQL query is a little bit different. And so we should dig into this and understand which one is correct. Maybe the generated answer is incorrect. Maybe the original… data generation process yielded something incorrect, but at least we have something to diff and sort of understand that. You can also sort of break this down here. <br>[29:59] Ankur Goyal: So If you want to look per category and try to understand what the differences in scores are, that’s really easy to do. Or if you want to break it down this way and actually see like of the three categories, how did we do? It’s easy to sort of explore the data and just look at the subcomponents that you want. And so, you know, from here, again, we’ve just made our eval process richer. Now we have more data. We could. <br>[30:30] Ankur Goyal: go and generate even more data, just literally run that code again and generate 10 more examples, try a different model. We could explore some of these cases and try to understand why is essentially the model disagreeing with itself here, because we use GPT-40 in both cases. This is probably a really good example to dig into. Or we could just try changing the task function, maybe provide it two rows of data. maybe provided some summary statistics about the minimum and maximum year or something to help with some of the questions. <br>[31:02] Ankur Goyal: There’s so many different directions that we could take it. However, just for fun, we’re going to take it in kind of a simple direction, which is let’s just pry GPT-4 and see how that does compared to GPT-4.0. So I’m just going to change this global variable, which I referenced above, and give it a go. Interesting. Okay. So it doesn’t look like it was a slam dunk. You know, we actually, looks like regressed across the board with GPT-4 versus GPT-4.0. I would personally be curious, I guess we can sort of look at this quickly. <br>[31:59] Ankur Goyal: Like, does this, how does it vary between, yeah, it looks like we even regressed on the golden data. So the golden data we know, is correct. The generated data we’re a little bit less certain on, but it looks like it even regressed on this. I mean, I’d actually be, I haven’t looked at this myself yet, but it’d be kind of interesting to understand. Yeah, it looks like, you know, for example, GPT-4 messed up the date syntax once more. We should make sure that we gave it the right prompt. Yeah, it looks like we… <br>[32:36] Ankur Goyal: looks like we gave it the right sample i mean this formatting could definitely be improved it doesn’t look like my new lines uh maybe made it through correctly um but yeah this just kind of gives you an idea uh there’s there’s so much stuff to do um in in digging through data and and understanding it and you know literally starting from nothing just a data set i think we’ve we’ve kind of iterated our way into um and sorry no data set no no eval data set we just have like an nba data set we’ve iterated <br>[33:07] Ankur Goyal: our way into a pretty rich application here where we have you know a non-trivial prompt that’s generating queries we have a pretty rich data set with that attack kind of different parts of the problem and then we have three scoring functions that help us diagnose systematic things like is the query even succeeding in the first place from you know the more nuanced things like does it return the correct result or is it semantically the right sequel So, you know, there’s a lot of different places to take it from here. <br>[33:39] Ankur Goyal: And <br>[33:40] Hamel Husain: I just want to just point out that for students kind of watching the class, this is actually very similar to the honeycomb example that we’ve been talking about in many ways. Like, you know, my workflow was actually very similar to this. We didn’t have any we barely had any data to start with. We had to synthetically generate lots of data. You’ve seen that. And so I think it’s really interesting here. Like. <br>[34:04] Hamel Husain: can see like what workflow might look like if you use a tool and how you know it might automate some things and help you organize all this information um so it’s actually like this is not this is not necessarily like a toy example like this is actually like very closely mirrors like something that i’ve done in real life and um i think it’s great that on that encore is like you know kind of doing the sql use case because it maps really nicely too <br>[34:33] Ankur Goyal: the one that you may have been practicing with already awesome yeah i’m very happy to share we’ll publish the uh the notebook um uh right after this so that folks can play around with that and you know tweak it and um use it in their own environment we’re <br>[34:49] Dan Becker: gonna have a bunch of questions but i have one right now um so there is a bunch of functionality built in if you’re generating sql that is really like cool and is sort of taking advantage of the specifics of knowing that you’re using sql what are the other type i think we saw something for generating json what are the other types of use cases or generated text where you’ve got some magic built in yeah <br>[35:16] Ankur Goyal: i mean um the you know the only thing that we use that was built in here that sql related is that one scoring function that compares to sql queries we have In auto evals, we sort of demised for quality over quantity. So I think there’s about 20 different scoring functions that help you out with things like RAG. And, you know, within RAG, assessing the answer, the generated answer that, you know, retrieved context relative to the answer, relative to the query and so on. There’s a really popular framework called RAGOS. We have the actually. <br>[35:58] Ankur Goyal: an implementation of the ROGOS metrics built into auto evals with a few bug fixes and uses function calling to improve the accuracy and so on. We also have a bunch of tools for measuring the output of tool calls and we see people do increasingly complex agentic tool calling workflows where you’re measuring both the output of individual tool calls as well as the end-to-end flow. did you accomplish the task that you initially wanted to set out to do? <br>[36:33] Ankur Goyal: And then honestly, we have a bunch of just building blocks that are, they sound really simple, but having written a good chunk of the code myself, they’re like, they’re just a pain in the butt. Like comparing two lists of strings in today’s world is really hard. First of all, like normalizing that comparison to a number between zero and one. is not trivial even if you’re just comparing the strings. But doing it in a way that is semantic is even harder. <br>[37:03] Ankur Goyal: So we have one of the most popular scoring functions is a list of strings comparator, and you can plug in the comparison function. So you can do like GPT pairwise comparison, you can do embedding comparison, you could do Levenstein and so on. So just cut some building blocks like that that I think are. very painful to handwrite, but generally quite applicable. Cool. Awesome. Yes, I see some questions in here. Do you guys want to emcee through the questions or should I sort of read? <br>[37:43] Dan Becker: I’m happy either way. If you’re going to do it yourself, you should sort by most upvotes. <br>[37:48] Ankur Goyal: Okay. Why don’t you emcee them just because make it more interactive. <br>[37:52] Dan Becker: Great. We got two from Wade Gilliam. Brain trust looks a lot like Langsmith. Wondering what the feature differences are or pros and cons from experienced people. If you were saying like, when should someone prefer one or the other? <br>[38:07] Hamel Husain: What are the- Don’t feel pressured to answer this question. I know certain, I know that there’s some culture around, hey, let’s not, you know, try to attack or try to compare ourselves to other vendors. So feel free. I mean, you don’t have to answer it directly. <br>[38:21] Ankur Goyal: Yeah. It’s not appropriate. I would say I think I will hold off. I have a lot of respect for the team at Wangchain and all the amazing stuff that they’ve built. So I’m not going to say anything bad about their product. Both products are pretty easy to try. You can just sign up on the websites and try them. There are a number of differences in the workflow and the UI and a bunch of other things. So if I were you, I would just try them. <br>[38:52] Ankur Goyal: and sort of get a sense of what feels right for what you’re trying to do. I know, Hamel, you tried like 25 different tools or 30 different tools. If he can try 30, you know, you can try two. And so you might as well. <br>[39:05] Hamel Husain: More like a dozen. I’m not that crazy. <br>[39:07] Ankur Goyal: Okay, okay. Well, sure. <br>[39:09] Hamel Husain: It felt like 30, but yeah. <br>[39:12] Dan Becker: Cool. Next question. How would you run open source or open weights models in Braintrust? <br>[39:19] Ankur Goyal: Yeah. Great question. Let’s actually answer this sort of specifically. So again, I know I sound like a dead horse or whatever, a broken record, but evals are just three things, data, task function, and scoring function. So let’s talk about each of them. So data, we just hand wrote these questions. It doesn’t matter. It’s no open weights or closed weight model. It’s just You can do the data generation however you want. It’s just a script later here as well. The task function, so we have our generate query thing. You know, none of this is OpenAI specific. <br>[40:05] Ankur Goyal: This is in all Braintrust cares about is that you write a function that takes some input and returns some output. What happens inside of this function, it doesn’t matter. If you use the OpenAI client library, then you get some nice tracing features like you get inside of Braintrust, you get, you know, this kind of like really nice formatted thing. But you don’t have to do that. Most of the open-weight models hosted on platforms like Together, for example, they actually have OpenAI-compatible APIs. So you could do that and get all the tracing goodies and stuff too. <br>[40:54] Ankur Goyal: I know someone asked about caching. The proxy is actually an open-source project that we maintain. That’s deployed on Cloudflare and you can deploy it in AWS or your own Cloudflare, wherever you want as well. In each place that you can deploy it, it just uses whatever the easy, durable key value store is. So Cloudflare has its own key value store. It end-to-end encrypts the payload and response in terms of the API key or rather a hash of the API key. And so it’s… you know, very safe from that standpoint. And the proxy is also pluggable. <br>[41:36] Ankur Goyal: And so you can point it at self-hosted models, or you could even point it to a model that’s running on your laptop. When I’m on long flights and I’m working on this stuff, I run Ollama locally and then point the proxy at it. And so you can also use kind of that abstraction with an open-weight model. And many of our customers do. <br>[42:00] Dan Becker: couple questions about um sharing the link to the notebook i think that may have already been shared in the discord but at some point uh i assume that you’ll are you comfortable sharing a link of course yeah yeah i’ll just uh we actually have this section on our website um <br>[42:17] Ankur Goyal: called the cookbook uh and there’s a bunch of use cases here um i can share this in the discord channel i haven’t published this new one yet but i’ll publish it in like two minutes after we wrap up this call. And then you’ll be able to sort of scroll through it like this and then access the notebook here. <br>[42:38] Dan Becker: Cool. How about this one? So we’ve got from someone, an anonymous attendee wrote, I love this workflow. Are there examples or tasks that you’d say do not lend themselves to data generation of the kind that you showcased today? Or maybe are there tasks that… you sometimes see people ask you about it like we’re not a great fit for that yet um that’s a good question um let me try to think of some recent examples um you know i <br>[43:13] Ankur Goyal: think uh one thing that comes to mind is if you’re doing classical ml i think the shape of your data is quite a bit So let’s say you’re doing like a broad classification problem and you’re training like a boosted decision tree and you are, you know, you have like one million examples that you want to test, which is totally reasonable because it takes less than five milliseconds to run on one example. I think that the workflow in brain trust theoretically will work. <br>[43:52] Ankur Goyal: However, as you probably saw from me clicking around, we really believe that it’s important to stare at individual examples and build a lot of intuition around them. And so a lot of brain trust is looking, it’s helping you way find two individual examples that you can look at in more detail. Someone asked about the difference between us and other products. And, you know, spiritually, I would actually say that’s something that is very informed by my personal experience working on evals for like eight years. It’s just, that’s just the workflow that I’ve really done and refined. <br>[44:32] Ankur Goyal: And I think that’s actually pretty unique to brain trust. And so, you know, in LLM land, I think wayfinding is really important. <br>[44:42] Ankur Goyal: In classical ML, I think looking at aggregate statistics with multi-dimensional visualizations and stuff is actually often a more useful way to analyze the data and so that’s probably a use case where I would recommend using a different tool <br>[45:04] Dan Becker: I assume, two questions. I assume that you’re looking for entirely text data and that you don’t, you are not used to, or someone’s submitting images or getting images back. <br>[45:15] Ankur Goyal: We actually support images natively. We also support them in our prompt playground and you know, we visualize images, LLM calls, show images and everything. Cool. <br>[45:27] Dan Becker: And then do people, when they’re using Braintrust, is that purely during model development? or do they have some brain trust call to collect data on a deployed model? <br>[45:42] Ankur Goyal: Yeah. So there’s two major use cases for brain trust. One is what we would call offline evals, which is what we talked about today. And the other, it’s sometimes called online evals or observability or logging. And pretty much all of our customers do both, and they integrate really nicely together in brain trust. So. I can actually show you just really quickly, maybe we can kill a few birds with one stone here. But here’s an example where it’s actually not just generating an image, it’s generating HTML. <br>[46:21] Ankur Goyal: And you can render the HTML that’s interactive right here in Braintrust. There’s a sandbox built into the product because a lot of our customers are generating UI using AI. And this is the logs view. So it’s actually not very different from the eval view. It’s another thing that makes Braintrust, I think, quite special and different is kind of the very tight integration and identical data structure between logs and evals. And you can capture user feedback right in the UI. You can capture it through the API from your users. <br>[47:00] Ankur Goyal: If your users leave comments, you can actually capture those two through the API, or you can just save stuff in the UI. And then you can also do the same thing where you add stuff to a dataset from here. <br>[47:12] Dan Becker: Cool. I got a couple more. Top one right now is, often when we develop text-to-SQL applications for a SQL database, there are a bunch of challenges due to lack of familiarity with the database. In our case, there’s no documentation available and the database is large and complex. This complexity makes it difficult to determine the right question to ask because you don’t have a clear understanding of the database’s structure. Do you have any suggestions for operating when you’ve got a complex database and you don’t actually understand the structure of it? <br>[47:52] Ankur Goyal: Yeah, I mean, I think that is a great question because first, in practice, things are much hairier than what we can talk about in like a 20-minute demo session um but honestly i wouldn’t over complicate it like in those scenarios i think the most useful thing you can do is you know let’s say that you’re doing that in the context of like an internal tool that your teams can use to do to ask questions on some data i would instrument that tool from day one to generate logs like this and capture user feedback and then <br>[48:27] Ankur Goyal: try to categorize the questions, either using a model or asking your users to categorize them, or categorizing them manually. It’s not the end of the world to do that every once in a while. You can tag them or do whatever is easy. Then what I would personally do, if you remember over here, we built these different subcategories, and then we looked at the scores within the subcategories. I think you want to get to a point. <br>[48:56] Ankur Goyal: where you can successfully classify the different types of questions, whether it has to do with the nature of the question or the tables or subset of the schema it’s targeting. But try to build an understanding of what kinds of questions you can answer successfully and which kinds you can’t. And that’s not going to happen overnight. You need to sort of iterate towards it. But getting to a good taxonomy is very, very valuable. It’s a little bit of an art form. So that’s where a lot of your creativity. can come in. <br>[49:28] Ankur Goyal: And then you know exactly what to do. Either you say, hey, there’s a set of questions, like I have my super complex data and none of the financial questions or auditing questions work. Maybe we focus on improving those for a while. Or we accept that the data set that we are running the Text2SQL app on is inherently too messy to do auditing questions. So let’s do some schema work, like maybe let’s create some views or something that make the life of the model a lot easier and see if we can improve that category. <br>[50:04] Dan Becker: Yep. It’s also nice. It seems like a place where you see the connection between what you were showing for observability on a deployed model and maybe you even have like thumbs up or thumbs down coming back and looping back to the experimental workflow. <br>[50:19] Ankur Goyal: Yeah, exactly. Exactly. Yeah. There’s some stuff too. For example, I’ll show you really quickly. We also make it really easy for you. If you hit the R key from anywhere in the product, you can actually enter this sort of human review mode where you can just really quickly use keyboard shortcuts and actually like rate things. And this is really good, especially in a use case like that. If you have maybe an analyst audience who could look through a bunch of questions and answers and just rapidly rate them. I think it’s really powerful to do that. <br>[50:58] Ankur Goyal: And you don’t have to like… pre-populate a queue or do anything like that. You literally just hit the R key from anywhere in the log view experiment, et cetera. And you can sort of enter this workflow. Cool. <br>[51:10] Dan Becker: All right. Thanks so much. <br>[51:12] Ankur Goyal: Thanks for having me. All right. <br>[51:14] Dan Becker: See ya.</p>
+</div>
+</div>
+</div>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../../education/evals/allaire.html" class="pagination-link" aria-label="Inspect, An OSS framework for LLM evals">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Inspect, An OSS framework for LLM evals</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../education/evals/schoelkopf.html" class="pagination-link" aria-label="A Deep Dive on LLM Evaluation">
+        <span class="nav-page-text">A Deep Dive on LLM Evaluation</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/evals/ankur.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+<script src="../../magnetic-cursor.js"></script>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

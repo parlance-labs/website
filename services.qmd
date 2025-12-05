@@ -41,7 +41,7 @@ We offer workshops on LLM performance issues, evals, and fine-tuning. Our course
 
 We provide holistic guidance on improving your AI product, customized to your specific use case—evals, RAG, frameworks, vendor selection, and more. We take on a limited number of clients each quarter to ensure deep engagement.
 
-**Minimum engagement starts at $93,500** for a two-month sprint. If this is out of your budget, check out our [AI Evals course](https://maven.com/parlance-labs/evals){target="_blank"}.
+**Minimum engagement starts at $93,500** for a two-month sprint. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
 
 ---
 
