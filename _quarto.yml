@@ -103,5 +103,3 @@ format:
     toc: true
     include-in-header: header.html
     include-before-body: before-body.html
-    include-after-body:
-      text: '<script src="/magnetic-cursor.js"></script>'
