@@ -147,12 +147,9 @@
       }
     }
     
-    // Education pages: navbar only
+    // Education pages: navbar only (disable in main content and sidebar)
     if (isEducationPage && !inNavbar) {
-      const inMainContent = target?.closest('main, #quarto-document-content');
-      if (inMainContent) {
-        inDisabledSection = true;
-      }
+      inDisabledSection = true;
     }
     
     if (inDisabledSection) {
