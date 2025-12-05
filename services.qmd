@@ -48,8 +48,8 @@ We provide holistic guidance on improving your AI product, customized to your sp
 :::{.cta-section .cta-prominent}
 <div class="cta-buttons">
 <div class="cta-option">
-[Enroll in Course](https://maven.com/parlance-labs/evals){.cta-button-primary role="button" target="_blank"}
-<span class="cta-subtext">$4,250 per seat</span>
+[Enroll in Course](https://evals.info){.cta-button-primary role="button" target="_blank"}
+<span class="cta-subtext">$3,750 per seat</span>
 </div>
 <div class="cta-option">
 [Apply for Advisory](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
