@@ -1,6 +1,6 @@
 ---
 title: "Brand Guidelines"
-subtitle: "Parlance Labs — Visual Identity for Social Media & Marketing"
+subtitle: "Parlance Labs — Visual Identity"
 listing: false
 search: false
 sitemap: false
@@ -10,265 +10,144 @@ page-layout: full
 
 ```{=html}
 <style>
-/* Brand page styles */
 .brand-section {
-  margin: 3rem 0;
-  padding: 2rem 0;
-  border-top: 1px solid var(--pl-border-subtle);
+  margin: 2.5rem 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid rgba(234, 88, 12, 0.2);
 }
 
 .brand-section:first-of-type {
   border-top: none;
-  margin-top: 0.5rem;
+  margin-top: 0;
 }
 
 .brand-section h2 {
   border-bottom: none;
   margin-top: 0;
-  padding-bottom: 0;
+  margin-bottom: 1rem;
 }
 
-/* Color system */
 .color-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
-  margin: 1.5rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
 }
 
 .color-card {
-  background: var(--pl-bg-card);
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(234, 88, 12, 0.15);
+  border-radius: 10px;
   overflow: hidden;
-  transition: border-color 0.2s ease;
-}
-
-.color-card:hover {
-  border-color: var(--pl-border-medium);
 }
 
 .color-swatch {
-  height: 80px;
+  height: 70px;
   width: 100%;
 }
 
-.color-swatch.large {
-  height: 100px;
-}
-
 .color-info {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 .color-info h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.95rem;
-  color: var(--pl-text-primary);
-}
-
-.color-info .color-codes {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.85rem;
+  color: #f4f4f5;
 }
 
 .color-info code {
-  font-size: 0.75rem;
-  background: var(--pl-bg-elevated);
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-}
-
-.color-info p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--pl-text-muted);
-  line-height: 1.4;
-}
-
-/* Usage cards */
-.usage-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
-  margin: 1.5rem 0;
-}
-
-.usage-card {
-  background: var(--pl-bg-card);
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 12px;
-  padding: 1.25rem;
-}
-
-.usage-card h4 {
-  margin: 0 0 0.5rem 0;
-  color: var(--pl-text-primary);
-  font-size: 0.95rem;
-}
-
-.usage-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-/* Typography specimens */
-.type-specimen {
-  background: var(--pl-bg-card);
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.font-sample {
-  margin: 1.25rem 0;
-  padding: 1.25rem;
-  background: var(--pl-bg-elevated);
-  border-radius: 8px;
-}
-
-.font-sample:first-child {
-  margin-top: 0;
-}
-
-.font-sample:last-child {
-  margin-bottom: 0;
-}
-
-.font-label {
   font-size: 0.7rem;
-  color: var(--pl-text-muted);
+  background: rgba(234, 88, 12, 0.15);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  margin-right: 0.25rem;
+}
+
+.ref-table {
+  width: 100%;
+  font-size: 0.85rem;
+}
+
+.ref-table th {
+  text-align: left;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #a1a1aa;
+  padding: 0.5rem 0.75rem;
+  background: rgba(234, 88, 12, 0.1);
 }
 
-.font-display {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--pl-text-primary);
-  line-height: 1.2;
+.ref-table td {
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid rgba(234, 88, 12, 0.15);
 }
 
-.font-display.body {
-  font-size: 1.05rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--pl-text-secondary);
+.ref-table code {
+  font-size: 0.75rem;
+  background: rgba(234, 88, 12, 0.15);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
 }
 
-/* Button examples */
-.button-row {
+.btn-row {
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
-  margin: 1.5rem 0;
-  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 0;
 }
 
 .btn-demo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, sans-serif;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
   font-weight: 600;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  cursor: pointer;
+  font-size: 0.85rem;
   border: none;
+  cursor: pointer;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #0f1114;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: #ffffff;
-  color: #0f1114;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-secondary:hover {
-  background: #f4f4f5;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.btn-ghost {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+.btn-primary-dark {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
   color: #ffffff;
 }
 
-.btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.4);
+.btn-secondary-dark {
+  background: #ffffff;
+  color: #0f1114;
 }
 
-/* Do's and Don'ts */
-.guidelines-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin: 1.5rem 0;
+.btn-ghost-dark {
+  background: transparent;
+  border: 1px solid rgba(234, 88, 12, 0.4);
+  color: #fb923c;
 }
 
-@media (max-width: 768px) {
-  .guidelines-grid {
-    grid-template-columns: 1fr;
-  }
+.btn-primary-light {
+  background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);
+  color: #ffffff;
 }
 
-.guideline-card {
-  background: var(--pl-bg-card);
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 12px;
-  padding: 1.5rem;
+.btn-secondary-light {
+  background: #1c1917;
+  color: #ffffff;
 }
 
-.guideline-card h4 {
-  margin: 0 0 1rem 0;
+.btn-ghost-light {
+  background: transparent;
+  border: 1px solid #c2410c;
+  color: #9a3412;
+}
+
+.specs-row {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  color: #d4d4d8;
 }
 
-.guideline-card.do h4 {
-  color: #4ade80;
-}
-
-.guideline-card.dont h4 {
-  color: #f87171;
-}
-
-.guideline-card ul {
-  margin: 0;
-  padding-left: 1.25rem;
-}
-
-.guideline-card li {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin-bottom: 0.5rem;
-  color: var(--pl-text-secondary);
-}
-
-.guideline-card li:last-child {
-  margin-bottom: 0;
+.specs-row strong {
+  color: #f4f4f5;
 }
 
 /* Theme toggle */
@@ -276,696 +155,189 @@ page-layout: full
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .theme-toggle {
   display: flex;
-  background: var(--pl-bg-elevated);
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 8px;
-  padding: 4px;
-  gap: 4px;
+  background: rgba(234, 88, 12, 0.1);
+  border: 1px solid rgba(234, 88, 12, 0.2);
+  border-radius: 6px;
+  padding: 3px;
 }
 
 .theme-toggle-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.75rem;
   border: none;
   background: transparent;
-  color: var(--pl-text-muted);
-  font-size: 0.85rem;
-  font-weight: 500;
-  border-radius: 6px;
+  color: #a1a1aa;
+  font-size: 0.8rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
 .theme-toggle-btn.active {
-  background: var(--pl-accent);
-  color: #0f1114;
+  background: #ea580c;
+  color: #ffffff;
 }
 
-.theme-toggle-btn:hover:not(.active) {
-  color: var(--pl-text-primary);
-  background: rgba(255,255,255,0.05);
-}
-
-/* Mock carousel slides - Base */
-.slide-examples {
+/* Slide mocks */
+.slide-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 1.5rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
 }
 
-.slide-examples-container {
-  position: relative;
-}
-
-.slide-examples-dark,
-.slide-examples-light {
-  transition: opacity 0.3s ease;
-}
-
-.slide-examples-light {
-  display: none;
-}
-
-.slide-examples-container.light-mode .slide-examples-dark {
-  display: none;
-}
-
-.slide-examples-container.light-mode .slide-examples-light {
-  display: grid;
-}
-
-/* Dark theme slides */
-.slide-mock {
-  background: #0f1114;
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 12px;
-  padding: 1.5rem;
+.slide-mock, .slide-mock-light {
   aspect-ratio: 1;
+  border-radius: 10px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   text-align: center;
+  font-size: 0.85rem;
 }
 
-.slide-mock.testimonial {
-  background: #1a1d23;
-  justify-content: space-between;
-  padding: 1.75rem;
-}
-
-.slide-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--pl-text-muted);
-  margin-bottom: 0.75rem;
-}
-
-.slide-mock h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
+.slide-mock {
+  background: #0f1114;
+  border: 1px solid rgba(234, 88, 12, 0.2);
   color: #fff;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
+}
+
+.slide-mock-light {
+  background: #fafaf9;
+  border: 1px solid #e7e5e4;
+  color: #1c1917;
 }
 
 .slide-mock .highlight {
-  color: #f59e0b;
-}
-
-.slide-mock .stars {
-  color: #f59e0b;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.slide-mock .quote {
-  font-size: 0.85rem;
-  color: #d4d4d8;
-  line-height: 1.5;
-  font-style: italic;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-}
-
-.slide-mock .attribution {
-  font-size: 0.75rem;
-  color: #a1a1aa;
-  margin-top: 1rem;
-}
-
-.slide-mock .attribution strong {
-  color: #f4f4f5;
-  font-weight: 600;
-}
-
-.slide-mock .cohort-badge {
-  display: inline-block;
-  background: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
-  font-size: 0.6rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-left: 0.5rem;
-}
-
-.slide-cta {
-  display: inline-block;
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #0f1114;
-  font-weight: 600;
-  font-size: 0.8rem;
-  padding: 0.6rem 1.25rem;
-  border-radius: 6px;
-  margin-top: 1rem;
-}
-
-.slide-secondary-cta {
-  display: inline-block;
-  background: #fff;
-  color: #0f1114;
-  font-weight: 600;
-  font-size: 0.75rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  margin-top: 0.75rem;
-}
-
-.instructor-photos {
-  display: flex;
-  gap: -0.5rem;
-  margin: 1rem 0;
-}
-
-.photo-placeholder {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-  border: 2px solid #0f1114;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.6rem;
-  color: #9ca3af;
-}
-
-.photo-placeholder:nth-child(2) {
-  margin-left: -12px;
-}
-
-.company-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
-  opacity: 0.9;
-}
-
-.lennys-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.35rem 0.65rem;
-  border-radius: 6px;
-  font-size: 0.65rem;
-  color: #d4d4d8;
-  margin-top: 1rem;
-}
-
-/* Light theme slides */
-.slide-mock-light {
-  background: #fafaf9;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 1.5rem;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.slide-mock-light.testimonial {
-  background: #ffffff;
-  border: 1px solid #e5e5e5;
-  justify-content: space-between;
-  padding: 1.75rem;
-}
-
-.slide-mock-light .slide-label {
-  color: #78716c;
-}
-
-.slide-mock-light h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #18181b;
-  margin: 0 0 0.5rem 0;
-  line-height: 1.3;
+  color: #fb923c;
 }
 
 .slide-mock-light .highlight {
-  color: #b45309;
+  color: #c2410c;
 }
 
-.slide-mock-light .stars {
-  color: #f59e0b;
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.slide-mock-light .quote {
-  font-size: 0.85rem;
-  color: #44403c;
-  line-height: 1.5;
-  font-style: italic;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-}
-
-.slide-mock-light .attribution {
-  font-size: 0.75rem;
-  color: #78716c;
-  margin-top: 1rem;
-}
-
-.slide-mock-light .attribution strong {
-  color: #18181b;
-  font-weight: 600;
-}
-
-.slide-mock-light .cohort-badge {
-  display: inline-block;
-  background: #fef3c7;
-  color: #b45309;
+.slide-label {
   font-size: 0.6rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-left: 0.5rem;
-}
-
-.slide-mock-light .slide-cta {
-  display: inline-block;
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.8rem;
-  padding: 0.6rem 1.25rem;
-  border-radius: 6px;
-  margin-top: 1rem;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
-}
-
-.slide-mock-light .slide-secondary-cta {
-  display: inline-block;
-  background: #18181b;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.75rem;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  margin-top: 0.75rem;
-}
-
-.slide-mock-light .instructor-photos {
-  display: flex;
-  gap: -0.5rem;
-  margin: 1rem 0;
-}
-
-.slide-mock-light .photo-placeholder {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #d6d3d1 0%, #a8a29e 100%);
-  border: 2px solid #fafaf9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.6rem;
-  color: #57534e;
-}
-
-.slide-mock-light .photo-placeholder:nth-child(2) {
-  margin-left: -12px;
-}
-
-.slide-mock-light .company-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #18181b;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
   margin-bottom: 0.5rem;
 }
 
-.slide-mock-light .lennys-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  background: #fef3c7;
-  border: 1px solid #fcd34d;
-  padding: 0.35rem 0.65rem;
+.slide-examples-light { display: none; }
+.slide-examples-container.light-mode .slide-examples-dark { display: none; }
+.slide-examples-container.light-mode .slide-examples-light { display: grid; }
+
+.mode-note {
+  font-size: 0.8rem;
+  color: #a1a1aa;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(234, 88, 12, 0.08);
   border-radius: 6px;
-  font-size: 0.65rem;
-  color: #92400e;
-  margin-top: 1rem;
-}
-
-.slide-mock-light .lennys-badge strong {
-  color: #78350f;
-}
-
-/* Social specs */
-.specs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-
-.spec-card {
-  background: var(--pl-bg-elevated);
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.spec-card h5 {
-  margin: 0 0 0.35rem 0;
-  color: var(--pl-text-primary);
-  font-size: 0.85rem;
-}
-
-.spec-card p {
-  margin: 0;
-  font-size: 0.8rem;
-  color: var(--pl-text-muted);
-}
-
-/* Reference table */
-.ref-table {
-  width: 100%;
-  margin: 1.5rem 0;
-}
-
-.ref-table th {
-  text-align: left;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--pl-text-muted);
-  padding: 0.75rem 1rem;
-  background: var(--pl-bg-elevated);
-}
-
-.ref-table td {
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  border-top: 1px solid var(--pl-border-subtle);
-}
-
-.ref-table code {
-  font-size: 0.8rem;
-}
-
-/* Intro section */
-.brand-intro {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin: 1.5rem 0 2rem;
-}
-
-@media (max-width: 768px) {
-  .brand-intro {
-    grid-template-columns: 1fr;
-  }
-}
-
-.brand-intro-card {
-  background: var(--pl-bg-card);
-  border: 1px solid var(--pl-border-subtle);
-  border-radius: 12px;
-  padding: 1.25rem;
-  position: relative;
-}
-
-.brand-intro-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #f59e0b, #d97706);
-  border-radius: 12px 12px 0 0;
-}
-
-.brand-intro-card h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.9rem;
-  color: var(--pl-text-primary);
-}
-
-.brand-intro-card p {
-  margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--pl-text-secondary);
-}
-
-/* Color usage badges */
-.color-usage {
-  display: inline-block;
-  background: var(--pl-bg-primary);
-  border: 1px solid var(--pl-border-subtle);
-  font-size: 0.7rem;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  color: var(--pl-text-muted);
-  margin-right: 0.25rem;
-  margin-top: 0.5rem;
-}
-
-/* Section intro text */
-.section-intro {
-  font-size: 1rem;
-  color: var(--pl-text-secondary);
-  margin-bottom: 1.5rem;
-  max-width: 700px;
+  border-left: 3px solid #ea580c;
 }
 </style>
 
 <div class="brand-section">
-  <h2>Brand Identity</h2>
-
-  <div class="brand-intro">
-    <div class="brand-intro-card">
-      <h4>Premium Positioning</h4>
-      <p>$1,500+ cohort-based course with 8+ hours of live office hours, taught by industry veterans from Airbnb, GitHub, Google, and Berkeley.</p>
-    </div>
-    <div class="brand-intro-card">
-      <h4>Senior Audience</h4>
-      <p>Engineers, PMs, Directors, and Applied Scientists at companies like Amazon, Intuit, Miro, and Google. Decision-makers with budgets.</p>
-    </div>
-    <div class="brand-intro-card">
-      <h4>Expert + Approachable</h4>
-      <p>Rigorous methodology with warmth. "Technically goated... with impeccable vibes." Authoritative but human.</p>
-    </div>
-  </div>
-</div>
-
-<div class="brand-section">
-  <h2>Primary Palette</h2>
-  <p class="section-intro">Dark backgrounds with warm amber accents. Signals expertise, achievement, and premium quality while standing out from the sea of blue tech marketing.</p>
-
+  <h2>Colors — Dark Mode</h2>
+  <p class="mode-note">Use for Instagram, Twitter/X, and tech-focused audiences.</p>
   <div class="color-grid">
     <div class="color-card">
-      <div class="color-swatch large" style="background: #0f1114;"></div>
+      <div class="color-swatch" style="background: #0f1114;"></div>
       <div class="color-info">
-        <h4>Deep Charcoal</h4>
-        <div class="color-codes">
-          <code>#0f1114</code>
-          <code>rgb(15, 17, 20)</code>
-        </div>
-        <p>Primary background for all social assets</p>
-        <span class="color-usage">backgrounds</span>
-        <span class="color-usage">slides</span>
+        <h4>Background</h4>
+        <code>#0f1114</code>
       </div>
     </div>
-
-    <div class="color-card">
-      <div class="color-swatch large" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"></div>
-      <div class="color-info">
-        <h4>Warm Amber</h4>
-        <div class="color-codes">
-          <code>#f59e0b</code>
-          <code>#d97706</code>
-        </div>
-        <p>Primary accent. Use as gradient for depth.</p>
-        <span class="color-usage">CTAs</span>
-        <span class="color-usage">highlights</span>
-        <span class="color-usage">stars</span>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch large" style="background: #ffffff;"></div>
-      <div class="color-info">
-        <h4>Pure White</h4>
-        <div class="color-codes">
-          <code>#ffffff</code>
-        </div>
-        <p>Secondary buttons, headline text on dark</p>
-        <span class="color-usage">secondary CTA</span>
-        <span class="color-usage">headlines</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="brand-section">
-  <h2>Supporting Colors</h2>
-
-  <div class="color-grid">
     <div class="color-card">
       <div class="color-swatch" style="background: #1a1d23;"></div>
       <div class="color-info">
-        <h4>Elevated Surface</h4>
-        <div class="color-codes"><code>#1a1d23</code></div>
-        <p>Cards, testimonial boxes, content containers</p>
+        <h4>Card Surface</h4>
+        <code>#1a1d23</code>
       </div>
     </div>
-
+    <div class="color-card">
+      <div class="color-swatch" style="background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);"></div>
+      <div class="color-info">
+        <h4>Accent (Burnt Orange)</h4>
+        <code>#ea580c</code> <code>#c2410c</code>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="color-swatch" style="background: #fb923c;"></div>
+      <div class="color-info">
+        <h4>Accent Light</h4>
+        <code>#fb923c</code>
+        <p style="margin-top:0.25rem;font-size:0.7rem;color:#a1a1aa;">Links, highlights</p>
+      </div>
+    </div>
     <div class="color-card">
       <div class="color-swatch" style="background: #f4f4f5;"></div>
       <div class="color-info">
         <h4>Primary Text</h4>
-        <div class="color-codes"><code>#f4f4f5</code></div>
-        <p>Headlines and important text on dark backgrounds</p>
+        <code>#f4f4f5</code>
       </div>
     </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #d4d4d8;"></div>
-      <div class="color-info">
-        <h4>Secondary Text</h4>
-        <div class="color-codes"><code>#d4d4d8</code></div>
-        <p>Body copy, testimonial quotes, descriptions</p>
-      </div>
-    </div>
-
     <div class="color-card">
       <div class="color-swatch" style="background: #a1a1aa;"></div>
       <div class="color-info">
         <h4>Muted Text</h4>
-        <div class="color-codes"><code>#a1a1aa</code></div>
-        <p>Captions, metadata, attribution, timestamps</p>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #fef3c7;"></div>
-      <div class="color-info">
-        <h4>Amber Tint</h4>
-        <div class="color-codes"><code>#fef3c7</code></div>
-        <p>Subtle highlights on light backgrounds</p>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3);"></div>
-      <div class="color-info">
-        <h4>Amber Overlay</h4>
-        <div class="color-codes"><code>rgba(245,158,11,0.15)</code></div>
-        <p>Cohort badges, subtle tag backgrounds</p>
+        <code>#a1a1aa</code>
       </div>
     </div>
   </div>
 </div>
 
 <div class="brand-section">
-  <h2>Light Mode Variant</h2>
-  <p class="section-intro">For LinkedIn posts, email clients, and print materials. Light mode often performs better on LinkedIn where the feed is predominantly light-themed.</p>
-
-  <div class="usage-grid" style="margin-bottom: 1.5rem;">
-    <div class="usage-card">
-      <h4>When to Use Dark</h4>
-      <p>Instagram, Twitter/X, Stories, tech-focused audiences. Dark stands out in feeds and feels more premium/modern.</p>
-    </div>
-    <div class="usage-card">
-      <h4>When to Use Light</h4>
-      <p>LinkedIn, email newsletters, embedded content on light websites. Feels native to the platform and more approachable.</p>
-    </div>
-  </div>
-
+  <h2>Colors — Light Mode</h2>
+  <p class="mode-note">Use for LinkedIn and email. Warm neutral background — easy on the eyes.</p>
   <div class="color-grid">
     <div class="color-card">
-      <div class="color-swatch" style="background: #fafaf9; border-bottom: 1px solid #e5e5e5;"></div>
+      <div class="color-swatch" style="background: #fafaf9; border-bottom: 1px solid #e7e5e4;"></div>
       <div class="color-info">
-        <h4>Warm Off-White</h4>
-        <div class="color-codes"><code>#fafaf9</code></div>
-        <p>Primary background</p>
+        <h4>Background</h4>
+        <code>#fafaf9</code>
+        <p style="margin-top:0.25rem;font-size:0.7rem;color:#a1a1aa;">Warm stone white</p>
       </div>
     </div>
-
     <div class="color-card">
-      <div class="color-swatch" style="background: #ffffff; border-bottom: 1px solid #e5e5e5;"></div>
+      <div class="color-swatch" style="background: #ffffff; border-bottom: 1px solid #e7e5e4;"></div>
       <div class="color-info">
-        <h4>Pure White</h4>
-        <div class="color-codes"><code>#ffffff</code></div>
-        <p>Cards, testimonial containers</p>
+        <h4>Card Surface</h4>
+        <code>#ffffff</code>
       </div>
     </div>
-
     <div class="color-card">
-      <div class="color-swatch" style="background: #b45309;"></div>
+      <div class="color-swatch" style="background: linear-gradient(135deg, #c2410c 0%, #9a3412 100%);"></div>
       <div class="color-info">
-        <h4>Deep Amber</h4>
-        <div class="color-codes"><code>#b45309</code></div>
-        <p>Accent text, highlights (better contrast than #f59e0b)</p>
+        <h4>Accent (Deep Orange)</h4>
+        <code>#c2410c</code> <code>#9a3412</code>
       </div>
     </div>
-
     <div class="color-card">
-      <div class="color-swatch" style="background: #18181b;"></div>
+      <div class="color-swatch" style="background: #ea580c;"></div>
       <div class="color-info">
-        <h4>Near Black</h4>
-        <div class="color-codes"><code>#18181b</code></div>
-        <p>Headlines, primary text</p>
+        <h4>Accent Medium</h4>
+        <code>#ea580c</code>
+        <p style="margin-top:0.25rem;font-size:0.7rem;color:#a1a1aa;">Icons, badges</p>
       </div>
     </div>
-
     <div class="color-card">
-      <div class="color-swatch" style="background: #44403c;"></div>
+      <div class="color-swatch" style="background: #1c1917;"></div>
       <div class="color-info">
-        <h4>Warm Gray</h4>
-        <div class="color-codes"><code>#44403c</code></div>
-        <p>Body copy, quotes</p>
+        <h4>Primary Text</h4>
+        <code>#1c1917</code>
       </div>
     </div>
-
     <div class="color-card">
-      <div class="color-swatch" style="background: #78716c;"></div>
+      <div class="color-swatch" style="background: #57534e;"></div>
       <div class="color-info">
-        <h4>Stone Gray</h4>
-        <div class="color-codes"><code>#78716c</code></div>
-        <p>Captions, metadata</p>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #fef3c7; border: 1px solid #fcd34d;"></div>
-      <div class="color-info">
-        <h4>Amber Tint</h4>
-        <div class="color-codes"><code>#fef3c7</code></div>
-        <p>Badges, highlight backgrounds</p>
-      </div>
-    </div>
-
-    <div class="color-card">
-      <div class="color-swatch" style="background: #e5e5e5;"></div>
-      <div class="color-info">
-        <h4>Border Gray</h4>
-        <div class="color-codes"><code>#e5e5e5</code></div>
-        <p>Card borders, dividers</p>
+        <h4>Muted Text</h4>
+        <code>#57534e</code>
       </div>
     </div>
   </div>
@@ -973,294 +345,173 @@ page-layout: full
 
 <div class="brand-section">
   <h2>Typography</h2>
-  <p class="section-intro">Keep it simple. System fonts render reliably across all devices and feel professional at any size.</p>
+  <table class="ref-table">
+    <tr>
+      <th>Use</th>
+      <th>Font</th>
+      <th>Weight</th>
+    </tr>
+    <tr>
+      <td>Headlines</td>
+      <td><code>Inter</code> or system font</td>
+      <td>600–700</td>
+    </tr>
+    <tr>
+      <td>Body</td>
+      <td><code>Inter</code> or system font</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <td>Captions</td>
+      <td><code>Inter</code> or system font</td>
+      <td>400, smaller size</td>
+    </tr>
+  </table>
+</div>
 
-  <div class="type-specimen">
-    <div class="font-sample">
-      <div class="font-label">Headlines — Inter / System UI / -apple-system</div>
-      <div class="font-display">AI Evals For Engineers & PMs</div>
-    </div>
-
-    <div class="font-sample">
-      <div class="font-label">Body Text — Same family, regular weight</div>
-      <div class="font-display body">"I found this course super useful and comprehensive. I now have a significantly better way to measure and evaluate LLM use cases in complicated scenarios."</div>
-    </div>
+<div class="brand-section">
+  <h2>Buttons — Dark Mode</h2>
+  <div class="btn-row">
+    <button class="btn-demo btn-primary-dark">Primary CTA</button>
+    <button class="btn-demo btn-secondary-dark">Secondary</button>
+    <button class="btn-demo btn-ghost-dark">Ghost</button>
   </div>
+  <table class="ref-table" style="margin-top: 1rem;">
+    <tr>
+      <th>Type</th>
+      <th>Background</th>
+      <th>Text</th>
+    </tr>
+    <tr>
+      <td>Primary</td>
+      <td><code>#ea580c → #c2410c</code></td>
+      <td><code>#ffffff</code></td>
+    </tr>
+    <tr>
+      <td>Secondary</td>
+      <td><code>#ffffff</code></td>
+      <td><code>#0f1114</code></td>
+    </tr>
+    <tr>
+      <td>Ghost</td>
+      <td>transparent + orange border</td>
+      <td><code>#fb923c</code></td>
+    </tr>
+  </table>
+</div>
 
-  <div class="usage-grid">
-    <div class="usage-card">
-      <h4>Headlines</h4>
-      <p>Inter or system font, 600-700 weight. Use for titles, key stats, and primary messaging.</p>
-    </div>
-    <div class="usage-card">
-      <h4>Body Copy</h4>
-      <p>Same font family, 400 weight. Use for testimonial quotes, descriptions, and supporting text.</p>
-    </div>
-    <div class="usage-card">
-      <h4>Captions</h4>
-      <p>Smaller size (0.75-0.85rem), muted color (#a1a1aa). Use for attribution, metadata, and labels.</p>
-    </div>
+<div class="brand-section">
+  <h2>Buttons — Light Mode</h2>
+  <div class="btn-row" style="background: #fafaf9; padding: 1rem; border-radius: 8px; margin: 0 0 1rem 0;">
+    <button class="btn-demo btn-primary-light">Primary CTA</button>
+    <button class="btn-demo btn-secondary-light">Secondary</button>
+    <button class="btn-demo btn-ghost-light">Ghost</button>
+  </div>
+  <table class="ref-table">
+    <tr>
+      <th>Type</th>
+      <th>Background</th>
+      <th>Text</th>
+    </tr>
+    <tr>
+      <td>Primary</td>
+      <td><code>#c2410c → #9a3412</code></td>
+      <td><code>#ffffff</code></td>
+    </tr>
+    <tr>
+      <td>Secondary</td>
+      <td><code>#1c1917</code></td>
+      <td><code>#ffffff</code></td>
+    </tr>
+    <tr>
+      <td>Ghost</td>
+      <td>transparent + orange border</td>
+      <td><code>#9a3412</code></td>
+    </tr>
+  </table>
+</div>
+
+<div class="brand-section">
+  <h2>Social Dimensions</h2>
+  <div class="specs-row">
+    <div><strong>Instagram:</strong> 1080×1080 or 1080×1350</div>
+    <div><strong>LinkedIn:</strong> 1200×1200 or 1200×627</div>
+    <div><strong>Twitter/X:</strong> 1200×675 or 1200×1200</div>
+    <div><strong>Stories:</strong> 1080×1920</div>
   </div>
 </div>
 
 <div class="brand-section">
-  <h2>Buttons & CTAs</h2>
-
-  <div class="button-row">
-    <button class="btn-demo btn-primary">Enroll Now</button>
-    <button class="btn-demo btn-secondary">See Reviews</button>
-    <button class="btn-demo btn-ghost">Learn More</button>
-  </div>
-
-  <div class="usage-grid">
-    <div class="usage-card">
-      <h4>Primary (Amber)</h4>
-      <p>Main conversion actions: "Enroll Now", "Join January Cohort", "Reserve Your Spot"</p>
-    </div>
-    <div class="usage-card">
-      <h4>Secondary (White)</h4>
-      <p>Supporting actions: "See Reviews", "View Syllabus", "Meet the Instructors"</p>
-    </div>
-    <div class="usage-card">
-      <h4>Ghost (Outline)</h4>
-      <p>Tertiary actions when you need multiple CTAs without visual competition</p>
-    </div>
-  </div>
-</div>
-
-<div class="brand-section">
-  <h2>Carousel Template</h2>
-  <p class="section-intro">Reference structure for testimonial carousels. Toggle between dark and light themes — use dark for Instagram/Twitter, light for LinkedIn where it performs better.</p>
+  <h2>Carousel Templates</h2>
 
   <div class="theme-toggle-container">
     <div class="theme-toggle">
-      <button class="theme-toggle-btn active" onclick="setCarouselTheme('dark')">Dark Mode</button>
-      <button class="theme-toggle-btn" onclick="setCarouselTheme('light')">Light Mode</button>
+      <button class="theme-toggle-btn active" onclick="setTheme('dark')">Dark</button>
+      <button class="theme-toggle-btn" onclick="setTheme('light')">Light</button>
     </div>
-    <span style="font-size: 0.8rem; color: var(--pl-text-muted);">LinkedIn recommended: Light</span>
+    <span style="font-size: 0.75rem; color: #a1a1aa;">LinkedIn → Light  |  Instagram/Twitter → Dark</span>
   </div>
 
   <div class="slide-examples-container" id="carousel-container">
-    <!-- Dark Theme Slides -->
-    <div class="slide-examples slide-examples-dark">
+    <div class="slide-grid slide-examples-dark">
       <div class="slide-mock">
-        <div>
-          <div class="slide-label">Slide 1 — Hook</div>
-          <h3><span class="highlight">40+</span> Amazon Engineers and PMs have taken our course.</h3>
-          <div class="instructor-photos">
-            <div class="photo-placeholder">H</div>
-            <div class="photo-placeholder">S</div>
-          </div>
-          <div class="lennys-badge">
-            <span>Featured in</span>
-            <strong>Lenny's List</strong>
-          </div>
-        </div>
-        <div class="slide-secondary-cta">See Their Reviews →</div>
+        <div class="slide-label">Hook Slide</div>
+        <div><span class="highlight">40+</span> Amazon Engineers have taken our course.</div>
       </div>
-
-      <div class="slide-mock testimonial">
-        <div style="width: 100%;">
-          <div class="slide-label">Slides 2-4 — Testimonials</div>
-          <div class="stars">★★★★★</div>
-          <div class="quote">"This course offers a thoughtful and distinctive perspective on evaluating AI features... The course reader is well-written and spot-on."</div>
-        </div>
-        <div class="attribution">
-          <strong>Chris</strong> <span class="cohort-badge">Cohort 3</span><br>
-          Sr. Product Manager Tech · Amazon
-        </div>
-      </div>
-
       <div class="slide-mock">
-        <div>
-          <div class="slide-label">Slide 5 — CTA</div>
-          <div class="company-logo">amazon</div>
-          <h3>Join your colleagues in the <span class="highlight">January 26</span> Cohort.</h3>
-          <p style="font-size: 0.8rem; color: #a1a1aa; margin: 0.75rem 0 0;">Many teams <strong style="color: #d4d4d8;">reimburse</strong> this course.<br>Check with your manager.</p>
-        </div>
-        <div class="slide-cta">Enroll at evals.info</div>
+        <div class="slide-label">Testimonial</div>
+        <div style="font-style: italic;">"The course reader is well-written and spot-on."</div>
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.7;">— Chris, Amazon</div>
+      </div>
+      <div class="slide-mock">
+        <div class="slide-label">CTA Slide</div>
+        <div>Join the <span class="highlight">January 26</span> Cohort</div>
       </div>
     </div>
 
-    <!-- Light Theme Slides -->
-    <div class="slide-examples slide-examples-light">
+    <div class="slide-grid slide-examples-light">
       <div class="slide-mock-light">
-        <div>
-          <div class="slide-label">Slide 1 — Hook</div>
-          <h3><span class="highlight">40+</span> Amazon Engineers and PMs have taken our course.</h3>
-          <div class="instructor-photos">
-            <div class="photo-placeholder">H</div>
-            <div class="photo-placeholder">S</div>
-          </div>
-          <div class="lennys-badge">
-            <span>Featured in</span>
-            <strong>Lenny's List</strong>
-          </div>
-        </div>
-        <div class="slide-secondary-cta">See Their Reviews →</div>
+        <div class="slide-label">Hook Slide</div>
+        <div><span class="highlight">40+</span> Amazon Engineers have taken our course.</div>
       </div>
-
-      <div class="slide-mock-light testimonial">
-        <div style="width: 100%;">
-          <div class="slide-label">Slides 2-4 — Testimonials</div>
-          <div class="stars">★★★★★</div>
-          <div class="quote">"This course offers a thoughtful and distinctive perspective on evaluating AI features... The course reader is well-written and spot-on."</div>
-        </div>
-        <div class="attribution">
-          <strong>Chris</strong> <span class="cohort-badge">Cohort 3</span><br>
-          Sr. Product Manager Tech · Amazon
-        </div>
-      </div>
-
       <div class="slide-mock-light">
-        <div>
-          <div class="slide-label">Slide 5 — CTA</div>
-          <div class="company-logo">amazon</div>
-          <h3>Join your colleagues in the <span class="highlight">January 26</span> Cohort.</h3>
-          <p style="font-size: 0.8rem; color: #78716c; margin: 0.75rem 0 0;">Many teams <strong style="color: #44403c;">reimburse</strong> this course.<br>Check with your manager.</p>
-        </div>
-        <div class="slide-cta">Enroll at evals.info</div>
+        <div class="slide-label">Testimonial</div>
+        <div style="font-style: italic;">"The course reader is well-written and spot-on."</div>
+        <div style="margin-top: 0.5rem; font-size: 0.75rem; opacity: 0.6;">— Chris, Amazon</div>
+      </div>
+      <div class="slide-mock-light">
+        <div class="slide-label">CTA Slide</div>
+        <div>Join the <span class="highlight">January 26</span> Cohort</div>
       </div>
     </div>
   </div>
 
   <script>
-    function setCarouselTheme(theme) {
+    function setTheme(theme) {
       const container = document.getElementById('carousel-container');
       const buttons = document.querySelectorAll('.theme-toggle-btn');
-
-      if (theme === 'light') {
-        container.classList.add('light-mode');
-      } else {
-        container.classList.remove('light-mode');
-      }
-
+      container.classList.toggle('light-mode', theme === 'light');
       buttons.forEach(btn => {
-        btn.classList.remove('active');
-        if ((theme === 'dark' && btn.textContent === 'Dark Mode') ||
-            (theme === 'light' && btn.textContent === 'Light Mode')) {
-          btn.classList.add('active');
-        }
+        btn.classList.toggle('active', btn.textContent.toLowerCase() === theme);
       });
     }
   </script>
 </div>
 
 <div class="brand-section">
-  <h2>Social Media Dimensions</h2>
-
-  <div class="specs-grid">
-    <div class="spec-card">
-      <h5>Instagram Carousel</h5>
-      <p>1080 × 1080px (square)<br>1080 × 1350px (portrait)</p>
-    </div>
-    <div class="spec-card">
-      <h5>LinkedIn Post</h5>
-      <p>1200 × 1200px (square)<br>1200 × 627px (landscape)</p>
-    </div>
-    <div class="spec-card">
-      <h5>Twitter/X</h5>
-      <p>1200 × 675px (16:9)<br>1200 × 1200px (square)</p>
-    </div>
-    <div class="spec-card">
-      <h5>Stories</h5>
-      <p>1080 × 1920px (9:16)</p>
-    </div>
-  </div>
-</div>
-
-<div class="brand-section">
-  <h2>Do's and Don'ts</h2>
-
-  <div class="guidelines-grid">
-    <div class="guideline-card do">
-      <h4><span>✓</span> Do</h4>
-      <ul>
-        <li>Use dark backgrounds (#0f1114)</li>
-        <li>Use amber/gold for primary accents and CTAs</li>
-        <li>Use real photos of Hamel & Shreya</li>
-        <li>Include real names, titles, and companies on testimonials</li>
-        <li>Leave generous whitespace—let content breathe</li>
-        <li>Keep typography clean and highly readable</li>
-        <li>Include the "Lenny's List" badge for credibility</li>
-        <li>Use subtle gradients and soft shadows</li>
-      </ul>
-    </div>
-
-    <div class="guideline-card dont">
-      <h4><span>✗</span> Don't</h4>
-      <ul>
-        <li>Use neon green, hot pink, or "gaming" colors</li>
-        <li>Use more than 2 accent colors per asset</li>
-        <li>Use aggressive urgency ("LIMITED TIME ONLY!!!")</li>
-        <li>Use stock photos of generic businesspeople</li>
-        <li>Crowd content with too many elements</li>
-        <li>Use heavy emoji in professional copy</li>
-        <li>Use harsh drop shadows or beveled effects</li>
-        <li>Make it look like a coding bootcamp ad</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div class="brand-section">
   <h2>Quick Reference</h2>
-
   <table class="ref-table">
-    <thead>
-      <tr>
-        <th>Element</th>
-        <th>Value</th>
-        <th>Usage</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Background</td>
-        <td><code>#0f1114</code></td>
-        <td>Primary background for all assets</td>
-      </tr>
-      <tr>
-        <td>Card Surface</td>
-        <td><code>#1a1d23</code></td>
-        <td>Testimonial cards, elevated containers</td>
-      </tr>
-      <tr>
-        <td>Primary Accent</td>
-        <td><code>#f59e0b</code></td>
-        <td>CTAs, highlights, ratings, key numbers</td>
-      </tr>
-      <tr>
-        <td>Accent Gradient</td>
-        <td><code>#f59e0b → #d97706</code></td>
-        <td>Buttons, badges with depth</td>
-      </tr>
-      <tr>
-        <td>Primary Text</td>
-        <td><code>#ffffff</code> / <code>#f4f4f5</code></td>
-        <td>Headlines, key text</td>
-      </tr>
-      <tr>
-        <td>Secondary Text</td>
-        <td><code>#d4d4d8</code></td>
-        <td>Body copy, quotes</td>
-      </tr>
-      <tr>
-        <td>Muted Text</td>
-        <td><code>#a1a1aa</code></td>
-        <td>Captions, attribution</td>
-      </tr>
-      <tr>
-        <td>Border Radius</td>
-        <td><code>8-12px</code></td>
-        <td>Cards, buttons, containers</td>
-      </tr>
-      <tr>
-        <td>Font Stack</td>
-        <td>Inter, -apple-system, system-ui</td>
-        <td>All text</td>
-      </tr>
-    </tbody>
+    <tr><th>Element</th><th>Dark Mode</th><th>Light Mode</th></tr>
+    <tr><td>Background</td><td><code>#0f1114</code></td><td><code>#fafaf9</code></td></tr>
+    <tr><td>Card</td><td><code>#1a1d23</code></td><td><code>#ffffff</code></td></tr>
+    <tr><td>Accent</td><td><code>#ea580c</code></td><td><code>#c2410c</code></td></tr>
+    <tr><td>Accent Gradient</td><td><code>#ea580c → #c2410c</code></td><td><code>#c2410c → #9a3412</code></td></tr>
+    <tr><td>Accent Light</td><td><code>#fb923c</code></td><td><code>#ea580c</code></td></tr>
+    <tr><td>Primary Text</td><td><code>#f4f4f5</code></td><td><code>#1c1917</code></td></tr>
+    <tr><td>Muted Text</td><td><code>#a1a1aa</code></td><td><code>#57534e</code></td></tr>
+    <tr><td>Border/Divider</td><td><code>rgba(234,88,12,0.2)</code></td><td><code>#e7e5e4</code></td></tr>
+    <tr><td>Border Radius</td><td colspan="2"><code>6–10px</code></td></tr>
+    <tr><td>Font</td><td colspan="2">Inter / -apple-system / system-ui</td></tr>
   </table>
 </div>
 ```
