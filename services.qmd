@@ -41,7 +41,7 @@ We offer workshops on LLM performance issues, evals, and fine-tuning. Our course
 
 We provide holistic guidance on improving your AI product, customized to your specific use case—evals, RAG, frameworks, vendor selection, and more. We take on a limited number of clients each quarter to ensure deep engagement.
 
-**Minimum engagement starts at $93,500** for a two-month sprint. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
+**Minimum engagement starts at $128,500** for a two-month sprint. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
 
 ---
 
@@ -53,7 +53,7 @@ We provide holistic guidance on improving your AI product, customized to your sp
 </div>
 <div class="cta-option">
 [Apply for Advisory](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
-<span class="cta-subtext">Starting at $93,500</span>
+<span class="cta-subtext">Starting at $128,500</span>
 </div>
 </div>
 :::
