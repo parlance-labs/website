@@ -42,7 +42,7 @@ We partner with you for roughly 8 weeks to:
 
 You get written artifacts: eval specifications, metrics and a roadmaps your team can execute.
 
-**Minimum engagement starts at $158,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
+**Minimum engagement starts at $168,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
 
 **Our guarantee:** If we can't deliver in 8 weeks for any reason (including if your team's bandwidth shifts), we keep working at no extra cost until we do.
 
@@ -56,7 +56,7 @@ You get written artifacts: eval specifications, metrics and a roadmaps your team
 </div>
 <div class="cta-option">
 [Apply for Advisory](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
-<span class="cta-subtext">Starting at $158,500</span>
+<span class="cta-subtext">Starting at $168,500</span>
 </div>
 </div>
 :::
