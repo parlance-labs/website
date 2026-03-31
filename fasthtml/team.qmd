@@ -1,0 +1,50 @@
+---
+title: "Team"
+description: "The Parlance team"
+image: cover_2.png
+repo-actions: false
+sidebar: false
+search: false
+---
+
+## Hamel Husain
+
+![](images/hamel.png){width=70 style="float:left"} 
+
+[Hamel Husain](https://hamel.dev) is a machine learning engineer with over 25 years of experience. He has worked with innovative companies such as Airbnb and GitHub, which included <a href="https://openai.com/index/introducing-text-and-code-embeddings#:~:text=models%20on%20the-,CodeSearchNet,),-evaluation%20suite%20where">early LLM research used by OpenAI</a> for code understanding. He has also led and contributed to numerous popular [open-source machine-learning tools](https://hamel.dev/oss/opensource.html).
+
+## Shreya Shankar
+
+![](images/shreya.jpeg){width=70 style="float:left"}
+
+[Shreya](https://www.sh-reya.com/) is a leading researcher on applied ML and AI systems.  She has led extensive research on human-computer interaction for low-code tools to program complex LLM workflows including evals, monitoring and fine-tuning.  Her research has been adopted widely and is incorporated into many commercial LLM tools such as Langsmith, Autoblocks, Parea, and more. 
+
+## John Berryman
+
+![](images/jnbrymn.png){width=70 style="float:left"} 
+
+[John](https://arcturus-labs.com/) has worked in technology since 2012. The first half of his career was spent building search applications. John helped build next-generation search for the U.S. Patent Office, built Eventbrite's search and recommendation platforms, built GitHub's code search, and co-authored a book – Relevant Search (Manning). While at GitHub, John moved into Data Science and then into Machine Learning with GitHub's Copilot code completions and chat products. John is currently co-authoring an O'Reilly book for LLM application development.
+
+## Josh Patterson
+
+![](images/jpatterson.png){width=70 style="float:left"} 
+
+[Josh Patterson](https://www.pattersonconsultingtn.com), with over 20 years in AI, has a rich history of contributions to the field. He played a key role in developing autonomous driving systems for DARPA Grand Challenge and optimizing mesh network routing with Ant Colony Optimization during his graduate studies. As a principal solutions architect and early employee at Cloudera, he significantly contributed to the company's growth. Co-author of "Deep Learning: A Practitioner's Approach" and "Kubeflow Operations Guide," Josh is also a co-founder of the Eclipse Deeplearning4j project, demonstrating his expertise in generative neural networks. Currently, he focuses on Conversational AI, Automation AI, and the intersection of data and prompt engineering, driving advancements in generative AI technologies.
+
+## Jason Liu
+
+![](images/jason.jpg){width=70 style="float:left"} 
+
+Jason Liu is a distinguished machine learning [consultant](https://jxnl.co/services/) known for leading teams to successfully ship AI products. Jason's technical expertise covers personalization algorithms, search optimization, synthetic data generation, and MLOps systems. His experience includes companies like Stitch Fix, where he created a recommendation framework and observability tools that handled 350 million daily requests. Additional roles have included Meta, NYU, and startups such as Limitless AI and Trunk Tools. 
+
+## Luke Marsden
+
+![](images/luke.png){width=70 style="float:left"}
+
+[Luke Marsden](https://mlops.consulting) is a consultant with deep experience with LLMs, infrastructure and GenAI application patterns. He has a particular focus on open source models and fine-tuning, having advised clients globally on the impact and opportunity for GenAI on their business. In the [Helix](https://helix.ml) stack, he led the creation of a fine-tuning product based on Axolotl, documented in the popular blog post [How we got fine-tuning Mistral-7B to not suck](https://blog.helix.ml/p/how-we-got-fine-tuning-mistral-7b) and then extended the stack to include multi-node Ollama on Kubernetes, API calling from open LLMs, RAG with pgvector and running gptscript securely on the server.
+
+## Greg Ceccarelli
+
+![](images/greg.jpeg){width=70 style="float:left"} 
+
+[Greg Ceccarelli](https://www.gregceccarelli.com/) is a former Chief Product Officer and operator who advises executives on how to win with AI. He's shipped multiple AI products at Pluralsight and GitHub and has spent the last two decades helping companies create competitive advantage with data. He's an AI and Developer Tools product strategy advisor at [Tola Capital](https://tolacapital.com/) and writes weekly on [Substack](https://meditationsontech.com) and maintains [gregslist.ai](https://gregslist.ai) for super fast AI product discovery.
