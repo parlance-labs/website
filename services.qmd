@@ -1,5 +1,6 @@
 ---
-title: "Services"
+title: "Build, Evaluate, and Improve AI That Works in Production"
+subtitle: "The most field-tested evals course available. We've refined it over a year of cohorts with 4,500+ engineers and PMs from teams like OpenAI, Google, Meta, and Amazon."
 sidebar: false
 toc: false
 image: cover.png
@@ -9,64 +10,52 @@ search: false
 css: services.css
 ---
 
-We help teams already shipping AI / LLM features build eval systems so they can ship faster, reduce manual QA, and catch failures before users do.
-
-## Is this you?
-
-- Your team spends most of their time manually QA-ing your AI features, and you know it won't scale.
-- You're scared to ship AI changes because you don't trust your metrics.
-- You've hired smart people, bought tools, and you're still guessing whether your AI is getting better or worse.
-
-## We Want You to "Fire Us"
-
-**We don't want you to have a long-term dependency on us.** We're not here to pitch you new frameworks or expensive infrastructure. We're here to teach you methods to experiment faster and systematically improve your systems.
-
-We don't chase recurring revenue or sell maintenance contracts. That creates perverse incentives. Instead, we work alongside your team and transfer knowledge so you can be successful.
-
----
-
-## Services
-
-### Education
-
-Our course [AI Evals For Engineers & PMs](https://maven.com/parlance-labs/evals){target="_blank"} has trained over 4,000 students from 500+ companies on [AI product evals](https://hamel.dev/blog/posts/evals-faq/){target="_blank"}.
-
-### Advisory
-
-We partner with you for roughly 8 weeks to:
-
-- Map and prioritize errors in your product
-- Design application-specific evals
-- Audit your current metrics and experimentation process
-- Identify bottlenecks blocking iteration
-
-You get written artifacts: eval specifications, metrics and a roadmaps your team can execute.
-
-**Minimum engagement starts at $285,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
-
-**Our guarantee:** If we can't deliver in 8 weeks for any reason (including if your team's bandwidth shifts), we keep working at no extra cost until we do.
-
----
-
-:::{.cta-section .cta-prominent}
-<div class="cta-buttons">
+:::{.cta-section .cta-hero}
 <div class="cta-option">
-[Enroll in Course](https://evals.info){.cta-button-primary role="button" target="_blank"}
-<span class="cta-subtext">$3,750 per seat</span>
-</div>
-<div class="cta-option">
-[Apply for Advisory](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
-<span class="cta-subtext">Starting at $285,500</span>
-</div>
+[See next cohort dates &amp; enroll](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
+<span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
 </div>
 :::
 
+<p class="proof-bar">4.7/5 from 879 reviews · Featured in Lenny's List</p>
+
+## Is this you?
+
+- You're spot-checking AI outputs by hand, and you know it won't scale.
+- You're scared to ship a prompt or model change because you don't trust your metrics.
+- Leadership keeps asking "is this actually better?" and you don't have an answer you trust.
+- You've hired smart people and bought tools, and you're still guessing whether your AI is getting better or worse.
+
+If so, you're in the right place. We teach the system for fixing it.
+
+## The course: AI Evals For Engineers & PMs
+
+Build a real AI agent, find where it breaks, and improve it with evals you can trust, working the full loop hands-on. Over the cohort you will:
+
+- Replace random spot-checking with a repeatable way to read traces and find failures.
+- Design and validate LLM-as-judge and code-based evaluators that match expert judgment.
+- Wire evals into CI/CD so prompt, model, and tool changes get checked before they ship.
+- Run experiments that raise accuracy and cut cost, and prove which change moved the metric.
+
+You learn it live from Hamel Husain and Shreya Shankar, and keep lifetime access to all recordings and materials, a 150+ page course reader, 10+ hours of office hours, a private Discord community, and a seat in every future cohort.
+
+**Backed by the Maven Guarantee:** a full refund through the halfway point of the cohort, no questions asked.
+
+## We build self-sufficient teams, not dependence
+
+Most AI programs are thinly veiled retainers. They keep you dependent so you keep paying. We do the opposite.
+
+The course is designed to transfer the eval system into your team's head and codebase, so you can run it without us. You get lifetime access to the materials and can retake future cohorts, so you are never renting a playbook.
+
+Our incentive is simple: make you so good you don't need us.
+
 ---
 
-## Testimonials
+:::{.cta-section}
+<div class="cta-option">
+[See next cohort dates &amp; enroll](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
+<span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
+</div>
 
-See what our clients and students say on our [homepage](index.qmd#what-our-clients-students-say). References available upon request.
-
----
-
-<p class="cta-adhoc">Need a quick consultation? [Book a 1-hour session with Hamel](https://calendly.com/hamel-husain/consultation){target="_blank"}</p>
+<p class="cta-secondary-link">Already taken the course and shipping AI in production? [Join the Advanced AI Engineering Community](https://www.skool.com/ai-eng/about){target="_blank"}</p>
+:::
