@@ -55,5 +55,5 @@ The course is designed to transfer the eval system into your team's head and cod
 <span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
 </div>
 
-<p class="cta-secondary-link">Already taken the course and shipping AI in production? [Join the Advanced AI Engineering Community](https://www.skool.com/ai-eng/about){target="_blank"}</p>
+<p class="cta-secondary-link">Already taken the course and shipping AI in production? [Join our AI Engineering Community](https://www.skool.com/ai-eng/about){target="_blank"}</p>
 :::
