@@ -37,7 +37,7 @@ Build a real AI agent, find where it breaks, and improve it with evals you can t
 - Wire evals into CI/CD so prompt, model, and tool changes get checked before they ship.
 - Run experiments that raise accuracy and cut cost, and prove which change moved the metric.
 
-You learn it live from Hamel Husain and Shreya Shankar, and keep lifetime access to all recordings and materials, a 150+ page course reader, 10+ hours of office hours, a private Discord community, and a seat in every future cohort.
+You keep lifetime access to all recordings and materials, a 150+ page course reader, 10+ hours of office hours, a private Discord community, and a seat in every future cohort.
 
 **Backed by the Maven Guarantee:** a full refund through the halfway point of the cohort, no questions asked.
 
