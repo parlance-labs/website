@@ -39,7 +39,7 @@ Build a real AI agent, find where it breaks, and improve it with evals you can t
 
 You keep lifetime access to all recordings and materials, a 150+ page course reader, 10+ hours of office hours, a private Discord community, and a seat in every future cohort.
 
-**Backed by the Maven Guarantee:** a full refund through the halfway point of the cohort, no questions asked.
+**Backed by the Maven Guarantee:** a full refund through the first two weeks of the cohort, no questions asked.
 
 ---
 
