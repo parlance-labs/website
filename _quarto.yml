@@ -36,11 +36,11 @@ website:
     collapse-below: sm
     logo: b.png
     left:
-    - text: Services
+    - text: Course
       file: services.qmd
     - text: Team
       file: team.qmd
-    - text: Education
+    - text: Resources
       file: education/
   sidebar:
     - title: Resources

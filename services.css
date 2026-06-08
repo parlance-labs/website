@@ -16,7 +16,7 @@
   background: var(--pl-accent, #38bdf8);
   border: 1px solid var(--pl-accent, #38bdf8);
   color: #0f1114 !important;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-weight: 600;
   font-size: 1rem;
   padding: 0.875rem 2.5rem;
@@ -63,7 +63,7 @@
   background: transparent;
   border: 1px solid var(--pl-accent, #38bdf8);
   color: var(--pl-accent, #38bdf8) !important;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-weight: 500;
   font-size: 1rem;
   padding: 0.875rem 2rem;
@@ -96,6 +96,41 @@
 
 .cta-adhoc a:hover {
   color: var(--pl-accent, #38bdf8);
+}
+
+/* Hero CTA - tighter spacing so the proof bar sits close beneath it */
+.cta-hero {
+  padding: 0.5rem 0 0;
+}
+
+.cta-hero .cta-option p {
+  margin-bottom: 0;
+}
+
+/* Proof bar under the hero */
+.proof-bar {
+  text-align: center;
+  margin: 1rem 0 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--pl-text-secondary, #d4d4d8);
+}
+
+/* Secondary link beneath the bottom CTA - visible, not buried */
+.cta-secondary-link {
+  text-align: center;
+  margin: 1.1rem 0 0;
+  font-size: 0.95rem;
+  color: var(--pl-text-secondary, #d4d4d8);
+}
+
+.cta-secondary-link a {
+  color: var(--pl-accent, #38bdf8);
+  font-weight: 500;
+}
+
+.cta-secondary-link a:hover {
+  text-decoration: underline;
 }
 
 /* Responsive - stack on mobile */
