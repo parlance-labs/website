@@ -41,12 +41,6 @@ You keep lifetime access to all recordings and materials, a 150+ page course rea
 
 **Backed by the Maven Guarantee:** a full refund through the halfway point of the cohort, no questions asked.
 
-## We build self-sufficient teams, not dependence
-
-Most AI programs are thinly veiled retainers. They keep you dependent so you keep paying. We do the opposite.
-
-The course is designed to transfer the eval system into your team's head and codebase, so you can run it without us. You get lifetime access to the materials and can retake future cohorts, so you are never renting a playbook.
-
 ---
 
 :::{.cta-section}
