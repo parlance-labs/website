@@ -47,8 +47,6 @@ Most AI programs are thinly veiled retainers. They keep you dependent so you kee
 
 The course is designed to transfer the eval system into your team's head and codebase, so you can run it without us. You get lifetime access to the materials and can retake future cohorts, so you are never renting a playbook.
 
-Our incentive is simple: make you so good you don't need us.
-
 ---
 
 :::{.cta-section}
