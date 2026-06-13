@@ -144,6 +144,95 @@
   .cta-option {
     width: 100%;
     max-width: 280px;
+    margin: 0 auto;
+  }
+}
+
+/* ── Mobile polish ── */
+@media (max-width: 768px) {
+  /* Compact title */
+  #title-block-header .title {
+    font-size: 1.45rem !important;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  /* Tame the .lead subtitle */
+  #title-block-header .subtitle,
+  #title-block-header .lead {
+    font-size: 0.95rem !important;
+    line-height: 1.55;
+  }
+
+  /* Smaller h2 section headings, kill the heavy border */
+  h2 {
+    font-size: 1.2rem !important;
+    margin-top: 1.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Tighter list items */
+  ul li, ol li {
+    font-size: 0.95rem !important;
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+  }
+
+  /* Body paragraphs */
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* CTA button: less padding so it stays on one line */
+  .cta-button-primary {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.75rem;
+  }
+
+  .cta-button-secondary {
+    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  /* Subtext under CTA */
+  .cta-subtext {
+    font-size: 0.8rem;
+  }
+
+  /* Proof bar */
+  .proof-bar {
+    font-size: 0.82rem;
+    margin: 0.75rem 0 0.25rem;
+  }
+
+  /* Secondary link at bottom */
+  .cta-secondary-link {
+    font-size: 0.85rem;
+  }
+
+  /* Tighten overall section spacing */
+  .cta-section {
+    padding: 1rem 0;
+  }
+
+  /* HR */
+  hr {
+    margin: 1.25rem 0;
+  }
+
+}
+
+/* ── Extra-narrow phones (≤ 375px, e.g. iPhone SE) ── */
+@media (max-width: 375px) {
+  #title-block-header .title {
+    font-size: 1.3rem !important;
+  }
+
+  .cta-button-primary {
+    font-size: 0.85rem;
+    padding: 0.7rem 1.25rem;
   }
 }
 
