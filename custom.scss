@@ -638,6 +638,18 @@ html {
 
   .navbar {
     padding: 0.5rem 0;
+
+    .nav-link {
+      font-size: 0.85rem !important;
+      padding: 0.4rem 0.6rem !important;
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .navbar .nav-link {
+    font-size: 0.8rem !important;
+    padding: 0.4rem 0.45rem !important;
   }
 }
 
