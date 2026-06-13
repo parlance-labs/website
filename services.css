@@ -180,7 +180,7 @@
 
   /* Body paragraphs */
   p {
-    font-size: 0.95rem !important;
+    font-size: 0.95rem;
     line-height: 1.6;
   }
 
@@ -221,22 +221,12 @@
     margin: 1.25rem 0;
   }
 
-  /* Compact nav links on mobile */
-  .navbar .nav-link {
-    font-size: 0.85rem !important;
-    padding: 0.4rem 0.6rem !important;
-  }
 }
 
-/* ── Extra-narrow phones (≤ 374px, e.g. iPhone SE) ── */
-@media (max-width: 374px) {
+/* ── Extra-narrow phones (≤ 375px, e.g. iPhone SE) ── */
+@media (max-width: 375px) {
   #title-block-header .title {
     font-size: 1.3rem !important;
-  }
-
-  .navbar .nav-link {
-    font-size: 0.8rem !important;
-    padding: 0.4rem 0.45rem !important;
   }
 
   .cta-button-primary {
