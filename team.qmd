@@ -21,6 +21,6 @@ search: false
 
 ## Antaripa Saha
 
-![](images/antaripa.jpeg){width=60 style="float:left"}
+![](images/antaripa.jpeg){width=70 style="float:left"}
 
 [Antaripa Saha](https://www.antaripasaha.com/){target="_blank"} is a machine learning engineer focused on search, retrieval, agents, and evals.  She has worked with multiple early-stage AI startups as a consultant, helping design and build production AI systems and do applied research across retrieval, evaluation, memory, and LLM fine-tuning.
