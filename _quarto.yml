@@ -41,7 +41,7 @@ website:
     collapse-below: sm
     logo: b.png
     left:
-    - text: Blog
+    - text: Research
       file: blog/index.qmd
     - text: Education
       file: services.qmd

@@ -1,5 +1,5 @@
 ---
-title: "Blog"
+title: "Research"
 description: "Notes on AI evals, LLMs, and building AI that works in production."
 image: ../cover.png
 repo-actions: false
