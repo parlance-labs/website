@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Examples and best practices of building applications with LLMs">
+<meta name="description" content="Notes on AI evals, LLMs, and building AI that works in production.">
 
-<title>Building Applications – Parlance</title>
+<title>Blog – Parlance</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -27,29 +27,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../education/applications/simon_llm_cli/index.html" rel="next">
-<link href="../../education/fine_tuning/pawel.html" rel="prev">
-<link href="../../b.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c80e189f4601bfe90cf34c28f0c4e4a8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-dark-97613afa5fffbb1e5b184c209517caa9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../b.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c80e189f4601bfe90cf34c28f0c4e4a8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-dark-97613afa5fffbb1e5b184c209517caa9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,20 +78,20 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-blog-listings .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-image','listing-title','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-title-sort'] },{ data: ['listing-date-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-date","listing-categories","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-blog-listings'] = new List('listing-blog-listings', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -153,25 +151,24 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../../styles.css">
-<link rel="stylesheet" href="../education.css">
-<meta property="og:title" content="Building Applications – Parlance">
-<meta property="og:description" content="Examples and best practices of building applications with LLMs">
-<meta property="og:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<link rel="stylesheet" href="../styles.css">
+<link rel="alternate" type="application/rss+xml" title="Parlance" href="index.xml" data-external="1"><meta property="og:title" content="Blog – Parlance">
+<meta property="og:description" content="Notes on AI evals, LLMs, and building AI that works in production.">
+<meta property="og:image" content="https://parlance-labs.com/cover.png">
 <meta property="og:site_name" content="Parlance">
-<meta property="og:image:height" content="540">
-<meta property="og:image:width" content="960">
-<meta name="twitter:title" content="Building Applications – Parlance">
-<meta name="twitter:description" content="Examples and best practices of building applications with LLMs">
-<meta name="twitter:image" content="https://parlance-labs.com/education/parlance_edu2.png">
+<meta property="og:image:height" content="900">
+<meta property="og:image:width" content="1600">
+<meta name="twitter:title" content="Blog – Parlance">
+<meta name="twitter:description" content="Notes on AI evals, LLMs, and building AI that works in production.">
+<meta name="twitter:image" content="https://parlance-labs.com/cover.png">
 <meta name="twitter:creator" content="@HamelHusain">
 <meta name="twitter:site" content="@HamelHusain">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image-height" content="540">
-<meta name="twitter:image-width" content="960">
+<meta name="twitter:image-height" content="900">
+<meta name="twitter:image-width" content="1600">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed fullcontent quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -338,22 +335,22 @@ window.Quarto = {
     <nav class="navbar navbar-expand " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../b.png" alt="" class="navbar-logo light-content">
-    <img src="../../b.png" alt="" class="navbar-logo dark-content">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../b.png" alt="" class="navbar-logo light-content">
+    <img src="../b.png" alt="" class="navbar-logo dark-content">
     </a>
   </div>
           <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
+    <a class="nav-link active" href="../blog/index.html" aria-current="page"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../services.html"> 
+    <a class="nav-link" href="../services.html"> 
 <span class="menu-text">Education</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../team.html"> 
+    <a class="nav-link" href="../team.html"> 
 <span class="menu-text">Team</span></a>
   </li>  
 </ul>
@@ -363,240 +360,12 @@ window.Quarto = {
             <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../education/applications/index.html">Applications</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Educational Resources</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/evals/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Evals</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/evals/allaire.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inspect, An OSS framework for LLM evals</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/evals/ankur.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">LLM Eval For Text2SQL</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/evals/schoelkopf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">A Deep Dive on LLM Evaluation</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/rag/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">RAG</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/rag/jo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Back to Basics for RAG</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/rag/ben.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Beyond the Basics of RAG</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/rag/jason.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Systematically improving RAG applications</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/index.html#fine-tuning" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine-Tuning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/index.html#should-you-fine-tune" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Should you fine-tune?</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning_course/workshop_1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">When and Why to Fine Tune an LLM</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/kyle.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine-tuning when you’ve already deployed LLMs in prod</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/emmanuel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Why Fine Tuning is Dead</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/index.html#how-to-fine-tune" class="sidebar-item-text sidebar-link">
- <span class="menu-text">How to fine-tune</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/daniel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Creating, curating, and cleaning data for LLMs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/mistral_ft_sophia.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Best Practices For Fine Tuning Mistral</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/abhishek.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Train (almost) any LLM using 🤗 autotrain</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/steven.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine Tuning OpenAI Models - Best Practices</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning_course/workshop_4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Deploying Fine-Tuned Models</span></a>
-  </div>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/index.html#advanced-topics-in-fine-tuning" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Advanced topics in fine-tuning</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/napkin_math.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Napkin Math For Fine Tuning</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/slaying_ooms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Slaying OOMs with PyTorch FSDP and torchao</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/fine_tuning/pawel.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fine Tuning LLMs for Function Calling</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../education/applications/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Applications</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/applications/simon_llm_cli/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">LLMs on the command line</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/applications/freddy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Building LLM Applications w/Gradio</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/applications/charles.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Modal: Simple Scalable Serverless Services</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../education/prompt_eng/berryman.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Prompt Engineering</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -606,12 +375,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Building Applications</h1>
+<h1 class="title">Blog</h1>
 </div>
 
 <div>
   <div class="description">
-    Examples and best practices of building applications with LLMs
+    Notes on AI evals, LLMs, and building AI that works in production.
   </div>
 </div>
 
@@ -628,79 +397,182 @@ window.Quarto = {
 </header>
 
 
+<div id="listing-blog-listings" class="quarto-listing quarto-listing-container-table">
+<table class="quarto-listing-table table">
+<thead>
+<tr>
 
+<th>
+Date
+</th>
 
+<th>
+Title
+</th>
 
+</tr>
+</thead>
+<tbody class="list">
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="YXBwbGljYXRpb25zJTJDbGxtLWNvbmYtMjAyNA==" data-listing-date-sort="1718089200000" data-listing-file-modified-sort="1782448113284" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="63" data-listing-word-count-sort="12496">
-<a href="../../education/applications/simon_llm_cli/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../education/applications/simon_llm_cli/19.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-LLMs on the command line
-</h5>
-<div class="card-text listing-description delink">
-<p>The Unix command-line philosophy has always been about joining different…</p>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="QXBwbGljYXRpb25zJTJDbGxtLWNvbmYtMjAyNA==" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1782448113279" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="61" data-listing-word-count-sort="12029">
-<a href="../../education/applications/freddy.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../education/applications/gradio.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Building LLM Applications w/Gradio
-</h5>
-<div class="card-text listing-description delink">
-<p>Freddy, a software engineer at Hugging Face, demonstrates ways to build…</p>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="QXBwbGljYXRpb25zJTJDbGxtLWNvbmYtMjAyNA==" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1782448113283" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="19">
-<a href="../../education/applications/python.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../education/applications/python.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Building Full Stack Applications with Python
-</h5>
-<div class="card-text listing-description delink">
-<p>This lesson is private and will be released shortly.</p>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="3" data-categories="QXBwbGljYXRpb25zJTJDbGxtLWNvbmYtMjAyNA==" data-listing-date-sort="1720767600000" data-listing-file-modified-sort="1782448113279" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="46" data-listing-word-count-sort="9127">
-<a href="../../education/applications/charles.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="../../education/applications/modal.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Modal: Simple Scalable Serverless Services
-</h5>
-<div class="card-text listing-description delink">
-<p>Modal makes it easy to run code in the cloud. In this talk, we will…</p>
-</div>
-</div>
-</div></a>
-</div>
-</div>
+<tr data-index="0" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1779346800000" data-listing-title-sort="Exploring Agent-Assisted Qualitative Analysis">
+<td>
+<span class="listing-date">May 21, 2026</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/ai-qual-analysis/" class="title listing-title">Exploring Agent-Assisted Qualitative Analysis</a>
+</td>
+
+</tr>
+
+<tr data-index="1" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1772438400000" data-listing-title-sort="Evals Skills for Coding Agents">
+<td>
+<span class="listing-date">Mar 2, 2026</span>
+</td>
+<td>
+<a href="https://hamel.dev/blog/posts/evals-skills/" class="title listing-title">Evals Skills for Coding Agents</a>
+</td>
+
+</tr>
+
+<tr data-index="2" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1768464000000" data-listing-title-sort="LLM Evals: Everything You Need to Know">
+<td>
+<span class="listing-date">Jan 15, 2026</span>
+</td>
+<td>
+<a href="https://hamel.dev/blog/posts/evals-faq/" class="title listing-title">LLM Evals: Everything You Need to Know</a>
+</td>
+
+</tr>
+
+<tr data-index="3" data-categories="TExNcw==" data-listing-date-sort="1764576000000" data-listing-title-sort="On the Consumption of AI-Generated Content at Scale">
+<td>
+<span class="listing-date">Dec 1, 2025</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/consumption-ai-scale/" class="title listing-title">On the Consumption of AI-Generated Content at Scale</a>
+</td>
+
+</tr>
+
+<tr data-index="4" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1759302000000" data-listing-title-sort="Selecting The Right AI Evals Tool">
+<td>
+<span class="listing-date">Oct 1, 2025</span>
+</td>
+<td>
+<a href="https://hamel.dev/blog/posts/eval-tools/" class="title listing-title">Selecting The Right AI Evals Tool</a>
+</td>
+
+</tr>
+
+<tr data-index="5" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1757055600000" data-listing-title-sort="In Defense of AI Evals, for Everyone">
+<td>
+<span class="listing-date">Sep 5, 2025</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/in-defense-ai-evals/" class="title listing-title">In Defense of AI Evals, for Everyone</a>
+</td>
+
+</tr>
+
+<tr data-index="6" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1750662000000" data-listing-title-sort="Inspect AI, An OSS Python Library For LLM Evals">
+<td>
+<span class="listing-date">Jun 23, 2025</span>
+</td>
+<td>
+<a href="https://hamel.dev/notes/llm/evals/inspect.html" class="title listing-title">Inspect AI, An OSS Python Library For LLM Evals</a>
+</td>
+
+</tr>
+
+<tr data-index="7" data-categories="TExNcw==" data-listing-date-sort="1750057200000" data-listing-title-sort="Writing in the Age of LLMs">
+<td>
+<span class="listing-date">Jun 16, 2025</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/ai-writing/" class="title listing-title">Writing in the Age of LLMs</a>
+</td>
+
+</tr>
+
+<tr data-index="8" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1730185200000" data-listing-title-sort="Using LLM-as-a-Judge For Evaluation: A Complete Guide">
+<td>
+<span class="listing-date">Oct 29, 2024</span>
+</td>
+<td>
+<a href="https://hamel.dev/blog/posts/llm-judge/" class="title listing-title">Using LLM-as-a-Judge For Evaluation: A Complete Guide</a>
+</td>
+
+</tr>
+
+<tr data-index="9" data-categories="TExNcyUyQ0ZpbmUtVHVuaW5n" data-listing-date-sort="1722236400000" data-listing-title-sort="An Open Course on LLMs, Led by Practitioners">
+<td>
+<span class="listing-date">Jul 29, 2024</span>
+</td>
+<td>
+<a href="https://hamel.dev/blog/posts/course/" class="title listing-title">An Open Course on LLMs, Led by Practitioners</a>
+</td>
+
+</tr>
+
+<tr data-index="10" data-categories="TExNcw==" data-listing-date-sort="1719817200000" data-listing-title-sort="Data Flywheels for LLM Applications">
+<td>
+<span class="listing-date">Jul 1, 2024</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/ai-engineering-flywheel/" class="title listing-title">Data Flywheels for LLM Applications</a>
+</td>
+
+</tr>
+
+<tr data-index="11" data-categories="TExNcw==" data-listing-date-sort="1719212400000" data-listing-title-sort="Short Musings on AI Engineering and &quot;Failed AI Projects&quot;">
+<td>
+<span class="listing-date">Jun 24, 2024</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/ai-engineering-short/" class="title listing-title">Short Musings on AI Engineering and “Failed AI Projects”</a>
+</td>
+
+</tr>
+
+<tr data-index="12" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1717225200000" data-listing-title-sort="What We've Learned From A Year of Building with LLMs">
+<td>
+<span class="listing-date">Jun 1, 2024</span>
+</td>
+<td>
+<a href="https://applied-llms.org/" class="title listing-title">What We’ve Learned From A Year of Building with LLMs</a>
+</td>
+
+</tr>
+
+<tr data-index="13" data-categories="TExNcyUyQ1JBRw==" data-listing-date-sort="1712559600000" data-listing-title-sort="Comparing LLMs on &quot;Real-World&quot; Retrieval">
+<td>
+<span class="listing-date">Apr 8, 2024</span>
+</td>
+<td>
+<a href="https://www.sh-reya.com/blog/needle-in-the-real-world/" class="title listing-title">Comparing LLMs on “Real-World” Retrieval</a>
+</td>
+
+</tr>
+
+<tr data-index="14" data-categories="TExNcyUyQ0V2YWxz" data-listing-date-sort="1711695600000" data-listing-title-sort="Your AI Product Needs Evals">
+<td>
+<span class="listing-date">Mar 29, 2024</span>
+</td>
+<td>
+<a href="https://hamel.dev/blog/posts/evals/" class="title listing-title">Your AI Product Needs Evals</a>
+</td>
+
+</tr>
+
+</tbody>
+</table>
 <div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div>
+
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1119,18 +991,6 @@ Modal: Simple Scalable Serverless Services
     }
   });
   </script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
-      <a href="../../education/fine_tuning/pawel.html" class="pagination-link" aria-label="Fine Tuning LLMs for Function Calling">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Fine Tuning LLMs for Function Calling</span>
-      </a>          
-  </div>
-  <div class="nav-page nav-page-next">
-      <a href="../../education/applications/simon_llm_cli/index.html" class="pagination-link" aria-label="LLMs on the command line">
-        <span class="nav-page-text">LLMs on the command line</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
-  </div>
-</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -1152,7 +1012,7 @@ Modal: Simple Scalable Serverless Services
     </a>
   </li>  
 </ul>
-    <div class="toc-actions"><ul><li><a href="https://github.com/parlance-labs/website/edit/main/education/applications/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li></ul></div></div>
+    </div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

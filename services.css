@@ -1,5 +1,12 @@
 /* Services page styles - minimal additions */
 
+/* CTA section centering */
+.cta-section {
+  text-align: center;
+  padding: 1.5rem 0;
+  margin: 0;
+}
+
 /* Prominent CTA section */
 .cta-prominent {
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(56, 189, 248, 0.02) 100%);
@@ -131,6 +138,24 @@
 
 .cta-secondary-link a:hover {
   text-decoration: underline;
+}
+
+/* Muted archive note - intentionally low-key and out of the way */
+.archive-note {
+  text-align: center;
+  margin: 2.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--pl-text-muted, #71717a);
+}
+
+.archive-note a {
+  color: var(--pl-text-muted, #71717a);
+  text-decoration: underline;
+  font-weight: 400;
+}
+
+.archive-note a:hover {
+  color: var(--pl-text-secondary, #d4d4d8);
 }
 
 /* Responsive - stack on mobile */

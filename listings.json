@@ -25,6 +25,10 @@
     ]
   },
   {
+    "listing": "/blog/index.html",
+    "items": []
+  },
+  {
     "listing": "/education/evals/index.html",
     "items": [
       "/education/evals/allaire.html",

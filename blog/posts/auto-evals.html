@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Antaripa Saha">
+<meta name="author" content="Hamel Husain">
+<meta name="dcterms.date" content="2026-07-02">
+<meta name="description" content="We took 100 real production traces, hand-labeled the failures, masked the labels, and asked dedicated eval platforms, general-purpose chat models, and coding agents to redo the error analysis. Here is what they found, and where human judgment was still necessary.">
+
+<title>Do Automated Evals Work? – Parlance</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../b.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-c80e189f4601bfe90cf34c28f0c4e4a8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-dark-97613afa5fffbb1e5b184c209517caa9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QXGQ6F7NKT"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QXGQ6F7NKT', { 'anonymize_ip': true});
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-N36MQM5R');</script>
+<!-- End Google Tag Manager -->
+<meta name="quarto:status" content="draft">
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Do Automated Evals Work? – Parlance">
+<meta property="og:description" content="We took 100 real production traces, hand-labeled the failures, masked the labels, and asked dedicated eval platforms, general-purpose chat models, and coding agents to redo the error analysis. Here is what they found, and where human judgment was still necessary.">
+<meta property="og:image" content="https://parlance-labs.com/blog/posts/cover.png">
+<meta property="og:site_name" content="Parlance">
+<meta name="twitter:title" content="Do Automated Evals Work? – Parlance">
+<meta name="twitter:description" content="We took 100 real production traces, hand-labeled the failures, masked the labels, and asked dedicated eval platforms, general-purpose chat models, and coding agents to redo the error analysis. Here is what they found, and where human judgment was still necessary.">
+<meta name="twitter:image" content="https://parlance-labs.com/blog/posts/cover.png">
+<meta name="twitter:creator" content="@HamelHusain">
+<meta name="twitter:site" content="@HamelHusain">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = true;
+    const darkModeDefault = authorPrefersDark;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+    <nav class="navbar navbar-expand " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../b.png" alt="" class="navbar-logo light-content">
+    <img src="../../b.png" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+          <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../services.html"> 
+<span class="menu-text">Education</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../team.html"> 
+<span class="menu-text">Team</span></a>
+  </li>  
+</ul>
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+            <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about-the-experiment-what-we-tested" id="toc-about-the-experiment-what-we-tested" class="nav-link active" data-scroll-target="#about-the-experiment-what-we-tested">About the Experiment (what we tested)</a></li>
+  <li><a href="#how-we-evaluated-the-results" id="toc-how-we-evaluated-the-results" class="nav-link" data-scroll-target="#how-we-evaluated-the-results">How We Evaluated the Results</a></li>
+  <li><a href="#what-the-numbers-showed" id="toc-what-the-numbers-showed" class="nav-link" data-scroll-target="#what-the-numbers-showed">What the Numbers Showed</a>
+  <ul class="collapse">
+  <li><a href="#braintrusts-loop-strongest-recall-but-more-cleanup" id="toc-braintrusts-loop-strongest-recall-but-more-cleanup" class="nav-link" data-scroll-target="#braintrusts-loop-strongest-recall-but-more-cleanup">Braintrust’s Loop: strongest recall, but more cleanup</a></li>
+  <li><a href="#arize-axs-alyx-rougher-workflow-but-cleaner-decisions" id="toc-arize-axs-alyx-rougher-workflow-but-cleaner-decisions" class="nav-link" data-scroll-target="#arize-axs-alyx-rougher-workflow-but-cleaner-decisions">Arize AX’s Alyx: rougher workflow, but cleaner decisions</a></li>
+  <li><a href="#langsmith-best-trace-inspection-least-obvious-workflow" id="toc-langsmith-best-trace-inspection-least-obvious-workflow" class="nav-link" data-scroll-target="#langsmith-best-trace-inspection-least-obvious-workflow">LangSmith: best trace inspection, least obvious workflow</a></li>
+  </ul></li>
+  <li><a href="#how-far-can-you-get-with-a-general-purpose-agent" id="toc-how-far-can-you-get-with-a-general-purpose-agent" class="nav-link" data-scroll-target="#how-far-can-you-get-with-a-general-purpose-agent">How Far Can You Get With a General-Purpose Agent?</a></li>
+  <li><a href="#discovery-and-regression-are-different-jobs-in-evals" id="toc-discovery-and-regression-are-different-jobs-in-evals" class="nav-link" data-scroll-target="#discovery-and-regression-are-different-jobs-in-evals">Discovery and Regression Are Different Jobs in Evals</a></li>
+  <li><a href="#where-automated-analysis-worked-and-where-it-didnt" id="toc-where-automated-analysis-worked-and-where-it-didnt" class="nav-link" data-scroll-target="#where-automated-analysis-worked-and-where-it-didnt">Where Automated Analysis Worked and Where It Didn’t</a></li>
+  <li><a href="#what-value-did-the-eval-platforms-actually-add" id="toc-what-value-did-the-eval-platforms-actually-add" class="nav-link" data-scroll-target="#what-value-did-the-eval-platforms-actually-add">What Value Did the Eval Platforms Actually Add?</a></li>
+  <li><a href="#how-actionable-were-the-findings" id="toc-how-actionable-were-the-findings" class="nav-link" data-scroll-target="#how-actionable-were-the-findings">How Actionable Were the Findings?</a></li>
+  <li><a href="#what-i-would-recommend-to-a-team-starting-evals" id="toc-what-i-would-recommend-to-a-team-starting-evals" class="nav-link" data-scroll-target="#what-i-would-recommend-to-a-team-starting-evals">What I Would Recommend to a Team Starting Evals</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N36MQM5R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Do Automated Evals Work?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">LLMs</div>
+    <div class="quarto-category">Evals</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    <p>We took 100 real production traces, hand-labeled the failures, masked the labels, and asked dedicated eval platforms, general-purpose chat models, and coding agents to redo the error analysis. Here is what they found, and where human judgment was still necessary.</p>
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p><a href="https://antaripasaha.com/about">Antaripa Saha</a> </p>
+             <p><a href="https://hamel.dev">Hamel Husain</a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>TL;DR
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We took 100 real conversations from a production apartment-leasing agent, hand-labeled the failures, masked those labels, and asked different automated eval systems to perform the same error-analysis task. These included three dedicated eval platforms (Braintrust, Arize, LangSmith), along with ChatGPT and three coding agents (Claude Code, Codex, and Factory Droid). We ran the experiment to understand how well automated systems can analyze real traces, where dedicated eval platforms added value beyond general-purpose agents, and where human judgment was still necessary.</p>
+</div>
+</div>
+<p>Teams building AI products often have plenty of traces but no clear idea what to evaluate. The data is there, but turning a pile of conversations into a useful failure taxonomy, a set of regression cases, and a small number of trustworthy evaluators is still hard.</p>
+<p>Automated eval products increasingly claim to help with this work. We have spent the last three weeks testing how useful these systems are in practice and how much of that work automated systems can actually do.</p>
+<p>We used 100 real traces from an apartment-leasing customer-support agent and gave the same masked dataset to Braintrust, Arize, and LangSmith. We also ran the same experiment with ChatGPT, Codex, Claude, and Droid to see how far teams can get with tools they may already use, without adopting a dedicated eval platform.</p>
+<p>The main question was not simply which system found the most issues. We wanted to understand whether these tools could help someone move from raw traces to a practical eval workflow, and what still required human judgment.</p>
+<section id="about-the-experiment-what-we-tested" class="level2">
+<h2 class="anchored" data-anchor-id="about-the-experiment-what-we-tested">About the Experiment (what we tested)</h2>
+<p>The 100 traces included full user and assistant messages, system instructions, tool calls, and tool outputs. We had already reviewed the traces manually using open coding and axial coding to build an initial failure taxonomy. Before uploading the data, I removed the human notes and any other fields that could reveal that analysis.</p>
+<p>Each system received the same minimal task: review all 100 traces, find recurring failures, group related traces into issue clusters, cite evidence, suggest fixes, propose evaluators, and return the results at the trace level.</p>
+<p>The evaluation on the dedicated eval platforms (Braintrust, Arize, and LangSmith) was done on two dimensions:</p>
+<ul>
+<li><strong>Analysis quality:</strong> how many real failures they found, how often they were wrong, what legitimate issues they discovered that the original human review had missed, and the usefulness of the suggested fixes and evaluators.</li>
+<li><strong>Product experience:</strong> how easy it was to upload and inspect traces, understand the documentation, how intuitive the platform was to navigate, review evidence, and export the resulting analysis.</li>
+</ul>
+<p>We also ran the same masked dataset through ChatGPT, Codex, Claude, and Droid. We evaluated these systems mainly on their analysis quality rather than developer experience. This comparison was mainly done because many teams already have access to a capable general-purpose or coding agent, even if they have not adopted a dedicated eval platform.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The goal of this experiment was not to declare one universal winner, but to help teams understand what these tools can realistically automate, where human judgment remains necessary, and how to choose a practical starting point for evaluating their own traces.</p>
+</div>
+</div>
+</section>
+<section id="how-we-evaluated-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="how-we-evaluated-the-results">How We Evaluated the Results</h2>
+<p>Once each system finished its analysis, we reviewed the results trace by trace against the original human error analysis.</p>
+<p>For every trace, we checked whether the system found the same failure, missed it, identified the wrong issue, or surfaced a legitimate problem that was absent from the human notes. This last category mattered more than we expected. The platforms found repeated transfer confirmations, unsupported follow-up promises, scheduling inconsistencies, ungrounded claims, and system-instruction violations that the original review had missed.</p>
+<p>This did not make the human analysis poor. Open-ended error analysis is difficult, especially when traces are long or contain several failures. A reviewer may focus on the main task outcome and overlook a smaller issue. For example, one trace successfully completed a tour booking, but Braintrust and Arize noticed that the assistant asked for text-message confirmation again after the user had already agreed.</p>
+<p>The reverse also happened. Some platform findings sounded convincing but turned out to be false positives once we reviewed the full conversation and tool activity.</p>
+<p>We therefore tracked three main outcomes:</p>
+<ul>
+<li><strong>Human-reference recall:</strong> how many failures from the original human review the system detected.</li>
+<li><strong>Expanded precision:</strong> how many of the system’s flags remained valid after manual review.</li>
+<li><strong>Human-missed discoveries:</strong> legitimate issues found by the system that were absent from the original notes.</li>
+</ul>
+<p>We also reviewed the evidence, severity, suggested fix, and candidate evaluators separately. A system could flag the right trace for the wrong reason, or find a real secondary issue while missing the primary failure.</p>
+<p>The human analysis therefore served as a strong reference, but not a perfect answer key. The more useful question was whether a finding was real, supported by the trace, and relevant to the product. That is also how teams should think about automated error analysis in practice. The output is not a replacement for human judgment, but it can provide a valuable second pass over a dataset.</p>
+</section>
+<section id="what-the-numbers-showed" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-numbers-showed">What the Numbers Showed</h2>
+<p>The three dedicated eval platforms had noticeably different performance profiles.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Braintrust Loop</th>
+<th>Arize AX Alyx</th>
+<th>LangSmith</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Human-reference recall</td>
+<td>87.2%</td>
+<td>74.4%</td>
+<td>79.5%</td>
+</tr>
+<tr class="even">
+<td>Expanded precision (including the ones missed by human)</td>
+<td>79.1%</td>
+<td>91.0%</td>
+<td>77.5%</td>
+</tr>
+<tr class="odd">
+<td>Human-missed discoveries</td>
+<td>20</td>
+<td>19</td>
+<td>20</td>
+</tr>
+<tr class="even">
+<td>Incorrect flags</td>
+<td>9</td>
+<td>3</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Expanded precision:</strong> the percentage of platform flags judged valid after reviewing both matches to the original human notes and legitimate issues the human review had missed.</p>
+</div>
+</div>
+<p>No platform dominated every dimension.</p>
+<p>Braintrust found the largest share of the original human failures. It was also noisier.</p>
+<p>Arize was more conservative. It missed more of the human-marked failures, but when it flagged something, it was usually right.</p>
+<p>LangSmith fell between them on recall, but its evidence was often the most specific. Its main weakness was severity calibration: several incorrect findings were marked high severity. Severity is supposed to help teams decide what to investigate and which failures should become regression tests. If too many questionable findings are labeled critical, prioritization becomes harder.</p>
+<p>This is already more useful than saying one system “won.” A team investigating rare safety failures may prefer recall and tolerate cleanup. A team with limited reviewer capacity may prefer fewer, cleaner alerts. A platform that finds the same number of issues but cites precise turns and tool calls may save more engineering time than one with slightly better raw metrics.</p>
+<p>The differences between eval platforms became more meaningful once we looked beyond the quantitative metrics and considered what it was actually like to complete the workflow in each platform.</p>
+<section id="braintrusts-loop-strongest-recall-but-more-cleanup" class="level3">
+<h3 class="anchored" data-anchor-id="braintrusts-loop-strongest-recall-but-more-cleanup">Braintrust’s Loop: strongest recall, but more cleanup</h3>
+<p>Braintrust was the easiest platform to get useful results quickly.</p>
+<p>Uploading the masked JSON dataset was straightforward. I then pointed Loop (Braintrust’s agent) at the uploaded traces, and asked for failure discovery with almost no product-specific rubric. Loop produced a coherent first-pass analysis from a single prompt. It identified recurring patterns such as delayed human handoffs, scheduling and rescheduling failures, internal artifacts, incomplete answers, and unsupported claims.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Prompt used (this was the same for every platform)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The <code>@nurtureboss_evals_masked</code> are production traces from an AI that handles apartment-leasing customer support (phone and messaging). Each trace includes the full conversation and any tool calls with their outputs.</p>
+<p>You have no human labels, scores, or ground truth. Analyze the traces and:</p>
+<ol type="1">
+<li>Surface recurring failures, risks, and quality problems you observe in the data.</li>
+<li>Group related traces into issue clusters where possible (name each cluster).</li>
+<li>For each cluster or issue, list example trace identifiers if available (e.g.&nbsp;<code>trace_id</code> or <code>session.id</code> in metadata).</li>
+<li>Note whether any traces appear acceptable or inconclusive, do not assume all traces failed.</li>
+<li>If you can, suggest candidate evaluators (what to measure and how), without referencing any external rubric.</li>
+</ol>
+<p>Be specific: cite conversation turns or tool steps when possible. Avoid generic themes unless you tie them to evidence in the traces.</p>
+</div>
+</div>
+</div>
+<p>I was particularly impressed that it did not force an issue onto every trace. It marked some conversations as acceptable or inconclusive, which made the analysis feel more credible.</p>
+<p>Braintrust also achieved the highest recall of the three eval platforms. It recovered most of the failures from the original human review and found 20 legitimate issues that were absent from the original review. Its misses were mostly failures that depended on business context (which was not provided in the prompt that we gave) rather than information explicitly visible in the trace.</p>
+<p>Its false positives followed a different pattern. Braintrust sometimes became too strict about completeness or interpreted internal tool metadata as information that should have been surfaced to the user. These findings often sounded convincing until we reread the full trace, which made manual verification important.</p>
+<p>From a product perspective, Braintrust gave me the smoothest path from upload to a downloadable audit dataset. I could run the analysis, add new fields, inspect the results, and export the updated data without much friction.</p>
+<p>The documentation was less clear than the product itself. Loop is described mainly in relation to logs, while the workflow that worked for this experiment used a dataset. The intended path for importing historical multi-turn traces with tool calls was not obvious from the docs alone.</p>
+<p>My overall impression was that Braintrust felt the most proactive. It gave the strongest sense that the agent was helping with the analysis rather than simply returning a report.</p>
+</section>
+<section id="arize-axs-alyx-rougher-workflow-but-cleaner-decisions" class="level3">
+<h3 class="anchored" data-anchor-id="arize-axs-alyx-rougher-workflow-but-cleaner-decisions">Arize AX’s Alyx: rougher workflow, but cleaner decisions</h3>
+<p>Arize was easy to start with at the dataset level. The masked data only needed to be converted from JSON to CSV before upload, and the platform accepted the traces without a complicated schema transformation. The Alyx agent was then directed towards the uploaded dataset.</p>
+<p>There was some initial bump while using the Alyx agent for analyzing the traces. Initially Alyx had access to only the first 200 characters of each trace, and later runs encountered compaction and timeout issues. But the Arize team was very proactive in resolving the issues quickly once reported.</p>
+<p>The workflow was rougher than Braintrust’s, but the developer support was excellent. That definitely affected my overall impression of the product. Problems are more tolerable when the team acknowledges them quickly and helps resolve them.</p>
+<p>We used the same prompt with Alyx. Once the analysis completed, it produced the cleanest set of flags. Its recall was lower at 74.4%, but its expanded precision was 91%, and it produced only three incorrect flags.</p>
+<p>Arize was especially good at identifying claims that were not grounded in tool outputs. It caught cases where the assistant:</p>
+<ul>
+<li>called ordinary one-bedroom units “lofts,”</li>
+<li>treated the cheapest market-rate unit as an affordable-housing option,</li>
+<li>answered a floor-level request without having floor information,</li>
+<li>or promised a callback without any visible action behind it.</li>
+</ul>
+<p>Its misses were similar to Braintrust’s: sales objections, Markdown in SMS, interruptions in voice conversations, and handoff requirements that depended on business context. In a few traces, it also found a valid secondary grounding issue while missing the more important behavioral failure.</p>
+<p>The main workflow limitation was that Alyx could not write the full analysis back into the original dataset in the format I requested. I eventually copied the results into a separate spreadsheet for manual review.</p>
+<p>My overall impression was almost the reverse of Braintrust. Arize required more effort to complete the experiment, but the final findings were cleaner and easier to trust.</p>
+</section>
+<section id="langsmith-best-trace-inspection-least-obvious-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="langsmith-best-trace-inspection-least-obvious-workflow">LangSmith: best trace inspection, least obvious workflow</h3>
+<p>LangSmith required the most setup before the analysis could begin. There was no straightforward way to upload the historical JSON traces from the interface, so I wrote a Python script to create the 100 traces according to LangSmith’s format and upload them programmatically.</p>
+<p>Once the data was in the platform, LangSmith had the best trace-reading experience of the three. Messages, system prompts, tool calls, and outputs were easy to inspect in Markdown or JSON, which made individual traces much easier to review.</p>
+<p>I first tried LangSmith Engine for automated evals because it is presented as an automated workflow for finding recurring issues, linking supporting traces, proposing fixes, and suggesting evaluators.</p>
+<p>Engine analyzed the project’s traces in roughly 20 minutes and surfaced a small set of issue clusters. For each issue, it could show:</p>
+<ul>
+<li>the traces linked to the pattern,</li>
+<li>a short diagnosis,</li>
+<li>a proposed fix,</li>
+<li>and a suggested evaluator, sometimes with draft code.</li>
+</ul>
+<p>The workflow was promising, especially the direct connection between a discovered issue and a candidate evaluator. The limitation was coverage. Engine found a few useful recurring patterns, but many issues present in the broader trace-level analysis did not appear in its clusters. That made Engine useful for investigating the issues it did discover, but not sufficient for the complete 100-trace comparison we wanted to run.</p>
+<p>I therefore used LangSmith’s chat agent for the scored experiment. The chat agent analyzed the imported traces and returned a 100-row table with issue clusters, evidence, severity, fix suggestions, and candidate evaluators. I could then download the result directly as a CSV. The quantitative results in this post come from LangSmith chat, not Engine.</p>
+<p>LangSmith chat recovered 79.5% of the failures from the original human review and found 20 additional legitimate issues. Its strongest quality was evidence. When it was correct, it usually pointed clearly to the relevant message or tool output, which made the findings easier to verify.</p>
+<p>My overall impression was that LangSmith made it easiest to understand individual traces, but the path from historical trace data to automated analysis was the least obvious. It felt strongest as an observability and trace-inspection environment, but less straightforward for this specific offline error-analysis workflow.</p>
+</section>
+</section>
+<section id="how-far-can-you-get-with-a-general-purpose-agent" class="level2">
+<h2 class="anchored" data-anchor-id="how-far-can-you-get-with-a-general-purpose-agent">How Far Can You Get With a General-Purpose Agent?</h2>
+<p>After testing the dedicated eval platforms, we ran the same masked traces through ChatGPT, Codex, Claude Code, and Factory Droid.</p>
+<p>This was not meant to be a product-experience comparison. These tools do not provide the same trace management, review interfaces, evaluator dashboards, or production monitoring as an eval platform. We rather wanted to check whether a team could point an agent it already uses day to day at its traces and still get useful error analysis.</p>
+<p>Short answer: yes. But the output still required careful human review.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>System</th>
+<th>Human-reference recall</th>
+<th>Expanded precision</th>
+<th>Human-missed discoveries</th>
+<th>Incorrect flags</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ChatGPT, GPT-5.5</td>
+<td>87.2%</td>
+<td>81.2%</td>
+<td>22</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td>Codex, GPT-5.5 High</td>
+<td>84.6%</td>
+<td>82.8%</td>
+<td>20</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>Droid, GPT-5.5 High</td>
+<td>84.6%</td>
+<td>83.3%</td>
+<td>17</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Claude Opus 4.8, reasoning</td>
+<td>79.5%</td>
+<td>77.4%</td>
+<td>17</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td>Claude Opus 4.8, heuristics and rule based</td>
+<td>46.2%</td>
+<td>86.8%</td>
+<td>15</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>Without an eval-specific harness, ChatGPT matched Braintrust’s 87.2% recall and found 22 legitimate issues that were absent from the original human notes, the largest number in the benchmark. It was also noisy: it produced 13 incorrect flags, many of which were assigned high severity.</p>
+<p>Codex behaved similarly. It was thorough, forensic, and particularly good at quoting exact tool arguments, dates, prices, and conflicting values. It also caught some subtle behavioral failures that the dedicated eval platforms missed, including an in-person tour link being presented as support for a virtual tour.</p>
+<p>Factory Droid reached the same recall as Codex with slightly fewer false positives. Its weakness was severity calibration in the other direction: it never used a critical rating, even for failures that could reasonably deserve it.</p>
+<p>The general-purpose agents were therefore competitive on raw analysis and did really well in finding issues. But they lacked a disciplined workflow around the findings. They produced large collections of trace-specific evaluator names, inconsistent severity scales, and outputs that needed to be normalized before comparison. A team using these tools directly would still need to decide:</p>
+<ul>
+<li>how to format and provide the traces,</li>
+<li>which findings are valid enough to enter the eval suite,</li>
+<li>how to consolidate overlapping evaluator ideas,</li>
+<li>and how to rerun the analysis as new traces arrive.</li>
+</ul>
+<p>The models could do much of the reasoning. The surrounding eval process was still ours to build.</p>
+</section>
+<section id="discovery-and-regression-are-different-jobs-in-evals" class="level2">
+<h2 class="anchored" data-anchor-id="discovery-and-regression-are-different-jobs-in-evals">Discovery and Regression Are Different Jobs in Evals</h2>
+<p>The two Claude runs exposed an important distinction. The same model behaved very differently depending on how the task was framed.</p>
+<ul>
+<li><strong>With access to tools:</strong> Claude built an 11-rule deterministic checker. It was more precise and reusable, but recovered only 46.2% of the human-identified failures.</li>
+<li><strong>With direct reasoning:</strong> We then ran Claude again with one instruction changed: do not build checkers to analyse, instead, read and reason through every trace directly. Recall rose to 79.5%, but false positives increased from five to 14.</li>
+</ul>
+<p>Open-ended reasoning was better for discovering unexpected and semantic failures, while the rule-based approach was better for repeatedly checking known failure modes and patterns for regressions. In practice, the stronger workflow is to use reasoning for discovery, have humans validate the findings, and then convert the confirmed patterns into a smaller regression suite.</p>
+</section>
+<section id="where-automated-analysis-worked-and-where-it-didnt" class="level2">
+<h2 class="anchored" data-anchor-id="where-automated-analysis-worked-and-where-it-didnt">Where Automated Analysis Worked and Where It Didn’t</h2>
+<p>Now that we had tested automated evals across dedicated eval platforms, general-purpose models, and coding agents, we noticed that across all systems, automated analysis was strongest when the failure was visible in the trace and had a clear structural pattern.</p>
+<p>The systems consistently caught unsupported scheduling claims, repeated transfer confirmations, promises without a corresponding action, stale or conflicting dates, and factual claims that contradicted tool output. These failures left clear evidence, which also made them easier to turn into concrete evaluators.</p>
+<p>The shared misses usually depended on context outside the trace. This was one of the clearest lessons from the experiment: models can inspect what happened, but they cannot infer every unstated product expectation. The same misses appeared across eval platforms and frontier models, which suggests that tool choice cannot substitute for product context. Teams still need to supply channel constraints, capability boundaries, important business rules, and examples of what good behavior looks like.</p>
+</section>
+<section id="what-value-did-the-eval-platforms-actually-add" class="level2">
+<h2 class="anchored" data-anchor-id="what-value-did-the-eval-platforms-actually-add">What Value Did the Eval Platforms Actually Add?</h2>
+<p>The dedicated eval platforms did not consistently outperform general-purpose agents on raw failure discovery. ChatGPT matched Braintrust’s recall, while Codex and Droid came close. In some cases, the general agents also found subtle failures that the platforms missed.</p>
+<p>So the real advantage was not necessarily better reasoning. It was everything around the reasoning.</p>
+<p>With a general agent, we could get a strong first-pass analysis, but we still had to manage the traces, verify each finding, normalize the output, merge overlapping evaluator ideas, and decide how the work would be repeated later.</p>
+<p>Dedicated platforms made it easier to:</p>
+<ul>
+<li>inspect the full trace and supporting tool calls,</li>
+<li>keep findings linked to the source conversation,</li>
+<li>review and annotate results,</li>
+<li>manage datasets and evaluator outputs,</li>
+<li>rerun analysis on new traces,</li>
+<li>and move from one-off investigation toward continuous monitoring.</li>
+</ul>
+<p>In other words, the platforms reduced the operational work around evals. For a first batch of 50 or 100 traces, a capable general-purpose agent may be enough. The value of a dedicated platform becomes clearer once the analysis needs to be repeated, shared across a team, preserved over time, or connected to regression testing and production monitoring.</p>
+<p>A general-purpose agent can help find the problems. An eval platform makes it easier to build a repeatable process around what the team learns.</p>
+</section>
+<section id="how-actionable-were-the-findings" class="level2">
+<h2 class="anchored" data-anchor-id="how-actionable-were-the-findings">How Actionable Were the Findings?</h2>
+<p>In practice, identifying a failure is only the first step. Finding a failure is useful only if the output also helps a team decide what to fix, what to measure, and what to prioritize.</p>
+<p>The tools differed in how well they supported that next step:</p>
+<ul>
+<li><strong>Braintrust</strong> generated the largest number of fixes and candidate evaluators, but many overlapped. The output was useful for brainstorming, but it needed substantial consolidation and cleanup before becoming a practical eval suite.</li>
+<li><strong>Arize</strong> produced fewer, cleaner categories that were easier to translate into a reusable set of checks.</li>
+<li><strong>LangSmith Engine</strong> made the connection between an issue, its supporting traces, a proposed fix, and a draft evaluator especially clear.</li>
+<li><strong>The general-purpose agents</strong> often suggested detailed fixes, but the results still had to be organized, prioritized, and converted into an implementation plan manually.</li>
+</ul>
+<p>We judged actionability by asking three questions: What failed, Why did it fail, and What should change next? The strongest findings answered all three. The weaker ones stopped at broad advice such as “improve grounding” or “update the prompt,” leaving the real diagnosis to the team.</p>
+<p>We did not implement and validate the suggested evaluators as part of this experiment, so we cannot compare their production performance. But the platforms can go a step further and help create evaluator implementations. LangSmith Engine, for example, generated draft evaluator code for the issues it surfaced. But generated code is still only a starting point. It needs to be reviewed, tested against human-labeled examples, and verified before it can be trusted in an eval suite.</p>
+</section>
+<section id="what-i-would-recommend-to-a-team-starting-evals" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-would-recommend-to-a-team-starting-evals">What I Would Recommend to a Team Starting Evals</h2>
+<p>I would not begin by designing a large evaluator suite. I would start early with 50-100 representative production traces, run an open-ended analysis, and require every finding to include supporting evidence and reasoning. Then I would manually review the results, remove false positives, add important misses, and consolidate the confirmed issues into a small failure taxonomy.</p>
+<p>That process alone can reveal some great insights about the data: recurring weaknesses in the product, gaps in the surrounding workflow, assumptions that were never encoded, and areas where the system needs better tooling or clearer instructions.</p>
+<p>Only after that would I build repeatable evaluators:</p>
+<ul>
+<li>use deterministic checks for structural failures such as missing tool actions, invalid dates, or leaked internal text,</li>
+<li>keep the judgment scoped and simple, often as a pass/fail decision with a written critique,</li>
+<li>include diverse examples of both correct and incorrect behavior, along with any product context needed to judge them,</li>
+<li>validate every LLM judge or other evaluator against human-labeled examples, including unseen data, before relying on it in production.</li>
+</ul>
+<p>Human review should remain the core in the early stages of evals. Use human judgements to define what good looks like, then automate only the patterns that are clear enough to measure reliably. A general-purpose agent is enough to begin this process. A dedicated eval platform becomes more useful once the work needs to be repeated, tracked, shared across a team, compared across model or prompt versions, and run continuously on new production traces.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you have traces and do not know where to begin, you do not need to design the perfect eval system first. Ask an agent that you already use to help you read the traces. Verify what it finds, name the recurring failures, and then build a few evaluators you can trust.</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/parlance-labs\.com\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/HamelHusain">
+      <i class="bi bi-twitter" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hamelsmu">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

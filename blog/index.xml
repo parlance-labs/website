@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Parlance</title>
+<link>https://parlance-labs.com/blog/</link>
+<atom:link href="https://parlance-labs.com/blog/index.xml" rel="self" type="application/rss+xml"/>
+<description>Notes on AI evals, LLMs, and building AI that works in production.</description>
+<image>
+<url>https://parlance-labs.com/../cover.png</url>
+<title>Parlance</title>
+<link>https://parlance-labs.com/blog/</link>
+</image>
+<generator>quarto-1.9.38</generator>
+<lastBuildDate>Thu, 21 May 2026 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Exploring Agent-Assisted Qualitative Analysis</title>
+  <link>https://parlance-labs.com/</link>
+  <description>On using AI agents to support qualitative analysis of data.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Thu, 21 May 2026 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Evals Skills for Coding Agents</title>
+  <link>https://parlance-labs.com/</link>
+  <description>On building eval skills for coding agents.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 02 Mar 2026 08:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>LLM Evals: Everything You Need to Know</title>
+  <link>https://parlance-labs.com/</link>
+  <description>An FAQ covering common questions about evaluating LLM applications.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Thu, 15 Jan 2026 08:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>On the Consumption of AI-Generated Content at Scale</title>
+  <link>https://parlance-labs.com/</link>
+  <description>On the implications of consuming AI-generated content at scale.
+</description>
+  <category>LLMs</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 01 Dec 2025 08:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Selecting The Right AI Evals Tool</title>
+  <link>https://parlance-labs.com/</link>
+  <description>How to choose an evals tool for your AI product.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Wed, 01 Oct 2025 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>In Defense of AI Evals, for Everyone</title>
+  <link>https://parlance-labs.com/</link>
+  <description>Making the case for AI evals as a practice for everyone building with LLMs.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Fri, 05 Sep 2025 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Inspect AI, An OSS Python Library For LLM Evals</title>
+  <link>https://parlance-labs.com/</link>
+  <description>A look at Inspect AI, an open-source framework for building and running LLM evaluations.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 23 Jun 2025 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Writing in the Age of LLMs</title>
+  <link>https://parlance-labs.com/</link>
+  <description>On how LLMs are changing the way we write.
+</description>
+  <category>LLMs</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 16 Jun 2025 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Using LLM-as-a-Judge For Evaluation: A Complete Guide</title>
+  <link>https://parlance-labs.com/</link>
+  <description>A complete guide to using an LLM as a judge for evaluation.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Tue, 29 Oct 2024 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>An Open Course on LLMs, Led by Practitioners</title>
+  <link>https://parlance-labs.com/</link>
+  <description>Announcing Mastering LLMs, a free practitioner-led course on evals, RAG, and fine-tuning.
+</description>
+  <category>LLMs</category>
+  <category>Fine-Tuning</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 29 Jul 2024 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Data Flywheels for LLM Applications</title>
+  <link>https://parlance-labs.com/</link>
+  <description>On building data flywheels that improve LLM applications over time.
+</description>
+  <category>LLMs</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 01 Jul 2024 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Short Musings on AI Engineering and &quot;Failed AI Projects&quot;</title>
+  <link>https://parlance-labs.com/</link>
+  <description>Brief reflections on AI engineering and why AI projects fail.
+</description>
+  <category>LLMs</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 24 Jun 2024 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>What We&#39;ve Learned From A Year of Building with LLMs</title>
+  <link>https://parlance-labs.com/</link>
+  <description>A practical guide to building successful LLM products, distilled from a year of hands-on experience.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Sat, 01 Jun 2024 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Comparing LLMs on &quot;Real-World&quot; Retrieval</title>
+  <link>https://parlance-labs.com/</link>
+  <description>Comparing how LLMs perform on real-world retrieval tasks.
+</description>
+  <category>LLMs</category>
+  <category>RAG</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Mon, 08 Apr 2024 07:00:00 GMT</pubDate>
+</item>
+<item>
+  <title>Your AI Product Needs Evals</title>
+  <link>https://parlance-labs.com/</link>
+  <description>Why systematic evals are essential to improving AI products.
+</description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/</guid>
+  <pubDate>Fri, 29 Mar 2024 07:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>
