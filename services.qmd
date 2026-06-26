@@ -12,7 +12,7 @@ css: services.css
 
 ## The course: AI Evals For Engineers & PMs
 
-If you're scared to ship changes because you checking everything by hand and don't trust your metrics, this course teaches the system for fixing it. Over the cohort you will:
+If you're checking everything by hand and scared to ship, this course is for you. Over the cohort you will:
 
 - Replace random spot-checking with a repeatable way to find failures.
 - Design and validate LLM-as-judge and code-based evaluators that match expert judgment.
