@@ -1,5 +1,12 @@
 /* Services page styles - minimal additions */
 
+/* CTA section centering */
+.cta-section {
+  text-align: center;
+  padding: 1.5rem 0;
+  margin: 0;
+}
+
 /* Prominent CTA section */
 .cta-prominent {
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(56, 189, 248, 0.02) 100%);

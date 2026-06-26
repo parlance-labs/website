@@ -1,6 +1,6 @@
 ---
 title: "Build, Evaluate, and Improve AI That Works in Production"
-subtitle: "The most field-tested evals course available. We've refined it over a year of cohorts with 4,500+ engineers and PMs from teams like OpenAI, Google, Meta, and Amazon."
+subtitle: "Refined over a year of cohorts with 4,500+ engineers and PMs from OpenAI, Google, Meta, and Amazon."
 sidebar: false
 toc: false
 image: cover.png
@@ -10,38 +10,16 @@ search: false
 css: services.css
 ---
 
-:::{.cta-section .cta-hero}
-<div class="cta-option">
-[See next cohort dates &amp; enroll](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
-<span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
-</div>
-:::
-
-<p class="proof-bar">4.7/5 from 879 reviews · Featured in Lenny's List</p>
-
-## Is this you?
-
-- You're spot-checking AI outputs by hand, and you know it won't scale.
-- You're scared to ship a prompt or model change because you don't trust your metrics.
-- Leadership keeps asking "is this actually better?" and you don't have an answer you trust.
-- You've hired smart people and bought tools, and you're still guessing whether your AI is getting better or worse.
-
-If so, you're in the right place. We teach the system for fixing it.
-
 ## The course: AI Evals For Engineers & PMs
 
-Build a real AI agent, find where it breaks, and improve it with evals you can trust, working the full loop hands-on. Over the cohort you will:
+If you're scared to ship changes because you checking everything by hand and don't trust your metrics, this course teaches the system for fixing it. Over the cohort you will:
 
-- Replace random spot-checking with a repeatable way to read traces and find failures.
+- Replace random spot-checking with a repeatable way to find failures.
 - Design and validate LLM-as-judge and code-based evaluators that match expert judgment.
 - Wire evals into CI/CD so prompt, model, and tool changes get checked before they ship.
-- Run experiments that raise accuracy and cut cost, and prove which change moved the metric.
+- Run experiments that raise accuracy and cut cost.
 
-You keep lifetime access to all recordings and materials, a 150+ page course reader, 10+ hours of office hours, a private Discord community, and a seat in every future cohort.
-
-**Backed by the Maven Guarantee:** a full refund through the first two weeks of the cohort, no questions asked.
-
----
+You keep lifetime access to all recordings, a 150+ page course reader, 10+ hours of office hours, a private Discord, and a seat in every future cohort.
 
 :::{.cta-section}
 <div class="cta-option">
