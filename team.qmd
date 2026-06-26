@@ -19,6 +19,12 @@ search: false
 
 [Shreya](https://www.sh-reya.com/){target="_blank"} is a leading researcher on applied ML and AI systems.  She has led extensive research on human-computer interaction for low-code tools to program complex LLM workflows including evals, monitoring and fine-tuning.  Her research has been adopted widely and is incorporated into many commercial LLM tools such as Langsmith, Autoblocks, Parea, and more.
 
+## Isaac Flath
+
+![](images/isaac.png){width=70 style="float:left"}
+
+[Isaac Flath](https://isaacflath.com/){target="_blank"} is an AI engineer and educator who has spent the last decade building AI products with startups and larger companies. His work centers on the systems that make AI products reliable in production — retrieval, evals, memory, tool calling, traces, and agent workflows. He also runs the [AI Engineering Club](https://www.skool.com/ai-eng){target="_blank"} and teaches widely followed courses on RAG and AI-assisted coding.
+
 ## Antaripa Saha
 
 ![](images/antaripa.jpeg){width=70 style="float:left"}
