@@ -1,0 +1,16 @@
+---
+title: "Redirecting…"
+pagetitle: "Redirecting to the Evals Course"
+sidebar: false
+toc: false
+repo-actions: false
+search: false
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta http-equiv="refresh" content="0; url=https://maven.com/parlance-labs/evals?promoCode=oai-evals">
+        <link rel="canonical" href="https://maven.com/parlance-labs/evals?promoCode=oai-evals">
+---
+
+If you are not redirected automatically, [click here to go to the Evals Course](https://maven.com/parlance-labs/evals?promoCode=oai-evals).
