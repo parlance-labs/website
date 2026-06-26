@@ -133,6 +133,24 @@
   text-decoration: underline;
 }
 
+/* Muted archive note - intentionally low-key and out of the way */
+.archive-note {
+  text-align: center;
+  margin: 2.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--pl-text-muted, #71717a);
+}
+
+.archive-note a {
+  color: var(--pl-text-muted, #71717a);
+  text-decoration: underline;
+  font-weight: 400;
+}
+
+.archive-note a:hover {
+  color: var(--pl-text-secondary, #d4d4d8);
+}
+
 /* Responsive - stack on mobile */
 @media (max-width: 600px) {
   .cta-buttons {

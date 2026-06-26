@@ -1,0 +1,5 @@
+# Shared defaults applied to every post in blog/posts/
+sidebar: false
+search: true
+toc: true
+repo-actions: false

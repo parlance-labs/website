@@ -1,0 +1,59 @@
+/*-- scss:defaults --*/
+
+// Core palette - refined charcoal with electric blue accents
+$body-bg: #0f1114;
+$body-color: #f4f4f5;
+$link-color: #75a8d9;
+$link-hover-color: #9cc3e5;
+$headings-font-weight: 600;
+$paragraph-margin-bottom: 1.25rem;
+$headings-margin-bottom: 0.75rem;
+$border-radius: 6px;
+$border-radius-lg: 12px;
+$code-bg: rgba(255, 255, 255, 0.06);
+$code-color: #fbbf24;
+
+// Gray scale and surfaces matching Parlance charcoal palette
+$gray-900: #0f1114;
+$gray-800: #1c1f26;
+$gray-700: #16181d;
+$navbar-bg: rgba(15, 17, 20, 0.9);
+$footer-bg: #16181d;
+$border-color: rgba(255, 255, 255, 0.08);
+
+/*-- scss:rules --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+// Root variables for the design system
+:root {
+  --pl-bg-primary: #0f1114;
+  --pl-bg-secondary: #16181d;
+  --pl-bg-elevated: #1c1f26;
+  --pl-bg-card: rgba(255, 255, 255, 0.03);
+  --pl-border-subtle: rgba(255, 255, 255, 0.08);
+  --pl-border-medium: rgba(255, 255, 255, 0.12);
+
+  --pl-text-primary: #f4f4f5;
+  --pl-text-secondary: #d4d4d8;
+  --pl-text-muted: #a1a1aa;
+
+  --pl-accent: #38bdf8;
+  --pl-accent-dim: rgba(56, 189, 248, 0.15);
+  --pl-link: #75a8d9;
+  --pl-accent-secondary: #818cf8;
+  --pl-accent-secondary-dim: rgba(129, 140, 248, 0.12);
+
+  --pl-gradient-hero: linear-gradient(135deg, #0f1114 0%, #1a1d24 50%, #0f1114 100%);
+  --pl-gradient-card: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+  --pl-gradient-accent: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+
+  --pl-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --pl-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --pl-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --pl-shadow-glow: 0 0 40px rgba(56, 189, 248, 0.08);
+}
+
+.anchorjs-link {
+  display: none !important;
+}

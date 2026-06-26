@@ -1,0 +1,125 @@
+# External blog listings.
+#
+# Each entry below is rendered into the blog listing on blog/index.qmd alongside
+# the internal posts in blog/posts/. To add another external link, append an entry
+# with this schema:
+#
+#   - title:       "Post title shown in the listing"
+#     path:        https://external-site.com/post   # external URL OR an internal path
+#     date:        YYYY-MM-DD
+#     categories:  [Category1, Category2]
+#     description: |
+#       One-line summary shown under the title.
+#
+# `path` can be a full external URL (links out) or a path to an internal page.
+
+- title: "What We've Learned From A Year of Building with LLMs"
+  path: https://applied-llms.org/
+  date: 2024-06-01
+  categories: [LLMs, Evals]
+  description: |
+    A practical guide to building successful LLM products, distilled from a year of hands-on experience.
+
+# --- Hamel Husain: evals ---
+
+- title: "LLM Evals: Everything You Need to Know"
+  path: https://hamel.dev/blog/posts/evals-faq/
+  date: 2026-01-15
+  categories: [LLMs, Evals]
+  description: |
+    An FAQ covering common questions about evaluating LLM applications.
+
+- title: "Evals Skills for Coding Agents"
+  path: https://hamel.dev/blog/posts/evals-skills/
+  date: 2026-03-02
+  categories: [LLMs, Evals]
+  description: |
+    On building eval skills for coding agents.
+
+- title: "Selecting The Right AI Evals Tool"
+  path: https://hamel.dev/blog/posts/eval-tools/
+  date: 2025-10-01
+  categories: [LLMs, Evals]
+  description: |
+    How to choose an evals tool for your AI product.
+
+- title: "Inspect AI, An OSS Python Library For LLM Evals"
+  path: https://hamel.dev/notes/llm/evals/inspect.html
+  date: 2025-06-23
+  categories: [LLMs, Evals]
+  description: |
+    A look at Inspect AI, an open-source framework for building and running LLM evaluations.
+
+- title: "Using LLM-as-a-Judge For Evaluation: A Complete Guide"
+  path: https://hamel.dev/blog/posts/llm-judge/
+  date: 2024-10-29
+  categories: [LLMs, Evals]
+  description: |
+    A complete guide to using an LLM as a judge for evaluation.
+
+- title: "Your AI Product Needs Evals"
+  path: https://hamel.dev/blog/posts/evals/
+  date: 2024-03-29
+  categories: [LLMs, Evals]
+  description: |
+    Why systematic evals are essential to improving AI products.
+
+# --- Hamel Husain: fine-tuning course ---
+
+- title: "An Open Course on LLMs, Led by Practitioners"
+  path: https://hamel.dev/blog/posts/course/
+  date: 2024-07-29
+  categories: [LLMs, Fine-Tuning]
+  description: |
+    Announcing Mastering LLMs, a free practitioner-led course on evals, RAG, and fine-tuning.
+
+# --- Shreya Shankar: posts from 2024 onward ---
+
+- title: "Exploring Agent-Assisted Qualitative Analysis"
+  path: https://www.sh-reya.com/blog/ai-qual-analysis/
+  date: 2026-05-21
+  categories: [LLMs, Evals]
+  description: |
+    On using AI agents to support qualitative analysis of data.
+
+- title: "On the Consumption of AI-Generated Content at Scale"
+  path: https://www.sh-reya.com/blog/consumption-ai-scale/
+  date: 2025-12-01
+  categories: [LLMs]
+  description: |
+    On the implications of consuming AI-generated content at scale.
+
+- title: "In Defense of AI Evals, for Everyone"
+  path: https://www.sh-reya.com/blog/in-defense-ai-evals/
+  date: 2025-09-05
+  categories: [LLMs, Evals]
+  description: |
+    Making the case for AI evals as a practice for everyone building with LLMs.
+
+- title: "Writing in the Age of LLMs"
+  path: https://www.sh-reya.com/blog/ai-writing/
+  date: 2025-06-16
+  categories: [LLMs]
+  description: |
+    On how LLMs are changing the way we write.
+
+- title: "Data Flywheels for LLM Applications"
+  path: https://www.sh-reya.com/blog/ai-engineering-flywheel/
+  date: 2024-07-01
+  categories: [LLMs]
+  description: |
+    On building data flywheels that improve LLM applications over time.
+
+- title: "Short Musings on AI Engineering and \"Failed AI Projects\""
+  path: https://www.sh-reya.com/blog/ai-engineering-short/
+  date: 2024-06-24
+  categories: [LLMs]
+  description: |
+    Brief reflections on AI engineering and why AI projects fail.
+
+- title: "Comparing LLMs on \"Real-World\" Retrieval"
+  path: https://www.sh-reya.com/blog/needle-in-the-real-world/
+  date: 2024-04-08
+  categories: [LLMs, RAG]
+  description: |
+    Comparing how LLMs perform on real-world retrieval tasks.

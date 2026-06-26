@@ -1,0 +1,25 @@
+---
+title: "Blog"
+description: "Notes on AI evals, LLMs, and building AI that works in production."
+image: ../cover.png
+repo-actions: false
+sidebar: false
+search: false
+toc: false
+listing:
+  id: blog-listings
+  contents:
+    - blogs.yml
+    - "posts/*.qmd"
+  type: table
+  fields: [date, title]
+  sort: "date desc"
+  sort-ui: false
+  filter-ui: false
+  categories: false
+  date-format: "MMM D, YYYY"
+  feed: true
+---
+
+::: {#blog-listings}
+:::

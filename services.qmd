@@ -49,5 +49,5 @@ You keep lifetime access to all recordings and materials, a 150+ page course rea
 <span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
 </div>
 
-<p class="cta-secondary-link">Already taken the course and shipping AI in production? [Join our AI Engineering Community](https://www.skool.com/ai-eng/about){target="_blank"}</p>
+<p class="archive-note">Our 2024 talk series surveying a range of LLM topics is archived [here](education/index.qmd).</p>
 :::

@@ -4,6 +4,10 @@ project:
     - "*.qmd"
     - "**/*.qmd"
     - "!CLAUDE.md"
+  resources:
+    - CNAME
+
+draft-mode: unlinked
 
 website:
   title: "Parlance"
@@ -30,18 +34,19 @@ website:
       - icon: github
         href: https://github.com/hamelsmu
   navbar:
+    title: false
     background: dark
     pinned: true
     collapse: false
     collapse-below: sm
     logo: b.png
     left:
-    - text: Course
+    - text: Blog
+      file: blog/index.qmd
+    - text: Education
       file: services.qmd
     - text: Team
       file: team.qmd
-    - text: Resources
-      file: education/
   sidebar:
     - title: Resources
       pinned: true
@@ -90,14 +95,19 @@ website:
                 - "education/fine_tuning/pawel.qmd"
         - section: Applications
           href: education/applications/index.qmd
-          contents: 
-            - education/applications/**/*.qmd
+          contents:
+            - education/applications/simon_llm_cli/index.qmd
+            - education/applications/freddy.qmd
+            - education/applications/charles.qmd
         - education/prompt_eng/berryman.qmd
 
 format:
   html:
     reference-location: document
-    theme: [solar, custom.scss]
+    link-external-newwindow: true
+    theme:
+      dark: [cosmo, theme-parlance-dark.scss]
+      light: [cosmo, theme-parlance-dark.scss]
     css:
       - styles.css
     toc: true

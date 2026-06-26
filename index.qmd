@@ -12,21 +12,21 @@ image: cover.png
 
 # Parlance Labs
 
-Learn to build AI that works in production.
+Build AI that works in production.
 :::
 
-## What We Do
+## We Help You
 
 :::{.value-cards}
 
 <div class="value-card">
 <span class="value-number">01</span>
-<p>Learn to build <strong>evaluation systems</strong> that identify exactly what's broken and what to fix next.</p>
+<p><strong>Build evaluation systems</strong> that identify exactly what's broken and what to fix next.</p>
 </div>
 
 <div class="value-card">
 <span class="value-number">02</span>
-<p>Replace guesswork with <strong>repeatable processes</strong> that compound over time.</p>
+<p><strong>Replace guesswork</strong> with repeatable processes that compound over time.</p>
 </div>
 
 <div class="value-card">
@@ -123,7 +123,7 @@ Learn to build AI that works in production.
 :::
 
 :::{.cta-section}
-[Explore the course](./services.qmd){.cta-button role="button"}
+[Explore Education](./services.qmd){.cta-button role="button"}
 :::
 
 :::{.wall-of-love}
@@ -137,5 +137,5 @@ Learn to build AI that works in production.
 :::
 
 :::{.cta-section}
-[Explore the course](./services.qmd){.cta-button role="button"}
+[Explore Education](./services.qmd){.cta-button role="button"}
 :::
