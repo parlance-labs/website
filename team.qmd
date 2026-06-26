@@ -23,7 +23,7 @@ search: false
 
 ![](images/isaac.png){width=70 style="float:left"}
 
-[Isaac Flath](https://isaacflath.com/){target="_blank"} is an AI engineer and educator who has spent the last decade building AI products with startups and larger companies. His work centers on the systems that make AI products reliable in production — retrieval, evals, memory, tool calling, traces, and agent workflows. He also runs the [AI Engineering Club](https://www.skool.com/ai-eng){target="_blank"} and teaches widely followed courses on RAG and AI-assisted coding.
+[Isaac Flath](https://isaacflath.com/){target="_blank"} is an AI engineer and educator who has spent the last decade building AI products with startups and larger companies. His work centers on the systems that make AI products reliable in production — retrieval, evals, memory, tool calling, traces, and agent workflows. He also runs the [AI Product Engineering Club](https://www.skool.com/ai-eng){target="_blank"} and teaches widely followed courses on RAG and AI-assisted coding.
 
 ## Antaripa Saha
 
