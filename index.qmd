@@ -123,7 +123,7 @@ Build AI that works in production.
 :::
 
 :::{.cta-section}
-[Explore Education](./services.qmd){.cta-button role="button"}
+[Explore Education](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){.cta-button role="button" target="_blank"}
 :::
 
 :::{.wall-of-love}
@@ -137,5 +137,5 @@ Build AI that works in production.
 :::
 
 :::{.cta-section}
-[Explore Education](./services.qmd){.cta-button role="button"}
+[Explore Education](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){.cta-button role="button" target="_blank"}
 :::
