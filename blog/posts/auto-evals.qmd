@@ -74,7 +74,7 @@ A caveat before the numbers. This experiment is one dataset, one prompt, and 39 
 
 ## What the tools caught
 
-| System | Recall | Precision | Discoveries | Wrong flags |
+| System | Recall | Precision | Discoveries | False positives |
 |---|---|---|---|---|
 | Braintrust Loop | 87.2% | 79.1% | 20 | 9 |
 | Arize AX Alyx | 74.4% | 91.0% | 19 | 3 |
@@ -105,7 +105,7 @@ The chat agent's strength was evidence. When it flagged a real failure, it usual
 
 ### The general-purpose agents
 
-Claude Code, Codex, and Factory Droid are general purpose coding agents and were competitive with the platforms. They received the same prompt and the same masked traces. Codex quoted exact tool arguments, dates, prices, and conflicting values in its evidence. It caught subtle failures the platforms missed, including an in-person tour link presented as confirmation of a virtual tour. Droid matched Codex's recall with fewer wrong flags, though it never rated anything critical, even failures that deserved it.
+Claude Code, Codex, and Factory Droid are general purpose coding agents and were competitive with the platforms. They received the same prompt and the same masked traces. Codex quoted exact tool arguments, dates, prices, and conflicting values in its evidence. It caught subtle failures the platforms missed, including an in-person tour link presented as confirmation of a virtual tour. Droid matched Codex's recall with fewer false positives, though it never rated anything critical, even failures that deserved it.
 
 Judged only on the quality of their findings, the coding agents and the dedicated platforms were roughly even. The platforms' advantage was the workflow around the analysis. They kept findings linked to the source traces and gave us a place to review and annotate them. They can also rerun the analysis as new traces arrive.
 
