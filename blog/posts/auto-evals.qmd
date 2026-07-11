@@ -70,7 +70,7 @@ We scored each system on three outcomes:
 - **Precision**: how many of its flags survived our manual review. A flag counts as valid if it matches a human label or if it is a real issue the human review had missed.
 - **Discoveries**: valid flags that were absent from the human review.
 
-A caveat before the numbers. This experiment is one dataset, one prompt, and 39 labeled failures, so the differences between systems come down to a handful of traces. They cannot establish that one vendor is better than another, and ranking vendors was not the goal.[^neutral] We share the numbers for transparency. The interesting part is what every system missed.
+A caveat before the numbers. This experiment is one dataset, one prompt, and 39 labeled failures, so the differences between systems come down to a handful of traces. They cannot establish that one vendor is better than another, and ranking vendors was not the goal.[^neutral] We set out to find where these systems systematically fall short, and to learn what they were like to use.
 
 ## What the tools caught
 
