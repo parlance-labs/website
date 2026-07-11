@@ -11,6 +11,7 @@ listing:
   contents:
     - blogs.yml
     - "posts/*.qmd"
+    - "posts/*/index.qmd"
   type: table
   fields: [date, title]
   sort: "date desc"

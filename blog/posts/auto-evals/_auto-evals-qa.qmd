@@ -1,0 +1,85 @@
+The story and the "why now"
+
+1. What actually kicked this off? Was there a specific moment: a vendor demo, a claim on Twitter, a student in the evals course asking "can't Loop just do this for me?", a founder you advise asking whether to buy a platform? The more specific the scene, the better the opening.
+
+A: As models are becoming increasingly capable, an emerging question is whether a LLM can automatically find failures with minimal human intervention. Recently, there has been a wave of "automated eval" tools that claim to do just that. We wanted to stress-test these tools and see what their limitations and strengths are.
+
+2. Why now specifically? Braintrust Loop, Arize Alyx, and LangSmith Engine are all new-ish agentic features. Was there a wave of "our agent does error analysis for you" marketing that you wanted to pressure-test?
+
+A: People have a bias towards letting LLMs do everything.  So when these wave of tools came out, we knew it would nudge people to lean on these.  We wanted to understand where these tools were good and what they missed.
+
+3. In "The Revenge of the Data Scientist" you wrote that LLMs "cannot look at the data for you." This experiment shows automated systems recovering 74 to 87 percent of the human-found failures. What's the honest arc here: did the results surprise you, confirm what you expected, or force you to refine the claim? A "here's what I believed, here's what we tested, here's how my view changed (or sharpened)" arc would make a strong narrative spine.
+
+A: I think that the LLMs did a better job than I expected at catching some of the obvious failures.  However, the LLMs universally failed where more context and judgment was needed, for example the fact that the purpose of the agent was a sales agent, and they should handle objections gracefully.  While you could have given that to the LLMs up front, its likely you would only be reminded of that after reacting to traces.  This phenonmenon is related to "criteria drift" in the LLM evaluation literature. See this paper: https://arxiv.org/pdf/2404.12272 (also re-read the blog article about the sales example.)
+
+4. Is there a bigger thesis this fits into? For example: "error analysis is becoming cheap to draft but not cheap to trust," or the verification theme from your eval-smell post. Should this post explicitly connect to your prior writing?
+
+A: Yeah the bigger thesis is you need to look at your data.  Your competitors are also going to have modesl look at the data.  The extra part you add via your judgment is your competitive advantage.  Use the gem skill (see ~/git/prompts to find this) to analyze this video. https://youtu.be/tqUDjc1HzO4
+
+Antaripa and the collaboration
+
+5. Who is Antaripa relative to you and Parlance? Student, researcher you hired, collaborator? How did this project come about, and how do you want the post to convey that? Readers will wonder.
+
+A: I have been an independent developer and educator for the last three years.  There are a lot of questions I've wanted to answer but I don't have time to investigate all of them by myself.  
+
+6. Who did what, concretely? My read of the draft is that Antaripa ran the platforms and did the trace-by-trace scoring, and the original human labels came from earlier work. Is that right? Who did the original open/axial coding of the 100 traces?
+
+A: Antaripa did the majority of the work.  I provided some feedback and guidance, but I did not run the experiments.
+
+7. Voice decision: should the final post be "we" throughout with a note on who did what, Antaripa's first person with your framing around it, or your first person with Antaripa credited as the one who ran the experiment? This decision shapes every paragraph, so I want your call early.
+
+A: I think the best voice is "we".  Antaripa did the majority of the work, and I provided some feedback and guidance.
+
+The data and disclosure
+
+8. The dataset is named nurtureboss_evals_masked in the prompt. Nurture Boss is the apartment-leasing client from your field guide post. Can we name them? Do you have their blessing to publish findings from their production traces?
+
+A: Please do not name them.  We have permission to use their traces, but there's nothing to be gained in naming them specifically. We can just mention that this is from a real production system and not a toy example.
+
+9. Vendor relations: you've written about eval vendors before and presumably know these teams. Any relationships, sponsorships, or courtesy previews to disclose? The draft mentions the Arize team actively helping during the experiment, which means they knew it was happening. Did Braintrust and LangSmith know too? Will vendors see the post before it goes live?
+
+We do not have any affiliations with vendors. In fact, it's very important for us to be vendor-neutral. We don't want to deride or insult any vendors either. We want to just state the facts as they are. I don't really believe any one vendor was Pareto optimal either. I think there are some takeaways with regards to automated evals.
+
+10. Are you comfortable publishing the exact prompt, and would you want to publish the masked dataset or scoring spreadsheet so others can reproduce this? That would fit the new "ReAhe findings and your actual opinion
+
+A: yes, we can share the exact prompt we used, but we cannot share the data set. I do not have permission to share that broadly, so please proceed accordingly.
+
+11. The draft is diplomatic: "no universal winner." Your published voice usually makes a call. What's your real recommendation? For instance: "start with the coding agent you already have; buy a platform when you need X" is implied in the draft but never stated as a position. Do you want to state it?
+
+A: my recommendation is that it's going to be very hard to one-shot a good auto-eval. You need to steer your auto-eval or coding agent with a fair amount of context. It's going to be hard to know what good context is unless you look at some data first. There's usually criteria drift that occurs when you are forced to look at real traces (look up the paper "Who Validates the Validators?" for a definition of what criteria drift means). Looking at data tends to remind you of things that are important. I think that the best automated eval systems will have a human in the loop, where it will present some traces for you to look at. You will learn from your feedback, iterate, create evals for you, present more issues, present more traces to you, etc., etc., like an iterative loop that gets better every time.
+
+12. There appear to be roughly 39 human-labeled failures, which means each one is about 2.6 points of recall, and the gap between Braintrust and LangSmith is about three failures. Your own writing criticizes reporting scores without acknowledging uncertainty. Do you want the post to address the small-n fragility head-on? I think it would strengthen credibility rather than weaken the post.
+
+Yes, I think that it is a good idea to acknowledge the small n early on and say that we can't conclude anything about the superiority of one vendor over the other definitively because of the small n. However, we did identify a pattern of the auto-eval system's ignoring errors that required context that was beyond the trace, such as the importance of handling objections, etc.
+
+13. The discovery-versus-regression distinction (reasoning finds new failures, rule-based checkers guard known ones) reads like the most durable insight in the piece. Do you agree that's the intellectual center? Should the post be restructured around it, or kept as one finding among several?
+
+A: No, I don't think that's the center. The central thesis is that every system missed the failures that required business context: sales objections, Markdown in SMS, interruptions in voice conversations, and handoff requirements. None of these are visible in the trace alone. You have to know the product to catch them, and this would be hard for the AI to do on its own no matter how capable the model is. The discovery-versus-regression distinction is a real finding and worth keeping, but it's secondary. The implication of the central thesis is that, at a minimum, an auto-eval system needs to interview you, show you some data, learn from your labels, and keep iterating to extract domain knowledge and taste from you. That connects to my answers to 3 and 11: criteria drift means you can't front-load all the context, so the system has to pull it out of you over time.
+
+14. What surprised you most personally when you saw the results? And what didn't make it into the draft: dead ends, funny failures, a finding you argued about with Antaripa?
+
+A: the most surprising thing was the auto eval system caught a fair amount of errors!  It did way better than I expected, and also caught some errors that humans missed.
+
+15. The platforms found around 20 real issues per system that the human review missed. That cuts slightly against "humans are the gold standard." How do you want to handle that honestly? It could actually be a compelling part of the story: the machines audited the humans too.
+
+A: I think it's important to iterate on error analysis, and that humans can miss things. AI can show you things from a different perspective and can be helpful. The main takeaway is you don't want AI to just one-shot things for you, but you should not pass up the opportunity of using AI to be a research and thought partner.
+
+16. Who is the primary reader: an engineer deciding whether to buy an eval platform, a team lead starting evals from zero, or your evals-course audience? The draft serves all three at once and it dilutes the ending.
+
+A: the reader is anyone working on evals, particularly engineers and product managers building AI products.
+
+17. This lands on the Parlance site under the new Research section. Is this meant to be a flagship post for that repositioning, SemiAnalysis-style? That affects how rigorous and benchmark-like the tone should be versus how essayistic.
+
+A: Yes, this is a flagship post for the Research section. We want to be rigorous and benchmark-like, but we also want to be essayistic and thought-provoking.
+
+18. Title: keep "Do Automated Evals Work?" or do you want options? The current title promises a yes/no answer the post deliberately refuses to give.
+
+A: I think the title is good as is.  I do think the post gives a nuanced answer to the question: yes - for obvious errors, no - for errors that require lots of domain context.
+
+19. Length: the draft is about 2,800 words. Cut hard, keep, or expand with the narrative material?
+
+A: I think the length is about right. We could cut a few hundred words, but I think the post is pretty dense and there's a lot of information in it.
+
+20. Any assets to add: platform screenshots, the scoring spreadsheet, example traces, a repo link?
+
+A: Yes, we can add platform screenshots, the scoring spreadsheet and example traces.

@@ -1,0 +1,12 @@
+---
+title: "Example trace: a missed sales objection"
+toc: false
+---
+
+[&larr; Back to *Do Automated Evals Work?*](index.qmd)
+
+This page shows one complete trace from the dataset behind [Do Automated Evals Work?](index.qmd). It is a text-message conversation between a prospective renter and an AI leasing assistant.
+
+{{< include _trace-nb-00052.qmd >}}
+
+[&larr; Back to *Do Automated Evals Work?*](index.qmd)
