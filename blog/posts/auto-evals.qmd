@@ -89,7 +89,7 @@ Each system also found 17 to 20 minor issues that our human review had missed. F
 
 ### Braintrust Loop
 
-Braintrust had the highest recall of the three platforms and was easy to use. Upload was simple, and Loop worked from our single prompt. We could review and export its findings in place. It also did not force an issue onto every trace. It marked some conversations as acceptable or inconclusive, which made its findings easier to believe.
+Braintrust had the highest recall of the three platforms and was easy to use. Upload was simple, and Loop worked from our single prompt. We could review and export its findings seamlessly. It also did not force an issue onto every trace. It marked some conversations as acceptable or inconclusive, which made its findings easier to believe.
 
 The cost of the high recall was false positives. Nine of its flags were wrong, usually because Loop was too strict about completeness or treated internal tool metadata as something the user should have been told. These findings sounded convincing until we reread the full trace.
 
@@ -101,7 +101,7 @@ Arize traded recall for precision. Alyx missed more of the human-labeled failure
 
 LangSmith had the best interface for reading individual traces. For the analysis itself, we tried two of its tools. Engine is built for exactly this job. It finds recurring issues and links each one to its supporting traces. But it surfaced only a small set of issues, far fewer than a full review turns up, so we could not use it for the 100-trace comparison. We ran the scored experiment with LangSmith's chat agent instead.
 
-The chat agent's strength was evidence. When it flagged a real failure, it usually cited the exact message or tool call, which made its findings the easiest to verify. Its weakness was severity ratings. Several of its wrong findings were marked high severity, and inflated severity misleads a team deciding what to fix first.
+When LangSmith's chat agent flagged a real failure, it usually cited the exact message or tool call, which made its findings the easiest to verify. Its weakness was severity ratings. Several of its wrong findings were marked high severity, and inflated severity misleads a team deciding what to fix first.
 
 ### The general-purpose agents
 
