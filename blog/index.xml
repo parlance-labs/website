@@ -8,7 +8,7 @@
 <title>Parlance Labs</title>
 <link>https://parlance-labs.com/blog/</link>
 <atom:link href="https://parlance-labs.com/blog/index.xml" rel="self" type="application/rss+xml"/>
-<description>Posts by [our team](../team.qmd).</description>
+<description>Posts by our team.</description>
 <image>
 <url>https://parlance-labs.com/../cover.png</url>
 <title>Parlance Labs</title>
@@ -219,7 +219,7 @@ figcaption, .figure-caption, .quarto-layout-panel figcaption { text-align: cente
 <p>We would not run error analysis as a one-shot task. Instead, we would annotate traces ourselves and let the AI learn from annotations continuously. Our colleague Shreya Shankar<sup>10</sup> demonstrates this workflow in the video below. She asks a coding agent to build a small review interface over her traces, then annotates what bothers her. The agent watches her annotations in real time (she uses Claude’s <a href="https://code.claude.com/docs/en/tools-reference">monitor tool</a> for this), learns a taxonomy of failures from them, and brings back new suspected instances for her to accept or dismiss. Each round pulls more of her product context into the eval suite. She is still the one judging, but the agent makes the judging efficient.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/tqUDjc1HzO4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p>As an AI product builder, you should stay in the loop instead of completely outsourcing evals to AI. If a tool could find and fix every issue on its own, it would do the same for your competitors, and there would be nothing left to set your product apart. To stand out, look at your data.</p>
-<p><em>P.S. Want to learn more about Evals? Check out our <a href="https://maven.com/parlance-labs/evals?promoCode=parlance-c6" target="_blank">AI Evals course</a>. It’s a live cohort with hands-on exercises and office hours. Here is a <a href="https://maven.com/parlance-labs/evals?promoCode=parlance-c6" target="_blank">25% discount code</a> for readers.</em></p>
+<p><em>P.S. Want hands-on help with Evals? Check out our <a href="https://maven.com/parlance-labs/evals?promoCode=parlance-c6" target="_blank">AI Evals course</a>. It’s a live cohort with guided exercises and office hours.</em></p>
 
 
 </section>
