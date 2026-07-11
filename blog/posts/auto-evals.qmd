@@ -21,7 +21,7 @@ format:
 
 For the past three years, we have answered most questions about AI evals with the same advice: look at your data.[^teaching] In practice, looking at your data means error analysis[^ea], where you read your production traces (or logs) and catalog how your product fails. Reviewing traces also changes what you look for. You need criteria to grade outputs, but grading outputs is how you discover your criteria, a phenomenon known as criteria drift.[^drift] For this reason, we argued against completely outsourcing looking at your data to an LLM.[^revenge]
 
-New products nudge the other way. Braintrust, Arize, and LangSmith have each shipped an agent (Loop, Alyx, and Engine) that reads your production traces and reports what is failing.[^tools] Coding agents have become capable enough to attempt the same job from a folder of log files or traces. We believe in using AI in any workflow where it helps, including error analysis. But the temptation with these tools is to take the human out of the loop entirely. How much can these systems catch on their own, and what do they miss?
+New products nudge the other way. Braintrust, Arize, and LangSmith have each shipped an agent (Loop, Alyx, and Engine) that reads your production traces and reports what is failing.[^tools] Coding agents have become capable enough to attempt the same job from a folder of log files or traces. We believe in using AI in any workflow where it helps. However, the temptation with these tools is to take the human out of the loop entirely. How much can these systems catch on their own, and what do they miss?
 
 ::: {layout-ncol=3}
 ![Loop from Braintrust.](auto-evals-images/braintrust.png)
