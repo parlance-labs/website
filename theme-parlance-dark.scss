@@ -57,3 +57,8 @@ $border-color: rgba(255, 255, 255, 0.08);
 .anchorjs-link {
   display: none !important;
 }
+
+/* Course CTA block (::: {.cta}), ported from hamel.dev styles.css */
+.cta {
+  color: rgb(183, 92, 104) !important;
+}
