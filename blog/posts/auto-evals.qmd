@@ -1,106 +1,57 @@
 ---
 title: "Do Automated Evals Work?"
 description: |
-  We took 100 real production traces, hand-labeled the failures, masked the labels, and asked dedicated eval platforms, general-purpose chat models, and coding agents to redo the error analysis. Here is what they found, and where human judgment was still necessary.
-date: 2026-07-02
-draft: true
+  We compared 100 human annotated traces against automated eval systems.  Here's what we found.
+date: 2026-07-11
+draft: false
 categories: [LLMs, Evals]
 author:
   - name: Antaripa Saha
     url: https://antaripasaha.com/about
   - name: Hamel Husain
     url: https://hamel.dev
+link-external-newwindow: true
+format:
+  html:
+    lightbox: true
+    include-after-body:
+      - text: |
+          <script async data-uid="a47b368a8c" src="https://hamel.kit.com/a47b368a8c/index.js"></script>
 ---
 
-::: {.callout-note}
-## TL;DR
-We took 100 real conversations from a production apartment-leasing agent, hand-labeled the failures, masked those labels, and asked different automated eval systems to perform the same error-analysis task. These included three dedicated eval platforms (Braintrust, Arize, LangSmith), along with ChatGPT and three coding agents (Claude Code, Codex, and Factory Droid). We ran the experiment to understand how well automated systems can analyze real traces, where dedicated eval platforms added value beyond general-purpose agents, and where human judgment was still necessary.
+For the past three years, we have answered most questions about AI evals with the same advice: look at your data.[^teaching] In practice, looking at your data means error analysis[^ea], where you read your production traces (or logs) and catalog how your product fails. Reviewing traces also changes what you look for. You need criteria to grade outputs, but grading outputs is how you discover your criteria, a phenomenon known as criteria drift.[^drift] For this reason, we argued against completely outsourcing looking at your data to an LLM.[^revenge]
+
+New products nudge the other way. Braintrust, Arize, and LangSmith have each shipped an agent (Loop, Alyx, and Engine) that reads your production traces and reports what is failing.[^tools] Coding agents have become capable enough to attempt the same job from a folder of log files or traces. We believe in using AI in any workflow where it helps, including error analysis. But the temptation with these tools is to take the human out of the loop entirely. How much can these systems catch on their own, and what do they miss?
+
+::: {layout-ncol=3}
+![Loop from Braintrust.](auto-evals-images/braintrust.png)
+
+![Alyx from Arize.](auto-evals-images/arize.png)
+
+![Engine from LangSmith.](auto-evals-images/langsmith-clean.png)
 :::
 
-Teams building AI products often have plenty of traces but no clear idea what to evaluate. The data is there, but turning a pile of conversations into a useful failure taxonomy, a set of regression cases, and a small number of trustworthy evaluators is still hard.
+To find out, we tested it. First, we prepared a dataset of 100 traces from a production apartment-leasing AI, working with a domain expert to label failures by hand. Then we masked those labels and asked each system to review the traces and find the errors on its own. This allowed us to compare human versus automated error analysis.
 
-Automated eval products increasingly claim to help with this work. We have spent the last three weeks testing how useful these systems are in practice and how much of that work automated systems can actually do.
+The automated systems performed admirably. The best recovered 87 percent of failures flagged by humans.  Additionally, every system found issues humans missed. However, all of them missed the failures that take taste and domain knowledge to spot. Fixing them is what moves a product from "it works" to "it's good." The systems also flagged a fair number of issues that were not failures, which added some noise. We get into those details later in the post.
 
-We used 100 real traces from an apartment-leasing customer-support agent and gave the same masked dataset to Braintrust, Arize, and LangSmith. We also ran the same experiment with ChatGPT, Codex, Claude, and Droid to see how far teams can get with tools they may already use, without adopting a dedicated eval platform.
+This post covers the experiment, the results, and how we would modify the approach to be effective.
 
-The main question was not simply which system found the most issues. We wanted to understand whether these tools could help someone move from raw traces to a practical eval workflow, and what still required human judgment.
+## The experiment
 
-## About the Experiment (what we tested)
+The traces come from a real, production AI agent for apartment leasing.[^nurtureboss] Prospects text or call about apartments, and the agent answers questions and books tours. Certain conversations are supposed to be handed to a human. What's important to note is that this experiment is run on a live system with real customers with all its quirks instead of a synthetic benchmark.[^data]
 
-The 100 traces included full user and assistant messages, system instructions, tool calls, and tool outputs. We had already reviewed the traces manually using open coding and axial coding to build an initial failure taxonomy. Before uploading the data, I removed the human notes and any other fields that could reveal that analysis.
+To prepare the dataset, a domain expert labeled 100 traces by hand, following [the error analysis process](https://hamel.dev/blog/posts/evals-faq/why-is-error-analysis-so-important-in-llm-evals-and-how-is-it-performed.html). That review produced a failure taxonomy with 39 labeled failures. 
 
-Each system received the same minimal task: review all 100 traces, find recurring failures, group related traces into issue clusters, cite evidence, suggest fixes, propose evaluators, and return the results at the trace level.
 
-The evaluation on the dedicated eval platforms (Braintrust, Arize, and LangSmith) was done on two dimensions:
+We then masked all human annotations and fed the traces to each system with the following prompt:
 
-- **Analysis quality:** how many real failures they found, how often they were wrong, what legitimate issues they discovered that the original human review had missed, and the usefulness of the suggested fixes and evaluators.
-- **Product experience:** how easy it was to upload and inspect traces, understand the documentation, how intuitive the platform was to navigate, review evidence, and export the resulting analysis.
+::: {.callout-note collapse="false"}
+## The exact prompt (same for every system)
 
-We also ran the same masked dataset through ChatGPT, Codex, Claude, and Droid. We evaluated these systems mainly on their analysis quality rather than developer experience. This comparison was mainly done because many teams already have access to a capable general-purpose or coding agent, even if they have not adopted a dedicated eval platform.
+`@nurtureboss_evals.jsonl` are production traces from an AI that handles apartment-leasing customer support (phone and messaging). Each trace includes the full conversation and any tool calls with their outputs.
 
-::: {.callout-note}
-The goal of this experiment was not to declare one universal winner, but to help teams understand what these tools can realistically automate, where human judgment remains necessary, and how to choose a practical starting point for evaluating their own traces.
-:::
-
-## How We Evaluated the Results
-
-Once each system finished its analysis, we reviewed the results trace by trace against the original human error analysis.
-
-For every trace, we checked whether the system found the same failure, missed it, identified the wrong issue, or surfaced a legitimate problem that was absent from the human notes. This last category mattered more than we expected. The platforms found repeated transfer confirmations, unsupported follow-up promises, scheduling inconsistencies, ungrounded claims, and system-instruction violations that the original review had missed.
-
-This did not make the human analysis poor. Open-ended error analysis is difficult, especially when traces are long or contain several failures. A reviewer may focus on the main task outcome and overlook a smaller issue. For example, one trace successfully completed a tour booking, but Braintrust and Arize noticed that the assistant asked for text-message confirmation again after the user had already agreed.
-
-The reverse also happened. Some platform findings sounded convincing but turned out to be false positives once we reviewed the full conversation and tool activity.
-
-We therefore tracked three main outcomes:
-
-- **Human-reference recall:** how many failures from the original human review the system detected.
-- **Expanded precision:** how many of the system's flags remained valid after manual review.
-- **Human-missed discoveries:** legitimate issues found by the system that were absent from the original notes.
-
-We also reviewed the evidence, severity, suggested fix, and candidate evaluators separately. A system could flag the right trace for the wrong reason, or find a real secondary issue while missing the primary failure.
-
-The human analysis therefore served as a strong reference, but not a perfect answer key. The more useful question was whether a finding was real, supported by the trace, and relevant to the product. That is also how teams should think about automated error analysis in practice. The output is not a replacement for human judgment, but it can provide a valuable second pass over a dataset.
-
-## What the Numbers Showed
-
-The three dedicated eval platforms had noticeably different performance profiles.
-
-| Metric | Braintrust Loop | Arize AX Alyx | LangSmith |
-|---|---|---|---|
-| Human-reference recall | 87.2% | 74.4% | 79.5% |
-| Expanded precision (including the ones missed by human) | 79.1% | 91.0% | 77.5% |
-| Human-missed discoveries | 20 | 19 | 20 |
-| Incorrect flags | 9 | 3 | 9 |
-
-::: {.callout-tip}
-**Expanded precision:** the percentage of platform flags judged valid after reviewing both matches to the original human notes and legitimate issues the human review had missed.
-:::
-
-No platform dominated every dimension.
-
-Braintrust found the largest share of the original human failures. It was also noisier.
-
-Arize was more conservative. It missed more of the human-marked failures, but when it flagged something, it was usually right.
-
-LangSmith fell between them on recall, but its evidence was often the most specific. Its main weakness was severity calibration: several incorrect findings were marked high severity. Severity is supposed to help teams decide what to investigate and which failures should become regression tests. If too many questionable findings are labeled critical, prioritization becomes harder.
-
-This is already more useful than saying one system "won." A team investigating rare safety failures may prefer recall and tolerate cleanup. A team with limited reviewer capacity may prefer fewer, cleaner alerts. A platform that finds the same number of issues but cites precise turns and tool calls may save more engineering time than one with slightly better raw metrics.
-
-The differences between eval platforms became more meaningful once we looked beyond the quantitative metrics and considered what it was actually like to complete the workflow in each platform.
-
-### Braintrust's Loop: strongest recall, but more cleanup
-
-Braintrust was the easiest platform to get useful results quickly.
-
-Uploading the masked JSON dataset was straightforward. I then pointed Loop (Braintrust's agent) at the uploaded traces, and asked for failure discovery with almost no product-specific rubric. Loop produced a coherent first-pass analysis from a single prompt. It identified recurring patterns such as delayed human handoffs, scheduling and rescheduling failures, internal artifacts, incomplete answers, and unsupported claims.
-
-::: {.callout-note collapse="true"}
-## Prompt used (this was the same for every platform)
-
-The `@nurtureboss_evals_masked` are production traces from an AI that handles apartment-leasing customer support (phone and messaging). Each trace includes the full conversation and any tool calls with their outputs.
-
-You have no human labels, scores, or ground truth. Analyze the traces and:
+Analyze the traces and:
 
 1. Surface recurring failures, risks, and quality problems you observe in the data.
 2. Group related traces into issue clusters where possible (name each cluster).
@@ -111,163 +62,93 @@ You have no human labels, scores, or ground truth. Analyze the traces and:
 Be specific: cite conversation turns or tool steps when possible. Avoid generic themes unless you tie them to evidence in the traces.
 :::
 
-I was particularly impressed that it did not force an issue onto every trace. It marked some conversations as acceptable or inconclusive, which made the analysis feel more credible.
+The prompt is deliberately light. It briefly describes the product and how to organize findings, but it says nothing about the failures we already knew about. Based on our experience teaching evals, this is also how we expect most people to use these products out of the box. We also wanted to experience each product's workflow, and we hoped the tools would ask follow-up questions or elicit requirements from us before starting the analysis. They largely did not.
 
-Braintrust also achieved the highest recall of the three eval platforms. It recovered most of the failures from the original human review and found 20 legitimate issues that were absent from the original review. Its misses were mostly failures that depended on business context (which was not provided in the prompt that we gave) rather than information explicitly visible in the trace.
+We scored each system on three outcomes:
 
-Its false positives followed a different pattern. Braintrust sometimes became too strict about completeness or interpreted internal tool metadata as information that should have been surfaced to the user. These findings often sounded convincing until we reread the full trace, which made manual verification important.
+- **Recall**: how many of the 39 human-labeled failures it found.
+- **Precision**: how many of its flags survived our manual review. A flag counts as valid if it matches a human label or if it is a real issue the human review had missed.
+- **Discoveries**: valid flags that were absent from the human review.
 
-From a product perspective, Braintrust gave me the smoothest path from upload to a downloadable audit dataset. I could run the analysis, add new fields, inspect the results, and export the updated data without much friction.
+A caveat before the numbers. This experiment is one dataset, one prompt, and 39 labeled failures, so the differences between systems come down to a handful of traces. They cannot establish that one vendor is better than another, and ranking vendors was not the goal.[^neutral] We share the numbers for transparency. The interesting part is what every system missed.
 
-The documentation was less clear than the product itself. Loop is described mainly in relation to logs, while the workflow that worked for this experiment used a dataset. The intended path for importing historical multi-turn traces with tool calls was not obvious from the docs alone.
+## What the tools caught
 
-My overall impression was that Braintrust felt the most proactive. It gave the strongest sense that the agent was helping with the analysis rather than simply returning a report.
-
-### Arize AX's Alyx: rougher workflow, but cleaner decisions
-
-Arize was easy to start with at the dataset level. The masked data only needed to be converted from JSON to CSV before upload, and the platform accepted the traces without a complicated schema transformation. The Alyx agent was then directed towards the uploaded dataset.
-
-There was some initial bump while using the Alyx agent for analyzing the traces. Initially Alyx had access to only the first 200 characters of each trace, and later runs encountered compaction and timeout issues. But the Arize team was very proactive in resolving the issues quickly once reported.
-
-The workflow was rougher than Braintrust's, but the developer support was excellent. That definitely affected my overall impression of the product. Problems are more tolerable when the team acknowledges them quickly and helps resolve them.
-
-We used the same prompt with Alyx. Once the analysis completed, it produced the cleanest set of flags. Its recall was lower at 74.4%, but its expanded precision was 91%, and it produced only three incorrect flags.
-
-Arize was especially good at identifying claims that were not grounded in tool outputs. It caught cases where the assistant:
-
-- called ordinary one-bedroom units "lofts,"
-- treated the cheapest market-rate unit as an affordable-housing option,
-- answered a floor-level request without having floor information,
-- or promised a callback without any visible action behind it.
-
-Its misses were similar to Braintrust's: sales objections, Markdown in SMS, interruptions in voice conversations, and handoff requirements that depended on business context. In a few traces, it also found a valid secondary grounding issue while missing the more important behavioral failure.
-
-The main workflow limitation was that Alyx could not write the full analysis back into the original dataset in the format I requested. I eventually copied the results into a separate spreadsheet for manual review.
-
-My overall impression was almost the reverse of Braintrust. Arize required more effort to complete the experiment, but the final findings were cleaner and easier to trust.
-
-### LangSmith: best trace inspection, least obvious workflow
-
-LangSmith required the most setup before the analysis could begin. There was no straightforward way to upload the historical JSON traces from the interface, so I wrote a Python script to create the 100 traces according to LangSmith's format and upload them programmatically.
-
-Once the data was in the platform, LangSmith had the best trace-reading experience of the three. Messages, system prompts, tool calls, and outputs were easy to inspect in Markdown or JSON, which made individual traces much easier to review.
-
-I first tried LangSmith Engine for automated evals because it is presented as an automated workflow for finding recurring issues, linking supporting traces, proposing fixes, and suggesting evaluators.
-
-Engine analyzed the project's traces in roughly 20 minutes and surfaced a small set of issue clusters. For each issue, it could show:
-
-- the traces linked to the pattern,
-- a short diagnosis,
-- a proposed fix,
-- and a suggested evaluator, sometimes with draft code.
-
-The workflow was promising, especially the direct connection between a discovered issue and a candidate evaluator. The limitation was coverage. Engine found a few useful recurring patterns, but many issues present in the broader trace-level analysis did not appear in its clusters. That made Engine useful for investigating the issues it did discover, but not sufficient for the complete 100-trace comparison we wanted to run.
-
-I therefore used LangSmith's chat agent for the scored experiment. The chat agent analyzed the imported traces and returned a 100-row table with issue clusters, evidence, severity, fix suggestions, and candidate evaluators. I could then download the result directly as a CSV. The quantitative results in this post come from LangSmith chat, not Engine.
-
-LangSmith chat recovered 79.5% of the failures from the original human review and found 20 additional legitimate issues. Its strongest quality was evidence. When it was correct, it usually pointed clearly to the relevant message or tool output, which made the findings easier to verify.
-
-My overall impression was that LangSmith made it easiest to understand individual traces, but the path from historical trace data to automated analysis was the least obvious. It felt strongest as an observability and trace-inspection environment, but less straightforward for this specific offline error-analysis workflow.
-
-## How Far Can You Get With a General-Purpose Agent?
-
-After testing the dedicated eval platforms, we ran the same masked traces through ChatGPT, Codex, Claude Code, and Factory Droid.
-
-This was not meant to be a product-experience comparison. These tools do not provide the same trace management, review interfaces, evaluator dashboards, or production monitoring as an eval platform. We rather wanted to check whether a team could point an agent it already uses day to day at its traces and still get useful error analysis.
-
-Short answer: yes. But the output still required careful human review.
-
-| System | Human-reference recall | Expanded precision | Human-missed discoveries | Incorrect flags |
+| System | Recall | Precision | Discoveries | Wrong flags |
 |---|---|---|---|---|
-| ChatGPT, GPT-5.5 | 87.2% | 81.2% | 22 | 13 |
-| Codex, GPT-5.5 High | 84.6% | 82.8% | 20 | 11 |
-| Droid, GPT-5.5 High | 84.6% | 83.3% | 17 | 10 |
-| Claude Opus 4.8, reasoning | 79.5% | 77.4% | 17 | 14 |
-| Claude Opus 4.8, heuristics and rule based | 46.2% | 86.8% | 15 | 5 |
+| Braintrust Loop | 87.2% | 79.1% | 20 | 9 |
+| Arize AX Alyx | 74.4% | 91.0% | 19 | 3 |
+| LangSmith (chat agent) | 79.5% | 77.5% | 20 | 9 |
+| Codex (GPT-5.5 High) | 84.6% | 82.8% | 20 | 11 |
+| Factory Droid (GPT-5.5 High) | 84.6% | 83.3% | 17 | 10 |
+| Claude Code (Claude Opus 4.8) | 79.5% | 77.4% | 17 | 14 |
 
-Without an eval-specific harness, ChatGPT matched Braintrust's 87.2% recall and found 22 legitimate issues that were absent from the original human notes, the largest number in the benchmark. It was also noisy: it produced 13 incorrect flags, many of which were assigned high severity.
+Every system did well when a failure was obvious by looking at the trace. All of them caught unsupported scheduling claims, repeated requests for a confirmation the user had already given, promised follow-ups that didn't happen, and answers that contradicted tool output.
 
-Codex behaved similarly. It was thorough, forensic, and particularly good at quoting exact tool arguments, dates, prices, and conflicting values. It also caught some subtle behavioral failures that the dedicated eval platforms missed, including an in-person tour link being presented as support for a virtual tour.
+Each system also found 17 to 20 minor issues that our human review had missed. For example, in one trace, the agent booked a tour successfully and the human reviewer marked the trace as fine. Braintrust and Arize both noticed that the assistant had asked for a text-message confirmation the user had already given.
 
-Factory Droid reached the same recall as Codex with slightly fewer false positives. Its weakness was severity calibration in the other direction: it never used a critical rating, even for failures that could reasonably deserve it.
+### Braintrust Loop
 
-The general-purpose agents were therefore competitive on raw analysis and did really well in finding issues. But they lacked a disciplined workflow around the findings. They produced large collections of trace-specific evaluator names, inconsistent severity scales, and outputs that needed to be normalized before comparison. A team using these tools directly would still need to decide:
+Braintrust had the highest recall of the three platforms and was easy to use. Upload was simple, and Loop worked from our single prompt. We could review and export its findings in place. It also did not force an issue onto every trace. It marked some conversations as acceptable or inconclusive, which made its findings easier to believe.
 
-- how to format and provide the traces,
-- which findings are valid enough to enter the eval suite,
-- how to consolidate overlapping evaluator ideas,
-- and how to rerun the analysis as new traces arrive.
+The cost of the high recall was false positives. Nine of its flags were wrong, usually because Loop was too strict about completeness or treated internal tool metadata as something the user should have been told. These findings sounded convincing until we reread the full trace.
 
-The models could do much of the reasoning. The surrounding eval process was still ours to build.
+### Arize AX Alyx
 
-## Discovery and Regression Are Different Jobs in Evals
+Arize traded recall for precision. Alyx missed more of the human-labeled failures than Loop, but 91 percent of its flags were valid and only three were wrong. [^alyx-workflow] It was especially good at catching claims with no grounding in tool output. It flagged the assistant for calling ordinary one-bedroom units "lofts", for presenting the cheapest market-rate unit as an affordable-housing option, for answering a question about floor level without having floor information, and for promising a callback that no action backed up.
 
-The two Claude runs exposed an important distinction. The same model behaved very differently depending on how the task was framed.
+### LangSmith
 
-- **With access to tools:** Claude built an 11-rule deterministic checker. It was more precise and reusable, but recovered only 46.2% of the human-identified failures.
-- **With direct reasoning:** We then ran Claude again with one instruction changed: do not build checkers to analyse, instead, read and reason through every trace directly. Recall rose to 79.5%, but false positives increased from five to 14.
+LangSmith had the best interface for reading individual traces. For the analysis itself, we tried two of its tools. Engine is built for exactly this job. It finds recurring issues and links each one to its supporting traces. But it surfaced only a small set of issues, far fewer than a full review turns up, so we could not use it for the 100-trace comparison. We ran the scored experiment with LangSmith's chat agent instead.
 
-Open-ended reasoning was better for discovering unexpected and semantic failures, while the rule-based approach was better for repeatedly checking known failure modes and patterns for regressions. In practice, the stronger workflow is to use reasoning for discovery, have humans validate the findings, and then convert the confirmed patterns into a smaller regression suite.
+The chat agent's strength was evidence. When it flagged a real failure, it usually cited the exact message or tool call, which made its findings the easiest to verify. Its weakness was severity ratings. Several of its wrong findings were marked high severity, and inflated severity misleads a team deciding what to fix first.
 
-## Where Automated Analysis Worked and Where It Didn't
+### The general-purpose agents
 
-Now that we had tested automated evals across dedicated eval platforms, general-purpose models, and coding agents, we noticed that across all systems, automated analysis was strongest when the failure was visible in the trace and had a clear structural pattern.
+Claude Code, Codex, and Factory Droid are general purpose coding agents and were competitive with the platforms. They received the same prompt and the same masked traces. Codex quoted exact tool arguments, dates, prices, and conflicting values in its evidence. It caught subtle failures the platforms missed, including an in-person tour link presented as confirmation of a virtual tour. Droid matched Codex's recall with fewer wrong flags, though it never rated anything critical, even failures that deserved it.
 
-The systems consistently caught unsupported scheduling claims, repeated transfer confirmations, promises without a corresponding action, stale or conflicting dates, and factual claims that contradicted tool output. These failures left clear evidence, which also made them easier to turn into concrete evaluators.
+Judged only on the quality of their findings, the coding agents and the dedicated platforms were roughly even. The platforms' advantage was the workflow around the analysis. They kept findings linked to the source traces and gave us a place to review and annotate them. They can also rerun the analysis as new traces arrive.
 
-The shared misses usually depended on context outside the trace. This was one of the clearest lessons from the experiment: models can inspect what happened, but they cannot infer every unstated product expectation. The same misses appeared across eval platforms and frontier models, which suggests that tool choice cannot substitute for product context. Teams still need to supply channel constraints, capability boundaries, important business rules, and examples of what good behavior looks like.
+## What every system missed
 
-## What Value Did the Eval Platforms Actually Add?
+The misses were not random. Across every system, the same class of failures went uncaught. Consider a few examples from our human labels. The agent's job is to lease apartments, and the review flagged conversations where it gave up at the first objection instead of addressing the prospect's concern. It flagged Markdown formatting in SMS messages, which arrives on a phone as asterisks and pound signs. It flagged the voice agent interrupting callers, and conversations that the property's rules required handing to a human. No system caught these reliably, platform or frontier model.
 
-The dedicated eval platforms did not consistently outperform general-purpose agents on raw failure discovery. ChatGPT matched Braintrust's recall, while Codex and Droid came close. In some cases, the general agents also found subtle failures that the platforms missed.
+None of these failures are visible in the trace alone. A transcript where the assistant politely accepts a prospect's objection and ends the conversation reads like a success. For a sales agent, it is a lost sale. Nothing in the trace says the messages go out over SMS, or which situations the business promised to escalate.
 
-So the real advantage was not necessarily better reasoning. It was everything around the reasoning.
+The obvious objection is that we withheld this context on purpose, and that a real team would provide it. We did, and a real team should. But a team cannot provide context it has not discovered yet. You find out that objection handling belongs in your rubric when you read a trace where a prospect walks away. This is the criteria drift concept mentioned earlier and why a rubric is never complete without looking at traces.
 
-With a general agent, we could get a strong first-pass analysis, but we still had to manage the traces, verify each finding, normalize the output, merge overlapping evaluator ideas, and decide how the work would be repeated later.
+## What we would do instead
 
-Dedicated platforms made it easier to:
+Could we have steered these systems to catch what they missed? Almost certainly. If we had described what good and bad look like for this product, most of the missed failures were within reach of every tool we tested. But that description did not exist when the project started. Hamel worked on evals for this product, and the domain experts arrived at the criteria only after reviewing traces.
 
-- inspect the full trace and supporting tool calls,
-- keep findings linked to the source conversation,
-- review and annotate results,
-- manage datasets and evaluator outputs,
-- rerun analysis on new traces,
-- and move from one-off investigation toward continuous monitoring.
+No system we tested did the one thing that would have helped most: interview us. Every tool treated error analysis as a one-shot task, with traces in and a report out.
 
-In other words, the platforms reduced the operational work around evals. For a first batch of 50 or 100 traces, a capable general-purpose agent may be enough. The value of a dedicated platform becomes clearer once the analysis needs to be repeated, shared across a team, preserved over time, or connected to regression testing and production monitoring.
+We would not run error analysis as a one-shot task. Instead, we would annotate traces ourselves and let the AI learn from annotations continuously. Our colleague Shreya Shankar[^shreya] demonstrates this workflow in the talk below. She asks a coding agent to build a small review interface over her traces, then annotates what bothers her. The agent watches her annotations in real time (Claude Code even has a [monitor tool](https://code.claude.com/docs/en/tools-reference) for this), learns a taxonomy of failures from them, and brings back new suspected instances for her to accept or dismiss. Each round pulls more of her product context into the eval suite. She is still the one judging, but the agent makes the judging efficient. It surfaces the most interesting traces to label next and uses what she annotates to label the rest of the data, subject to her review.
 
-A general-purpose agent can help find the problems. An eval platform makes it easier to build a repeatable process around what the team learns.
+{{< video https://youtu.be/tqUDjc1HzO4 >}}
 
-## How Actionable Were the Findings?
+As an AI product builder, you should stay in the loop instead of completely outsourcing evals to AI. If a tool could find and fix every issue on its own, it would do the same for your competitors, and there would be nothing left to set your product apart. To stand out, look at your data.
 
-In practice, identifying a failure is only the first step. Finding a failure is useful only if the output also helps a team decide what to fix, what to measure, and what to prioritize.
-
-The tools differed in how well they supported that next step:
-
-- **Braintrust** generated the largest number of fixes and candidate evaluators, but many overlapped. The output was useful for brainstorming, but it needed substantial consolidation and cleanup before becoming a practical eval suite.
-- **Arize** produced fewer, cleaner categories that were easier to translate into a reusable set of checks.
-- **LangSmith Engine** made the connection between an issue, its supporting traces, a proposed fix, and a draft evaluator especially clear.
-- **The general-purpose agents** often suggested detailed fixes, but the results still had to be organized, prioritized, and converted into an implementation plan manually.
-
-We judged actionability by asking three questions: What failed, Why did it fail, and What should change next? The strongest findings answered all three. The weaker ones stopped at broad advice such as "improve grounding" or "update the prompt," leaving the real diagnosis to the team.
-
-We did not implement and validate the suggested evaluators as part of this experiment, so we cannot compare their production performance. But the platforms can go a step further and help create evaluator implementations. LangSmith Engine, for example, generated draft evaluator code for the issues it surfaced. But generated code is still only a starting point. It needs to be reviewed, tested against human-labeled examples, and verified before it can be trusted in an eval suite.
-
-## What I Would Recommend to a Team Starting Evals
-
-I would not begin by designing a large evaluator suite. I would start early with 50-100 representative production traces, run an open-ended analysis, and require every finding to include supporting evidence and reasoning. Then I would manually review the results, remove false positives, add important misses, and consolidate the confirmed issues into a small failure taxonomy.
-
-That process alone can reveal some great insights about the data: recurring weaknesses in the product, gaps in the surrounding workflow, assumptions that were never encoded, and areas where the system needs better tooling or clearer instructions.
-
-Only after that would I build repeatable evaluators:
-
-- use deterministic checks for structural failures such as missing tool actions, invalid dates, or leaked internal text,
-- keep the judgment scoped and simple, often as a pass/fail decision with a written critique,
-- include diverse examples of both correct and incorrect behavior, along with any product context needed to judge them,
-- validate every LLM judge or other evaluator against human-labeled examples, including unseen data, before relying on it in production.
-
-Human review should remain the core in the early stages of evals. Use human judgements to define what good looks like, then automate only the patterns that are clear enough to measure reliably. A general-purpose agent is enough to begin this process. A dedicated eval platform becomes more useful once the work needs to be repeated, tracked, shared across a team, compared across model or prompt versions, and run continuously on new production traces.
-
-::: {.callout-tip}
-If you have traces and do not know where to begin, you do not need to design the perfect eval system first. Ask an agent that you already use to help you read the traces. Verify what it finds, name the recurring failures, and then build a few evaluators you can trust.
+::: {.cta style="text-align: center;"}
+**👉 _Want to learn more about Evals? Check out our [AI Evals course](https://bit.ly/evals-ai){target="_blank"}_**. It's a live cohort with hands on exercises and office hours. Here is a [25% discount code](https://bit.ly/evals-ai){target="_blank"} for readers. 👈
 :::
+
+[^teaching]: Hamel co-teaches [AI Evals for Engineers & PMs](https://maven.com/parlance-labs/evals) with Shreya Shankar and co-authored the O'Reilly book [Evals for AI Engineers](https://www.oreilly.com/library/view/evals-for-ai/9798341660717/).
+
+[^ea]: For what error analysis involves and why it comes first, see [our error analysis FAQ](https://hamel.dev/blog/posts/evals-faq/why-is-error-analysis-so-important-in-llm-evals-and-how-is-it-performed.html).
+
+[^revenge]: Hamel makes this argument in [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/).
+
+[^tools]: [Braintrust Loop](https://www.braintrust.dev/docs/loop), [Arize Alyx](https://arize.com/alyx/), and [LangSmith Engine](https://docs.langchain.com/langsmith/engine).
+
+[^nurtureboss]: The company is [Nurture Boss](https://nurtureboss.io/), an AI assistant for apartment management. Hamel described their error analysis process in [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/).
+
+[^data]: We have the company's permission to analyze and write about these traces, but not to redistribute them, so we cannot publish the dataset.
+
+[^neutral]: We have no affiliation with, and received no sponsorship from, any vendor mentioned in this post.
+
+[^alyx-workflow]: The workflow had rough spots. Alyx initially read only the first 200 characters of each trace, and later runs hit compaction and timeout problems. The Arize team resolved each issue quickly once we reported it. Alyx also could not write its analysis back into the dataset in the format we requested, so we copied results into a spreadsheet for manual review.
+
+[^drift]: Criteria drift was documented in Shreya Shankar, J.D. Zamfirescu-Pereira, Björn Hartmann, Aditya G. Parameswaran, and Ian Arawjo, ["Who Validates the Validators? Aligning LLM-Assisted Evaluation of LLM Outputs with Human Preferences"](https://arxiv.org/abs/2404.12272).
+
+[^shreya]: Shreya co-teaches the AI evals course with Hamel. Her writing and research are at [sh-reya.com](https://www.sh-reya.com/).

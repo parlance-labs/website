@@ -1,6 +1,6 @@
 ---
-title: "Research"
-description: "Notes on AI evals, LLMs, and building AI that works in production."
+title: "Newsletter"
+description: "Posts by [our team](../team.qmd)."
 image: ../cover.png
 repo-actions: false
 sidebar: false
