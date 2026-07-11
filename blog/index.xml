@@ -8,14 +8,220 @@
 <title>Parlance</title>
 <link>https://parlance-labs.com/blog/</link>
 <atom:link href="https://parlance-labs.com/blog/index.xml" rel="self" type="application/rss+xml"/>
-<description>Notes on AI evals, LLMs, and building AI that works in production.</description>
+<description>Posts by [our team](../team.qmd).</description>
 <image>
 <url>https://parlance-labs.com/../cover.png</url>
 <title>Parlance</title>
 <link>https://parlance-labs.com/blog/</link>
 </image>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Thu, 21 May 2026 07:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 11 Jul 2026 07:00:00 GMT</lastBuildDate>
+<item>
+  <title>Do Automated Evals Work?</title>
+  <dc:creator>Antaripa Saha</dc:creator>
+  <dc:creator>Hamel Husain</dc:creator>
+  <link>https://parlance-labs.com/blog/posts/auto-evals.html</link>
+  <description><![CDATA[ 
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N36MQM5R" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+
+<p>For the past three years, we have answered most questions about AI evals with the same advice: look at your data.<sup>1</sup> In practice, looking at your data means error analysis<sup>2</sup>, where you read your production traces (or logs) and catalog how your product fails. Reviewing traces also changes what you look for. You need criteria to grade outputs, but grading outputs is how you discover your criteria, a phenomenon known as criteria drift.<sup>3</sup> For this reason, we argued against completely outsourcing looking at your data to an LLM.<sup>4</sup></p>
+<p>New products nudge the other way. Braintrust, Arize, and LangSmith have each shipped an agent (Loop, Alyx, and Engine) that reads your production traces and reports what is failing.<sup>5</sup> Coding agents have become capable enough to attempt the same job from a folder of log files or traces. We believe in using AI in any workflow where it helps, including error analysis. But the temptation with these tools is to take the human out of the loop entirely. How much can these systems catch on their own, and what do they miss?</p>
+<div class="quarto-layout-panel" data-layout-ncol="3">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="auto-evals-images/braintrust.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Loop from Braintrust."><img src="https://parlance-labs.com/blog/posts/auto-evals-images/braintrust.png" class="img-fluid figure-img" alt="Loop from Braintrust."></a></p>
+<figcaption>Loop from Braintrust.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="auto-evals-images/arize.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Alyx from Arize."><img src="https://parlance-labs.com/blog/posts/auto-evals-images/arize.png" class="img-fluid figure-img" alt="Alyx from Arize."></a></p>
+<figcaption>Alyx from Arize.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="auto-evals-images/langsmith-clean.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Engine from LangSmith."><img src="https://parlance-labs.com/blog/posts/auto-evals-images/langsmith-clean.png" class="img-fluid figure-img" alt="Engine from LangSmith."></a></p>
+<figcaption>Engine from LangSmith.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>To find out, we tested it. First, we prepared a dataset of 100 traces from a production apartment-leasing AI, working with a domain expert to label failures by hand. Then we masked those labels and asked each system to review the traces and find the errors on its own. This allowed us to compare human versus automated error analysis.</p>
+<p>The automated systems performed admirably. The best recovered 87 percent of failures flagged by humans. Additionally, every system found issues humans missed. However, all of them missed the failures that take taste and domain knowledge to spot. Fixing them is what moves a product from “it works” to “it’s good.” The systems also flagged a fair number of issues that were not failures, which added some noise. We get into those details later in the post.</p>
+<p>This post covers the experiment, the results, and how we would modify the approach to be effective.</p>
+<section id="the-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="the-experiment">The experiment</h2>
+<p>The traces come from a real, production AI agent for apartment leasing.<sup>6</sup> Prospects text or call about apartments, and the agent answers questions and books tours. Certain conversations are supposed to be handed to a human. What’s important to note is that this experiment is run on a live system with real customers with all its quirks instead of a synthetic benchmark.<sup>7</sup></p>
+<p>To prepare the dataset, a domain expert labeled 100 traces by hand, following <a href="https://hamel.dev/blog/posts/evals-faq/why-is-error-analysis-so-important-in-llm-evals-and-how-is-it-performed.html">the error analysis process</a>. That review produced a failure taxonomy with 39 labeled failures.</p>
+<p>We then masked all human annotations and fed the traces to each system with the following prompt:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The exact prompt (same for every system)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p><code>@nurtureboss_evals.jsonl</code> are production traces from an AI that handles apartment-leasing customer support (phone and messaging). Each trace includes the full conversation and any tool calls with their outputs.</p>
+<p>Analyze the traces and:</p>
+<ol type="1">
+<li>Surface recurring failures, risks, and quality problems you observe in the data.</li>
+<li>Group related traces into issue clusters where possible (name each cluster).</li>
+<li>For each cluster or issue, list example trace identifiers if available (e.g.&nbsp;<code>trace_id</code> or <code>session.id</code> in metadata).</li>
+<li>Note whether any traces appear acceptable or inconclusive, do not assume all traces failed.</li>
+<li>If you can, suggest candidate evaluators (what to measure and how), without referencing any external rubric.</li>
+</ol>
+<p>Be specific: cite conversation turns or tool steps when possible. Avoid generic themes unless you tie them to evidence in the traces.</p>
+</div>
+</div>
+</div>
+<p>The prompt is deliberately light. It briefly describes the product and how to organize findings, but it says nothing about the failures we already knew about. Based on our experience teaching evals, this is also how we expect most people to use these products out of the box. We also wanted to experience each product’s workflow, and we hoped the tools would ask follow-up questions or elicit requirements from us before starting the analysis. They largely did not.</p>
+<p>We scored each system on three outcomes:</p>
+<ul>
+<li><strong>Recall</strong>: how many of the 39 human-labeled failures it found.</li>
+<li><strong>Precision</strong>: how many of its flags survived our manual review. A flag counts as valid if it matches a human label or if it is a real issue the human review had missed.</li>
+<li><strong>Discoveries</strong>: valid flags that were absent from the human review.</li>
+</ul>
+<p>A caveat before the numbers. This experiment is one dataset, one prompt, and 39 labeled failures, so the differences between systems come down to a handful of traces. They cannot establish that one vendor is better than another, and ranking vendors was not the goal.<sup>8</sup> We set out to find where these systems fall short and what they were like to use.</p>
+</section>
+<section id="what-the-tools-caught" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-tools-caught">What the tools caught</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>System</th>
+<th>Recall</th>
+<th>Precision</th>
+<th>Discoveries</th>
+<th>False positives</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Braintrust Loop</td>
+<td>87.2%</td>
+<td>79.1%</td>
+<td>20</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Arize AX Alyx</td>
+<td>74.4%</td>
+<td>91.0%</td>
+<td>19</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>LangSmith (chat agent)</td>
+<td>79.5%</td>
+<td>77.5%</td>
+<td>20</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>Codex (GPT-5.5 High)</td>
+<td>84.6%</td>
+<td>82.8%</td>
+<td>20</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td>Factory Droid (GPT-5.5 High)</td>
+<td>84.6%</td>
+<td>83.3%</td>
+<td>17</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>Claude Code (Claude Opus 4.8)</td>
+<td>79.5%</td>
+<td>77.4%</td>
+<td>17</td>
+<td>14</td>
+</tr>
+</tbody>
+</table>
+<p>Every system did well when a failure was obvious by looking at the trace. All of them caught unsupported scheduling claims, repeated requests for a confirmation the user had already given, promised follow-ups that didn’t happen, and answers that contradicted tool output.</p>
+<p>Each system also found 17 to 20 minor issues that our human review had missed. For example, in one trace, the agent booked a tour successfully and the human reviewer marked the trace as fine. Braintrust and Arize both noticed that the assistant had asked for a text-message confirmation the user had already given.</p>
+<section id="braintrust-loop" class="level3">
+<h3 class="anchored" data-anchor-id="braintrust-loop">Braintrust Loop</h3>
+<p>Braintrust had the highest recall of the three platforms and was easy to use. Upload was simple, and Loop worked from our single prompt. We could review and export its findings seamlessly. It also did not force an issue onto every trace. It marked some conversations as acceptable or inconclusive, which made its findings easier to believe.</p>
+<p>The cost of the high recall was false positives. Nine of its flags were wrong, usually because Loop was too strict about completeness or treated internal tool metadata as something the user should have been told. These findings sounded convincing until we reread the full trace.</p>
+</section>
+<section id="arize-ax-alyx" class="level3">
+<h3 class="anchored" data-anchor-id="arize-ax-alyx">Arize AX Alyx</h3>
+<p>Arize traded recall for precision. Alyx missed more of the human-labeled failures than Loop, but 91 percent of its flags were valid and only three were wrong. <sup>9</sup> It was especially good at catching claims with no grounding in tool output. It flagged the assistant for calling ordinary one-bedroom units “lofts”, for presenting the cheapest market-rate unit as an affordable-housing option, for answering a question about floor level without having floor information, and for promising a callback that no action backed up.</p>
+</section>
+<section id="langsmith" class="level3">
+<h3 class="anchored" data-anchor-id="langsmith">LangSmith</h3>
+<p>LangSmith had the best interface for reading individual traces. For the analysis itself, we tried two of its tools. Engine is built for exactly this job. It finds recurring issues and links each one to its supporting traces. But it surfaced only a small set of issues, far fewer than a full review turns up, so we could not use it for the 100-trace comparison. We ran the scored experiment with LangSmith’s chat agent instead.</p>
+<p>When LangSmith’s chat agent flagged a real failure, it usually cited the exact message or tool call, which made its findings the easiest to verify. Its weakness was severity ratings. Several of its wrong findings were marked high severity, and inflated severity misleads a team deciding what to fix first.</p>
+</section>
+<section id="the-general-purpose-agents" class="level3">
+<h3 class="anchored" data-anchor-id="the-general-purpose-agents">The general-purpose agents</h3>
+<p>Claude Code, Codex, and Factory Droid are general purpose coding agents and were competitive with the platforms. They received the same prompt and the same masked traces. Codex quoted exact tool arguments, dates, prices, and conflicting values in its evidence. It caught subtle failures the platforms missed, including an in-person tour link presented as confirmation of a virtual tour. Droid matched Codex’s recall with fewer false positives, though it never rated anything critical, even failures that deserved it.</p>
+<p>Judged only on the quality of their findings, the coding agents and the dedicated platforms were roughly even. The platforms’ advantage was the workflow around the analysis. They kept findings linked to the source traces and gave us a place to review and annotate them. They can also rerun the analysis as new traces arrive.</p>
+</section>
+</section>
+<section id="what-every-system-missed" class="level2">
+<h2 class="anchored" data-anchor-id="what-every-system-missed">What every system missed</h2>
+<p>The misses were not random. Across every system, the same class of failures went uncaught. Consider a few examples from our human labels. The agent’s job is to lease apartments, and the review flagged conversations where it gave up at the first objection instead of addressing the prospect’s concern. It flagged Markdown formatting in SMS messages, which arrives on a phone as asterisks and pound signs. It flagged the voice agent interrupting callers, and conversations that the property’s rules required handing to a human. No system caught these reliably, platform or frontier model.</p>
+<p>None of these failures are visible in the trace alone. A transcript where the assistant politely accepts a prospect’s objection and ends the conversation reads like a success. For a sales agent, it is a lost sale. Nothing in the trace says the messages go out over SMS, or which situations the business promised to escalate.</p>
+<p>The obvious objection is that we withheld this context on purpose, and that a real team would provide it. We did, and a real team should. But a team cannot provide context it has not discovered yet. You find out that objection handling belongs in your rubric when you read a trace where a prospect walks away. This is the criteria drift concept mentioned earlier and why a rubric is never complete without looking at traces.</p>
+</section>
+<section id="what-we-would-do-instead" class="level2">
+<h2 class="anchored" data-anchor-id="what-we-would-do-instead">What we would do instead</h2>
+<p>Could we have steered these systems to catch what they missed? Almost certainly. If we had described what good and bad look like for this product, most of the missed failures were within reach of every tool we tested. But that description did not exist when the project started. Hamel worked on evals for this product, and the domain experts arrived at the criteria only after reviewing traces.</p>
+<p>No system we tested did the one thing that would have helped most: interview us. Every tool treated error analysis as a one-shot task, with traces in and a report out.</p>
+<p>We would not run error analysis as a one-shot task. Instead, we would annotate traces ourselves and let the AI learn from annotations continuously. Our colleague Shreya Shankar<sup>10</sup> demonstrates this workflow in the talk below. She asks a coding agent to build a small review interface over her traces, then annotates what bothers her. The agent watches her annotations in real time (Claude Code even has a <a href="https://code.claude.com/docs/en/tools-reference">monitor tool</a> for this), learns a taxonomy of failures from them, and brings back new suspected instances for her to accept or dismiss. Each round pulls more of her product context into the eval suite. She is still the one judging, but the agent makes the judging efficient. It surfaces the most interesting traces to label next and uses what she annotates to label the rest of the data, subject to her review.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/tqUDjc1HzO4" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>As an AI product builder, you should stay in the loop instead of completely outsourcing evals to AI. If a tool could find and fix every issue on its own, it would do the same for your competitors, and there would be nothing left to set your product apart. To stand out, look at your data.</p>
+<div class="cta" style="text-align: center;">
+<p><strong>👉 <em>Want to learn more about Evals? Check out our <a href="https://maven.com/parlance-labs/evals?promoCode=evals-faq-new" target="_blank">AI Evals course</a></em></strong>. It’s a live cohort with hands on exercises and office hours. Here is a <a href="https://maven.com/parlance-labs/evals?promoCode=evals-faq-new" target="_blank">25% discount code</a> for readers. 👈</p>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Hamel co-teaches <a href="https://maven.com/parlance-labs/evals">AI Evals for Engineers &amp; PMs</a> with Shreya Shankar and co-authored the O’Reilly book <a href="https://www.oreilly.com/library/view/evals-for-ai/9798341660717/">Evals for AI Engineers</a>.↩︎</p></li>
+<li id="fn2"><p>For what error analysis involves and why it comes first, see <a href="https://hamel.dev/blog/posts/evals-faq/why-is-error-analysis-so-important-in-llm-evals-and-how-is-it-performed.html">our error analysis FAQ</a>.↩︎</p></li>
+<li id="fn3"><p>Criteria drift was documented in Shreya Shankar, J.D. Zamfirescu-Pereira, Björn Hartmann, Aditya G. Parameswaran, and Ian Arawjo, <a href="https://arxiv.org/abs/2404.12272">“Who Validates the Validators? Aligning LLM-Assisted Evaluation of LLM Outputs with Human Preferences”</a>.↩︎</p></li>
+<li id="fn4"><p>Hamel makes this argument in <a href="https://hamel.dev/blog/posts/revenge/">The Revenge of the Data Scientist</a>.↩︎</p></li>
+<li id="fn5"><p><a href="https://www.braintrust.dev/docs/loop">Braintrust Loop</a>, <a href="https://arize.com/alyx/">Arize Alyx</a>, and <a href="https://docs.langchain.com/langsmith/engine">LangSmith Engine</a>.↩︎</p></li>
+<li id="fn6"><p>The company is <a href="https://nurtureboss.io/">Nurture Boss</a>, an AI assistant for apartment management. Hamel described their error analysis process in <a href="https://hamel.dev/blog/posts/field-guide/">A Field Guide to Rapidly Improving AI Products</a>.↩︎</p></li>
+<li id="fn7"><p>We have the company’s permission to analyze and write about these traces, but not to redistribute them, so we cannot publish the dataset.↩︎</p></li>
+<li id="fn8"><p>We have no affiliation with, and received no sponsorship from, any vendor mentioned in this post.↩︎</p></li>
+<li id="fn9"><p>The workflow had rough spots. Alyx initially read only the first 200 characters of each trace, and later runs hit compaction and timeout problems. The Arize team resolved each issue quickly once we reported it. Alyx also could not write its analysis back into the dataset in the format we requested, so we copied results into a spreadsheet for manual review.↩︎</p></li>
+<li id="fn10"><p>Shreya co-teaches the AI evals course with Hamel. Her writing and research are at <a href="https://www.sh-reya.com/">sh-reya.com</a>.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>LLMs</category>
+  <category>Evals</category>
+  <guid>https://parlance-labs.com/blog/posts/auto-evals.html</guid>
+  <pubDate>Sat, 11 Jul 2026 07:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Exploring Agent-Assisted Qualitative Analysis</title>
   <link>https://parlance-labs.com/</link>
