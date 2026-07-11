@@ -78,7 +78,7 @@ Analyze the traces and:
 Be specific: cite conversation turns or tool steps when possible. Avoid generic themes unless you tie them to evidence in the traces.
 :::
 
-The prompt is deliberately light. It briefly describes the product and how to organize findings, but it says nothing about the failures we already knew about. Based on our experience teaching evals, this is also how we expect most people to use these products out of the box. Each trace analyzed also contained an extensive system prompt detailing the product's desired behavior. [Here is an anonymized example](trace-nb-00052.qmd){target="_blank"} of a trace from the dataset.
+The prompt is deliberately light. It briefly describes the product and how to organize findings, but it says nothing about the failures we already knew about. Based on our experience teaching evals, this is also how we expect most people to use these products out of the box. Each trace analyzed also contained an extensive system prompt detailing the product's desired behavior. [Here](trace-nb-00052.qmd){target="_blank"} is an anonymized example of a trace from the dataset.
 
 Lastly, we wanted to experience each product's workflow, and we hoped the tools would ask follow-up questions or elicit requirements from us before starting the analysis. They largely did not.
 
