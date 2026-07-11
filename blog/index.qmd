@@ -1,6 +1,6 @@
 ---
 title: "Blog"
-description: "Posts by [our team](../team.qmd)."
+description: "Posts by our team."
 image: ../cover.png
 repo-actions: false
 sidebar: false
