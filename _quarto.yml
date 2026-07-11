@@ -10,7 +10,7 @@ project:
 draft-mode: unlinked
 
 website:
-  title: "Parlance"
+  title: "Parlance Labs"
   image: cover.png
   google-analytics: G-QXGQ6F7NKT
   repo-branch: main
