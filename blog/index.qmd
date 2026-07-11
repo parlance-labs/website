@@ -1,5 +1,5 @@
 ---
-title: "Newsletter"
+title: "Blog"
 description: "Posts by [our team](../team.qmd)."
 image: ../cover.png
 repo-actions: false

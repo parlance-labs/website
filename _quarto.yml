@@ -41,10 +41,10 @@ website:
     collapse-below: sm
     logo: b.png
     left:
-    - text: Newsletter
+    - text: Blog
       file: blog/index.qmd
     - text: Education
-      file: services.qmd
+      href: https://maven.com/parlance-labs/evals?promoCode=parlance-c6
     - text: Team
       file: team.qmd
   sidebar:
