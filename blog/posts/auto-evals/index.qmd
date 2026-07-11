@@ -152,7 +152,7 @@ We would not run error analysis as a one-shot task. Instead, we would annotate t
 
 As an AI product builder, you should stay in the loop instead of completely outsourcing evals to AI. If a tool could find and fix every issue on its own, it would do the same for your competitors, and there would be nothing left to set your product apart. To stand out, look at your data.
 
-_P.S. Want to learn more about Evals? Check out our [AI Evals course](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){target="_blank"}. It's a live cohort with hands-on exercises and office hours. Here is a [25% discount code](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){target="_blank"} for readers._
+_P.S. Want hands-on help with Evals? Check out our [AI Evals course](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){target="_blank"}. It's a live cohort with guided exercises and office hours._
 
 [^teaching]: Hamel co-teaches [AI Evals for Engineers & PMs](https://maven.com/parlance-labs/evals) with Shreya Shankar and co-authored the O'Reilly book [Evals for AI Engineers](https://www.oreilly.com/library/view/evals-for-ai/9798341660717/).
 
