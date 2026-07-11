@@ -1,7 +1,7 @@
 ---
 title: "Do Automated Evals Work?"
 description: |
-  We compared 100 human annotated traces against automated eval systems.  Here's what we found.
+  We compared 100 human-annotated traces against automated eval systems. Here's what we found.
 date: 2026-07-11
 draft: false
 categories: [LLMs, Evals]
@@ -130,7 +130,7 @@ We would not run error analysis as a one-shot task. Instead, we would annotate t
 As an AI product builder, you should stay in the loop instead of completely outsourcing evals to AI. If a tool could find and fix every issue on its own, it would do the same for your competitors, and there would be nothing left to set your product apart. To stand out, look at your data.
 
 ::: {.cta style="text-align: center;"}
-**👉 _Want to learn more about Evals? Check out our [AI Evals course](https://bit.ly/evals-ai){target="_blank"}_**. It's a live cohort with hands on exercises and office hours. Here is a [25% discount code](https://bit.ly/evals-ai){target="_blank"} for readers. 👈
+**👉 _Want to learn more about Evals? Check out our [AI Evals course](https://maven.com/parlance-labs/evals?promoCode=evals-faq-new){target="_blank"}_**. It's a live cohort with hands on exercises and office hours. Here is a [25% discount code](https://maven.com/parlance-labs/evals?promoCode=evals-faq-new){target="_blank"} for readers. 👈
 :::
 
 [^teaching]: Hamel co-teaches [AI Evals for Engineers & PMs](https://maven.com/parlance-labs/evals) with Shreya Shankar and co-authored the O'Reilly book [Evals for AI Engineers](https://www.oreilly.com/library/view/evals-for-ai/9798341660717/).
