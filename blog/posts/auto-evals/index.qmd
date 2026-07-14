@@ -1,7 +1,7 @@
 ---
 title: "Do Automated Evals Work?"
 description: |
-  We compared 100 human-annotated traces against automated eval systems. Here's what we found.
+  We compared human-annotated traces against automated eval systems. Here's what we found.
 date: 2026-07-11
 image: images/auto-evals-cover-v2.png
 draft: false
