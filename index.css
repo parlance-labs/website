@@ -426,6 +426,12 @@ h2:has(+ .value-cards) {
   margin: 0;
 }
 
+/* First CTA (right after the logo carousel) gets a touch more breathing
+   room above so it doesn't crowd the logos. */
+.logo-carousel-section + .cta-section {
+  padding-top: 2rem;
+}
+
 .cta-button {
   display: inline-block;
   background: transparent;
@@ -451,13 +457,29 @@ h2:has(+ .value-cards) {
   box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
 }
 
+/* Filled primary variant (matches the Services page primary button).
+   Overrides the transparent .cta-button base, so it needs !important
+   the same way .cta-button sets its own colors with !important. */
+.cta-button-filled {
+  background: var(--pl-accent) !important;
+  color: var(--pl-bg-primary) !important;
+  font-weight: 600;
+}
+
+.cta-button-filled:hover {
+  background: #0ea5e9 !important;
+  border-color: #0ea5e9;
+  color: var(--pl-bg-primary) !important;
+}
+
 .wall-of-love {
-  padding: 1rem 0 2rem;
+  padding: 0.5rem 0 2rem;
   margin: 0;
 }
 
 .wall-of-love h2 {
   text-align: center;
+  margin-top: 0;
   margin-bottom: 2rem;
   border-bottom: none;
 }
