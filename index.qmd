@@ -122,6 +122,10 @@ Build AI that works in production.
 
 :::
 
+:::{.cta-section}
+[Work With Us](services.qmd){.cta-button .cta-button-filled role="button"}
+:::
+
 :::{.wall-of-love}
 
 ## What Our Clients Say
