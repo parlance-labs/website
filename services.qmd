@@ -42,7 +42,7 @@ We partner with you for roughly 8 weeks to:
 
 You get written artifacts: eval specifications, metrics, and a roadmap your team can execute.
 
-**Minimum engagement starts at $128,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](https://evals.info){target="_blank"}.
+**Minimum engagement starts at $128,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](course.qmd).
 
 **Our guarantee:** If we can't deliver in 8 weeks for any reason (including if your team's bandwidth shifts), we keep working at no extra cost until we do.
 
@@ -51,7 +51,7 @@ You get written artifacts: eval specifications, metrics, and a roadmap your team
 :::{.cta-section .cta-prominent}
 <div class="cta-buttons">
 <div class="cta-option">
-[Enroll in Course](course.qmd){.cta-button-primary role="button"}
+[Enroll in Course](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
 <span class="cta-subtext">$3,150 per seat</span>
 </div>
 <div class="cta-option">
@@ -65,7 +65,7 @@ You get written artifacts: eval specifications, metrics, and a roadmap your team
 
 ## Testimonials
 
-See what our clients and students say on our [homepage](index.qmd#what-our-clients-students-say). References available upon request.
+See what our clients and students say on our [homepage](index.qmd#what-our-students-say). References available upon request.
 
 ---
 
