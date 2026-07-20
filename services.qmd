@@ -29,7 +29,7 @@ We don't chase recurring revenue or sell maintenance contracts. That creates per
 
 ### Education
 
-Our course [AI Evals For Engineers & PMs](course.qmd) has trained over 4,000 students from 500+ companies on [AI product evals](https://hamel.dev/blog/posts/evals-faq/){target="_blank"}.
+Our course [AI Evals For Engineers & PMs](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){target="_blank"} has trained over 4,000 students from 500+ companies on [AI product evals](https://hamel.dev/blog/posts/evals-faq/){target="_blank"}.
 
 ### Advisory
 
@@ -42,7 +42,7 @@ We partner with you for roughly 8 weeks to:
 
 You get written artifacts: eval specifications, metrics, and a roadmap your team can execute.
 
-**Minimum engagement starts at $128,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](course.qmd).
+**Minimum engagement starts at $128,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){target="_blank"}.
 
 **Our guarantee:** If we can't deliver in 8 weeks for any reason (including if your team's bandwidth shifts), we keep working at no extra cost until we do.
 
