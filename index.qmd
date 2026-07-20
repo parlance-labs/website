@@ -122,10 +122,6 @@ Build AI that works in production.
 
 :::
 
-:::{.cta-section}
-[Explore Education](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){.cta-button role="button" target="_blank"}
-:::
-
 :::{.wall-of-love}
 
 ## What Our Students Say
@@ -137,5 +133,5 @@ Build AI that works in production.
 :::
 
 :::{.cta-section}
-[Explore Education](https://maven.com/parlance-labs/evals?promoCode=parlance-c6){.cta-button role="button" target="_blank"}
+[Work With Us](services.qmd){.cta-button role="button"}
 :::
