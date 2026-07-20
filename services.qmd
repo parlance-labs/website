@@ -65,7 +65,7 @@ You get written artifacts: eval specifications, metrics, and a roadmap your team
 
 ## Testimonials
 
-See what our clients and students say on our [homepage](index.qmd#what-our-students-say). References available upon request.
+See what our clients and students say on our [homepage](index.qmd#what-our-clients-say). References available upon request.
 
 ---
 
