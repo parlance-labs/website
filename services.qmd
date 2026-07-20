@@ -1,6 +1,5 @@
 ---
-title: "Build, Evaluate, and Improve AI That Works in Production"
-subtitle: "Refined over a year of cohorts with 4,500+ engineers and PMs from OpenAI, Google, Meta, and Amazon."
+title: "Services"
 sidebar: false
 toc: false
 image: cover.png
@@ -10,22 +9,64 @@ search: false
 css: services.css
 ---
 
-## The course: AI Evals For Engineers & PMs
+We help teams already shipping AI / LLM features build eval systems so they can ship faster, reduce manual QA, and catch failures before users do.
 
-If you're checking everything by hand and scared to ship, this course is for you. Over the cohort you will:
+## Is this you?
 
-- Replace random spot-checking with a repeatable way to find failures.
-- Design and validate LLM-as-judge and code-based evaluators that match expert judgment.
-- Wire evals into CI/CD so prompt, model, and tool changes get checked before they ship.
-- Run experiments that raise accuracy and cut cost.
+- Your team spends most of their time manually QA-ing your AI features, and you know it won't scale.
+- You're scared to ship AI changes because you don't trust your metrics.
+- You've hired smart people, bought tools, and you're still guessing whether your AI is getting better or worse.
 
-You keep lifetime access to all recordings, a 150+ page course reader, 10+ hours of office hours, a private Discord, and a seat in every future cohort.
+## We Want You to "Fire Us"
 
-:::{.cta-section}
+**We don't want you to have a long-term dependency on us.** We're not here to pitch you new frameworks or expensive infrastructure. We're here to teach you methods to experiment faster and systematically improve your systems.
+
+We don't chase recurring revenue or sell maintenance contracts. That creates perverse incentives. Instead, we work alongside your team and transfer knowledge so you can be successful.
+
+---
+
+## Services
+
+### Education
+
+Our course [AI Evals For Engineers & PMs](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){target="_blank"} has trained over 4,000 students from 500+ companies on [AI product evals](https://hamel.dev/blog/posts/evals-faq/){target="_blank"}.
+
+### Advisory
+
+We partner with you for roughly 8 weeks to:
+
+- Map and prioritize errors in your product
+- Design application-specific evals
+- Audit your current metrics and experimentation process
+- Identify bottlenecks blocking iteration
+
+You get written artifacts: eval specifications, metrics, and a roadmap your team can execute.
+
+**Minimum engagement starts at $128,500** for an 8-week sprint. We take on a limited number of engagements per quarter. If this is out of your budget, check out our [AI Evals course](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){target="_blank"}.
+
+**Our guarantee:** If we can't deliver in 8 weeks for any reason (including if your team's bandwidth shifts), we keep working at no extra cost until we do.
+
+---
+
+:::{.cta-section .cta-prominent}
+<div class="cta-buttons">
 <div class="cta-option">
-[See next cohort dates &amp; enroll](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
-<span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
+[Enroll in Course](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
+<span class="cta-subtext">$3,150 per seat</span>
 </div>
-
-<p class="archive-note">Our 2024 talk series surveying a range of LLM topics is archived [here](education/index.qmd).</p>
+<div class="cta-option">
+[Apply for Advisory](https://form.typeform.com/to/M8f89mlM){.cta-button-secondary role="button" target="_blank"}
+<span class="cta-subtext">Starting at $128,500</span>
+</div>
+</div>
 :::
+
+---
+
+## Testimonials
+
+See what our clients and students say on our [homepage](index.qmd#what-our-clients-say). References available upon request.
+
+---
+
+<p class="cta-adhoc">Need a quick consultation? [Book a 1-hour session with Hamel](https://calendly.com/hamel-husain/consultation){target="_blank"}</p>

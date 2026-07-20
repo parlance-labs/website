@@ -43,8 +43,8 @@ website:
     left:
     - text: Blog
       file: blog/index.qmd
-    - text: Education
-      href: https://maven.com/parlance-labs/evals?promoCode=parlance-c6
+    - text: Services
+      file: services.qmd
     - text: Team
       file: team.qmd
   sidebar:

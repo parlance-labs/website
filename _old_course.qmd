@@ -1,0 +1,30 @@
+---
+title: "Build, Evaluate, and Improve AI That Works in Production"
+subtitle: "Refined over a year of cohorts with 4,500+ engineers and PMs from OpenAI, Google, Meta, and Amazon."
+sidebar: false
+toc: false
+image: cover.png
+repo-actions: false
+search: false
+css: services.css
+---
+
+## The course: AI Evals For Engineers & PMs
+
+If you're checking everything by hand and scared to ship, this course is for you. Over the cohort you will:
+
+- Replace random spot-checking with a repeatable way to find failures.
+- Design and validate LLM-as-judge and code-based evaluators that match expert judgment.
+- Wire evals into CI/CD so prompt, model, and tool changes get checked before they ship.
+- Run experiments that raise accuracy and cut cost.
+
+You keep lifetime access to all recordings, a 150+ page course reader, 10+ hours of office hours, a private Discord, and a seat in every future cohort.
+
+:::{.cta-section}
+<div class="cta-option">
+[See next cohort dates &amp; enroll](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button-primary role="button" target="_blank"}
+<span class="cta-subtext">AI Evals For Engineers &amp; PMs · $3,150</span>
+</div>
+
+<p class="archive-note">Our 2024 talk series surveying a range of LLM topics is archived [here](education/index.qmd).</p>
+:::
