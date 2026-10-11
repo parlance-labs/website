@@ -12,16 +12,16 @@ image: cover.png
 
 # Parlance Labs
 
-Build AI that works in production.
+Learn to build AI that works in production.
 :::
 
-## We Help You
+## What You’ll Learn
 
 :::{.value-cards}
 
 <div class="value-card">
 <span class="value-number">01</span>
-<p><strong>Build evaluation systems</strong> that identify exactly what's broken and what to fix next.</p>
+<p>Learn to build <strong>evaluation systems</strong> that identify exactly what's broken and what to fix next.</p>
 </div>
 
 <div class="value-card">
@@ -123,12 +123,12 @@ Build AI that works in production.
 :::
 
 :::{.cta-section}
-[Work With Us](services.qmd){.cta-button .cta-button-filled role="button"}
+[Explore the training](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button .cta-button-filled role="button" target="_blank"}
 :::
 
 :::{.wall-of-love}
 
-## What Our Clients Say
+## What Our Students Say
 
 <iframe id='testimonialto-c32618a4-482d-4fbe-9b83-bd5037e5b3e9' src="https://embed-v2.testimonial.to/w/ai-mastery-for-busy-executives?id=c32618a4-482d-4fbe-9b83-bd5037e5b3e9" frameborder="0" scrolling="no" width="100%" height="800px"></iframe>
 
@@ -137,5 +137,5 @@ Build AI that works in production.
 :::
 
 :::{.cta-section}
-[Work With Us](services.qmd){.cta-button role="button"}
+[Explore the training](https://maven.com/parlance-labs/evals?promoCode=evals-info-url){.cta-button role="button" target="_blank"}
 :::
